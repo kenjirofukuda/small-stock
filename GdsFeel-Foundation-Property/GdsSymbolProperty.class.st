@@ -1,0 +1,10 @@
+Class {
+	#name : #GdsSymbolProperty,
+	#superclass : #GdsObjectProperty,
+	#category : #'GdsFeel-Foundation-Property'
+}
+
+{ #category : #'as yet unclassified' }
+GdsSymbolProperty class >> typeClass [
+	^Symbol
+]
