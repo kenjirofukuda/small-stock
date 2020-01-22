@@ -1339,39 +1339,12 @@ DxfLayer class >> initialize [
 	self initializeColorIndexMap. 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 DxfLayer class >> initializeColorIndexMap [
 	ColorIndexMap := Dictionary new.
 	(NeoJSONReader fromString: self colorStringMapJson)
 		keysAndValuesDo: [ :key :value | 
 			ColorIndexMap at: key asInteger put: (Color colorFrom: value) ]
-]
-
-{ #category : #'deprecated - no web site' }
-DxfLayer class >> lookupCode1 [
-	<script>
-	(((Soup fromString: ('http://sub-atomic.com/~moses/acadcolors.html' asZnUrl retrieveContents ))
-		 findAllTags: [ :t | t name = 'tr' ]) allButFirst: 3 ) explore.
-]
-
-{ #category : #'deprecated - no web site' }
-DxfLayer class >> lookupColorMap [
-	| map thElements |
-	map := Dictionary new.
-	thElements := ('http://sub-atomic.com/~moses/acadcolors.html' asZnUrl retrieveContents parseHTML
-		allNodesSelect: [ :e | e name = 'th' ]) allButFirst: 9.
-	thElements do: [ :th | map at: th contentString asInteger put: (Color colorFrom: (th attributeAt: 'bgcolor')) ].
-	^ map
-]
-
-{ #category : #'deprecated - no web site' }
-DxfLayer class >> lookupColorStringMap [
-	| map thElements |
-	map := Dictionary new.
-	thElements := ('http://sub-atomic.com/~moses/acadcolors.html' asZnUrl retrieveContents parseHTML
-		allNodesSelect: [ :e | e name = 'th' ]) allButFirst: 9.
-	thElements do: [ :th | map at: th contentString put: (th attributeAt: 'bgcolor') ].
-	^ map
 ]
 
 { #category : #'development support' }
