@@ -239,7 +239,7 @@ GdsStation >> fireStructureChanged [
 ]
 
 { #category : #maintenance }
-GdsStation >> garbageCollect. [
+GdsStation >> garbageCollect [
 	self structure ifNotNil: [ ^ self inform: 'Cannt garbageCollect: use structure' ].
 	self library ifNotNil: [ ^ self inform: 'Cannt garbageCollect: use library' ].
 	GdsStructure allInstancesDo: [ :s | s allDispose ].	
