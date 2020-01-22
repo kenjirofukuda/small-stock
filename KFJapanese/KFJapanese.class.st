@@ -1,6 +1,9 @@
 Class {
 	#name : #KFJapanese,
 	#superclass : #Object,
+	#classVars : [
+		'Source1'
+	],
 	#category : #KFJapanese
 }
 
@@ -14,7 +17,8 @@ KFJapanese class >> exampleEUC [
 KFJapanese class >> exampleFileNamed: aFileName convertor: aSymbol [
 	<script>
 	| file |
-	file := FileLocator home / 'NextCloud' / 'Models' / 'miseiri' / aFileName.
+	aSymbol traceCr.
+	file := self sampleDataFolder / aFileName.
 	file
 		readStreamDo: [ :s | 
 			s binary.
@@ -38,8 +42,24 @@ KFJapanese class >> exampleUTF8 [
 ]
 
 { #category : #resources }
+KFJapanese class >> lookupSource1 [
+	^ self source1File contents
+]
+
+{ #category : #examples }
+KFJapanese class >> sampleDataFolder [ 
+	^ FileLocator home / 'NextCloud' / 'Models' / 'miseiri'
+]
+
+{ #category : #resources }
 KFJapanese class >> source1 [
-	^ ''
+	^ Source1 ifNil: [ Source1 := self lookupSource1 ]
+]
+
+{ #category : #resources }
+KFJapanese class >> source1File [
+	"self source1File inspect."
+	^ FileLocator home / 'NextCloud'/ 'KFJapanese-source1.txt'
 ]
 
 { #category : #resources }

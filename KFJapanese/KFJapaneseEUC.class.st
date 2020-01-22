@@ -17,6 +17,24 @@ KFJapaneseEUC class >> default [
 ]
 
 { #category : #accessing }
+KFJapaneseEUC class >> exampleA1Map [
+	<example>
+	^ self default a1Map inspect.
+]
+
+{ #category : #accessing }
+KFJapaneseEUC class >> exampleA3Map [
+	<example>
+	^ self default a3Map inspect.
+]
+
+{ #category : #accessing }
+KFJapaneseEUC class >> reset [
+	<script>
+	^ Default := nil.
+]
+
+{ #category : #accessing }
 KFJapaneseEUC >> a1Map [
 	^ a1Map ifNil: [ a1Map := self lookupA1Map ]
 ]
