@@ -603,18 +603,6 @@ GdsStructureEditorMorph >> hideRubberbandLocationPanes [
 
 ]
 
-{ #category : #testing }
-GdsStructureEditorMorph >> holdsElement. [
-	self structure ifNil: [^false].
-	^self structure currentItem holdsElement.
-]
-
-{ #category : #testing }
-GdsStructureEditorMorph >> holdsElement. [
-	self structure ifNil: [^false].
-	^self structure currentItem holdsElement.
-]
-
 { #category : #'testing-enabled' }
 GdsStructureEditorMorph >> holdsPrimitive [
 	^self holdsElement and: [self holdsReference not].
