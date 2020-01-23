@@ -222,13 +222,13 @@ ConfigurationOfGdsFeel class >> validate [
 { #category : #workspace }
 ConfigurationOfGdsFeel class >> workspace [
 
-(ConfigurationOfGdsFeel project version: '1.0') record loadDirective .
+(ConfigurationOfGdsFeel project version: #bleedingEdge) record loadDirective .
 
 (ConfigurationOfGdsFeel project version: '1.0-baseline') .
 
 
 [| pkgs loader |
-loader := ((Smalltalk at: #ConfigurationOfGdsFeel) project version: '1.0') ignoreImage: true; record.
+loader := ((Smalltalk at: #ConfigurationOfGdsFeel) project version: #bleedingEdge) ignoreImage: true; record.
 pkgs := OrderedCollection new.
 loader loadDirective packageDirectivesDo: [:directive |pkgs add: directive spec file ]. pkgs.] value.
 
@@ -994,6 +994,100 @@ ConfigurationOfGdsFeel >> baseline11p6: spec [
 				group: 'UI'
 				with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ) ].
 				
+]
+
+{ #category : #versions }
+ConfigurationOfGdsFeel >> baseline12p6: spec [
+	<version: '1.2-p6-baseline'>
+	spec
+		for: #common
+		do: [ spec blessing: #baseline.
+			spec repository: self class projectPackagePath.
+			spec
+				project: 'NeoJSON'
+				with: [ spec repository: 'http://smalltalkhub.com/mc/Pharo/MetaRepoForPharo60/main'.
+					spec className: 'ConfigurationOfNeoJSON' ].
+			spec
+				project: 'NeoCSV'
+				with: [ spec className: 'ConfigurationOfNeoJSON'.
+					spec repository: 'http://smalltalkhub.com/mc/Pharo/MetaRepoForPharo60/main' ].
+			spec
+				project: 'INIFile'
+				with: [ spec className: 'ConfigurationOfINIFile'.
+					spec repository: 'http://smalltalkhub.com/mc/Pharo/MetaRepoForPharo60/main' ].
+			spec
+				project: 'Soup'
+				with: [ spec repository: 'http://smalltalkhub.com/mc/Pharo/MetaRepoForPharo40/main'.
+					spec className: 'ConfigurationOfSoup' ].
+			spec
+				package: 'GdsFeel-Foundation'
+				with: [ spec requires: #('NeoJSON' 'NeoCSV' 'INIFile' 'Soup') ].
+			spec package: 'GdsFeel-Foundation-Property' with: [  ].
+			spec package: 'GdsFeel-Foundation-Notification' with: [  ].
+			spec package: 'GdsFeel-Foundation-Core' with: [  ].
+			spec package: 'GdsFeel-Foundation-Tests' with: [  ].
+			spec package: 'GdsFeel-CLI-Glamour' with: [  ].
+			spec package: 'GdsFeel-Model-Basic'.
+			spec package: 'GdsFeel-Model-Container'.
+			spec package: 'GdsFeel-Model-EditSpace'.
+			spec package: 'GdsFeel-Model-Element'.
+			spec package: 'GdsFeel-Model-Sandbox'.
+			spec package: 'GdsFeel-Model-Private'.
+			spec package: 'GdsFeel-Model-Viewing'.
+			spec package: 'GdsFeel-Model-Tests'.
+			spec package: 'GdsFeel-Basic' with: [ spec requires: #('GdsFeel-Foundation') ].
+			spec
+				project: 'KFImaging'
+				with: [ spec repository: self class projectPackagePath.
+					spec className: 'ConfigurationOfKFImaging' ].
+			"spec 
+				package: 'CSV'
+				with: [ spec repository: 'http://www.squeaksource.com/CSV' ]."
+			spec
+				package: 'GdsFeel-UI'
+				with: [ spec requires: #('KFImaging' 'NeoCSV' 'Model')
+					"'CSV'" ].
+			spec package: 'GdsFeel-Developer' with: [ spec requires: #('GdsFeel-UI') ].
+			spec package: 'GdsFeel-UI-Athens' with: [ spec requires: #('GdsFeel-UI') ].
+			spec
+				project: 'CommandShell'
+				with: [ spec repository: 'http://smalltalkhub.com/mc/Pharo/MetaRepoForPharo30/main'.
+					spec className: 'ConfigurationOfCommandShell' ].
+			spec package: 'KFConsole' with: [  ].
+			spec
+				package: 'GdsFeel-CLI'
+				with: [ spec requires: #('GdsFeel-Developer' 'CommandShell') ].
+			spec package: 'GdsFeel-CLI-Commands' with: [ spec requires: #('GdsFeel-CLI') ].
+			spec
+				package: 'GdsFeel-CLI-Console'
+				with: [ spec requires: #('GdsFeel-CLI-Commands' 'KFConsole') ].
+			spec
+				project: 'GlamourCore'
+				with: [ spec
+						className: 'ConfigurationOfGlamour';
+						repository: 'http://smalltalkhub.com/mc/Pharo/MetaRepoForPharo30/main/' ].
+			spec
+				package: 'GdsFeel-CLI-Glamour'
+				with: [ spec requires: #('GdsFeel-CLI' 'GlamourCore') ].
+			spec package: 'GdsFeel-UI-Spec' with: [ spec requires: #('GdsFeel-UI') ].
+
+			"spec 
+				package: 'GdsFeel-Seaside' 
+				with: [  ]."
+			spec
+				group: 'Foundation'
+					with:
+					#('GdsFeel-Foundation' 'GdsFeel-Foundation-Core' 'GdsFeel-Foundation-Notification' 'GdsFeel-Foundation-Property');
+				group: 'Model'
+					with:
+					#('GdsFeel-Model-Basic' 'GdsFeel-Model-Container' 'GdsFeel-Model-EditSpace' 'GdsFeel-Model-Element' 'GdsFeel-Model-Private' 'GdsFeel-Model-Sandbox' 'GdsFeel-Model-Tests' 'GdsFeel-Model-Viewing');
+				group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Spec');
+				group: 'Developer' with: #('GdsFeel-Developer');
+				group: 'CLI' with: #('GdsFeel-CLI-Console').
+			spec group: 'default' with: #('Model' 'UI' 'CLI') ].
+	spec for: #'pharo3.x' do: [ spec group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Athens') ].
+	spec for: #'pharo4.x' do: [ spec group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Athens') ].
+	spec for: #'pharo5.x' do: [ spec group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Athens') ]
 ]
 
 { #category : #accessing }
