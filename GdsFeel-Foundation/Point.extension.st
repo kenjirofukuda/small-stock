@@ -26,6 +26,13 @@ Point >> horizontalMirrored [
 ]
 
 { #category : #'*GdsFeel-Foundation' }
+Point class >> r: rho radians: radians [
+	"Answer an instance of me with polar coordinates rho and theta."
+
+	^self basicNew setR: rho radians: radians
+]
+
+{ #category : #'*GdsFeel-Foundation' }
 Point >> rightRotatedInModel [
 	^ self leftRotated
 ]
