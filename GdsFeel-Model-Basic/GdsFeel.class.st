@@ -303,13 +303,36 @@ GdsFeel class >> xmlDocumentFile: aFileReference documentBlock: aBlock [
 
 { #category : #utilities }
 GdsFeel class >> zipArchive: aFile do: aArchiveBlock [
+	#ZipStore asClassIfPresent: [ ^ self zipArchiveModern: aFile do: aArchiveBlock ].
+	^ self zipArchiveClassic: aFile do: aArchiveBlock
+]
+
+{ #category : #utilities }
+GdsFeel class >> zipArchiveClassic: aFile do: aArchiveBlock [
 	| result |
 	result := nil.
-	aFile asFileReference readStreamDo: [ :s | 
-		s isZipArchive
+	aFile asFileReference
+		readStreamDo: [ :s | 
+			s isZipArchive
+				ifTrue: [ | ar |
+					s binary.
+					ar := ZipArchive new readFrom: s.
+					result := [ aArchiveBlock value: ar ]
+						ensure: [ ar close ] ] ].
+	^ result
+]
+
+{ #category : #utilities }
+GdsFeel class >> zipArchiveModern: aFile do: aArchiveBlock [
+	| result |
+	result := nil.
+	aFile asFileReference binaryReadStreamDo: [ :s | 
+		| fixedStram |
+		fixedStram := s contents readStream.
+		fixedStram isZipArchive
 			ifTrue: [ | ar |
-				s binary.
-				ar := ZipArchive new readFrom: s.
+				fixedStram binary.
+				ar := ZipArchive new readFrom: fixedStram.
 				result := [aArchiveBlock value: ar]
 					ensure: [ar close]]].
 	^result

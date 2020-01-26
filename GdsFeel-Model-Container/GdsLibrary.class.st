@@ -209,6 +209,12 @@ GdsLibrary class >> instanceCheck [
 
 { #category : #testing }
 GdsLibrary class >> isLibraryFile: aFileReference [
+	#ZipStore asClassIfPresent: [ ^ self isLibraryFileModern: aFileReference ].
+	^ self isLibraryFileClassic: aFileReference
+]
+
+{ #category : #testing }
+GdsLibrary class >> isLibraryFileClassic: aFileReference [
 	| result |
 	(aFileReference extension sameAs: 'DB')
 		ifFalse: [ ^ false ].
@@ -217,11 +223,35 @@ GdsLibrary class >> isLibraryFile: aFileReference [
 	result := false.
 	aFileReference
 		readStreamDo: [ :s | 
-			s binary.
 			s isZipArchive
 				ifTrue: [ | ar names |
 					ar := ZipArchive new.
 					[ ar readFrom: s ]
+						on: Error
+						do: [ :ex | 
+							ex traceCr.
+							^ false ].
+					names := ar memberNames.
+					"result := {'LIB.ini'} allSatisfy: [ :file | names includes: file ]"
+					result := names notEmpty ] ].
+	^ result
+]
+
+{ #category : #testing }
+GdsLibrary class >> isLibraryFileModern: aFileReference [
+	| result |
+	(aFileReference extension sameAs: 'DB')
+		ifFalse: [ ^ false ].
+	aFileReference size < 4
+		ifTrue: [ ^ false ].
+	result := false.
+	aFileReference
+		binaryReadStreamDo: [ :s | | fixedStream |
+			fixedStream := s contents readStream.
+			fixedStream isZipArchive
+				ifTrue: [ | ar names |
+					ar := ZipArchive new.
+					[ ar readFrom: fixedStream ]
 						on: Error
 						do: [ :ex | 
 							ex traceCr.

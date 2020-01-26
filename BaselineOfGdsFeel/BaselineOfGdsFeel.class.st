@@ -78,7 +78,7 @@ BaselineOfGdsFeel >> baseline: spec [
 			spec
 				baseline: 'Magritte'
 				with: [ spec
-						repository: 'github://magritte-metamodel/magritte:v3.5.4';
+						repository: 'github://magritte-metamodel/magritte:v3.5.4/source';
 						loads: #(Core) ].
 			spec
 				package: 'GdsFeel-CLI-Glamour'
