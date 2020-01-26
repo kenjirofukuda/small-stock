@@ -194,7 +194,7 @@ GplText class >> setupTokenColor: aDictionary [
 { #category : #resource }
 GplText class >> toolDir [
 	""
-	^  FileLocator home / 'Dropbox' / 'gds' / 'calma4' / 'gsroom'
+	^  FileLocator home / 'Nextcloud' / 'gds' / 'calma4' / 'gsroom'
 ]
 
 { #category : #resource }
