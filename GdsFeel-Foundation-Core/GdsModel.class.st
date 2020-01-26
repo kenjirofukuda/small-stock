@@ -4,15 +4,19 @@ Class {
 	#traits : 'TGdsPropertyFactory + TGdsModel + TGdsPropertiesOwner',
 	#classTraits : 'TGdsPropertyFactory classTrait + TGdsModel classTrait + TGdsPropertiesOwner classTrait',
 	#instVars : [
-		'announcer',
-		'properties'
+		'properties',
+		'announcer2'
 	],
 	#category : #'GdsFeel-Foundation-Core'
 }
 
 { #category : #accessing }
 GdsModel >> announcer [
-	^announcer ifNil: [ announcer := Announcer new.]
+	"Answer the announcer of the receiver."
+	[ self instVarNamed: #announcer ]
+		on: Error
+		do: [ :ex | ^ announcer2 ifNil: [ announcer2 := Announcer new ] ].
+	^ super announcer
 ]
 
 { #category : #private }
