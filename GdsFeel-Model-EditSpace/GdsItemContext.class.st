@@ -55,11 +55,11 @@ Class {
 		'layerNumber',
 		'ashape',
 		'strans',
-		'announcer',
 		'lockMessages',
 		'ownColor',
 		'structure',
-		'items'
+		'items',
+		'announcer2'
 	],
 	#category : #'GdsFeel-Model-EditSpace'
 }
@@ -128,10 +128,13 @@ GdsItemContext >> announceAttributeChanged: aSymbol to: aValue [
 	self announceAttributeChanged: aSymbol from: nil to: aValue.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GdsItemContext >> announcer [
-	"Answer the announcer of the receiver."	
-	^ announcer ifNil: [ announcer := Announcer new ]
+	"Answer the announcer of the receiver."
+	[ self instVarNamed: #announcer ]
+		on: Error
+		do: [ :ex | ^ announcer2 ifNil: [ announcer2 := Announcer new ] ].
+	^ super announcer
 ]
 
 { #category : #'command-elementKind' }
