@@ -65,6 +65,6 @@ GplHelp >> evaluateToken: aToken [
 
 { #category : #handler }
 GplHelp >> helpFolder [
-	^FileLocator home / 'Dropbox' / 'gds' / 'calma4' / 'help'.
+	^FileLocator home / 'Nextcloud' / 'gds' / 'calma4' / 'help'.
 
 ]
