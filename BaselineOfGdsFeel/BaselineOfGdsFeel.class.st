@@ -30,13 +30,16 @@ BaselineOfGdsFeel >> baseline: spec [
 			spec package: 'GdsFeel-Model-Container'.
 			spec package: 'GdsFeel-Model-EditSpace'.
 			spec package: 'GdsFeel-Model-Element'.
+			spec package: 'GdsFeel-Model-ElementAddtion'.
 			spec package: 'GdsFeel-Model-Sandbox'.
 			spec package: 'GdsFeel-Model-Private'.
 			spec package: 'GdsFeel-Model-Viewing'.
 			spec package: 'GdsFeel-Model-Tests'.
 			spec
-				package: 'GdsFeel-Basic'
-				with: [ spec requires: #('GdsFeel-Foundation') ].
+				package: 'GdsFeel-Model-Basic'
+				with: [ spec
+						requires:
+							#('GdsFeel-Foundation' 'GdsFeel-Foundation-Core' 'GdsFeel-Foundation-Property' 'GdsFeel-Foundation-Notification' 'GdsFeel-Foundation-Tests') ].
 			spec
 				baseline: 'KFImaging'
 				with: [ spec repository: 'github://kenjirofukuda/imaging-pharo' ].
@@ -52,11 +55,13 @@ BaselineOfGdsFeel >> baseline: spec [
 				with: [ spec requires: #('GdsFeel-UI') ].
 			spec
 				baseline: 'CommandShell'
-				with: [ spec repository: 'github://dtlewis290/CommandShell-Tonel/src' ].
+				with: [ spec
+						repository: 'github://dtlewis290/CommandShell-Tonel/src';
+						loads: #('CommandShell') ].
 			spec package: 'KFConsole'.
 			spec
 				package: 'GdsFeel-CLI'
-				with: [ spec requires: #('GdsFeel-Developer' 'CommandShell') ].
+				with: [ spec requires: #('GdsFeel-Developer')	"'OSProcess'" ].
 			spec
 				package: 'GdsFeel-CLI-Commands'
 				with: [ spec requires: #('GdsFeel-CLI') ].
@@ -78,7 +83,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				package: 'GdsFeel-UI-Spec'
 				with: [ spec requires: #('GdsFeel-UI') ].
 			spec
-				package: 'GdsFeel-UI-Magritte'
+				package: 'GdsFeel-Magritte'
 				with: [ spec requires: #('GdsFeel-UI') ].
 			spec
 				group: 'Foundation'
@@ -87,7 +92,8 @@ BaselineOfGdsFeel >> baseline: spec [
 				group: 'Model'
 					with:
 					#('GdsFeel-Model-Basic' 'GdsFeel-Model-Container' 'GdsFeel-Model-EditSpace' 'GdsFeel-Model-Element' 'GdsFeel-Model-Private' 'GdsFeel-Model-Sandbox' 'GdsFeel-Model-Tests' 'GdsFeel-Model-Viewing');
-				group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-UI-Magritte');
+				group: 'UI'
+					with: #('GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-Magritte');
 				group: 'Developer' with: #('GdsFeel-Developer');
 				group: 'CLI' with: #('GdsFeel-CLI-Console').
 			spec group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Athens').
