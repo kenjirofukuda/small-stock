@@ -52,8 +52,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				with: [ spec requires: #('GdsFeel-UI') ].
 			spec
 				baseline: 'CommandShell'
-				with:
-					[ spec repository: 'github://dtlewis290/CommandShell-Tonel/src' ].
+				with: [ spec repository: 'github://dtlewis290/CommandShell-Tonel/src' ].
 			spec package: 'KFConsole'.
 			spec
 				package: 'GdsFeel-CLI'
@@ -65,15 +64,21 @@ BaselineOfGdsFeel >> baseline: spec [
 				package: 'GdsFeel-CLI-Console'
 				with: [ spec requires: #('GdsFeel-CLI-Commands' 'KFConsole') ].
 			spec
-				project: 'GlamourCore'
+				baseline: 'GlamourCore'
+				with: [ spec repository: 'github://moosetechnology/glamour/src' ].
+			spec
+				baseline: 'Magritte'
 				with: [ spec
-						baseline: 'GlamourCore';
-						repository: 'github://moosetechnology/glamour/src' ].
+						repository: 'github://magritte-metamodel/magritte:v3.5.4';
+						loads: #(Core) ].
 			spec
 				package: 'GdsFeel-CLI-Glamour'
 				with: [ spec requires: #('GdsFeel-CLI' 'GlamourCore') ].
 			spec
 				package: 'GdsFeel-UI-Spec'
+				with: [ spec requires: #('GdsFeel-UI') ].
+			spec
+				package: 'GdsFeel-UI-Magritte'
 				with: [ spec requires: #('GdsFeel-UI') ].
 			spec
 				group: 'Foundation'
@@ -82,7 +87,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				group: 'Model'
 					with:
 					#('GdsFeel-Model-Basic' 'GdsFeel-Model-Container' 'GdsFeel-Model-EditSpace' 'GdsFeel-Model-Element' 'GdsFeel-Model-Private' 'GdsFeel-Model-Sandbox' 'GdsFeel-Model-Tests' 'GdsFeel-Model-Viewing');
-				group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Spec');
+				group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-UI-Magritte');
 				group: 'Developer' with: #('GdsFeel-Developer');
 				group: 'CLI' with: #('GdsFeel-CLI-Console').
 			spec group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Athens').
