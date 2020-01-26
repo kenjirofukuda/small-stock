@@ -9,22 +9,18 @@ BaselineOfGdsFeel >> baseline: spec [
 	<baseline>
 	spec
 		for: #common
-		do: [ spec blessing: #baseline.
+		do: [ spec
+				baseline: 'NeoJSON'
+				with: [ spec repository: 'github://svenvc/NeoJSON/repository' ].
 			spec
-				project: 'NeoJSON'
-				with: [ spec repository: 'github://svenvc/NeoJSON/repository'.
-					spec baseline: 'NeoJSON' ].
+				baseline: 'NeoCSV'
+				with: [ spec repository: 'github://svenvc/NeoCSV/repository' ].
 			spec
-				project: 'NeoCSV'
-				with: [ spec repository: 'github://svenvc/NeoCSV/repository'.
-					spec baseline: 'NeoCSV' ].
-			spec
-				project: 'INIFile'
-				with: [ spec baseline: 'INIFile'.
-					spec repository: 'github://astares/Pharo-INIFile/src' ].
+				baseline: 'INIFile'
+				with: [ spec repository: 'github://astares/Pharo-INIFile/src' ].
 			spec
 				package: 'GdsFeel-Foundation'
-				with: [ spec requires: #('NeoJSON' 'NeoCSV' 'INIFile')	"'Soup'" ].
+				with: [ spec requires: #('NeoJSON' 'NeoCSV' 'INIFile') ].
 			spec package: 'GdsFeel-Foundation-Property'.
 			spec package: 'GdsFeel-Foundation-Notification'.
 			spec package: 'GdsFeel-Foundation-Core'.
@@ -42,9 +38,8 @@ BaselineOfGdsFeel >> baseline: spec [
 				package: 'GdsFeel-Basic'
 				with: [ spec requires: #('GdsFeel-Foundation') ].
 			spec
-				project: 'KFImaging'
-				with: [ spec repository: 'github://kenjirofukuda/imaging-pharo'.
-					spec baseline: 'KFImaging' ].
+				baseline: 'KFImaging'
+				with: [ spec repository: 'github://kenjirofukuda/imaging-pharo' ].
 			spec
 				package: 'GdsFeel-UI'
 				with: [ spec requires: #('KFImaging' 'NeoCSV' 'Model')
@@ -56,9 +51,9 @@ BaselineOfGdsFeel >> baseline: spec [
 				package: 'GdsFeel-UI-Athens'
 				with: [ spec requires: #('GdsFeel-UI') ].
 			spec
-				project: 'CommandShell'
-				with: [ spec repository: 'github://dtlewis290/CommandShell-Tonel/src'.
-					spec baseline: 'CommandShell' ].
+				baseline: 'CommandShell'
+				with:
+					[ spec repository: 'github://dtlewis290/CommandShell-Tonel/src' ].
 			spec package: 'KFConsole'.
 			spec
 				package: 'GdsFeel-CLI'
