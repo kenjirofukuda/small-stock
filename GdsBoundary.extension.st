@@ -1,6 +1,6 @@
 Extension { #name : #GdsBoundary }
 
-{ #category : #'*GdsFeel-UI-Extension' }
+{ #category : #'*GdsFeel-UI' }
 GdsBoundary class >> drawerClass [
 	^GdsBoundaryDrawer
 ]

@@ -1,6 +1,6 @@
 Extension { #name : #Point }
 
-{ #category : #'*GdsFeel-UI-Extension' }
+{ #category : #'*GdsFeel-UI' }
 Point >> mark [
 	GdsStructureEditorMorph topmost markPoints: (Array with: self)
 ]
