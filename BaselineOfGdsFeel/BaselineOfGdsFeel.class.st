@@ -21,6 +21,8 @@ BaselineOfGdsFeel >> baseline: spec [
 			spec
 				package: 'GdsFeel-Foundation'
 				with: [ spec requires: #('NeoJSON' 'NeoCSV' 'INIFile') ].
+			spec package: 'KFDxf-Model'.
+			spec package: 'KFDxf-Tests'.
 			spec package: 'GdsFeel-Foundation-Property'.
 			spec package: 'GdsFeel-Foundation-Notification'.
 			spec package: 'GdsFeel-Foundation-Core'.
@@ -30,7 +32,9 @@ BaselineOfGdsFeel >> baseline: spec [
 			spec package: 'GdsFeel-Model-Container'.
 			spec package: 'GdsFeel-Model-EditSpace'.
 			spec package: 'GdsFeel-Model-Element'.
-			spec package: 'GdsFeel-Model-ElementAddtion'.
+			spec
+				package: 'GdsFeel-Model-ElementAddition'
+				with: [ spec requires: #('KFDxf-Model' 'KFDxf-Tests') ].
 			spec package: 'GdsFeel-Model-Sandbox'.
 			spec package: 'GdsFeel-Model-Private'.
 			spec package: 'GdsFeel-Model-Viewing'.
@@ -80,20 +84,24 @@ BaselineOfGdsFeel >> baseline: spec [
 				package: 'GdsFeel-CLI-Glamour'
 				with: [ spec requires: #('GdsFeel-CLI' 'GlamourCore') ].
 			spec
+				package: 'GdsFeel-UI-ElementAddition'
+				with: [ spec requires: #('GdsFeel-Model-ElementAddition') ].
+			spec
 				package: 'GdsFeel-UI-Spec'
-				with: [ spec requires: #('GdsFeel-UI') ].
+				with: [ spec requires: #('GdsFeel-UI' 'GdsFeel-UI-ElementAddition') ].
 			spec
 				package: 'GdsFeel-Magritte'
-				with: [ spec requires: #('GdsFeel-UI') ].
+				with: [ spec requires: #('GdsFeel-UI' 'Magritte' 'GdsFeel-Model-ElementAddition') ].
 			spec
 				group: 'Foundation'
 					with:
 					#('GdsFeel-Foundation' 'GdsFeel-Foundation-Core' 'GdsFeel-Foundation-Notification' 'GdsFeel-Foundation-Property');
 				group: 'Model'
 					with:
-					#('GdsFeel-Model-Basic' 'GdsFeel-Model-Container' 'GdsFeel-Model-EditSpace' 'GdsFeel-Model-Element' 'GdsFeel-Model-Private' 'GdsFeel-Model-Sandbox' 'GdsFeel-Model-Tests' 'GdsFeel-Model-Viewing');
+					#('GdsFeel-Model-Basic' 'GdsFeel-Model-Container' 'GdsFeel-Model-EditSpace' 'GdsFeel-Model-Element' 'GdsFeel-Model-ElementAddition' 'GdsFeel-Model-Private' 'GdsFeel-Model-Sandbox' 'GdsFeel-Model-Tests' 'GdsFeel-Model-Viewing');
 				group: 'UI'
-					with: #('GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-Magritte');
+					with:
+					#('GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-Magritte' 'GdsFeel-UI-ElementAddition');
 				group: 'Developer' with: #('GdsFeel-Developer');
 				group: 'CLI' with: #('GdsFeel-CLI-Console').
 			spec group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Athens').
