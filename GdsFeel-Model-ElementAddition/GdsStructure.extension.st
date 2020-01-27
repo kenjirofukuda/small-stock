@@ -6052,8 +6052,7 @@ GdsStructure >> fileOutDxfNamed: aName [
 	file
 		writeStreamDo: [ :s | 
 			| ws |
-			ws := MultiByteFileStream newFrom: s.
-			ws lineEndConvention: #lf.
+			ws := self fixLineEndStream: s.
 			[ WideString
 				streamContents: [ :wideStream | 
 					self printDxfOn: wideStream.
@@ -6073,6 +6072,26 @@ GdsStructure >> fileOutDxfToFolder: aFileReference [
 	containerFolder ifNil: [ containerFolder := './' asFileReference  ].
 	file := containerFolder asFileReference / (self name asUppercase , '.dxf').
 	self fileOutDxfNamed: file nextVersion
+]
+
+{ #category : #'*GdsFeel-Model-ElementAddition' }
+GdsStructure >> fixLineEndStream: aMultiByteFileStreamOrZnCharacterWriteStream [
+	self flag: 'TODO: better way'.
+	aMultiByteFileStreamOrZnCharacterWriteStream class asString
+		= 'ZnCharacterWriteStream'
+		ifTrue: [ 
+			^ (ZnNewLineWriterStream
+				on: aMultiByteFileStreamOrZnCharacterWriteStream)
+				forLf;
+				yourself ].
+	aMultiByteFileStreamOrZnCharacterWriteStream class asString
+		= 'MultiByteFileStream'
+		ifTrue: [ 'MultiByteFileStream'
+				asClassIfAbsent: [ :clazz | 
+					^ (clazz newFrom: aMultiByteFileStreamOrZnCharacterWriteStream)
+						lineEndConvention: #lf;
+						yourself ] ].
+	^ aMultiByteFileStreamOrZnCharacterWriteStream
 ]
 
 { #category : #'*GdsFeel-Model-ElementAddition' }
