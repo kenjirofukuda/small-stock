@@ -106,7 +106,7 @@ BaselineOfGdsFeel >> baseline: spec [
 					with:
 					#('GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-Magritte' 'GdsFeel-UI-ElementAddition');
 				group: 'Developer' with: #('GdsFeel-Developer');
-				group: 'CLI' with: #('GdsFeel-CLI-Console').
+				group: 'CLI' with: #('GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI').
 			spec group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Athens').
 			spec group: 'default' with: #('Model' 'UI') ]
 ]
