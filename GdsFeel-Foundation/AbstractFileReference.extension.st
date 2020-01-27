@@ -1,6 +1,6 @@
 Extension { #name : #AbstractFileReference }
 
-{ #category : #'*TowerKit-Core' }
+{ #category : #'*GdsFeel-Foundation' }
 AbstractFileReference >> mbReadStreamDo: aBlock [
 	self
 		readStreamDo: [ :ws | 
@@ -11,7 +11,7 @@ AbstractFileReference >> mbReadStreamDo: aBlock [
 				ensure: [ fs close ] ]
 ]
 
-{ #category : #'*TowerKit-Core' }
+{ #category : #'*GdsFeel-Foundation' }
 AbstractFileReference >> mbWriteStreamDo: aBlock [
 	self
 		writeStreamDo: [ :ws | 
