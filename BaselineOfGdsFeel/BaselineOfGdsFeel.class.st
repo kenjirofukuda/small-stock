@@ -31,7 +31,6 @@ BaselineOfGdsFeel >> baseline: spec [
 			spec package: 'GdsFeel-Foundation-Core'.
 			spec package: 'GdsFeel-Foundation-Tests'.
 			spec package: 'GdsFeel-CLI-Glamour'.
-			spec package: 'GdsFeel-Model-Basic'.
 			spec package: 'GdsFeel-Model-Container'.
 			spec package: 'GdsFeel-Model-EditSpace'.
 			spec package: 'GdsFeel-Model-Element'.
@@ -46,7 +45,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				package: 'GdsFeel-Model-Basic'
 				with: [ spec
 						requires:
-							#('GdsFeel-Foundation' 'GdsFeel-Foundation-Core' 'GdsFeel-Foundation-Property' 'GdsFeel-Foundation-Notification' 'GdsFeel-Foundation-Tests') ].
+							#('GdsFeel-Foundation' 'GdsFeel-Foundation-Core' 'GdsFeel-Foundation-Property' 'GdsFeel-Foundation-Notification' 'GdsFeel-Foundation-Tests' 'XMLParser') ].
 			spec
 				baseline: 'KFImaging'
 				with: [ spec repository: 'github://kenjirofukuda/imaging-pharo' ].
