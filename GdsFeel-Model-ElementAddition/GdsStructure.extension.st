@@ -6077,19 +6077,17 @@ GdsStructure >> fileOutDxfToFolder: aFileReference [
 { #category : #'*GdsFeel-Model-ElementAddition' }
 GdsStructure >> fixLineEndStream: aMultiByteFileStreamOrZnCharacterWriteStream [
 	self flag: 'TODO: better way'.
-	aMultiByteFileStreamOrZnCharacterWriteStream class asString
-		= 'ZnCharacterWriteStream'
-		ifTrue: [ 
-			^ (ZnNewLineWriterStream
-				on: aMultiByteFileStreamOrZnCharacterWriteStream)
-				forLf;
-				yourself ].
-	aMultiByteFileStreamOrZnCharacterWriteStream class asString
-		= 'MultiByteFileStream'
+	aMultiByteFileStreamOrZnCharacterWriteStream class asString = 'ZnCharacterWriteStream'
+		ifTrue: [ 'ZnNewLineWriterStream'
+				asClassIfPresent: [ :clazz | 
+					^ (clazz on: aMultiByteFileStreamOrZnCharacterWriteStream)
+						perform: #forLf;
+						yourself ] ].
+	aMultiByteFileStreamOrZnCharacterWriteStream class asString = 'MultiByteFileStream'
 		ifTrue: [ 'MultiByteFileStream'
-				asClassIfAbsent: [ :clazz | 
+				asClassIfPresent: [ :clazz | 
 					^ (clazz newFrom: aMultiByteFileStreamOrZnCharacterWriteStream)
-						lineEndConvention: #lf;
+						perform: #lineEndConvention: with: #lf;
 						yourself ] ].
 	^ aMultiByteFileStreamOrZnCharacterWriteStream
 ]
