@@ -6054,7 +6054,11 @@ GdsStructure >> fileOutDxfNamed: aName [
 			| ws |
 			ws := MultiByteFileStream newFrom: s.
 			ws lineEndConvention: #lf.
-			[self printDxfOn: ws] ensure: [ ws close ] ]
+			[ WideString
+				streamContents: [ :wideStream | 
+					self printDxfOn: wideStream.
+					ws nextPutAll: wideStream contents ] ]
+				ensure: [ ws close ] ]
 ]
 
 { #category : #'*GdsFeel-Model-ElementAddition' }
