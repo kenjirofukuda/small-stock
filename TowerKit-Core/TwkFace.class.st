@@ -147,7 +147,7 @@ TwkFace >> facePoints [
 ]
 
 { #category : #actions }
-TwkFace >> fillActivePlane. [
+TwkFace >> fillActivePlane [
 	recorder ifNil: [ ^ self ].
 	recorder do: [ :each |
 		each first = #width ifTrue: [ self basicAddWidth: each second ].
