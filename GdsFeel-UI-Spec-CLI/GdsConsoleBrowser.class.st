@@ -13,7 +13,7 @@ Class {
 		'structureViewMorph',
 		'consoleMorph'
 	],
-	#category : #'GdsFeel-UI-Spec'
+	#category : #'GdsFeel-UI-Spec-CLI'
 }
 
 { #category : #specs }
