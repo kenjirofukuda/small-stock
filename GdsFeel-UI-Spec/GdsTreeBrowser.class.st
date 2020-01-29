@@ -44,23 +44,31 @@ GdsTreeBrowser class >> defaultSpec [
 			c
 				add: #menu height: self toolbarHeight + self toolbarBorderWidth;
 				newRow: [ :r | 
-					r add: #tree.	"width: 150"
+					| infoWidth |
+					infoWidth := 0.1.
+					r add: #tree origin: 0 @ 0 corner: infoWidth @ 1.
 					r addSplitter.
 					r
 						newColumn: [ :c2 | 
 							c2 add: #visibleElementList origin: 0 @ 0 corner: 0 @ 0.5.
 							c2 addSplitter.
-							c2 add: #inspectorView origin: 0 @ 0.5 corner: 1 @ 1 ].
+							c2 add: #inspectorView origin: 0 @ 0.5 corner: 1 @ 1 ]
+						origin: infoWidth @ 0
+						corner: (infoWidth * 2) @ 1.
 					"width: 200"
 					r addSplitter.
-					r add: #manager.
+					r
+						add: #manager
+						origin: (infoWidth * 2) @ 0
+						corner: (1 - infoWidth) @ 1.
 					r addSplitter.
 					r
 						newColumn: [ :c3 | 
 							c3 add: #layers origin: 0 @ 0 corner: 0 @ 0.5.
 							c3 addSplitter.
 							c3 add: #kinds origin: 0 @ 0.5 corner: 1 @ 1 ]
-					"width: 150" ] ];
+						origin: (1 - infoWidth) @ 0
+						corner: 1 @ 1 ] ];
 		yourself
 ]
 
