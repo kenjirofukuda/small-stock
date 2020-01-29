@@ -555,8 +555,9 @@ GdsFeelMorphic class >> requestLibraryName [
 { #category : #settings }
 GdsFeelMorphic class >> settingsOn: aBuilder [ 
 	<systemsettings>
-	(aBuilder group: #GdsFeel)
-		label: 'GdsFeel';
+	(aBuilder group: #GdsFeelUI)
+		label: 'UI';
+		parent: #GdsFeel;
 		with: [
 			(aBuilder setting: #goodiesEnabled)
 				target: self; 
