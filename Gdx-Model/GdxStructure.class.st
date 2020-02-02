@@ -2,10 +2,21 @@ Class {
 	#name : #GdxStructure,
 	#superclass : #Object,
 	#instVars : [
-		'name'
+		'name',
+		'elements'
 	],
 	#category : #'Gdx-Model'
 }
+
+{ #category : #accessing }
+GdxStructure >> elements [
+	^ elements
+]
+
+{ #category : #accessing }
+GdxStructure >> elements: aCollection [
+	elements := aCollection copy
+]
 
 { #category : #accessing }
 GdxStructure >> name [

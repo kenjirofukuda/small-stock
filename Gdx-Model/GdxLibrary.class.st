@@ -27,6 +27,11 @@ GdxLibrary >> printOn: aStream [
 ]
 
 { #category : #accessing }
+GdxLibrary >> structures [
+	^ structures
+]
+
+{ #category : #accessing }
 GdxLibrary >> structures: aCollection [ 
 	structures := aCollection
 ]

@@ -1,6 +1,11 @@
 Extension { #name : #GdsStructure }
 
 { #category : #'*Gdx-Model' }
-GdsStructure >> copyToGdxObject: aGdxObject [ 
-	aGdxObject name: self name
+GdsStructure >> copyToGdxObject: aGdxStructure [
+	aGdxStructure name: self name.
+	aGdxStructure
+		elements:
+			(self elements
+				collect: [ :each | each asGdxObject ]
+				thenSelect: [ :each | each notNil ])
 ]
