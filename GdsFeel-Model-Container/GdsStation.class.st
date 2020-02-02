@@ -281,6 +281,11 @@ GdsStation >> handleStructureChanged: aGdsPropertyChanged [
 			trace
 				ifTrue:
 					[ self traceCr: ('structureDeactivate: <1p>' expandMacrosWith: s name) ].
+			self announcer
+				announce:
+					(GdsStructureDeactivated new
+						structure: s;
+						yourself).
 			s save.
 			GdsFeel dependentEnabled
 				ifTrue: [ s removeDependent: self ] ].
@@ -288,6 +293,11 @@ GdsStation >> handleStructureChanged: aGdsPropertyChanged [
 		ifNotNil: [ :s | 
 			trace
 				ifTrue: [ self traceCr: ('structureActivate: <1p>' expandMacrosWith: s name) ].
+			self announcer
+				announce:
+					(GdsStructureActivated new
+						structure: s;
+						yourself).
 			GdsFeel dependentEnabled
 				ifTrue: [ s addDependent: self ] ]
 		ifNil: [ trace

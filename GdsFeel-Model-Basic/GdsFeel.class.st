@@ -104,8 +104,7 @@ GdsFeel class >> ifDebugOn: aStreamBlock [
 
 { #category : #'class initialization' }
 GdsFeel class >> initialize [
-	"self initialize"
-	"self openReadMe."
+	self dependentEnabled: false.
 	
 ]
 
