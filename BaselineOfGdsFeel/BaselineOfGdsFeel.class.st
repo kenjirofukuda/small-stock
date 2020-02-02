@@ -81,7 +81,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				baseline: 'Magritte'
 				with: [ spec
 						repository: 'github://magritte-metamodel/magritte/source';
-						loads: #(Core) ].
+						loads: #('Magritte-Morph') ].
 			spec
 				package: 'GdsFeel-CLI-Glamour'
 				with: [ spec requires: #('GdsFeel-CLI' 'GlamourCore') ].
