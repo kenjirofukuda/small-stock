@@ -922,15 +922,19 @@ GdsStructureViewMorph >> referenceEnabledStructureNames [
 { #category : #initialization }
 GdsStructureViewMorph >> release [
 	"self halt."
-	self submorphsDo: [:each | each release].
+
+	self submorphsDo: [ :each | each release ].
 	self removeAllMorphs.
 	offCanvas := nil.
 	viewport := nil.
 	colClipBounds := nil.
-	self dependents do: [:each | 
-		self removeDependent: each.
-		each release].
-	super release.
+	GdsFeel dependentEnabled
+		ifTrue: [ 
+			self dependents
+				do: [ :each | 
+					self removeDependent: each.
+					each release ] ].
+	super release
 ]
 
 { #category : #initialization }
@@ -1075,7 +1079,10 @@ GdsStructureViewMorph >> structureDidUnbind [
 
 { #category : #initialization }
 GdsStructureViewMorph >> structureWillChange [
-	self model ifNotNil: [self model layers removeDependent: self].
+	self model
+		ifNotNil: [ 
+			GdsFeel dependentEnabled
+				ifTrue: [ self model layers removeDependent: self ] ]
 ]
 
 { #category : #'event handling' }

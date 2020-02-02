@@ -135,7 +135,7 @@ GdsIdContext >> unId: keyNumber [
 ]
 
 { #category : #'id operation' }
-GdsIdContext >> unIdAll: keyNumberCollection. [ 
+GdsIdContext >> unIdAll: keyNumberCollection [. 
 	self assert: [keyNumberCollection isCollection].
 	ids removeAllFoundIn: keyNumberCollection.	
 ]

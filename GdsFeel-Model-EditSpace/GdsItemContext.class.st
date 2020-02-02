@@ -886,7 +886,7 @@ GdsItemContext >> putPrimitive [
 ]
 
 { #category : #utility }
-GdsItemContext >> putRecangleExtent: aSize centerAt: aPoint. [
+GdsItemContext >> putRecangleExtent: aSize centerAt: aPoint [.
 	self putRectangle: (Rectangle center: aPoint extent: aSize asPoint).
 ]
 
@@ -949,9 +949,12 @@ GdsItemContext >> refreshBounds [
 
 { #category : #initialization }
 GdsItemContext >> release [
-	ashape ifNotNil: 
-		[ ashape removeDependent: self.
-		ashape := nil ].
+	ashape
+		ifNotNil: [ 
+			GdsFeel dependentEnabled
+				ifTrue: [ 
+					ashape removeDependent: self.
+					ashape := nil ] ].
 	super release
 ]
 
@@ -1153,7 +1156,7 @@ GdsItemContext >> verticesAt: index put: aPoint [
 ]
 
 { #category : #'accessing-points' }
-GdsItemContext >> verticesAt: index put: aPoint fixClosed: aBoolean. [
+GdsItemContext >> verticesAt: index put: aPoint fixClosed: aBoolean [.
 	(aBoolean and: [index = 1 or: [colVertices size = index]])
 		ifFalse: [colVertices at: index put: aPoint]
 		ifTrue: [

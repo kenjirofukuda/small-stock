@@ -82,9 +82,11 @@ GdsItems >> release [
 ]
 
 { #category : #dependents }
-GdsItems >> removeDependent: anObject [ 
-	super removeDependent: anObject .
-	items do: [ :i | i removeDependent: anObject ]
+GdsItems >> removeDependent: anObject [
+	super removeDependent: anObject.
+	GdsFeel dependentEnabled
+		ifTrue: [ 
+			items do: [ :i | i removeDependent: anObject ] ]
 ]
 
 { #category : #accessing }

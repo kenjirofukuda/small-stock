@@ -663,7 +663,7 @@ GdsStructure >> library [
 ]
 
 { #category : #initialization }
-GdsStructure >> library: aGdsLibrary. [
+GdsStructure >> library: aGdsLibrary [.
 	library ifNotNil: [ self error: 'library already set. int this structure' ].
 	library := aGdsLibrary.
 	
@@ -1134,7 +1134,7 @@ GdsStructure >> uniqCopyName [
 ]
 
 { #category : #updating }
-GdsStructure >> update: anObject. [
+GdsStructure >> update: anObject [.
 	GdsFeel ifDebugOn: [:s |
 		s nextPutAll:  self class printString.
 		s nextPutAll: ' recieve: '.

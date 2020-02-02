@@ -256,7 +256,8 @@ GdsStation >> handleLibraryChanged: aGdsPropertyChanged [
 			trace
 				ifTrue: [ self
 						traceCr: ('libraryDeactivate: <1p>' expandMacrosWith: lib libName) ].
-			lib removeDependent: self.
+			GdsFeel dependentEnabled
+				ifTrue: [ lib removeDependent: self ].
 			self isAutoCloseLibrary
 				ifTrue: [ lib close ] ].
 	aGdsPropertyChanged newValue
@@ -264,7 +265,8 @@ GdsStation >> handleLibraryChanged: aGdsPropertyChanged [
 			trace
 				ifTrue: [ self
 						traceCr: ('libraryActivate: <1p>' expandMacrosWith: lib libName) ].
-			lib addDependent: self.
+			GdsFeel dependentEnabled
+				ifTrue: [ lib addDependent: self ].
 			self structure: nil.
 			lib open ].
 	self fireLibraryChanged
@@ -280,13 +282,14 @@ GdsStation >> handleStructureChanged: aGdsPropertyChanged [
 				ifTrue:
 					[ self traceCr: ('structureDeactivate: <1p>' expandMacrosWith: s name) ].
 			s save.
-			s removeDependent: self ].
+			GdsFeel dependentEnabled
+				ifTrue: [ s removeDependent: self ] ].
 	aGdsPropertyChanged newValue
 		ifNotNil: [ :s | 
 			trace
-				ifTrue:
-					[ self traceCr: ('structureActivate: <1p>' expandMacrosWith: s name) ].
-			s addDependent: self ]
+				ifTrue: [ self traceCr: ('structureActivate: <1p>' expandMacrosWith: s name) ].
+			GdsFeel dependentEnabled
+				ifTrue: [ s addDependent: self ] ]
 		ifNil: [ trace
 				ifTrue: [ self traceCr: 'structureCleard: nil'.
 					self
