@@ -1479,8 +1479,11 @@ GdsStructureEditorMorph >> structureDidChanged [
 { #category : #accessing }
 GdsStructureEditorMorph >> structureDidUnbind [
 	self viewport
-		ifNotNil: [ lastSessionsGrid := self viewport grid copy.
-			lastSessionsGrid removeDependent: self ].
+		ifNotNil: [ 
+			GdsFeel dependentEnabled
+				ifTrue: [ 
+					lastSessionsGrid := self viewport grid copy.
+					lastSessionsGrid removeDependent: self ] ].
 	self releaseViewports.
 	self stopStepping.
 	self mouseLayer stopStepping.
