@@ -566,7 +566,7 @@ GdsTreeBrowser >> inspectionMenu: aMenu [
 				addItem: [ :anItem | 
 					anItem
 						name: 'Explore';
-						action: [ tree selectedItem content explore ] ] ]
+						action: [ tree selectedItem content inspect ] ] ]
 ]
 
 { #category : #accessing }

@@ -1,0 +1,32 @@
+Class {
+	#name : #GdxLibrary,
+	#superclass : #Object,
+	#instVars : [
+		'name',
+		'structures'
+	],
+	#category : #'Gdx-Model'
+}
+
+{ #category : #accessing }
+GdxLibrary >> name [
+	^ name
+]
+
+{ #category : #accessing }
+GdxLibrary >> name: aString [ 
+	name := aString.
+]
+
+{ #category : #printing }
+GdxLibrary >> printOn: aStream [
+	super printOn: aStream.
+	aStream nextPut: $(.
+	aStream nextPutAll: self name.
+	aStream nextPut: $).
+]
+
+{ #category : #accessing }
+GdxLibrary >> structures: aCollection [ 
+	structures := aCollection
+]
