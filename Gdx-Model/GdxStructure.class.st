@@ -8,6 +8,11 @@ Class {
 	#category : #'Gdx-Model'
 }
 
+{ #category : #visiting }
+GdxStructure >> accept: aGdxVisitor [ 
+	aGdxVisitor visitStructure: self
+]
+
 { #category : #accessing }
 GdxStructure >> elements [
 	^ elements

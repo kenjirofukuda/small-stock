@@ -7,6 +7,11 @@ Class {
 	#category : #'Gdx-Model'
 }
 
+{ #category : #visiting }
+GdxElement >> accept: aGdxVisitor [ 
+	self subclassResponsibility.
+]
+
 { #category : #printing }
 GdxElement >> printOn: aStream [
 	aStream nextPutAll: self typeString.
