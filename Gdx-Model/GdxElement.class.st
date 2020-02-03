@@ -1,6 +1,9 @@
 Class {
 	#name : #GdxElement,
 	#superclass : #Object,
+	#instVars : [
+		'vertices'
+	],
 	#category : #'Gdx-Model'
 }
 
@@ -12,4 +15,14 @@ GdxElement >> printOn: aStream [
 { #category : #accessing }
 GdxElement >> typeString [
 	^ 'UNKOWN'
+]
+
+{ #category : #'as yet unclassified' }
+GdxElement >> vertices [
+	^ vertices
+]
+
+{ #category : #'as yet unclassified' }
+GdxElement >> vertices: aCollection [ 
+	vertices := aCollection asArray
 ]

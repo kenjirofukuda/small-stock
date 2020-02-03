@@ -12,7 +12,8 @@ GdsElement >> asGdxObject [
 ]
 
 { #category : #'*Gdx-Model' }
-GdsElement >> copyToGdxObject: aGdxStructure [
+GdsElement >> copyToGdxObject: aGdxElement [
+	aGdxElement vertices: self vertices
 ]
 
 { #category : #'*Gdx-Model' }
