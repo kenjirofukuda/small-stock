@@ -82,7 +82,7 @@ GdsLayer >> layerNumber [
 ]
 
 { #category : #private }
-GdsLayer >> layerNumber: aInteger. [
+GdsLayer >> layerNumber: aInteger [.
 	layerNumber value: aInteger asInteger.
 	
 ]

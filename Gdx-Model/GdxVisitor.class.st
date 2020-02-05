@@ -3,15 +3,23 @@ Class {
 	#superclass : #GdxObject,
 	#instVars : [
 		'depth',
-		'debugStream'
+		'debugStream',
+		'deepIntoReference',
+		'nameBag'
 	],
 	#category : #'Gdx-Model'
 }
 
 { #category : #'instance creation' }
 GdxVisitor class >> on: aGdxLibrary [
+	^ self on: aGdxLibrary deepIntoReference: false
+]
+
+{ #category : #'instance creation' }
+GdxVisitor class >> on: aGdxLibrary deepIntoReference: aBoolean [
 	| visitor |
 	visitor := self new.
+	visitor deepIntoReference: aBoolean.
 	aGdxLibrary accept: visitor.
 	^ visitor
 ]
@@ -21,11 +29,22 @@ GdxVisitor >> contents [
 	^ debugStream contents
 ]
 
+{ #category : #accessing }
+GdxVisitor >> deepIntoReference [
+	^ deepIntoReference
+]
+
+{ #category : #accessing }
+GdxVisitor >> deepIntoReference: aBoolean [
+	deepIntoReference := aBoolean
+]
+
 { #category : #initialization }
 GdxVisitor >> initialize [
 	super initialize.
 	depth := 0.
 	debugStream := WriteStream on: WideString new.
+	nameBag := Bag new.
 ]
 
 { #category : #visiting }
@@ -34,8 +53,15 @@ GdxVisitor >> insertIndent [
 ]
 
 { #category : #visiting }
+GdxVisitor >> pushDepthDuring: aBlock [
+	depth := depth + 1.
+	aBlock value.
+	depth := depth - 1.
+]
+
+{ #category : #visiting }
 GdxVisitor >> visitAref: aGdxArrayedStructureReference [
-	self visitElement: aGdxArrayedStructureReference.
+	self visitSref: aGdxArrayedStructureReference.
 ]
 
 { #category : #visiting }
@@ -53,10 +79,8 @@ GdxVisitor >> visitContainer: aGdxObject [
 	self insertIndent.
 	aGdxObject printOn: debugStream.
 	debugStream ensureCr.
-	depth := depth + 1.
-	aGdxObject children do: [ :each | each accept: self ].
-	depth := depth - 1.
-		
+	self
+		pushDepthDuring: [ aGdxObject children do: [ :each | each accept: self ] ]
 ]
 
 { #category : #visiting }
@@ -80,6 +104,9 @@ GdxVisitor >> visitPath: aGdxPath [
 { #category : #visiting }
 GdxVisitor >> visitSref: aGdxStructureReference [
 	self visitElement: aGdxStructureReference.
+	nameBag add: aGdxStructureReference referenceName.
+	self deepIntoReference
+		ifTrue: [ aGdxStructureReference referencedStructure accept: self ]
 ]
 
 { #category : #visiting }

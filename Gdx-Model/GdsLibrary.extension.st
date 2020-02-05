@@ -2,7 +2,10 @@ Extension { #name : #GdsLibrary }
 
 { #category : #'*Gdx-Model' }
 GdsLibrary >> copyToGdxObject: aGdxLibrary [
-	aGdxLibrary name: self name copy.
+	aGdxLibrary name: self name.
 	aGdxLibrary
-		structures: (self structures copy collect: [ :each | each asGdxObject ])
+		structures:
+			(self structures
+				collect: [ :each | each asGdxObject ]
+				thenSelect: [ :each | each notNil ])
 ]

@@ -21,113 +21,115 @@ Class {
 
 { #category : #accessing }
 GdsStructureTransform >> angle [
-	^angle.
+	^ angle
 ]
 
 { #category : #accessing }
 GdsStructureTransform >> angle: aDegrees [
-	angle = aDegrees ifTrue: [^self].
+	angle = aDegrees
+		ifTrue: [ ^ self ].
 	angle := aDegrees.
-	matrix := nil.	
+	matrix := nil
 ]
 
 { #category : #convertor }
 GdsStructureTransform >> asMatrix2x3 [
-	matrix ifNil: [matrix := self lookupMatrix2x3].
-	^matrix.
+	matrix ifNil: [ matrix := self lookupMatrix2x3 ].
+	^ matrix
 ]
 
 { #category : #printing }
 GdsStructureTransform >> consoleStringOn: aStream [
 	aStream nextPutAll: 'MAG: '.
 	aStream print: self mag.
-	aStream cr.	
+	aStream cr.
 	aStream nextPutAll: 'ANGLE: '.
 	aStream print: self angle.
-	aStream cr.	
+	aStream cr.
 	aStream nextPutAll: 'REFL: '.
-	aStream print: (self isReflected ifTrue: ['Y'] ifFalse:['N']).
+	aStream
+		print:
+			(self isReflected
+				ifTrue: [ 'Y' ]
+				ifFalse: [ 'N' ])
 ]
 
 { #category : #copying }
 GdsStructureTransform >> copy [
-	^super copy copyTransform.
+	^ super copy copyTransform
 ]
 
 { #category : #copying }
 GdsStructureTransform >> copyTransform [
 	angle := angle deepCopy.
 	offset := offset deepCopy.
-	mag := mag deepCopy.
+	mag := mag deepCopy
 ]
 
 { #category : #'initialize-release' }
 GdsStructureTransform >> initialize [
 	super initialize.
-	self safeReset.
-
+	self safeReset
 ]
 
 { #category : #testing }
 GdsStructureTransform >> isAbsAngle [
-	^absAngle
+	^ absAngle
 ]
 
 { #category : #testing }
 GdsStructureTransform >> isAbsMag [
-	^absMag
+	^ absMag
 ]
 
 { #category : #testing }
 GdsStructureTransform >> isReflected [
-	^reflected .
+	^ reflected
 ]
 
 { #category : #convertor }
 GdsStructureTransform >> lookupMatrix2x3 [
-	| t  rad radCos radSin|
+	| t rad radCos radSin |
 	t := MatrixTransform2x3 identity.
 	rad := angle degreesToRadians.
-	radCos :=  rad cos.
+	radCos := rad cos.
 	radSin := rad sin.
 	t a11: mag * radCos.
 	t a12: mag negated * radSin.
 	t a13: self offset x.
-	t a21: mag  * radSin.
+	t a21: mag * radSin.
 	t a22: mag * radCos.
 	t a23: self offset y.
 	reflected
-		ifTrue: [
-			t a12: t a12 negated.
-			t a22: t a22 negated].
-	 ^t
-
+		ifTrue: [ t a12: t a12 negated.
+			t a22: t a22 negated ].
+	^ t
 ]
 
 { #category : #accessing }
 GdsStructureTransform >> mag [
-	^mag.
+	^ mag
 ]
 
 { #category : #accessing }
 GdsStructureTransform >> mag: aFactor [
-	mag = aFactor ifTrue: [^self].
+	mag = aFactor
+		ifTrue: [ ^ self ].
 	mag := aFactor.
-	matrix := nil.		
-	
+	matrix := nil
 ]
 
 { #category : #accessing }
 GdsStructureTransform >> offset [
-	^offset
-	
+	^ offset
 ]
 
 { #category : #accessing }
 GdsStructureTransform >> offset: aPoint [
-	offset = aPoint ifTrue: [^self].
+	offset = aPoint
+		ifTrue: [ ^ self ].
 	offset := aPoint.
-	matrix := nil.	
+	matrix := nil
 ]
 
 { #category : #printing }
@@ -135,46 +137,41 @@ GdsStructureTransform >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPut: $(.
 	(self mag closeTo: 1.0)
-		ifFalse: [
-			aStream print: self mag].
+		ifFalse: [ aStream print: self mag ].
 	(self angle closeTo: 0.0)
-		ifFalse: [
-			aStream print: self angle.
-			aStream nextPut: $,].
+		ifFalse: [ aStream print: self angle.
+			aStream nextPut: $, ].
 	self isReflected
-		ifTrue: [
-			aStream nextPutAll: 'REFL'].
-	aStream nextPut: $).
-	
+		ifTrue: [ aStream nextPutAll: 'REFL' ].
+	aStream nextPut: $)
 ]
 
 { #category : #'initialize-release' }
 GdsStructureTransform >> safeReset [
-	offset := 0.0@0.0.
+	offset := 0.0 @ 0.0.
 	mag := 1.0.
-	angle := 0.0.	
+	angle := 0.0.
 	absAngle := false.
 	absMag := false.
-	reflected := false.
-
+	reflected := false
 ]
 
 { #category : #testing }
 GdsStructureTransform >> setAngleAbsolute: aBoolean [
 	absAngle := aBoolean.
-	matrix := nil.		
+	matrix := nil
 ]
 
 { #category : #testing }
 GdsStructureTransform >> setMagAbsolute: aBoolean [
 	absMag := aBoolean.
-	matrix := nil.		
+	matrix := nil
 ]
 
 { #category : #testing }
 GdsStructureTransform >> setReflected: aBoolean [
-	reflected = aBoolean ifTrue: [^self].
+	reflected = aBoolean
+		ifTrue: [ ^ self ].
 	reflected := aBoolean.
-	matrix := nil.
-		
+	matrix := nil
 ]

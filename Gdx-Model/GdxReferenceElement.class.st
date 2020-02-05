@@ -3,3 +3,8 @@ Class {
 	#superclass : #GdxElement,
 	#category : #'Gdx-Model'
 }
+
+{ #category : #testing }
+GdxReferenceElement >> isReference [ 
+	^ true
+]

@@ -2,7 +2,8 @@ Class {
 	#name : #GdxStructureReference,
 	#superclass : #GdxReferenceElement,
 	#instVars : [
-		'referenceName'
+		'referenceName',
+		'referencedStructure'
 	],
 	#category : #'Gdx-Model'
 }
@@ -28,6 +29,14 @@ GdxStructureReference >> referenceName [
 { #category : #accessing }
 GdxStructureReference >> referenceName: aString [
 	referenceName := aString
+]
+
+{ #category : #accessing }
+GdxStructureReference >> referencedStructure [
+	^ referencedStructure
+		ifNil: [ 
+			referencedStructure := self structure library
+				structureNamed: self referenceName ]
 ]
 
 { #category : #accessing }

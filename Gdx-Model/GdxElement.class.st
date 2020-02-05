@@ -2,6 +2,7 @@ Class {
 	#name : #GdxElement,
 	#superclass : #GdxNode,
 	#instVars : [
+		'structure',
 		'vertices',
 		'keyNumber'
 	],
@@ -18,6 +19,11 @@ GdxElement >> children [
 	^ #() copy
 ]
 
+{ #category : #testing }
+GdxElement >> isReference [ 
+	^ false
+]
+
 { #category : #accessing }
 GdxElement >> keyNumber [
 	^ keyNumber
@@ -26,6 +32,11 @@ GdxElement >> keyNumber [
 { #category : #accessing }
 GdxElement >> keyNumber: anInteger [
 	keyNumber := anInteger
+]
+
+{ #category : #accessing }
+GdxElement >> parent [ 
+	^ self structure
 ]
 
 { #category : #printing }
@@ -39,6 +50,16 @@ GdxElement >> printOn: aStream [
 
 { #category : #printing }
 GdxElement >> printSelfOn: aStream [
+]
+
+{ #category : #accessing }
+GdxElement >> structure [
+	^ structure
+]
+
+{ #category : #accessing }
+GdxElement >> structure: aGdxStructure [ 
+	structure := aGdxStructure
 ]
 
 { #category : #accessing }

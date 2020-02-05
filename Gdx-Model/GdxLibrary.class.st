@@ -28,12 +28,25 @@ GdxLibrary >> name: aString [
 	name := aString.
 ]
 
+{ #category : #accessing }
+GdxLibrary >> parent [ 
+	^ nil
+]
+
 { #category : #printing }
 GdxLibrary >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPut: $(.
 	aStream nextPutAll: self name.
 	aStream nextPut: $).
+]
+
+{ #category : #'structure control' }
+GdxLibrary >> structureNamed: aStructureName [
+	^ self structures
+		detect: [ :each | each name sameAs: aStructureName ]
+		ifFound: [ :each | each ]
+		ifNone: [ nil ]
 ]
 
 { #category : #accessing }
@@ -43,5 +56,6 @@ GdxLibrary >> structures [
 
 { #category : #accessing }
 GdxLibrary >> structures: aCollection [ 
-	structures := aCollection
+	structures := aCollection asArray.
+	structures do: [ :each | each library: self ]
 ]
