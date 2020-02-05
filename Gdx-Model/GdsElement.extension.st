@@ -13,7 +13,8 @@ GdsElement >> asGdxObject [
 
 { #category : #'*Gdx-Model' }
 GdsElement >> copyToGdxObject: aGdxElement [
-	aGdxElement vertices: self vertices
+	aGdxElement vertices: self vertices.
+	aGdxElement keyNumber: self keyNumber.
 ]
 
 { #category : #'*Gdx-Model' }

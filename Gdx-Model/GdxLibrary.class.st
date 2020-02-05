@@ -1,6 +1,6 @@
 Class {
 	#name : #GdxLibrary,
-	#superclass : #Object,
+	#superclass : #GdxNode,
 	#instVars : [
 		'name',
 		'structures'
@@ -11,6 +11,11 @@ Class {
 { #category : #visiting }
 GdxLibrary >> accept: aGdxVisitor [ 
 	aGdxVisitor visitLibrary: self
+]
+
+{ #category : #accessing }
+GdxLibrary >> children [
+	^ self structures
 ]
 
 { #category : #accessing }

@@ -54,6 +54,12 @@ GdsStructureReference >> children [
 	^ self refStructure children
 ]
 
+{ #category : #copying }
+GdsStructureReference >> copyToGdxObject: aGdxElement [
+	super copyToGdxObject: aGdxElement.
+	aGdxElement referenceName: self structureName.
+]
+
 { #category : #testing }
 GdsStructureReference >> explodable [
 	^ true
