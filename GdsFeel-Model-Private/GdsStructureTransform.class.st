@@ -134,15 +134,27 @@ GdsStructureTransform >> offset: aPoint [
 
 { #category : #printing }
 GdsStructureTransform >> printOn: aStream [
-	super printOn: aStream.
+	aStream nextPutAll: 'STRANS'.
 	aStream nextPut: $(.
+	aStream nextPut: $[.
+	self offset x printOn: aStream.
+	aStream nextPut: $,.
+	self offset y printOn: aStream.
+	aStream nextPut: $].	
 	(self mag closeTo: 1.0)
-		ifFalse: [ aStream print: self mag ].
+		ifFalse: [
+			aStream ensureEndsWith: $,. 
+			aStream nextPutAll: 'M:'. 
+			aStream print: self mag ].
 	(self angle closeTo: 0.0)
-		ifFalse: [ aStream print: self angle.
-			aStream nextPut: $, ].
+		ifFalse: [ 
+			aStream ensureEndsWith: $,. 
+			aStream nextPutAll: 'A:'. 
+			aStream print: self angle ].
 	self isReflected
-		ifTrue: [ aStream nextPutAll: 'REFL' ].
+		ifTrue: [
+			aStream ensureEndsWith: $,. 
+			 aStream nextPutAll: 'REFL' ].
 	aStream nextPut: $)
 ]
 

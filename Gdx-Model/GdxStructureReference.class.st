@@ -3,7 +3,8 @@ Class {
 	#superclass : #GdxReferenceElement,
 	#instVars : [
 		'referenceName',
-		'referencedStructure'
+		'referencedStructure',
+		'structureTransform'
 	],
 	#category : #'Gdx-Model'
 }
@@ -37,6 +38,16 @@ GdxStructureReference >> referencedStructure [
 		ifNil: [ 
 			referencedStructure := self structure library
 				structureNamed: self referenceName ]
+]
+
+{ #category : #accessing }
+GdxStructureReference >> structureTransform [
+	^ structureTransform
+]
+
+{ #category : #accessing }
+GdxStructureReference >> structureTransform: aGdsStructureTransform [
+	structureTransform := aGdsStructureTransform copy
 ]
 
 { #category : #accessing }
