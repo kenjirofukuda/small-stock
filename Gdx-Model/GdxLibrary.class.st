@@ -8,6 +8,23 @@ Class {
 	#category : #'Gdx-Model'
 }
 
+{ #category : #'development support' }
+GdxLibrary class >> sampleClassicLibrary [
+	"self sampleLibrary inspect."
+	^ #GdsLibrary asClass fromFile: self sampleClassicLibraryPath asFileReference
+]
+
+{ #category : #'development support' }
+GdxLibrary class >> sampleClassicLibraryPath [
+	"self inform: self sampleLibraryPath"
+	^ './sampleLibraryPath.txt' asFileReference readStream contents
+]
+
+{ #category : #'development support' }
+GdxLibrary class >> sampleLibrary [ 
+	^ self sampleClassicLibrary asGdxObject
+]
+
 { #category : #visiting }
 GdxLibrary >> accept: aGdxVisitor [ 
 	aGdxVisitor visitLibrary: self

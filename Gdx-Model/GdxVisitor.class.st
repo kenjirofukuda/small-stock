@@ -10,6 +10,11 @@ Class {
 	#category : #'Gdx-Model'
 }
 
+{ #category : #'as yet unclassified' }
+GdxVisitor class >> exampleVisitor [
+	^ self sampleVisitor inspect.
+]
+
 { #category : #'instance creation' }
 GdxVisitor class >> on: aGdxLibrary [
 	^ self on: aGdxLibrary deepIntoReference: false
@@ -22,6 +27,12 @@ GdxVisitor class >> on: aGdxLibrary deepIntoReference: aBoolean [
 	visitor deepIntoReference: aBoolean.
 	aGdxLibrary accept: visitor.
 	^ visitor
+]
+
+{ #category : #'as yet unclassified' }
+GdxVisitor class >> sampleVisitor [
+	"self exampleVisitor inspect."
+	^ self on: GdxLibrary sampleLibrary.
 ]
 
 { #category : #accessing }
