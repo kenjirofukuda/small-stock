@@ -70,7 +70,7 @@ GdxStructure >> parent [
 
 { #category : #printing }
 GdxStructure >> printOn: aStream [
-	super printOn: aStream.
+	aStream nextPutAll: 'STRUCT'.
 	aStream nextPut: $(.
 	aStream nextPutAll: self name.
 	aStream nextPut: $).

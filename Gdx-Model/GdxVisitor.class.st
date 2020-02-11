@@ -2,15 +2,13 @@ Class {
 	#name : #GdxVisitor,
 	#superclass : #GdxObject,
 	#instVars : [
-		'depth',
-		'debugStream',
 		'deepIntoReference',
-		'nameBag'
+		'depth'
 	],
 	#category : #'Gdx-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 GdxVisitor class >> exampleVisitor [
 	^ self sampleVisitor inspect.
 ]
@@ -29,15 +27,25 @@ GdxVisitor class >> on: aGdxLibrary deepIntoReference: aBoolean [
 	^ visitor
 ]
 
+{ #category : #examples }
+GdxVisitor class >> sampleEntry [
+	^ self subclassResponsibility
+]
+
+{ #category : #examples }
+GdxVisitor class >> sampleLibrary [
+	^ GdxLibrary sampleLibrary
+]
+
+{ #category : #'as yet unclassified' }
+GdxVisitor class >> sampleStructure [
+	^ self sampleLibrary structureNamed: 'BANDGAP'
+]
+
 { #category : #'as yet unclassified' }
 GdxVisitor class >> sampleVisitor [
 	"self exampleVisitor inspect."
-	^ self on: GdxLibrary sampleLibrary.
-]
-
-{ #category : #accessing }
-GdxVisitor >> contents [
-	^ debugStream contents
+	^ self on: self sampleEntry deepIntoReference: true.
 ]
 
 { #category : #accessing }
@@ -54,13 +62,7 @@ GdxVisitor >> deepIntoReference: aBoolean [
 GdxVisitor >> initialize [
 	super initialize.
 	depth := 0.
-	debugStream := WriteStream on: WideString new.
-	nameBag := Bag new.
-]
-
-{ #category : #visiting }
-GdxVisitor >> insertIndent [
-	depth * 2 timesRepeat: [ debugStream nextPut: Character space ]
+	deepIntoReference := false
 ]
 
 { #category : #visiting }
@@ -72,7 +74,6 @@ GdxVisitor >> pushDepthDuring: aBlock [
 
 { #category : #visiting }
 GdxVisitor >> visitAref: aGdxArrayedStructureReference [
-	self visitSref: aGdxArrayedStructureReference.
 ]
 
 { #category : #visiting }
@@ -86,25 +87,7 @@ GdxVisitor >> visitBoxText: aGdxBoxText [
 ]
 
 { #category : #visiting }
-GdxVisitor >> visitContainer: aGdxObject [
-	self insertIndent.
-	aGdxObject printOn: debugStream.
-	debugStream ensureCr.
-	self
-		pushDepthDuring: [ aGdxObject children do: [ :each | each accept: self ] ]
-]
-
-{ #category : #visiting }
 GdxVisitor >> visitElement: aGdxElement [
-	self insertIndent.
-	aGdxElement printOn: debugStream.
-	debugStream ensureCr.
-]
-
-{ #category : #visiting }
-GdxVisitor >> visitLibrary: aGdxLibrary [
-	self visitContainer: aGdxLibrary
-		
 ]
 
 { #category : #visiting }
@@ -114,14 +97,4 @@ GdxVisitor >> visitPath: aGdxPath [
 
 { #category : #visiting }
 GdxVisitor >> visitSref: aGdxStructureReference [
-	self visitElement: aGdxStructureReference.
-	nameBag add: aGdxStructureReference referenceName.
-	self deepIntoReference
-		ifTrue: [ aGdxStructureReference referencedStructure accept: self ]
-]
-
-{ #category : #visiting }
-GdxVisitor >> visitStructure: aGdxStructure [
-	self visitContainer: aGdxStructure
-
 ]

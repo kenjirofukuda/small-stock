@@ -52,7 +52,7 @@ GdxLibrary >> parent [
 
 { #category : #printing }
 GdxLibrary >> printOn: aStream [
-	super printOn: aStream.
+	aStream nextPutAll: 'LIB'.
 	aStream nextPut: $(.
 	aStream nextPutAll: self name.
 	aStream nextPut: $).

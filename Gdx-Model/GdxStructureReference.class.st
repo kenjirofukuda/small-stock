@@ -14,6 +14,11 @@ GdxStructureReference >> accept: aGdxVisitor [
 	aGdxVisitor visitSref: self
 ]
 
+{ #category : #accessing }
+GdxStructureReference >> athensTransform [
+	^ self structureTransform asMatrix2x3 asAthensAT
+]
+
 { #category : #printing }
 GdxStructureReference >> printSelfOn: aStream [
 	referenceName

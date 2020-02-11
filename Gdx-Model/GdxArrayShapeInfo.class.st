@@ -5,7 +5,9 @@ Class {
 		'columnCount',
 		'rowCount',
 		'xStep',
-		'yStep'
+		'yStep',
+		'transforms',
+		'offsets'
 	],
 	#category : #'Gdx-Model'
 }
@@ -18,6 +20,24 @@ GdxArrayShapeInfo >> columnCount [
 { #category : #accessing }
 GdxArrayShapeInfo >> columnCount: anObject [
 	columnCount := anObject
+]
+
+{ #category : #'as yet unclassified' }
+GdxArrayShapeInfo >> lookupOffsets [
+	^ Array streamContents: [ :s |
+		0 to: self columnCount - 1  do: [:xIndex |
+			0 to: self rowCount - 1 do: [:yIndex |
+				s nextPut: (xIndex * self xStep) @ (yIndex * self yStep) ] ] ]
+]
+
+{ #category : #'as yet unclassified' }
+GdxArrayShapeInfo >> lookupTransforms [
+	^ self offsets collect: [ :offset | MatrixTransform2x3 withOffset: offset ]
+]
+
+{ #category : #'as yet unclassified' }
+GdxArrayShapeInfo >> offsets [
+	^ offsets ifNil: [offsets := self lookupOffsets].
 ]
 
 { #category : #printing }
@@ -45,6 +65,12 @@ GdxArrayShapeInfo >> printOn: aStream [
 			aStream nextPutAll: 'YS:'.
 			yStep printOn: aStream. ].
 	aStream nextPut: $).	
+]
+
+{ #category : #'as yet unclassified' }
+GdxArrayShapeInfo >> relativeTransforms [
+	transforms ifNil: [ transforms := self lookupTransforms ].
+	^ transforms
 ]
 
 { #category : #accessing }

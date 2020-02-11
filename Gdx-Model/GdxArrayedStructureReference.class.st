@@ -22,6 +22,13 @@ GdxArrayedStructureReference >> arrayShapeInfo: aGdxArrayShapeInfo [
 	arrayShapeInfo := aGdxArrayShapeInfo
 ]
 
+{ #category : #accessing }
+GdxArrayedStructureReference >> athensTransforms [
+	^ self arrayShapeInfo relativeTransforms
+		collect:
+			[ :mat2x3 | self athensTransform copy multiplyBy: mat2x3 asAthensAT ]
+]
+
 { #category : #initialization }
 GdxArrayedStructureReference >> initialize [ 
 	super initialize.
