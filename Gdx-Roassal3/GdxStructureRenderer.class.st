@@ -18,31 +18,52 @@ GdxStructureRenderer class >> example [
 { #category : #'as yet unclassified' }
 GdxStructureRenderer class >> exampleNestedCompost [
 	"self exampleNestedCompost inspect"
+
 	<script: 'self  exampleNestedCompost open'>
-	| canvas cmp cmp2 line |
+	| canvas cmp cmp2 cmp3 line |
 	canvas := RSCanvas new.
+	cmp3 :=  RSComposite new.
 	cmp := RSComposite new.
+	cmp withBorder.
 	line := RSLine new.
 	line withBorder.
 	"line border width: 0.1."
 	line startPoint: 0 @ 0.
-	line endPoint: 1 @ 1.
+	line endPoint: 10 @ 10.
 	cmp add: line.
 	"	c add: cmp."
-		cmp2 := cmp copy.
-		cmp2 matrix rotateByDegrees: 90.
+	cmp2 := cmp copy.
+	cmp2 matrix rotateByDegrees: 90.
+	cmp2 matrix scaleBy:  0.5.
 	canvas add: cmp.
 	canvas add: cmp2.
-	cmp updateBaseRectangle.
-	cmp2 updateBaseRectangle.
-	"line @ RSKeepMarkersSizeRatio."
+	cmp3 add: cmp copy.
+	cmp3 add: cmp2 copy.
+	cmp3 matrix rotateByDegrees: 180.
+	cmp3 matrix scaleBy:  0.5.
+	canvas add: cmp3.
+"	cmp3 updateBaseRectangle."
+	line
+		when: RSMouseEnter
+		do: [ :evt | 
+			evt shape border
+				color: Color blue.
+				evt shape signalUpdate ].
+	line
+		when: RSMouseLeave
+		do: [ :evt | 
+			evt shape border
+				color: Color black.
+				evt shape signalUpdate ].
+	cmp3 updateBaseRectangle.
+	line @ RSKeepMarkersSizeRatio.
 	"canvas shapes do: [:shape | shape  @ RSKeepBorderWidthRatio ]."
 	canvas newAnimation
 		repeat;
 		duration: 5 seconds;
-		onStepDo:
-				[ :t | canvas shapes do: [ :shape | self setCosmetic: shape ] ].
+		onStepDo: [ :t | canvas shapes do: [ :shape | self setCosmetic: shape ] ].
 	canvas when: RSExtentChangedEvent do: [ canvas zoomToFit ].
+	canvas @ RSCanvasController.
 	^ canvas
 ]
 
@@ -59,13 +80,19 @@ GdxStructureRenderer class >> sampleVisitor [
 
 { #category : #utilities }
 GdxStructureRenderer class >> setCosmetic: aRSShape [
+	self setCosmetic: aRSShape subScale: 1.0.
+]
+
+{ #category : #utilities }
+GdxStructureRenderer class >> setCosmetic: aRSShape subScale: aSubScale [
 	(aRSShape isKindOf: RSComposite)
-		ifTrue: [ ^ aRSShape children do: [ :each | self setCosmetic: each ] ].
+		ifTrue: [ ^ aRSShape children do: [ :each | self setCosmetic: each subScale: aRSShape matrix shx abs ] ].
 	aRSShape canvas
-		ifNotNil: [ | scale |
+		ifNotNil: [ | scale  |
 			scale := aRSShape canvas camera scale.
 			aRSShape border ifNil: [ aRSShape withBorder ].
-			aRSShape border width: 1.0 / scale ]
+			
+			aRSShape border width: 1.0 / scale "/ aSubScale" ]
 ]
 
 { #category : #accessing }
@@ -93,7 +120,9 @@ GdxStructureRenderer >> pushTransform: anAthensAffineTransform during: aBlock [
 	transforms add: anAthensAffineTransform copy.
 	currentTransform := AthensAffineTransform new.
 	transforms do: [ :t | currentTransform multiplyBy: t ].
-	[ aBlock value: currentTransform ]
+	[ 
+	
+	aBlock value: currentTransform ]
 		ensure: [ transforms := transforms allButLast ]
 ]
 
@@ -119,7 +148,7 @@ GdxStructureRenderer >> visitElement: aGdxElement [
 		withBorder;
 		model: aGdxElement;
 		yourself.
-	shape border color: Color blue.
+	"shape border color: Color blue."
 	self composit add: shape.
 
 ]
@@ -149,8 +178,8 @@ GdxStructureRenderer >> visitStructure: aGdxStructure [
 			c model: aGdxStructure.
 			composits add: c.
 			aGdxStructure elements do: [ :each | each accept: self ].
-			self composit updateBaseRectangle.
 			canvas add: self composit.
+			self composit updateBaseRectangle.
 			composits := composits allButLast ].
 	depth = 0
 		ifTrue: [ 
