@@ -55,7 +55,7 @@ GdsRedererRoassal3 >> lookupShapeOfStructureNamed: aStructureName [
 	composite := self compositeClass new.
 	(struct children)
 		do: [ :each | composite add: (each accept: self) ].
-	composite updateBaseRectangle.
+	composite updateBaseRectangle: struct dataExtentForElements.
 	^ composite
 ]
 

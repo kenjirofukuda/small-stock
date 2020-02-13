@@ -11,3 +11,9 @@ RSComposite >> updateBaseRectangle [
 		do: [ :each2 | each2 updateBaseRectangle ].
 
 ]
+
+{ #category : #'*Gdx-Roassal3' }
+RSComposite >> updateBaseRectangle: aRectangle [
+	baseRectangle := aRectangle
+
+]
