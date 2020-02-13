@@ -25,6 +25,11 @@ GdsBoundary class >> type [
 	^#boundary
 ]
 
+{ #category : #visiting }
+GdsBoundary >> accept: aVisitor [
+	^ aVisitor visitBoundary: self
+]
+
 { #category : #testing }
 GdsBoundary >> isVisible [
 	^super isVisible and: [(self structure kinds atKey: 'BD') isVisible ].

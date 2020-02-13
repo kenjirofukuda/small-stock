@@ -259,6 +259,11 @@ GdsElement >> absoluteAngle: aTheta [
 
 ]
 
+{ #category : #visiting }
+GdsElement >> accept: aVisitor [
+	^ aVisitor visitElement: self
+]
+
 { #category : #analisys }
 GdsElement >> analisys: aPoint [ 
 	| result |

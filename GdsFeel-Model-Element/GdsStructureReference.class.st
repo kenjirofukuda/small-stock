@@ -24,6 +24,11 @@ GdsStructureReference class >> type [
 	^#sref
 ]
 
+{ #category : #visiting }
+GdsStructureReference >> accept: aVisitor [
+	^ aVisitor visitSref: self
+]
+
 { #category : #'objects from disk' }
 GdsStructureReference >> attributesFrom: aDictionary [
 	super attributesFrom: aDictionary.

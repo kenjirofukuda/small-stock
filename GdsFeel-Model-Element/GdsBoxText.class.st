@@ -21,6 +21,11 @@ GdsBoxText class >> type [
 	^#boxtext
 ]
 
+{ #category : #visiting }
+GdsBoxText >> accept: aVisitor [
+	^ aVisitor visitBoxText: self
+]
+
 { #category : #accessing }
 GdsBoxText >> angle [
 	^ angle

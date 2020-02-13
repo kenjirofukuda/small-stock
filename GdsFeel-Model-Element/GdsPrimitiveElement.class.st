@@ -29,6 +29,11 @@ GdsPrimitiveElement class >> hasLayer [
 	^true.
 ]
 
+{ #category : #visiting }
+GdsPrimitiveElement >> accept: aVisitor [
+	^ aVisitor visitPrimitiveElement: self
+]
+
 { #category : #'objects from disk' }
 GdsPrimitiveElement >> attributesFrom: aDictionary [
 	self datatype: (aDictionary at: 'datatype' ifAbsent: [ self missingDataTypeNumber ]) asNumber.

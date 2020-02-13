@@ -18,6 +18,11 @@ GdsArrayedStructureReference class >> type [
 	^#aref.
 ]
 
+{ #category : #visiting }
+GdsArrayedStructureReference >> accept: aVisitor [
+	^ aVisitor visitAref: self
+]
+
 { #category : #private }
 GdsArrayedStructureReference >> baseLocalBounds [
 	^super lookupLocalBounds.

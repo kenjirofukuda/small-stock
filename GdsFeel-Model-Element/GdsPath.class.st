@@ -50,6 +50,11 @@ GdsPath class >> type [
 	^#path
 ]
 
+{ #category : #visiting }
+GdsPath >> accept: aVisitor [
+	^ aVisitor visitPath: self
+]
+
 { #category : #'objects from disk' }
 GdsPath >> attributesFrom: aDictionary [
 	self width: (aDictionary at: 'width' ifAbsent: [ self missingWidthNumber ]) asNumber.

@@ -69,7 +69,7 @@ GdxStructureRenderer class >> exampleNestedCompost [
 
 { #category : #examples }
 GdxStructureRenderer class >> sampleEntry [
-	^ self sampleLibrary structureNamed: 'BANDGAP'
+	^ self sampleLibrary structureNamed: '2PC'
 ]
 
 { #category : #examples }

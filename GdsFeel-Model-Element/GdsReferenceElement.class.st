@@ -24,6 +24,11 @@ GdsReferenceElement class >> isReference [
 	^true
 ]
 
+{ #category : #visiting }
+GdsReferenceElement >> accept: aVisitor [
+	^ aVisitor visitReferenceElement: self
+]
+
 { #category : #accessing }
 GdsReferenceElement >> angle [
 	^strans angle

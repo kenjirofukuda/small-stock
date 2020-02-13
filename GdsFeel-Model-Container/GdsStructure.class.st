@@ -169,6 +169,11 @@ GdsStructure class >> safeNoElementDataExtent [
 	^(-100 @ -100) corner: (100 @ 100)
 ]
 
+{ #category : #visiting }
+GdsStructure >> accept: aVisitor [
+	^ aVisitor visitStructure: self
+]
+
 { #category : #accessing }
 GdsStructure >> addElement: aGdsElement [
 	self addElement: aGdsElement keyNumberFill: aGdsElement keyNumberFilled not.
