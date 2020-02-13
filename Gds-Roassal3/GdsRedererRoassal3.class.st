@@ -62,7 +62,7 @@ GdsRedererRoassal3 >> lookupShapeOfStructureNamed: aStructureName [
 { #category : #initialization }
 GdsRedererRoassal3 >> render [
 	| shape prevScale |
-	canvas := RSCanvas new.
+	canvas := HgRSCanvas new.
 	canvas color: self backgroundColor.
 	shape := self renderTarget accept: self.
 	shape matrix: (AthensAffineTransform new scaleX: 1.0 Y: -1.0).
@@ -129,7 +129,7 @@ GdsRedererRoassal3 >> visitAref: aGdsArrayedStructureReference [
 				visitStructure: aGdsArrayedStructureReference refStructure
 				transform: each.
 			composite add: base ].
-	composite updateBaseRectangle.
+	composite updateBaseRectangle: aGdsArrayedStructureReference dataBounds.
 	^ composite
 ]
 
@@ -188,8 +188,6 @@ GdsRedererRoassal3 >> visitStructure: aGdsStructure transform: aTransform [
 	| composite |
 	composite := (self shapeOfStructureNamed: aGdsStructure name) copy.
 	aTransform ifNotNil: [ composite matrix: aTransform asAthensAT ].
-	"(aGdsStructure children select: [ :each | each isReference ])
-		do: [ :each | composite add: (each accept: self) ]."
 	composite updateBaseRectangle.
 	^ composite
 ]
