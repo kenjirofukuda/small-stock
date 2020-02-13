@@ -76,8 +76,10 @@ GdsRedererRoassal3 >> render [
 		duration: 1 seconds;
 		onStepDo: [ :t | 
 			(prevScale closeTo: canvas camera scale)
-				ifFalse: [ canvas clipedShapes do: [ :each | self setCosmetic: each ].
-					prevScale := canvas camera scale ] ].
+				ifFalse: [ 
+					canvas clipedShapes do: [ :each | self setCosmetic: each ].
+					prevScale := canvas camera scale .
+					canvas signalUpdate] ].
 	^ canvas
 ]
 

@@ -642,6 +642,8 @@ GdsStructureEditorMorph >> initialize [
 	self initializeLayers.
 	self clearMarker.
 	self borderWidth: 0.
+	self announcer when: MorphLostFocus do: [ self leaveArea: nil ].
+	self announcer when: MorphGotFocus do: [ self enterArea: nil ]
 ]
 
 { #category : #initialization }
