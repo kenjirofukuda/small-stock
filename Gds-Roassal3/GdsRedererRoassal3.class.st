@@ -75,9 +75,9 @@ GdsRedererRoassal3 >> render [
 		repeat;
 		duration: 1 seconds;
 		onStepDo: [ :t | 
-			prevScale ~= canvas camera scale
-				ifFalse: [ canvas shapes do: [ :each | self setCosmetic: each ] ].
-			prevScale := canvas camera scale ].
+			(prevScale closeTo: canvas camera scale)
+				ifFalse: [ canvas clipedShapes do: [ :each | self setCosmetic: each ].
+					prevScale := canvas camera scale ] ].
 	^ canvas
 ]
 
@@ -122,6 +122,7 @@ GdsRedererRoassal3 >> structure [
 GdsRedererRoassal3 >> visitAref: aGdsArrayedStructureReference [
 	| composite |
 	composite := self compositeClass new.
+	composite model: aGdsArrayedStructureReference.
 	aGdsArrayedStructureReference repeatTransforms
 		do: [ :each | 
 			| base |
@@ -175,7 +176,10 @@ GdsRedererRoassal3 >> visitPrimitiveElement: aGdsPrimitiveElement [
 
 { #category : #visiting }
 GdsRedererRoassal3 >> visitSref: aGdsStructureReference [
-	^ self visitStructure: aGdsStructureReference refStructure  transform: aGdsStructureReference transform
+	| composite |
+	composite := self visitStructure: aGdsStructureReference refStructure  transform: aGdsStructureReference transform.
+	composite model: aGdsStructureReference.
+	^ composite
 ]
 
 { #category : #visiting }
