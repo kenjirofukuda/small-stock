@@ -5,7 +5,8 @@ Class {
 		'booleanMap',
 		'numberMap',
 		'pointMap',
-		'stringMap'
+		'stringMap',
+		'colorMap'
 	],
 	#category : #'GdsFeel-Foundation-Core'
 }
@@ -25,6 +26,26 @@ TypedConfigulation >> booleanFor: aSymbol default: aValue [
 TypedConfigulation >> booleanFor: aSymbol value: aBoolean [
 	booleanMap ifNil: [booleanMap := Dictionary new].
 	booleanMap at: aSymbol put: aBoolean.
+]
+
+{ #category : #'as yet unclassified' }
+TypedConfigulation >> colorFor: aSymbol [ 
+	^ self colorFor: aSymbol default: Color black.
+]
+
+{ #category : #'as yet unclassified' }
+TypedConfigulation >> colorFor: aSymbol default: aValue [
+	| aVal |
+	colorMap ifNil: [ colorMap := Dictionary new ].
+	aVal := colorMap at: aSymbol ifAbsentPut: [ aValue ].
+	^ aVal ifNil: [ Color black ] ifNotNil: [ aVal ]
+]
+
+{ #category : #'as yet unclassified' }
+TypedConfigulation >> colorFor: aSymbol value: aColor [
+	self assert: (aColor isMemberOf: Color).
+	colorMap ifNil: [colorMap := Dictionary new].
+	colorMap at: aSymbol put: aColor.
 ]
 
 { #category : #'as yet unclassified' }

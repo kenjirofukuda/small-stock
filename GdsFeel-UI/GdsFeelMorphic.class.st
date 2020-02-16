@@ -14,6 +14,16 @@ Class {
 	#category : #'GdsFeel-UI-Morph'
 }
 
+{ #category : #'debug-flags' }
+GdsFeelMorphic class >> backgroundColor [
+	^ self typedMap colorFor: #backgroundColor.
+]
+
+{ #category : #'debug-flags' }
+GdsFeelMorphic class >> backgroundColor: aColor [
+	self typedMap colorFor: #backgroundColor value: aColor.
+]
+
 { #category : #accessing }
 GdsFeelMorphic class >> borderedSensorDisplay [ 
 	^self typedMap booleanFor: #borderedSensorDisplay default: false.
@@ -553,25 +563,27 @@ GdsFeelMorphic class >> requestLibraryName [
 ]
 
 { #category : #settings }
-GdsFeelMorphic class >> settingsOn: aBuilder [ 
+GdsFeelMorphic class >> settingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder group: #GdsFeelUI)
 		label: 'UI';
 		parent: #GdsFeel;
-		with: [
-			(aBuilder setting: #goodiesEnabled)
-				target: self; 
+		with: [ (aBuilder setting: #goodiesEnabled)
+				target: self;
 				label: 'Show developer Tools';
-		 		description: 'optional tools enabled'.
+				description: 'optional tools enabled'.
 			(aBuilder setting: #debugFindElement)
-				target: self; 
+				target: self;
 				label: 'Explore Find Infomation in GET''s ';
-		 		description: 'explore find element information by GET command'.
+				description: 'explore find element information by GET command'.
 			(aBuilder setting: #useCustomCursor)
-				target: self; 
+				target: self;
 				label: 'Use custom cursor';
-		 		description: 'Use custom cursor'.
-				]
+				description: 'Use custom cursor'.
+			(aBuilder setting: #backgroundColor)
+				target: self;
+				default: Color black;
+				label: 'Background Color' ]
 ]
 
 { #category : #accessing }

@@ -65,7 +65,7 @@ GdsStructureViewMorph >> autoFitOnResize: aBoolean [
 
 { #category : #accessing }
 GdsStructureViewMorph >> backgroundColor [
-	^ self color
+	^ GdsFeelMorphic backgroundColor
 ]
 
 { #category : #accessing }
@@ -208,7 +208,7 @@ GdsStructureViewMorph >> drawOffOn: aCanvas [
 				FormCanvas 
 					extent: (self pixelBounds extent) 
 					depth: (self defaultOffCanvasDepth ). 
-			offCanvas fillColor: self color.
+			offCanvas fillColor: self backgroundColor.
 			self drawLocalIgnoreItemOn: offCanvas].
 	offCanvas 
 		ifNotNil: [

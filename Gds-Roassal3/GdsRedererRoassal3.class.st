@@ -25,7 +25,7 @@ GdsRedererRoassal3 class >> forStructure: aGdsStructure [
 { #category : #appearance }
 GdsRedererRoassal3 >> backgroundColor [
 	<override: 'TStructureDrawable'>
-	^ Color black
+	^ GdsFeelMorphic backgroundColor
 ]
 
 { #category : #visiting }
