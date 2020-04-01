@@ -147,7 +147,8 @@ GdsStreamFormatReader class >> typeForCode: aByte [
 
 { #category : #api }
 GdsStreamFormatReader >> allRecords [
-	^ Array streamContents: [ :s | self allRecordsDo: [ :each | s nextPut: each ] ]
+	^ Array
+		streamContents: [ :s | self allRecordsDo: [ :each | s nextPut: each ] ]
 ]
 
 { #category : #enumerating }
@@ -155,11 +156,8 @@ GdsStreamFormatReader >> allRecordsDo: aBlock [
 	| record |
 	self reset.
 	record := nil.
-	[record := self nextRecord.
-	record isNil]
-		whileFalse: [			
-			aBlock value: record].
-	
+	[ record := self nextRecord.
+	record isNil ] whileFalse: [ aBlock value: record ]
 ]
 
 { #category : #api }
@@ -189,15 +187,16 @@ GdsStreamFormatReader >> nextRecord [
 { #category : #api }
 GdsStreamFormatReader >> recordSize [
 	| buff |
-	stream atEnd ifTrue: [^-1].
+	stream atEnd
+		ifTrue: [ ^ -1 ].
 	buff := (stream next: 2) asByteArray.
-	^buff  unsignedShortAt: 1 bigEndian: true.
+	^ buff unsignedShortAt: 1 bigEndian: true
 ]
 
 { #category : #accessing }
 GdsStreamFormatReader >> reset [
 	stream reset.
-	self assert: [stream position = 0].
+	self assert: [ stream position = 0 ]
 ]
 
 { #category : #accessing }
@@ -208,10 +207,10 @@ GdsStreamFormatReader >> stream: aStream [
 
 { #category : #api }
 GdsStreamFormatReader >> unreadRecord: aGdsStreamRecord [
-	self unreadSize: (aGdsStreamRecord countBytes + 2).
+	self unreadSize: aGdsStreamRecord countBytes + 2
 ]
 
 { #category : #api }
 GdsStreamFormatReader >> unreadSize: aInteger [
-	stream skip: aInteger negated.
+	stream skip: aInteger negated
 ]

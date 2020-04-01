@@ -76,30 +76,26 @@ GdsLoopContext class >> spec [
 
 { #category : #'as yet unclassified' }
 GdsLoopContext >> break [
-	^break
-	
+	^ break
 ]
 
 { #category : #'as yet unclassified' }
 GdsLoopContext >> break: aBoolean [
 	break := aBoolean
-	
 ]
 
 { #category : #'as yet unclassified' }
 GdsLoopContext >> initialize [
 	super initialize.
-	break := false.
+	break := false
 ]
 
 { #category : #'as yet unclassified' }
 GdsLoopContext >> result [
-	^result
-	
+	^ result
 ]
 
 { #category : #'as yet unclassified' }
 GdsLoopContext >> result: anObject [
 	result := anObject
-	
 ]

@@ -13,8 +13,9 @@ Class {
 
 { #category : #'as yet unclassified' }
 GdsStreamLoopContext >> addOptional: aSymbol [
-	typeOrder add: {#optional . aSymbol}.
-	self using: aSymbol.
+	typeOrder
+		add: {#optional . aSymbol}.
+	self using: aSymbol
 ]
 
 { #category : #'as yet unclassified' }
@@ -30,20 +31,22 @@ GdsStreamLoopContext >> checkPreRequiredConsumed: aSymbol [
 
 { #category : #'as yet unclassified' }
 GdsStreamLoopContext >> checkPreRequiredConsumed: aSymbol abort: abort [
-	|  preRequiredKeys |
+	| preRequiredKeys |
 	preRequiredKeys := self preRequiredKeysFor: aSymbol.
-	preRequiredKeys do: [:each | 
-		(self hasEntry: each)
-			ifFalse: [|msg|
-				msg := (inform missingField: aSymbol ofElement: element).
-				inform stderr: msg.
-				abort ifTrue: [inform error: msg]]]
+	preRequiredKeys
+		do: [ :each | 
+			(self hasEntry: each)
+				ifFalse: [ | msg |
+					msg := inform missingField: aSymbol ofElement: element.
+					inform stderr: msg.
+					abort
+						ifTrue: [ inform error: msg ] ] ]
 ]
 
 { #category : #'as yet unclassified' }
 GdsStreamLoopContext >> countOf: aSymbol [
 	self using: aSymbol.
-	^countMap at: aSymbol
+	^ countMap at: aSymbol
 ]
 
 { #category : #accessing }
@@ -53,7 +56,7 @@ GdsStreamLoopContext >> element: aGdsElement [
 
 { #category : #testing }
 GdsStreamLoopContext >> hasEntry: aSymbol [
-	^(self countOf: aSymbol) >= 1.
+	^ (self countOf: aSymbol) >= 1
 ]
 
 { #category : #initialization }
@@ -65,11 +68,12 @@ GdsStreamLoopContext >> initialize [
 
 { #category : #'as yet unclassified' }
 GdsStreamLoopContext >> preRequiredKeysFor: aSymbol [
-	| keys orderStream  |
+	| keys orderStream |
 	keys := self requiredOrder.
-	(keys includes: aSymbol) ifFalse: [^#()].
+	(keys includes: aSymbol)
+		ifFalse: [ ^ #() ].
 	orderStream := keys readStream.
-	^(orderStream upTo: aSymbol) allButLast.
+	^ (orderStream upTo: aSymbol) allButLast
 ]
 
 { #category : #'as yet unclassified' }
@@ -82,7 +86,9 @@ GdsStreamLoopContext >> requiredConsumed: aSymbol [
 
 { #category : #'as yet unclassified' }
 GdsStreamLoopContext >> requiredOrder [
-	^typeOrder select: [:each | each first = #required] thenCollect: [:each | each second].
+	^ typeOrder
+		select: [ :each | each first = #required ]
+		thenCollect: [ :each | each second ]
 ]
 
 { #category : #accessing }
@@ -100,20 +106,17 @@ GdsStreamLoopContext >> setupAREFkeys [
 	MINIMUM CASE:
 	SREF SNAME XY ENDEL
 	"
+
 	self addOptional: #ELFLAGS.
 	self addOptional: #PLEX.
-	
 	self addRequired: #SNAME.
-	
 	self addOptional: #STRANS.
 	self addOptional: #MAG.
 	self addOptional: #ANGLE.
-	
 	self addRequired: #XY.
-	
 	self addOptional: #PROPATTR.
 	self addOptional: #PROPVALUE.
-	self addRequired: #ENDEL.
+	self addRequired: #ENDEL
 ]
 
 { #category : #'key specs' }
@@ -125,18 +128,15 @@ GdsStreamLoopContext >> setupBOUNDARYkeys [
 	MINIMUM CASE:
 	BOUNDARY  LAYER DATATYPE  XY ENDEL
 	"
+
 	self addOptional: #ELFLAGS.
 	self addOptional: #PLEX.
-	
 	self addRequired: #LAYER.
 	self addRequired: #DATATYPE.
-	
 	self addRequired: #XY.
-	
 	self addOptional: #PROPATTR.
 	self addOptional: #PROPVALUE.
-	
-	self addRequired: #ENDEL.
+	self addRequired: #ENDEL
 ]
 
 { #category : #'key specs' }
@@ -149,21 +149,17 @@ GdsStreamLoopContext >> setupPATHkeys [
 	MINIMUM CASE:
 	PATH  LAYER DATATYPE  XY ENDEL
 	"
+
 	self addOptional: #ELFLAGS.
 	self addOptional: #PLEX.
-	
 	self addRequired: #LAYER.
 	self addRequired: #DATATYPE.
-	
 	self addOptional: #PATHTYPE.
 	self addOptional: #WIDTH.
-	
 	self addRequired: #XY.
-	
 	self addOptional: #PROPATTR.
 	self addOptional: #PROPVALUE.
-	
-	self addRequired: #ENDEL.
+	self addRequired: #ENDEL
 ]
 
 { #category : #'key specs' }
@@ -176,20 +172,17 @@ GdsStreamLoopContext >> setupSREFkeys [
 	MINIMUM CASE:
 	SREF SNAME XY ENDEL
 	"
+
 	self addOptional: #ELFLAGS.
 	self addOptional: #PLEX.
-	
 	self addRequired: #SNAME.
-	
 	self addOptional: #STRANS.
 	self addOptional: #MAG.
 	self addOptional: #ANGLE.
-	
 	self addRequired: #XY.
-	
 	self addOptional: #PROPATTR.
 	self addOptional: #PROPVALUE.
-	self addRequired: #ENDEL.
+	self addRequired: #ENDEL
 ]
 
 { #category : #'key specs' }
@@ -203,27 +196,22 @@ GdsStreamLoopContext >> setupTEXTkeys [
 	MINIMUM SPEC:
 	TEXT  LAYER TEXTYPE  XY STRING ENDEL
 	"
+
 	self addOptional: #ELFLAGS.
 	self addOptional: #PLEX.
-	
 	self addRequired: #LAYER.
-	self addRequired: #TEXTTYPE. "NOT #DATATYPE"
-	
+	self addRequired: #TEXTTYPE.	"NOT #DATATYPE"
 	self addOptional: #PRESENTATION.
 	self addOptional: #PATHTYPE.
 	self addOptional: #WIDTH.
-
 	self addOptional: #STRANS.
 	self addOptional: #MAG.
 	self addOptional: #ANGLE.
-	
 	self addRequired: #XY.
 	self addRequired: #STRING.
-	
 	self addOptional: #PROPATTR.
 	self addOptional: #PROPVALUE.
-	
-	self addRequired: #ENDEL.
+	self addRequired: #ENDEL
 ]
 
 { #category : #accessing }
@@ -235,65 +223,62 @@ GdsStreamLoopContext >> structure: aGdsStructure [
 GdsStreamLoopContext >> switchAREF: record [
 	| handled |
 	#AREF = record type
-		ifTrue: [
-			^self upCount: #AREF].
+		ifTrue: [ ^ self upCount: #AREF ].
 	handled := self switchElementBegin: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchSNAME: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchSTRANS: record.
-	handled ifTrue: [^self].	
+	handled
+		ifTrue: [ ^ self ].
 	#COLROW = record type
 		ifTrue: [ | ints |
 			ints := record int2Array.
 			element columnCount: ints first.
 			element rowCount: ints second.
-			^self upCount: #COLROW].		
+			^ self upCount: #COLROW ].
 	handled := self switchElementEnd: record.
-	handled ifTrue: [^self].		
-
+	handled
+		ifTrue: [ ^ self ]
 ]
 
 { #category : #'switch flow' }
 GdsStreamLoopContext >> switchBOUNDARY: record [
 	| handled |
 	#BOUNDARY = record type
-		ifTrue: [
-			^self upCount: #BOUNDARY].
+		ifTrue: [ ^ self upCount: #BOUNDARY ].
 	handled := self switchElementBegin: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchPrimitiveBegin: record.
-	handled ifTrue: [^self].
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchElementEnd: record.
-	handled ifTrue: [^self].
-
+	handled
+		ifTrue: [ ^ self ]
 ]
 
 { #category : #'switch flow common' }
-GdsStreamLoopContext >> switchElementBegin: record [ 
+GdsStreamLoopContext >> switchElementBegin: record [
 	#ELFLAGS = record type
-		ifTrue: ["FIXME"].		
-
+		ifTrue: [ "FIXME" ].
 	#PLEX = record type
-		ifTrue: ["FIXME"].
-		
-	^false
-	
-	
-	
+		ifTrue: [ "FIXME" ].
+	^ false
 ]
 
 { #category : #'switch flow common' }
-GdsStreamLoopContext >> switchElementEnd: record [				
-	^self switchElementEnd: record usingXY: true.
+GdsStreamLoopContext >> switchElementEnd: record [
+	^ self switchElementEnd: record usingXY: true
 ]
 
 { #category : #'switch flow common' }
 GdsStreamLoopContext >> switchElementEnd: record usingXY: usingXY [
 	| handled |
 	(usingXY and: [ #XY = record type ])
-		ifTrue: [ 
-			handled := self switchXY: record.
+		ifTrue: [ handled := self switchXY: record.
 			handled
 				ifTrue: [ ^ true ] ].
 	#PROPATTR = record type
@@ -301,10 +286,11 @@ GdsStreamLoopContext >> switchElementEnd: record usingXY: usingXY [
 	#PROPVALUE = record type
 		ifTrue: [ "FIXME" ].
 	#ENDEL = record type
-		ifTrue: [ 
-			self checkPreRequiredConsumed: record type.
+		ifTrue: [ self checkPreRequiredConsumed: record type.
 			self
-				result: {false . element}.
+				result:
+					{false.
+					element}.
 			self break: true.
 			self upCount: #ENDEL.
 			^ true ].
@@ -315,30 +301,30 @@ GdsStreamLoopContext >> switchElementEnd: record usingXY: usingXY [
 GdsStreamLoopContext >> switchPATH: record [
 	| handled |
 	#PATH = record type
-		ifTrue: [
-			^self upCount: #PATH].
+		ifTrue: [ ^ self upCount: #PATH ].
 	handled := self switchElementBegin: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchPrimitiveBegin: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchWireContext: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchElementEnd: record.
-	handled ifTrue: [^self].
-
+	handled
+		ifTrue: [ ^ self ]
 ]
 
 { #category : #'switch flow common' }
 GdsStreamLoopContext >> switchPrimitiveBegin: record [
 	#LAYER = record type
-		ifTrue: [ 
-			element layerNumber: record int2.
+		ifTrue: [ element layerNumber: record int2.
 			self upCount: #LAYER.
 			^ true ].
 	"TODO: not have DATATYPE elements"
 	#DATATYPE = record type
-		ifTrue: [ 
-			element datatype: record int2.
+		ifTrue: [ element datatype: record int2.
 			self upCount: #DATATYPE.
 			^ true ].
 	^ false
@@ -347,55 +333,56 @@ GdsStreamLoopContext >> switchPrimitiveBegin: record [
 { #category : #'switch flow common' }
 GdsStreamLoopContext >> switchSNAME: record [
 	| structureName |
-	(self hasEntry: #SNAME) ifTrue: [^false].
+	(self hasEntry: #SNAME)
+		ifTrue: [ ^ false ].
 	#SNAME = record type
-		ifFalse: [^inform stderr: (inform missingField:  record type ofElement: element)].
+		ifFalse: [ ^ inform
+				stderr: (inform missingField: record type ofElement: element) ].
 	structureName := record asString.
 	structureName isEmptyOrNil
-		ifTrue: [^inform abort: (inform missingField:  record type ofElement: element)].		
+		ifTrue: [ ^ inform
+				abort: (inform missingField: record type ofElement: element) ].
 	element structureName: record asString.
 	self upCount: #SNAME.
-	^true
-
+	^ true
 ]
 
 { #category : #'switch flow' }
 GdsStreamLoopContext >> switchSREF: record [
 	| handled |
 	#SREF = record type
-		ifTrue: [
-			^self upCount: #SREF].
+		ifTrue: [ ^ self upCount: #SREF ].
 	handled := self switchElementBegin: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchSNAME: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchSTRANS: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchElementEnd: record.
-	handled ifTrue: [^self].		
-
+	handled
+		ifTrue: [ ^ self ]
 ]
 
 { #category : #'switch flow common' }
 GdsStreamLoopContext >> switchSTRANS: record [
 	#STRANS = record type
-		ifTrue: [ 
-			self checkPreRequiredConsumed: record type.
+		ifTrue: [ self checkPreRequiredConsumed: record type.
 			element strans setReflected: record isReflected.
 			element strans setAngleAbsolute: record isAbsAngle.
 			element strans setMagAbsolute: record isAbsMag.
 			self upCount: #STRANS.
 			^ true ].
 	#MAG = record type
-		ifTrue: [ 
-			(self hasEntry: #STRANS)
+		ifTrue: [ (self hasEntry: #STRANS)
 				ifFalse: [ "TODO: MISSING REQUIRED ERROR HANDLE" ].
 			element mag: record real8.
 			self upCount: #MAG.
 			^ true ].
 	#ANGLE = record type
-		ifTrue: [ 
-			(self hasEntry: #STRANS)
+		ifTrue: [ (self hasEntry: #STRANS)
 				ifFalse: [ "TODO: MISSING REQUIRED ERROR HANDLE" ].
 			element angle: record real8.
 			self upCount: #ANGLE.
@@ -407,35 +394,37 @@ GdsStreamLoopContext >> switchSTRANS: record [
 GdsStreamLoopContext >> switchTEXT: record [
 	| handled |
 	#TEXT = record type
-		ifTrue: [
-			^self upCount: #TEX].
+		ifTrue: [ ^ self upCount: #TEX ].
 	handled := self switchPrimitiveBegin: record.
-	handled ifTrue: [^self].
+	handled
+		ifTrue: [ ^ self ].
 	#PRESENTATION = record type
-		ifTrue: ["FIXME"].		
+		ifTrue: [ "FIXME" ].
 	handled := self switchWireContext: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchSTRANS: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	handled := self switchXY: record.
-	handled ifTrue: [^self].		
+	handled
+		ifTrue: [ ^ self ].
 	#STRING = record type
-		ifTrue: ["FIXME"].		
+		ifTrue: [ "FIXME" ].
 	handled := self switchElementEnd: record usingXY: false.
-	handled ifTrue: [^self].
-
+	handled
+		ifTrue: [ ^ self ]
 ]
 
 { #category : #'switch flow common' }
 GdsStreamLoopContext >> switchWireContext: record [
 	#PATHTYPE = record type
-		ifTrue: [ 
-			element pathtype: record int2.
+		ifTrue: [ element pathtype: record int2.
 			self upCount: #PATHTYPE.
 			^ true ].
 	#WIDTH = record type
-		ifTrue: [
-			element width: (record int4 asUserFromDBU: inform library databaseUnit).
+		ifTrue: [ element
+				width: (record int4 asUserFromDBU: inform library databaseUnit).
 			self upCount: #WIDTH.
 			^ true ].
 	^ false
@@ -446,11 +435,11 @@ GdsStreamLoopContext >> switchXY: record [
 	#XY = record type
 		ifTrue: [ | points |
 			self checkPreRequiredConsumed: record type.
-			points := record pointsDividedByDatabaseUnit: inform library databaseUnit.
+			points := record
+				pointsDividedByDatabaseUnit: inform library databaseUnit.
 			element vertices: points.
 			(element type == #aref or: [ element type == #sref ])
-				ifTrue: [ 
-					element xy: points first ].
+				ifTrue: [ element xy: points first ].
 			element type == #aref
 				ifTrue: [ | col row mat |
 					"
@@ -469,8 +458,12 @@ AREF: Exactly 3 pairs
 					row := mat invertPoint: points third.
 					"row x abs > 1e-10
 						ifTrue: [self error: 'Error in AREF! The third point in XY is broken'].	"
-					element xStep: ((col x / element columnCount) asFloat roundTo: inform library userUnit).
-					element yStep: ((row y / element rowCount) asFloat roundTo: inform library userUnit)
+					element
+						xStep:
+							((col x / element columnCount) asFloat
+								roundTo: inform library userUnit).
+					element
+						yStep: ((row y / element rowCount) asFloat roundTo: inform library userUnit)
 					"row y negative 
 						ifTrue: [element yStep: element yStep negated]" ].
 			self upCount: #XY.
@@ -481,17 +474,15 @@ AREF: Exactly 3 pairs
 { #category : #'as yet unclassified' }
 GdsStreamLoopContext >> upCount: aSymbol [
 	self using: aSymbol.
-	countMap at: aSymbol put: ((countMap at: aSymbol) + 1).
+	countMap at: aSymbol put: (countMap at: aSymbol) + 1
 ]
 
 { #category : #'as yet unclassified' }
 GdsStreamLoopContext >> using: aSymbol [
-	countMap at: aSymbol ifAbsentPut: [0].
-
+	countMap at: aSymbol ifAbsentPut: [ 0 ]
 ]
 
 { #category : #'as yet unclassified' }
 GdsStreamLoopContext >> usingCounts: aSymbolArray [
-	aSymbolArray do: [:each |
-		self using: aSymbolArray].
+	aSymbolArray do: [ :each | self using: aSymbolArray ]
 ]
