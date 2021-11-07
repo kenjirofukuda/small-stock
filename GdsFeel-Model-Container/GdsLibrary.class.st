@@ -299,22 +299,18 @@ GdsLibrary class >> libInfoFromIniOrig: aIniStream [
 
 { #category : #private }
 GdsLibrary class >> libInfoMapFromIni: aIniStream [
+
 	| map line sepIndex key value |
 	map := Dictionary new.
-	[aIniStream atEnd]
-		whileFalse: [
-			line := aIniStream  upToAll: String crlf.
-			sepIndex := line indexOf: $=.
-			sepIndex > 0
-				ifTrue: [
-					key := line copyFrom: 1 to: sepIndex - 1.
-					value := line copyFrom: sepIndex + 1 to: line size.
-					map at: key put: value]].
-	^map.	
-	
-	
-	
-	  
+	[ aIniStream atEnd ] whileFalse: [ 
+		line := aIniStream upToAll:
+			        (String with: Character cr with: Character lf).
+		sepIndex := line indexOf: $=.
+		sepIndex > 0 ifTrue: [ 
+			key := line copyFrom: 1 to: sepIndex - 1.
+			value := line copyFrom: sepIndex + 1 to: line size.
+			map at: key put: value ] ].
+	^ map
 ]
 
 { #category : #accessing }
@@ -828,7 +824,7 @@ GdsLibrary >> makeArchiveNew [
 	self extractDirectory files 
 		do: [ :f | 
 			archive addFile: f as:  f basename ].
-	[archive writeToFileNamed: file] 
+	[archive writeToFile: file] 
 		on: Error do: [:ex | self inform: ex description].		
 	archive close.	
 ]
@@ -842,7 +838,7 @@ GdsLibrary >> makeArchiveOld [
 	trimSize := self extractDirectory fullName size.
 	archive 
 		addTree: self extractDirectory removingFirstCharacters: trimSize .		
-	[archive writeToFileNamed: file] 
+	[archive writeToFile: file] 
 		on: Error do: [:ex | self inform: ex description].		
 	archive close.	
 ]
@@ -1075,7 +1071,8 @@ GdsLibrary >> zipArchiveDo: aArchiveBlock [
 
 { #category : #private }
 GdsLibrary >> zipStructureNames [
+
 	self zipArchiveDo: [ :zip | 
-		^(zip members select: [ :m | m isKindOf: ZipDirectoryMember ])
-			collect: [ :dm | ((dm fileName allButLast) findTokens: '.') first ] ]
+		^ (zip members select: [ :m | m isKindOf: ZipDirectoryMember ]) 
+			  collect: [ :dm | (dm fileName allButLast substrings: '.') first ] ]
 ]

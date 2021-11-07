@@ -668,7 +668,7 @@ GdsStructure >> library [
 ]
 
 { #category : #initialization }
-GdsStructure >> library: aGdsLibrary [.
+GdsStructure >> library: aGdsLibrary [
 	library ifNotNil: [ self error: 'library already set. int this structure' ].
 	library := aGdsLibrary.
 	
@@ -829,12 +829,14 @@ GdsStructure >> maxKeyNumber [
 
 { #category : #'accessing - resource' }
 GdsStructure >> maxRevName [
+
 	| revs files |
 	self extractDirectory ensureCreateDirectory.
 	files := self extractDirectory filesMatching: self filePattern.
-	revs := files collect: [ :f | (f basename findTokens: '.') second asInteger].
-	revs ifEmpty: [revs := Array with: 1].
-	^self fileNameRevision: revs max.
+	revs := files collect: [ :f | 
+		        (f basename substrings: '.') second asInteger ].
+	revs ifEmpty: [ revs := Array with: 1 ].
+	^ self fileNameRevision: revs max
 ]
 
 { #category : #private }
@@ -1139,39 +1141,32 @@ GdsStructure >> uniqCopyName [
 ]
 
 { #category : #updating }
-GdsStructure >> update: anObject [.
-	GdsFeel ifDebugOn: [:s |
-		s nextPutAll:  self class printString.
+GdsStructure >> update: anObject [
+
+	GdsFeel ifDebugOn: [ :s | 
+		s nextPutAll: self class printString.
 		s nextPutAll: ' recieve: '.
-		s nextPutAll: anObject printString.].
-	(self markDirtySelectors includes: anObject)
-		ifTrue: [
-			self markDirty.
-			dataExtentForElements := nil.
-			self changed: #geometry.
-			self changed].
-	anObject == #geometry
-		ifTrue: [
-			dataExtentForElements := nil.
-			self changed.].
-	anObject == #unget
-		ifTrue: [
-			self revertDirty].
-	({ #put . #wipe . #idDelete } includes: anObject)
-		ifTrue: [
-			self comitDirty.
-			self changed: anObject].
-	anObject == #get
-		ifTrue: [self changed].
+		s nextPutAll: anObject printString ].
+	(self markDirtySelectors includes: anObject) ifTrue: [ 
+		self markDirty.
+		dataExtentForElements := nil.
+		self changed: #geometry.
+		self changed ].
+	anObject == #geometry ifTrue: [ 
+		dataExtentForElements := nil.
+		self changed ].
+	anObject == #unget ifTrue: [ self revertDirty ].
+	({ #put. #wipe. #idDelete } includes: anObject) ifTrue: [ 
+		self comitDirty.
+		self changed: anObject ].
+	anObject == #get ifTrue: [ self changed ].
 	"anObject == #id
 		ifTrue: [
 			self changedIdGroup.			
 			self changed]."
-	anObject == #tstructEnabled
-		ifTrue: [self changed: #tstructEnabled].
-	anObject == self currentItem
-		ifTrue: [self changed: #geometry].		
-	super update: anObject.
+	anObject == #tstructEnabled ifTrue: [ self changed: #tstructEnabled ].
+	anObject == self currentItem ifTrue: [ self changed: #geometry ].
+	super update: anObject
 ]
 
 { #category : #debug }

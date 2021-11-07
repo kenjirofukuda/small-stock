@@ -24,7 +24,7 @@ Class {
 		'type',
 		'dataBytes'
 	],
-	#category : #'GdsFeel-Developer-IO'
+	#category : #'GdsFeel-Model-StreamFormat'
 }
 
 { #category : #'as yet unclassified' }

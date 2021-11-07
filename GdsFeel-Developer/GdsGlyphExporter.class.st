@@ -41,7 +41,7 @@ GdsGlyphExporter class >> printableAsciiCodes [
 	^(16r21 to: 16r7E)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 GdsGlyphExporter >> createDatabase [
 	(GdsLibrary exists: self dbName)
 		ifFalse: [ GdsLibrary 
@@ -50,47 +50,47 @@ GdsGlyphExporter >> createDatabase [
 			unitString: 'MM' ].	
 ]
 
-{ #category : #'as yet unclassified' }
-GdsGlyphExporter >> createGlyph: asciiValue on: aGdsStructure [ 
-	| c glyph |
-	c := Character value: asciiValue.
-	glyph := self class fontDescription at: c.
-	aGdsStructure currentItem layerNumber: 0;
-		 putRectangle: self class boundsForCompare.
-	aGdsStructure currentItem layerNumber: 1;
-		 boundary.
-	glyph contours
-		do: [:ptArray | 
-			ptArray
-				do: [:ttPoint | aGdsStructure currentItem ce: ttPoint].
-			aGdsStructure currentItem put].
+{ #category : #accessing }
+GdsGlyphExporter >> createGlyph: asciiValue on: aGdsStructure [
 
+	| c glyph |
+	c := Character codePoint: asciiValue.
+	glyph := self class fontDescription at: c.
+	aGdsStructure currentItem
+		layerNumber: 0;
+		putRectangle: self class boundsForCompare.
+	aGdsStructure currentItem
+		layerNumber: 1;
+		boundary.
+	glyph contours do: [ :ptArray | 
+		ptArray do: [ :ttPoint | aGdsStructure currentItem ce: ttPoint ].
+		aGdsStructure currentItem put ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GdsGlyphExporter >> dbName [
 	^'SAMPLE_GLYPHS'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 GdsGlyphExporter >> outputGlyphs [
+
 	self createDatabase.
 	station := GdsStation default.
 	station openLibraryNamed: self dbName.
-	self class printableAsciiCodes
-		do: [:asciiValue | 
-			| structure sname |
-			sname := self class glyphStructureBaseNameFor: asciiValue.
-			structure := station library structureNamed: sname.
-			structure
-				ifNil: [
-					structure := station newStructureNamed: sname withActivate: true.
-					self createGlyph: asciiValue on: structure.
-					station closeStructure.]
-				ifNotNil: [
-					Transcript 
-						cr; 
-						show: ('***WARNING*** Already exported: {1}' format: {sname})].].
+	self class printableAsciiCodes do: [ :asciiValue | 
+		| structure sname |
+		sname := self class glyphStructureBaseNameFor: asciiValue.
+		structure := station library structureNamed: sname.
+		structure
+			ifNil: [ 
+				structure := station newStructureNamed: sname withActivate: true.
+				self createGlyph: asciiValue on: structure.
+				station closeStructure ]
+			ifNotNil: [ :arg | 
+				Transcript
+					cr;
+					show: ('***WARNING*** Already exported: {1}' format: { sname }) ] ].
 	station closeLibrary.
-	station := nil.
+	station := nil
 ]

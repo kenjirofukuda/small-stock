@@ -8,7 +8,7 @@ Class {
 		'typeOrder',
 		'inform'
 	],
-	#category : #'GdsFeel-Developer-IO'
+	#category : #'GdsFeel-Model-StreamFormat'
 }
 
 { #category : #'as yet unclassified' }

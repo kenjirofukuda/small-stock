@@ -7,7 +7,7 @@ Class {
 	#category : #'GdsFeel-Developer-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #specification }
 GdsHatchSets class >> specRecord [
 	^{
 	{'A'  . 0.0 . 127}.
@@ -17,7 +17,7 @@ GdsHatchSets class >> specRecord [
 	}.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 GdsHatchSets >> initialize [
 	super initialize.
 	hatchMap := Dictionary new.
@@ -27,7 +27,7 @@ GdsHatchSets >> initialize [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 GdsHatchSets >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPut: $(.

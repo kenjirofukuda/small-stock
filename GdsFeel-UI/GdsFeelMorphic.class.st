@@ -38,22 +38,19 @@ GdsFeelMorphic class >> borderedSensorDisplay: aBoolean [
 
 { #category : #utility }
 GdsFeelMorphic class >> chooseFullFileName: labelString extensions: exts [
+
 	| file dirPath |
-	dirPath := GdsFeelMorphic lastVisitDirectory .
-	dirPath 
-		ifNotNil: [ 
-			dirPath asFileReference exists
-				ifFalse: [ dirPath := nil ] ].
-	file := UIManager default  chooseFullFileName: labelString extensions: exts path: dirPath preview: nil.
-	"file := UIManager default 
-		chooseFullFileNameMatching: patterns
-		label: labelString
-		path: dirPath."
-	file ifNil: [^nil].
-	GdsFeelMorphic lastVisitDirectory: file asFileReference parent fullName.
-	^ file.
-	
-	
+	dirPath := GdsFeelMorphic lastVisitDirectory.
+	dirPath ifNotNil: [ 
+		dirPath asFileReference exists ifFalse: [ dirPath := nil ] ].
+	file := UIManager default
+		        chooseExistingFileReference: 'Choose GDS database file'
+		        extensions: exts
+		        path: dirPath.
+	file ifNil: [ ^ nil ].
+	GdsFeelMorphic lastVisitDirectory:
+		file asFileReference parent fullName.
+	^ file
 ]
 
 { #category : #utility }

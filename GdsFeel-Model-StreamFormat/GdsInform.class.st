@@ -29,60 +29,24 @@ Class {
 		'stdout',
 		'library'
 	],
-	#category : #'GdsFeel-Developer-IO'
+	#category : #'GdsFeel-Model-StreamFormat'
 }
 
-{ #category : #'as yet unclassified' }
-GdsInform class >> downloadSample [
-	"self downloadSample"
-	| fileName archiver zipFile |
-	fileName := self urlForZipedGDSreaderArchive asZnUrl segments last.
-	zipFile := GdsFeel projectDirectory / fileName.
-	zipFile isFile
-		ifFalse:  [
-			self downloadUrl: self urlForZipedGDSreaderArchive  toFileNamed: zipFile fullName].
-
-	zipFile isFile
-		ifFalse:  [
-			^self inform: 'Download Fail'].
-		
-	(ZipArchive isZipArchive: zipFile fullName)
-		ifFalse: [^self inform: ('Not a Zip File {1}' format: {zipFile fullName})].
-		
-	archiver := ZipArchive new.
-	archiver readFrom: zipFile fullName.
-	archiver extractAllTo: GdsFeel projectDirectory .
-	archiver close.		
-
+{ #category : #examples }
+GdsInform class >> ensureExample [
+	"self ensureExample."
+	(GdsFeel projectDirectory / 'BGHIER.DB') isFile 
+		ifFalse: [ 
+			self makeGDSreaderSample ]
 ]
 
-{ #category : #'as yet unclassified' }
-GdsInform class >> downloadUrl: aUrl toFileNamed: aFullPath [
-	| data |
-	data := nil.
-	data := aUrl asUrl retrieveContents.
-	data ifNil: [^self].
-	StandardFileStream 
-		forceNewFileNamed: aFullPath 
-		do: [:newStream |
-			newStream binary.
-			newStream nextPutAll: data].
-
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 GdsInform class >> makeGDSreaderSample [
-	"self makeGDSreaderSample"
-	| inst reader sampleFile |
-	sampleFile := self sampleStreamFormatFile.
-	sampleFile isFile
-		ifFalse: [ self downloadSample ].
-	sampleFile isFile 
-		ifFalse: [ ^ self inform: 'Sample file not found' ].
-	self makeGDSreaderSampleFromPath: sampleFile fullName.
+	<script>
+	self makeGDSreaderSampleFromPath: self sampleStreamFormatFile.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 GdsInform class >> makeGDSreaderSampleFromPath: aPath [
 	| reader inst |
 	reader := GdsStreamFormatReader instanceOfPath: aPath.
@@ -91,26 +55,26 @@ GdsInform class >> makeGDSreaderSampleFromPath: aPath [
 	Cursor wait showWhile: [ inst run ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 GdsInform class >> reMakeGDSreaderSample [
 	<script>
 	"self reMakeGDSreaderSample"
 	| file |
 	file := './GdsFeel/BGHIER.DB' asFileReference.
 	file ensureDelete.
-	self makeGDSreaderSample.
-	
+	self makeGDSreaderSample.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 GdsInform class >> sampleStreamFormatFile [
-	^ GdsFeel projectDirectory /  'GDSreader.0.3.2' / 'test.gds'
 
-]
-
-{ #category : #'as yet unclassified' }
-GdsInform class >> urlForZipedGDSreaderArchive [
-	^'http://gdsfeel.com/downloads/GDSreader.0.3.2.zip'.
+	| dir saveFile |
+	dir := (GdsFeel projectDirectory / 'GDSreader') ensureCreateDirectory.
+	saveFile := dir / 'bghier.gds'.
+	saveFile isFile ifFalse: [ 
+		'https://github.com/makoto-fujiwara/GDSreader/raw/master/test.gds'
+			asUrl saveContentsToFile: saveFile ].
+	^ saveFile
 ]
 
 { #category : #private }

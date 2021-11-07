@@ -42,6 +42,7 @@ BaselineOfGdsFeel >> baseline: spec [
 			spec
 				package: 'GdsFeel-Model-ElementAddition'
 				with: [ spec requires: #('KFDxf-Model' 'KFDxf-Tests') ].
+			spec package: 'GdsFeel-Model-StreamFormat'.
 			spec package: 'GdsFeel-Model-Sandbox'.
 			spec package: 'GdsFeel-Model-Private'.
 			spec package: 'GdsFeel-Model-Viewing'.

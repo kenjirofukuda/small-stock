@@ -4,17 +4,17 @@ Class {
 	#category : #'GdsFeel-Developer-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GdsLineStyle >> letter [
-	self symbol = #solid ifTrue: [^$-].
-	self symbol = #brokn ifTrue: [^$!].
-	self symbol = #dashed ifTrue: [^$|].
-	self symbol = #doted ifTrue: [^$:].
-	^$E "error symbol"
-	
+
+	self symbol = #solid ifTrue: [ ^ $- ].
+	self symbol = #brokn ifTrue: [ ^ $! ].
+	self symbol = #dashed ifTrue: [ ^ $| ].
+	self symbol = #doted ifTrue: [ ^ $: ].
+	^ $E "error symbol"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GdsLineStyle >> symbol [
 	^#solid.
 	

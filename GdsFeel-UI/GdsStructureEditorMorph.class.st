@@ -475,7 +475,7 @@ GdsStructureEditorMorph >> enterArea: anEvent [
 	GdsFeelMorphic useCustomCursor
 		ifTrue: [ 
 			self mouseLayer startStepping.
-			ActiveHand showTemporaryCursor: self crossHandCursor ]
+			self activeHand showTemporaryCursor: self crossHandCursor ]
 ]
 
 { #category : #'testing-enabled' }
@@ -803,7 +803,7 @@ GdsStructureEditorMorph >> keyStroke: anEvent [
 
 { #category : #'event handling' }
 GdsStructureEditorMorph >> leaveArea: anEvent [
-	ActiveHand showTemporaryCursor: nil.
+	self activeHand showTemporaryCursor: nil.
 	Cursor normal show.
 	self stopStepping
 ]

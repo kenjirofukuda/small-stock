@@ -276,7 +276,9 @@ GdsViewport >> pixelBoundsTarget: aTarget [
 
 { #category : #transforms }
 GdsViewport >> pixelSize: aWorldSize [
-	^(self xy2hv: aWorldSize asPoint) dist: (self xy2hv: 0 asPoint)
+
+	^ (self xy2hv: aWorldSize asPoint) distanceTo:
+		  (self xy2hv: 0 asPoint)
 ]
 
 { #category : #private }

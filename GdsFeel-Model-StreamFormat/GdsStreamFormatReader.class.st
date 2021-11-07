@@ -17,7 +17,7 @@ Class {
 	#classVars : [
 		'TypeCodeMap'
 	],
-	#category : #'GdsFeel-Developer-IO'
+	#category : #'GdsFeel-Model-StreamFormat'
 }
 
 { #category : #'user interface' }
@@ -61,7 +61,7 @@ GdsStreamFormatReader class >> instanceOfPath: aString [
 	"self exampleInstance"
 
 	| inst |
-	inst := self new stream: (StandardFileStream readOnlyFileNamed: aString).
+	inst := self new stream: (File openForReadFileNamed: aString fullName).
 	^ inst
 ]
 
@@ -195,7 +195,7 @@ GdsStreamFormatReader >> recordSize [
 
 { #category : #accessing }
 GdsStreamFormatReader >> reset [
-	stream reset.
+	"stream reset."
 	self assert: [ stream position = 0 ]
 ]
 

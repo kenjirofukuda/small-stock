@@ -5,7 +5,7 @@ Class {
 		'logStream',
 		'category'
 	],
-	#category : #'GdsFeel-Developer-Debug'
+	#category : #'GdsFeel-Model-StreamFormat'
 }
 
 { #category : #'as yet unclassified' }
