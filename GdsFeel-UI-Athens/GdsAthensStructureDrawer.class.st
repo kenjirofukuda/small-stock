@@ -69,32 +69,6 @@ GdsAthensStructureDrawer >> clipedElements [
 	^ self structure elements
 ]
 
-{ #category : #drawing }
-GdsAthensStructureDrawer >> colorForElement: aGdsElement [
-	"TODO: remove duplicate implementation TGdsStructureDrawable"
-	| fixPureWhite |
-	fixPureWhite := [ :color | color = Color white ifTrue: [ self visiblePenColor ] ifFalse: [ color ] ].
-	(aGdsElement state = #inStructure) 
-		ifTrue: [
-			(aGdsElement ownColor)
-				ifNotNil: [ :ownColor | ^ fixPureWhite value: ownColor ].
-			(aGdsElement hasLayer) 
-				ifTrue: [
-					^(self colorForLayer: aGdsElement layerNumber)]].
-	^self visiblePenColor.
-
-		
-]
-
-{ #category : #drawing }
-GdsAthensStructureDrawer >> colorForLayer: aLayerNumber [
-	| usingColor |
-	usingColor := (self structure layers atNumber: aLayerNumber) color.
-	(usingColor = Color white) ifTrue: [^self visiblePenColor].
-	(usingColor = #white) ifTrue: [^self visiblePenColor].
-	^usingColor.
-]
-
 { #category : #'event handling' }
 GdsAthensStructureDrawer >> handleEvent: event in: sceneView at: position [
 	event traceCr.
@@ -258,43 +232,4 @@ GdsAthensStructureDrawer >> strokeSref: aGdsElement on: aCanvas [
 { #category : #accessing }
 GdsAthensStructureDrawer >> structure [
 	^ structure
-]
-
-{ #category : #drawing }
-GdsAthensStructureDrawer >> visibleElements [
-	^self clipedElements select: [:el | el isVisible]
-	
-	
-]
-
-{ #category : #appearance }
-GdsAthensStructureDrawer >> visibleGridColor [
-	^self backgroundColor luminance > 0.7
-		ifTrue: [Color black] ifFalse: [Color white]
-]
-
-{ #category : #appearance }
-GdsAthensStructureDrawer >> visibleLocationColor [
-	|test |
-	test := self backgroundColor luminance < 0.7.
-	(GdsFeelMorphic borderedSensorDisplay)
-		ifTrue: [test := test not].
-	^test ifTrue: [Color white] ifFalse: [Color black]
-]
-
-{ #category : #appearance }
-GdsAthensStructureDrawer >> visibleMarkerColor [
-	^self visibleGridColor
-]
-
-{ #category : #appearance }
-GdsAthensStructureDrawer >> visiblePenColor [
-	^self backgroundColor luminance > 0.7
-		ifTrue: [Color black] ifFalse: [Color lightGray]
-]
-
-{ #category : #appearance }
-GdsAthensStructureDrawer >> visiblePickingColor [
-	^self backgroundColor luminance > 0.7
-		ifTrue: [Color darkGray ] ifFalse: [Color white]
 ]

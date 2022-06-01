@@ -19,7 +19,7 @@ GdsHatchTestMorph >> drawOn: aCanvas [
 	| cp sp theta |
 	super drawOn: aCanvas.
 	cp := self innerBounds center.
-	sp := Sensor cursorPoint.
+	sp := self activeHand cursorPoint.
 	theta := (sp - cp) theta.
 	aCanvas clipBy: self innerBounds during: [ :clipedCanvas | 
 		(hatch lineSegmentsOf: self innerBounds from: cp to: sp) do: [ :seg | 
