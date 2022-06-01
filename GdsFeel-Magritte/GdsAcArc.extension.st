@@ -6,7 +6,7 @@ GdsAcArc >> descriptionEndAngle [
 	^ MANumberDescription new
 		label: 'End Angle';
 		accessor: #endAngleDegress;
-		beReadonly;
+		beReadOnly;
 		priority: 142;
 		yourself	
 ]
@@ -17,7 +17,7 @@ GdsAcArc >> descriptionStartAngle [
 	^ MANumberDescription new
 		label: 'Start Angle';
 		accessor: #startAngleDegress;
-		beReadonly;
+		beReadOnly;
 		priority: 141;
 		yourself	
 ]

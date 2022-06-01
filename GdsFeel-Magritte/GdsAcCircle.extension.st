@@ -6,7 +6,7 @@ GdsAcCircle >> descriptionRadius [
 	^ MANumberDescription new
 		label: 'Radius';
 		accessor: #radius;
-		beReadonly;
+		beReadOnly;
 		priority: 140;
 		yourself	
 ]
