@@ -21,43 +21,42 @@ Class {
 
 { #category : #'as yet unclassified' }
 GplVariable class >> named: aVariableName [
-	^self new name: aVariableName.
+	^ self new name: aVariableName
 ]
 
 { #category : #accessing }
 GplVariable >> asGplValue [
-	^gplValue
+	^ gplValue
 ]
 
 { #category : #convert }
 GplVariable >> asSmalltalkValue [
-	^gplValue asSmalltalkValue.
+	^ gplValue asSmalltalkValue
 ]
 
 { #category : #'error handling' }
 GplVariable >> doesNotUnderstand: aMessage [
-	gplValue perform: aMessage selector withArguments: aMessage arguments.
+	gplValue perform: aMessage selector withArguments: aMessage arguments
 ]
 
 { #category : #accessing }
 GplVariable >> gplValue: aGdsDataStructure [
-	gplValue := aGdsDataStructure.
+	gplValue := aGdsDataStructure
 ]
 
 { #category : #testing }
 GplVariable >> isVariableAllowed [
-	^true
+	^ true
 ]
 
 { #category : #accessing }
 GplVariable >> name [
-	^varName
-	
+	^ varName
 ]
 
 { #category : #accessing }
 GplVariable >> name: aVariableName [
-	varName := aVariableName.
+	varName := aVariableName
 ]
 
 { #category : #printing }
@@ -66,12 +65,11 @@ GplVariable >> printOn: aStream [
 	aStream nextPutAll: '('.
 	aStream nextPutAll: varName.
 	aStream nextPutAll: ','.
-	aStream nextPutAll: gplValue gplString.	
-	aStream nextPutAll: ')'.
-	
+	aStream nextPutAll: gplValue gplString.
+	aStream nextPutAll: ')'
 ]
 
 { #category : #accessing }
 GplVariable >> rank [
-	^gplValue rank
+	^ gplValue rank
 ]

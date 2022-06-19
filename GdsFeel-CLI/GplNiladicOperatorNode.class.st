@@ -7,11 +7,10 @@ Class {
 { #category : #'as yet unclassified' }
 GplNiladicOperatorNode >> initialize [
 	super initialize.
-	self at: #numArgs put: 0.
+	self at: #numArgs put: 0
 ]
 
 { #category : #'as yet unclassified' }
 GplNiladicOperatorNode >> printOn: aStream [
-	aStream nextPutAll: self opName.
-
+	aStream nextPutAll: self opName
 ]

@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-GplSyntaxEntity class >> fromString: aString [ 
+GplSyntaxEntity class >> fromString: aString [
 	^ self new string: aString
 ]
 
@@ -19,12 +19,12 @@ GplSyntaxEntity >> string [
 ]
 
 { #category : #accesing }
-GplSyntaxEntity >> string: aString [ 
+GplSyntaxEntity >> string: aString [
 	string := aString
 ]
 
 { #category : #accessing }
-GplSyntaxEntity >> symbol [	
+GplSyntaxEntity >> symbol [
 	^ symbol ifNil: [ symbol := self string asLowercase asSymbol ]
 ]
 

@@ -6,28 +6,27 @@ Class {
 
 { #category : #accessing }
 GplBiContextHandler class >> functionNames [
-	^self methodNames
+	^ self methodNames
 ]
 
 { #category : #testing }
 GplBiContextHandler class >> isFunctionAllowed [
-	^true.
+	^ true
 ]
 
 { #category : #testing }
 GplBiContextHandler class >> isFunctionAllowed: aCommandName [
-	^self isFunctionAllowed
+	^ self isFunctionAllowed
 ]
 
 { #category : #accessing }
 GplBiContextHandler class >> procedureNames [
-	^self methodNames
+	^ self methodNames
 ]
 
 { #category : #handler }
-GplBiContextHandler >> evaluateToken: aToken [ 
-	^self biContextCall: aToken
-	
+GplBiContextHandler >> evaluateToken: aToken [
+	^ self biContextCall: aToken
 ]
 
 { #category : #handler }

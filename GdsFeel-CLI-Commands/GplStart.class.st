@@ -6,12 +6,11 @@ Class {
 
 { #category : #accessing }
 GplStart class >> methodName [
-	^'START'
+	^ 'START'
 ]
 
 { #category : #accessing }
 GplStart >> evaluateToken: aToken [
-	self stationUIClass
-		ifNotNil: [:clazz | clazz open.].
-	^self nullVector.
+	self stationUIClass ifNotNil: [ :clazz | clazz open ].
+	^ self nullVector
 ]

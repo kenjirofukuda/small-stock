@@ -6,10 +6,10 @@ Class {
 
 { #category : #accessing }
 GplCommands class >> methodName [
-	^'COMMANDS'
+	^ 'COMMANDS'
 ]
 
 { #category : #handler }
 GplCommands >> evaluateToken: aToken [
-	^self strings: (GplHandler commandNames sort)
+	^ self strings: GplHandler commandNames sort
 ]

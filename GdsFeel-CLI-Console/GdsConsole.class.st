@@ -12,19 +12,18 @@ Class {
 
 { #category : #accessing }
 GdsConsole >> eventFetcherClass [
-	^ GdsEventFetcher.
+	^ GdsEventFetcher
 ]
 
 { #category : #initialize }
 GdsConsole >> handleCommandLine: aCommandLine [
 	| result |
-	result := aCommandLine trim 
-	ifNotEmpty: [
-		[evaluator evaluateConsoleLine: aCommandLine]
-			on: Error do: [:ex | ex asString]]
-	ifEmpty: [''].
-	result ifNotEmpty: [self puts: result].
-		
+	result := aCommandLine trim
+		ifNotEmpty: [ [ evaluator evaluateConsoleLine: aCommandLine ]
+				on: Error
+				do: [ :ex | ex asString ] ]
+		ifEmpty: [ '' ].
+	result ifNotEmpty: [ self puts: result ]
 ]
 
 { #category : #initialize }
@@ -32,6 +31,5 @@ GdsConsole >> initialize [
 	super initialize.
 	evaluator := GplEvaluator new
 		console: self;
-		yourself.
-	
+		yourself
 ]

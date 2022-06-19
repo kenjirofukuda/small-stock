@@ -17,139 +17,143 @@ Class {
 GplSyntax class >> check: aString [
 	| tokens |
 	tokens := GplScanner tokensFrom: aString.
-	self new checkFromTokens: tokens.
-	
+	self new checkFromTokens: tokens
 ]
 
 { #category : #'private check' }
 GplSyntax >> assignCheck: aGplTokens [
 	| assignToken leftTokens keywordToken |
-	assignToken := aGplTokens detect: [:each | each fragment = ':='] ifNone: [nil].
-	assignToken ifNil: [^self].
-
+	assignToken := aGplTokens
+		detect: [ :each | each fragment = ':=' ]
+		ifNone: [ nil ].
+	assignToken ifNil: [ ^ self ].
 	leftTokens := self leftCheckFor: assignToken.
 	self rightCheckFor: assignToken.
-
-	keywordToken := leftTokens detect: [:each | 
-		GplHandler hasCommandName: each fragment] ifNone: [nil].
-	keywordToken 
-		ifNotNil: [
-			^self
+	keywordToken := leftTokens
+		detect: [ :each | GplHandler hasCommandName: each fragment ]
+		ifNone: [ nil ].
+	keywordToken
+		ifNotNil: [ ^ self
 				syntaxError: 'VARIABLE CAN''T ASSIGND TO PROCEDURE OR FUNCTION'
-				token: keywordToken]
+				token: keywordToken ]
 ]
 
 { #category : #private }
 GplSyntax >> betweenCheck: aGplTokens openFragment: aOpenFragment closeFragment: aCloseFragment [
 	| openParlens closeParlens |
-	openParlens := aGplTokens select: [:each | each fragment = aOpenFragment].
-	closeParlens := aGplTokens select: [:each | each fragment = aCloseFragment].
-	(openParlens size + closeParlens size) = 0 ifTrue: [^self.].
-	(openParlens size > closeParlens size)
-		ifTrue: [^self syntaxError: ('EXTRA ') token: openParlens first].
-	(openParlens size < closeParlens size)
-		ifTrue: [^self syntaxError: ('EXTRA ') token: closeParlens last.]
-		
+	openParlens := aGplTokens
+		select: [ :each | each fragment = aOpenFragment ].
+	closeParlens := aGplTokens
+		select: [ :each | each fragment = aCloseFragment ].
+	openParlens size + closeParlens size = 0
+		ifTrue: [ ^ self ].
+	openParlens size > closeParlens size
+		ifTrue: [ ^ self syntaxError: 'EXTRA ' token: openParlens first ].
+	openParlens size < closeParlens size
+		ifTrue: [ ^ self syntaxError: 'EXTRA ' token: closeParlens last ]
 ]
 
 { #category : #'private check' }
-GplSyntax >> cantUseCheck: aGplTokens [ 
-	self isInteractive ifFalse: [^self].	
-	aGplTokens do: [:each |
-		(GplToken isProgramOnlyKeyword: each fragment )
-				ifTrue: [^self syntaxError: 'KEYWORD NOT LEAGAL IN THIS CONTEXT' token: each]].
-
+GplSyntax >> cantUseCheck: aGplTokens [
+	self isInteractive
+		ifFalse: [ ^ self ].
+	aGplTokens
+		do: [ :each | 
+			(GplToken isProgramOnlyKeyword: each fragment)
+				ifTrue:
+					[ ^ self syntaxError: 'KEYWORD NOT LEAGAL IN THIS CONTEXT' token: each ] ]
 ]
 
 { #category : #check }
-GplSyntax >> checkFromTokens: aGplTokens [ 
+GplSyntax >> checkFromTokens: aGplTokens [
 	self beforeEvaluateTokens: aGplTokens.
 	self depthCheck: aGplTokens.
 	self numberLiteralCheck: aGplTokens.
 	self declareCheck: aGplTokens.
 	self assignCheck: aGplTokens.
-	self cantUseCheck: aGplTokens.	
-
+	self cantUseCheck: aGplTokens
 ]
 
 { #category : #'private check' }
 GplSyntax >> declareCheck: aGplTokens [
 	self methodDeclareCheck: aGplTokens.
-	self variableDeclareCheck: aGplTokens.		
+	self variableDeclareCheck: aGplTokens
 ]
 
 { #category : #'private check' }
-GplSyntax >> depthCheck: aGplTokens [ 
+GplSyntax >> depthCheck: aGplTokens [
 	self parlenDepthCheck: aGplTokens.
 	self subscriptDepthCheck: aGplTokens.
-	self 
-		missMatchCheck: aGplTokens 
-		openFragments: { '(' . '[' } closeFragments: { ')' . ']' }
+	self
+		missMatchCheck: aGplTokens
+		openFragments: {'(' . '['}
+		closeFragments: {')' . ']'}
 ]
 
 { #category : #testing }
 GplSyntax >> hasVariableName: aWord [
-	model ifNil: [^false].
-	^model hasVariableName: aWord
+	model ifNil: [ ^ false ].
+	^ model hasVariableName: aWord
 ]
 
 { #category : #private }
 GplSyntax >> insideEmptyCheck: aGplTokens openFragment: aOpenFragment closeFragment: aCloseFragment [
 	| openParlens |
-	openParlens := aGplTokens select: [:each | each fragment = aOpenFragment].
-	openParlens do: [:each |
-		|rightTokens |
-		rightTokens := each rightTokens.
-		rightTokens
-			ifNotEmpty: [
-				(rightTokens first fragment = aCloseFragment)
-					ifTrue: [^each]]].
-	^nil.
+	openParlens := aGplTokens
+		select: [ :each | each fragment = aOpenFragment ].
+	openParlens
+		do: [ :each | 
+			| rightTokens |
+			rightTokens := each rightTokens.
+			rightTokens
+				ifNotEmpty: [ rightTokens first fragment = aCloseFragment
+						ifTrue: [ ^ each ] ] ].
+	^ nil
 ]
 
 { #category : #testing }
 GplSyntax >> isDefined: aWord [
-	model ifNil: [^false].
-	^model isDefined: aWord
+	model ifNil: [ ^ false ].
+	^ model isDefined: aWord
 ]
 
 { #category : #testing }
 GplSyntax >> isInteractive [
-	model ifNil: [^true].
-	^model isInteractive
+	model ifNil: [ ^ true ].
+	^ model isInteractive
 ]
 
 { #category : #'private check' }
 GplSyntax >> leftCheckFor: anAssignToken [
 	| leftTokens expressionToken |
 	leftTokens := anAssignToken leftTokens
-		select: [:each | each depthOfSubscript = anAssignToken depthOfSubscript].
+		select: [ :each | each depthOfSubscript = anAssignToken depthOfSubscript ].
 	expressionToken := leftTokens
-		 detect: [:each | each fragment =')'] ifNone: [nil].
+		detect: [ :each | each fragment = ')' ]
+		ifNone: [ nil ].
 	expressionToken
-		ifNotNil: [^self syntaxError: 'ILLIGAL STORE OPERATION'].
-		
-	leftTokens := anAssignToken leftTokensOfSameDepth .
+		ifNotNil: [ ^ self syntaxError: 'ILLIGAL STORE OPERATION' ].
+	leftTokens := anAssignToken leftTokensOfSameDepth.
 	leftTokens
-		ifEmpty: [^self syntaxError: 'MISSING LEFT VARIABLE FOR' token: anAssignToken].
-	^leftTokens
+		ifEmpty:
+			[ ^ self syntaxError: 'MISSING LEFT VARIABLE FOR' token: anAssignToken ].
+	^ leftTokens
 ]
 
 { #category : #'private check' }
 GplSyntax >> methodDeclareCheck: aGplTokens [
 	| voidToken voidTokens |
 	voidTokens := aGplTokens
-		select: [:each | 
-			(each fragment first isLetter 
-			and: [ (self hasVariableName:  each fragment) not])
-			and: [ GplHandler isVoid: each fragment]].
-	voidTokens ifEmpty: [^self].
+		select: [ :each | 
+			(each fragment first isLetter
+				and: [ (self hasVariableName: each fragment) not ])
+				and: [ GplHandler isVoid: each fragment ] ].
+	voidTokens ifEmpty: [ ^ self ].
 	voidToken := voidTokens first.
-	voidToken leftTokens isEmpty 
-		ifFalse: [
-			^self 
-				syntaxError: 'NOT A VALUEABLE PROCEDURE CALL'  token: voidToken].
-	
+	voidToken leftTokens isEmpty
+		ifFalse: [ ^ self
+				syntaxError: 'NOT A VALUEABLE PROCEDURE CALL'
+				token: voidToken ]
 ]
 
 { #category : #private }
@@ -157,28 +161,23 @@ GplSyntax >> missMatchCheck: aGplTokens openFragments: aOpenFragments closeFragm
 	| topToken |
 	self resetStack.
 	aGplTokens
-		do: [:each |
+		do: [ :each | 
 			each fragment = aOpenFragments first
-				ifTrue: [self push: each].
+				ifTrue: [ self push: each ].
 			each fragment = aOpenFragments second
-				ifTrue: [self push: each].	
+				ifTrue: [ self push: each ].
 			each fragment = aCloseFragments first
-				ifTrue: [
-					topToken := self pop.
+				ifTrue: [ topToken := self pop.
 					topToken fragment = aOpenFragments first
-						ifFalse: [
-							^self 
-								syntaxError: 'MISS MATCH MUST: ', aCloseFragments second, ' BUT'
-								token: each].].
+						ifFalse: [ ^ self
+								syntaxError: 'MISS MATCH MUST: ' , aCloseFragments second , ' BUT'
+								token: each ] ].
 			each fragment = aCloseFragments second
-				ifTrue: [
-					topToken := self pop.
+				ifTrue: [ topToken := self pop.
 					topToken fragment = aOpenFragments second
-						ifFalse: [
-							^self
-								syntaxError: ('MISS MATCH MUST: ', aCloseFragments first, ' BUT')
-								token: each].].]
-				
+						ifFalse: [ ^ self
+								syntaxError: 'MISS MATCH MUST: ' , aCloseFragments first , ' BUT'
+								token: each ] ] ]
 ]
 
 { #category : #accessing }
@@ -189,80 +188,83 @@ GplSyntax >> model: aModel [
 { #category : #'private check' }
 GplSyntax >> numberLiteralCheck: aGplTokens [
 	| unresolvedTokens |
-	unresolvedTokens := aGplTokens select: [:each | 
-			(each type =  #unresolved 
-		and: [(GplScannerBase isNameFirst: each fragment first) not])
-		and: [GplScanner isNumberFragment: each fragment]].
-	unresolvedTokens ifEmpty: [^self].
-		
-	^self 
+	unresolvedTokens := aGplTokens
+		select: [ :each | 
+			(each type = #unresolved
+				and: [ (GplScannerBase isNameFirst: each fragment first) not ])
+				and: [ GplScanner isNumberFragment: each fragment ] ].
+	unresolvedTokens ifEmpty: [ ^ self ].
+	^ self
 		syntaxError: 'INVALID NUMERIC FORMAT'
-		token: unresolvedTokens first.
+		token: unresolvedTokens first
 ]
 
 { #category : #'private check' }
-GplSyntax >> parlenDepthCheck: aGplTokens [ 
+GplSyntax >> parlenDepthCheck: aGplTokens [
 	| emptyToken |
-	self betweenCheck:  aGplTokens openFragment:  '(' closeFragment:  ')' .
-	emptyToken := self insideEmptyCheck: aGplTokens openFragment:  '('  closeFragment:  ')'.
-	emptyToken
-		ifNotNil: [^self syntaxError: 'EMPTY EXPRESSION ()'].
+	self betweenCheck: aGplTokens openFragment: '(' closeFragment: ')'.
+	emptyToken := self
+		insideEmptyCheck: aGplTokens
+		openFragment: '('
+		closeFragment: ')'.
+	emptyToken ifNotNil: [ ^ self syntaxError: 'EMPTY EXPRESSION ()' ]
 ]
 
 { #category : #'private check' }
 GplSyntax >> rightCheckFor: anAssignToken [
-	| rightTokens voidToken |		
+	| rightTokens voidToken |
 	rightTokens := anAssignToken rightTokens.
 	rightTokens
-		ifEmpty: [^self syntaxError: 'MISSING RIGHT EXPRESSION FOR' token: anAssignToken].
-	voidToken := anAssignToken 
-		rightTokens
-			detect: [:each | 
-				((each type ~= #number
-				and: [each fragment first isLetter ])
-				and: [ (self hasVariableName:  each fragment) not])
-				and: [GplHandler isVoid: each fragment]] 
-			ifNone: [nil].
+		ifEmpty: [ ^ self
+				syntaxError: 'MISSING RIGHT EXPRESSION FOR'
+				token: anAssignToken ].
+	voidToken := anAssignToken rightTokens
+		detect: [ :each | 
+			((each type ~= #number and: [ each fragment first isLetter ])
+				and: [ (self hasVariableName: each fragment) not ])
+				and: [ GplHandler isVoid: each fragment ] ]
+		ifNone: [ nil ].
 	voidToken
-		ifNotNil: [
-			^self 
-				syntaxError: 'NOT A VALUEABLE PROCEDURE CALL' 
-				token: voidToken ].
+		ifNotNil: [ ^ self
+				syntaxError: 'NOT A VALUEABLE PROCEDURE CALL'
+				token: voidToken ]
 ]
 
 { #category : #'private check' }
-GplSyntax >> subscriptDepthCheck: aGplTokens [ 
+GplSyntax >> subscriptDepthCheck: aGplTokens [
 	| emptyToken |
-	self betweenCheck:  aGplTokens openFragment:  '[' closeFragment:  ']'.
-	emptyToken := self insideEmptyCheck: aGplTokens openFragment:  '['  closeFragment:  ']'.
+	self betweenCheck: aGplTokens openFragment: '[' closeFragment: ']'.
+	emptyToken := self
+		insideEmptyCheck: aGplTokens
+		openFragment: '['
+		closeFragment: ']'.
 	emptyToken
-		ifNotNil: [^self syntaxError: 'EMPTY SUBSCRIPT EXPRESSION []'].	 			
+		ifNotNil: [ ^ self syntaxError: 'EMPTY SUBSCRIPT EXPRESSION []' ]
 ]
 
 { #category : #private }
 GplSyntax >> syntaxError: aMessage token: aGplToken [
-	^self syntaxError: (self syntaxMessage: aMessage token: aGplToken)
+	^ self syntaxError: (self syntaxMessage: aMessage token: aGplToken)
 ]
 
 { #category : #'private check' }
 GplSyntax >> variableDeclareCheck: aGplTokens [
 	"allow undefined "
+
 	"left operand and isInteractive"
+
 	| unresolvedTokens |
-	unresolvedTokens := aGplTokens select: [:each | 
-		each type =  #unresolved and: [(self isDefined: each fragment) not]].
-	unresolvedTokens ifEmpty: [^self].
+	unresolvedTokens := aGplTokens
+		select:
+			[ :each | each type = #unresolved and: [ (self isDefined: each fragment) not ] ].
+	unresolvedTokens ifEmpty: [ ^ self ].
 	self isInteractive
-		ifFalse: [
-			^self 
+		ifFalse: [ ^ self
 				syntaxError: 'VARIABLE NOT DEFINED'
-				token: unresolvedTokens first].
-	
-	unresolvedTokens do: [:each |
-		(each rightTokens isEmpty not 
-				and: [each rightTokens first fragment = ':='])
-			ifFalse: [
-				^self 
-					syntaxError: 'VARIABLE NOT DEFINED'
-					token: each]].
+				token: unresolvedTokens first ].
+	unresolvedTokens
+		do: [ :each | 
+			(each rightTokens isEmpty not
+				and: [ each rightTokens first fragment = ':=' ])
+				ifFalse: [ ^ self syntaxError: 'VARIABLE NOT DEFINED' token: each ] ]
 ]

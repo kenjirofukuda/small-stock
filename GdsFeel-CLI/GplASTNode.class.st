@@ -13,13 +13,12 @@ Class {
 { #category : #adding }
 GplASTNode >> addSubNode: aGplTreeNode [
 	nodes add: aGplTreeNode.
-	aGplTreeNode parent: self.
+	aGplTreeNode parent: self
 ]
 
 { #category : #adding }
 GplASTNode >> addTag: aSymbol [
-	tags add: aSymbol.
-	
+	tags add: aSymbol
 ]
 
 { #category : #accessing }
@@ -29,7 +28,7 @@ GplASTNode >> at: aKey [
 
 { #category : #accessing }
 GplASTNode >> at: aKey put: aValue [
-	property at: aKey put: aValue.
+	property at: aKey put: aValue
 ]
 
 { #category : #accessing }
@@ -53,8 +52,7 @@ GplASTNode >> initialize [
 
 { #category : #printing }
 GplASTNode >> inspectString [
-	^ (self at: #kind) printString. 
-
+	^ (self at: #kind) printString
 ]
 
 { #category : #accessing }
@@ -75,15 +73,14 @@ GplASTNode >> nodes [
 { #category : #accessing }
 GplASTNode >> parent: aGplTreeNode [
 	parent := aGplTreeNode
-
 ]
 
 { #category : #printing }
-GplASTNode >> printOn: aStream [ 
+GplASTNode >> printOn: aStream [
 	aStream nextPutAll: self tagPrefix.
 	aStream nextPutAll: '['.
-	aStream nextPutAll: self inspectString. 
-	aStream nextPutAll: ']'.		
+	aStream nextPutAll: self inspectString.
+	aStream nextPutAll: ']'
 ]
 
 { #category : #printing }

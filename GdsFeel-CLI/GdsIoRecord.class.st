@@ -50,56 +50,55 @@ Class {
 
 { #category : #constants }
 GdsIoRecord class >> bufferSize [
-	^2000
+	^ 2000
 ]
 
 { #category : #accessing }
 GdsIoRecord class >> fragmentSize [
-	^self bufferSize - self headerSize 
+	^ self bufferSize - self headerSize
 ]
 
 { #category : #'instance creation' }
 GdsIoRecord class >> fromByteArray: aByteArray [
-	^self new byteArray: aByteArray
+	^ self new byteArray: aByteArray
 ]
 
 { #category : #constants }
 GdsIoRecord class >> headerSize [
-	^20
+	^ 20
 ]
 
 { #category : #'as yet unclassified' }
 GdsIoRecord >> base64 [
-	^base64
+	^ base64
 ]
 
 { #category : #'as yet unclassified' }
 GdsIoRecord >> base64: aString [
 	base64 := aString.
-	fragmentSize := aString size.
+	fragmentSize := aString size
 ]
 
 { #category : #'as yet unclassified' }
 GdsIoRecord >> byteArray: aByteArray [
-	| stream  |
-	"self assert: aByteArray size = 2000." "AssociationFailure on cygwin byte size 1460"
+	| stream |
+	"self assert: aByteArray size = 2000."
+	"AssociationFailure on cygwin byte size 1460"
 	stream := aByteArray readStream.
 	phase := stream next.
 	kind := stream next.
 	desc := stream next.
-	stream next. "padd"
-	session := stream nextInt32. 
+	stream next.	"padd"
+	session := stream nextInt32.
 	nSplit := stream nextInt32.
 	consume := stream nextInt32.
 	fragmentSize := stream nextInt32.
 	base64 := (stream next: fragmentSize) asString
-	 
 ]
 
 { #category : #'as yet unclassified' }
 GdsIoRecord >> consume: aNumber [
 	consume := aNumber
-	 
 ]
 
 { #category : #'as yet unclassified' }
@@ -107,15 +106,14 @@ GdsIoRecord >> contentsOn: aWriteStream [
 	| fillSize |
 	self headerOn: aWriteStream.
 	aWriteStream nextPutAll: self base64 asByteArray.
-	fillSize := self class bufferSize - (self class headerSize + fragmentSize).
-	fillSize timesRepeat: [aWriteStream nextPut:0 ].
-
-	 
+	fillSize := self class bufferSize
+		- (self class headerSize + fragmentSize).
+	fillSize timesRepeat: [ aWriteStream nextPut: 0 ]
 ]
 
 { #category : #testing }
 GdsIoRecord >> hasMoreData [
-	^consume < nSplit 
+	^ consume < nSplit
 ]
 
 { #category : #'as yet unclassified' }
@@ -127,22 +125,19 @@ GdsIoRecord >> headerOn: aWriteStream [
 	aWriteStream nextInt32Put: session.
 	aWriteStream nextInt32Put: nSplit.
 	aWriteStream nextInt32Put: consume.
-	aWriteStream nextInt32Put: fragmentSize.
-
-	 
+	aWriteStream nextInt32Put: fragmentSize
 ]
 
 { #category : #'as yet unclassified' }
 GdsIoRecord >> initialize [
-	phase := self sessionRunLoop .
+	phase := self sessionRunLoop.
 	kind := self typeNormal.
 	desc := 1.
 	session := 1.
 	nSplit := 1.
 	consume := 1.
 	fragmentSize := 0.
-	base64 := ''.
-	 
+	base64 := ''
 ]
 
 { #category : #testing }
@@ -157,17 +152,17 @@ GdsIoRecord >> isSessionExit [
 
 { #category : #testing }
 GdsIoRecord >> isTypeNormal [
-	^kind =  self typeNormal
+	^ kind = self typeNormal
 ]
 
 { #category : #testing }
 GdsIoRecord >> isTypePrompt [
-	^kind = self typePrompt
+	^ kind = self typePrompt
 ]
 
 { #category : #testing }
 GdsIoRecord >> isTypePromptReply [
-	^kind =  self typePromptReply
+	^ kind = self typePromptReply
 ]
 
 { #category : #'as yet unclassified' }
@@ -177,54 +172,55 @@ GdsIoRecord >> nSplit: aNumber [
 
 { #category : #'as yet unclassified' }
 GdsIoRecord >> session [
-	^session
+	^ session
 ]
 
 { #category : #'as yet unclassified' }
 GdsIoRecord >> session: aNumber [
 	session := aNumber
-	 
 ]
 
 { #category : #testing }
 GdsIoRecord >> sessionEnter [
-	^1
+	^ 1
 ]
 
 { #category : #testing }
 GdsIoRecord >> sessionExit [
-	^2
+	^ 2
 ]
 
 { #category : #testing }
 GdsIoRecord >> sessionRunLoop [
-	^0
+	^ 0
 ]
 
 { #category : #testing }
 GdsIoRecord >> type: aInteger [
-	({ self typeNormal . self typePrompt . self typePromptReply . self typeCodeComplete}
-		includes: aInteger)
-		ifFalse: [^self error: 'invarid argument for #type:'].
+	({self typeNormal.
+	self typePrompt.
+	self typePromptReply.
+	self typeCodeComplete} includes: aInteger)
+		ifFalse: [ ^ self error: 'invarid argument for #type:' ].
 	kind := aInteger
 ]
 
 { #category : #testing }
 GdsIoRecord >> typeCodeComplete [
-	^3
+	^ 3
 ]
 
 { #category : #testing }
 GdsIoRecord >> typeNormal [
-	^0
+	^ 0
 ]
 
 { #category : #testing }
 GdsIoRecord >> typePrompt [
-	^1
+	^ 1
 ]
 
 { #category : #testing }
 GdsIoRecord >> typePromptReply [
-	^2
+	^ 2
 ]

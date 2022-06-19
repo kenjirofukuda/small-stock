@@ -25,92 +25,87 @@ Class {
 
 { #category : #accessing }
 GdsNull class >> acceptRegexPattern [
-	^'""'
+	^ '""'
 ]
 
 { #category : #accessing }
 GdsNull class >> fromLiteral: aString [
-	(self acceptableExpression: (aString asString))
-		ifFalse: [
-	     self syntaxError: 'ILLIGAL LITERAL FORMAT'].
-	^self instance.	
+	(self acceptableExpression: aString asString)
+		ifFalse: [ self syntaxError: 'ILLIGAL LITERAL FORMAT' ].
+	^ self instance
 ]
 
 { #category : #'instance creation' }
 GdsNull class >> fromSmalltalk: aObject [
-	^GdsNull instance.
+	^ GdsNull instance
 ]
 
 { #category : #accessing }
 GdsNull class >> instance [
-	Singleton ifNil: [Singleton := GdsNull new.].
-	^Singleton
-	
+	Singleton ifNil: [ Singleton := GdsNull new ].
+	^ Singleton
 ]
 
 { #category : #test }
 GdsNull class >> isAcceptableSmalltalkObject: anObject [
-	(anObject isKindOf: Collection) ifFalse: [^false].
-	^anObject isEmpty
-
+	(anObject isKindOf: Collection)
+		ifFalse: [ ^ false ].
+	^ anObject isEmpty
 ]
 
 { #category : #accessing }
 GdsNull class >> mode [
-	^5
+	^ 5
 ]
 
 { #category : #accessing }
 GdsNull class >> shape [
-	^#()
-	
+	^ #()
 ]
 
 { #category : #accessing }
 GdsNull class >> typeString [
-	^'NULL'
+	^ 'NULL'
 ]
 
 { #category : #accessing }
-GdsNull >> applySymbol: aSymbol to: aObject [ 
-	^self illigalDataMode.
+GdsNull >> applySymbol: aSymbol to: aObject [
+	^ self illigalDataMode
 ]
 
 { #category : #convert }
 GdsNull >> asSmalltalkValue [
-	^#() copy
-	
+	^ #() copy
 ]
 
 { #category : #accessing }
 GdsNull >> atSubscript: aGdsDataStructure [
-	^self runtimeError: 'ILLIGAL ACCESS FOR NULL VECTOR []'.
+	^ self runtimeError: 'ILLIGAL ACCESS FOR NULL VECTOR []'
 ]
 
 { #category : #copying }
 GdsNull >> copy [
-	^self.
+	^ self
 ]
 
 { #category : #convert }
 GdsNull >> gplSourceString [
-	^'""'
+	^ '""'
 ]
 
 { #category : #convert }
 GdsNull >> gplString [
-	^''
+	^ ''
 ]
 
 { #category : #testing }
 GdsNull >> isNullVector [
-	^true
+	^ true
 ]
 
 { #category : #printing }
 GdsNull >> printOn: aStream [
-	aStream nextPutAll: 'a GdsNull'.
-
+	aStream nextPutAll: 'a GdsNull'
 ]
 
 { #category : #testing }
@@ -120,10 +115,10 @@ GdsNull >> sameAsInteger [
 
 { #category : #accessing }
 GdsNull >> shape [
-	^#() copy.
+	^ #() copy
 ]
 
 { #category : #accessing }
 GdsNull >> size [
-	^0
+	^ 0
 ]

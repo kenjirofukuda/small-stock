@@ -6,42 +6,38 @@ Class {
 
 { #category : #testing }
 GplDataExtent class >> isFunctionAllowed [
-	^true.
+	^ true
 ]
 
 { #category : #testing }
 GplDataExtent class >> isNiladicAllowed [
-	^true.
-	
+	^ true
 ]
 
 { #category : #accessing }
 GplDataExtent class >> methodName [
-	^'DATAEXTENT'
+	^ 'DATAEXTENT'
 ]
 
 { #category : #handler }
-GplDataExtent >> evaluateToken: aToken [ 
+GplDataExtent >> evaluateToken: aToken [
 	| numArgs |
 	self mustStructureOpen.
 	numArgs := evaluator numArgs: aToken.
-	('numPushd: <1p><n> numReturn: <2p><n> notConsumedTokens: <3p><n>' 
-		expandMacrosWithArguments: 
-			{ evaluator numPushed . evaluator numReturn: aToken .  evaluator notConsumedTokens: aToken}) traceCr.
+	('numPushd: <1p><n> numReturn: <2p><n> notConsumedTokens: <3p><n>'
+		expandMacrosWithArguments:
+			{evaluator numPushed.
+			(evaluator numReturn: aToken).
+			(evaluator notConsumedTokens: aToken)}) traceCr.
 	numArgs = 0
-		ifTrue: [
-			^self fullExtent].
-	^self keysExtent.
-	
-	
+		ifTrue: [ ^ self fullExtent ].
+	^ self keysExtent
 ]
 
 { #category : #handler }
 GplDataExtent >> fullExtent [
-	self structure liveElements
-		ifEmpty: [^self nullVector].
-	^GdsMatrix fromRectangle:  self structure dataExtentForElements.
-	
+	self structure liveElements ifEmpty: [ ^ self nullVector ].
+	^ GdsMatrix fromRectangle: self structure dataExtentForElements
 ]
 
 { #category : #handler }
@@ -51,17 +47,15 @@ GplDataExtent >> keysExtent [
 	smVec := gv1 asVector asSmalltalkValue.
 	elements := OrderedCollection new.
 	errorKeys := OrderedCollection new.
-	self 
-		keyNumbers: smVec 
-		doWithElement: [:key :element| 
+	self
+		keyNumbers: smVec
+		doWithElement: [ :key :element | 
 			element
-				ifNil: [errorKeys add: key]
-				ifNotNil: [elements add: element]].
+				ifNil: [ errorKeys add: key ]
+				ifNotNil: [ elements add: element ] ].
 	self illigalKeyNumbers: errorKeys.
-	elements ifEmpty: [^self nullVector].
-	smBounds := self structure 
-		lookupDataExtentForElementsChooserBlock: [:element |
-			elements includes: element].
-	^GdsMatrix fromRectangle: smBounds. 
-	
+	elements ifEmpty: [ ^ self nullVector ].
+	smBounds := self structure
+		lookupDataExtentForElementsChooserBlock: [ :element | elements includes: element ].
+	^ GdsMatrix fromRectangle: smBounds
 ]

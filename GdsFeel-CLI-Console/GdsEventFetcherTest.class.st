@@ -9,26 +9,25 @@ Class {
 
 { #category : #accessing }
 GdsEventFetcherTest >> testFoo [
-	| fetcher panel buttonsMap|
+	| fetcher panel buttonsMap |
 	fetcher := GdsEventFetcher new.
 	fetcher installEventLoop.
 	panel := GdsToolsBuilder buildByJsons.
-	buttonsMap := panel valueOfProperty: #buttonsMap .
-	buttonsMap keysAndValuesDo: [ :cmdName :button | 
-		button actionBlock: [
-			fetcher addHandler: [
-				self inform: cmdName. 
-				(Delay forSeconds: 2) wait]]].
+	buttonsMap := panel valueOfProperty: #buttonsMap.
+	buttonsMap
+		keysAndValuesDo: [ :cmdName :button | 
+			button
+				actionBlock: [ fetcher
+						addHandler: [ self inform: cmdName.
+							(Delay forSeconds: 2) wait ] ] ].
 	(buttonsMap at: 'QUIT')
-		ifNotNil: [ :b |
-			b actionBlock: [ 
-				b enabled: false.
-				fetcher quitAfter: [
-					panel delete.
-					self inform: 'FINISHED']]].
-	panel announcer 
-		on: MorphDeleted 
+		ifNotNil: [ :b | 
+			b
+				actionBlock: [ b enabled: false.
+					fetcher
+						quitAfter: [ panel delete.
+							self inform: 'FINISHED' ] ] ].
+	panel announcer
+		on: MorphDeleted
 		do: [ fetcher terminateEventLoop ]
-	
-
 ]

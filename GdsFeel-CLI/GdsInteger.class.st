@@ -16,23 +16,25 @@ Class {
 { #category : #accessing }
 GdsInteger class >> maxValue [
 	"(2 raisedTo: (16 - 1)) - 1"
-	^32767 
+
+	^ 32767
 ]
 
 { #category : #accessing }
 GdsInteger class >> minValue [
 	"(2 raisedTo: (16 - 1)) negated"
-	^-32768 	
+
+	^ -32768
 ]
 
 { #category : #accessing }
 GdsInteger class >> mode [
-	^2
+	^ 2
 ]
 
 { #category : #accessing }
 GdsInteger class >> precisionRank [
-	^2
+	^ 2
 ]
 
 { #category : #accessing }

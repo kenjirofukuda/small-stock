@@ -5,6 +5,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-GplStatementNode >> printOn: aStream [ 
-	(self at: #value) printOn: aStream.
+GplStatementNode >> printOn: aStream [
+	(self at: #value) printOn: aStream
 ]

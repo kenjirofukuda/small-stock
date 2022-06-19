@@ -42,7 +42,6 @@ BaselineOfGdsFeel >> baseline: spec [
 			spec
 				package: 'GdsFeel-Model-ElementAddition'
 				with: [ spec requires: #('KFDxf-Model' 'KFDxf-Tests') ].
-			spec package: 'GdsFeel-Model-StreamFormat'.
 			spec package: 'GdsFeel-Model-Sandbox'.
 			spec package: 'GdsFeel-Model-Private'.
 			spec package: 'GdsFeel-Model-Viewing'.
@@ -82,7 +81,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				baseline: 'Magritte'
 				with: [ spec
 						repository: 'github://magritte-metamodel/magritte/source';
-						loads: #('Magritte-Morph') ].
+						loads: #(Core) ].
 			spec
 				package: 'GdsFeel-CLI-Glamour'
 				with: [ spec requires: #('GdsFeel-CLI' 'GlamourCore') ].

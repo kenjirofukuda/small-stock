@@ -6,12 +6,12 @@ Class {
 
 { #category : #accessing }
 GplFileList class >> methodName [
-	^'FLIST'
+	^ 'FLIST'
 ]
 
 { #category : #handler }
 GplFileList >> evaluateToken: aToken [
 	| names |
 	names := GdsLibrary archivedNames.
-	^self strings: names.
+	^ self strings: names
 ]

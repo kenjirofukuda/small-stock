@@ -6,19 +6,21 @@ Class {
 
 { #category : #accessing }
 GplViewingHandler class >> associateArray [
-	^{'PAN' -> #pan:  . 'ZOOM' -> #zoom:  . 'FIT' -> #fit: }
+	^ {('PAN' -> #pan:).
+	('ZOOM' -> #zoom:).
+	('FIT' -> #fit:)}
 ]
 
 { #category : #testing }
 GplViewingHandler class >> isFunctionAllowed: aCommandName [
-	^false
+	^ false
 ]
 
 { #category : #handler }
 GplViewingHandler >> fit: aToken [
 	self mustStructureOpen.
 	self viewport viewFit.
-	 ^self nullVector. 
+	^ self nullVector
 ]
 
 { #category : #handler }
@@ -28,10 +30,11 @@ GplViewingHandler >> pan: aToken [
 	arg1 := evaluator popArg asGplValue.
 	gv1 := arg1 asVector.
 	self mustBeCoordinatable: gv1.
-	gv1 size = 2 ifFalse: [^self illigalCoordinate].
+	gv1 size = 2
+		ifFalse: [ ^ self illigalCoordinate ].
 	sv1 := gv1 asSmalltalkValue.
-	self viewport viewCenter: (sv1 first @ sv1 second).
-	 ^self nullVector. 
+	self viewport viewCenter: sv1 first @ sv1 second.
+	^ self nullVector
 ]
 
 { #category : #handler }
@@ -41,10 +44,11 @@ GplViewingHandler >> zoom: aToken [
 	arg1 := evaluator popArg asGplValue.
 	gv1 := arg1 asVector.
 	self mustBeCoordinatable: gv1.
-	gv1 size = 1 ifFalse: [^self error: 'RELATIVE MAGINIFY MUST SCALAR'].
+	gv1 size = 1
+		ifFalse: [ ^ self error: 'RELATIVE MAGINIFY MUST SCALAR' ].
 	sv1 := gv1 asSmalltalkValue first.
-	(sv1 = 0.0 or: [sv1 negative])
-		 ifTrue: [^self error: 'POSITIVE VALUE BUT: ', sv1 asString].
+	(sv1 = 0.0 or: [ sv1 negative ])
+		ifTrue: [ ^ self error: 'POSITIVE VALUE BUT: ' , sv1 asString ].
 	self viewport zoom: sv1.
-	 ^self nullVector. 
+	^ self nullVector
 ]

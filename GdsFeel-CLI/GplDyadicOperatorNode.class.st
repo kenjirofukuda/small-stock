@@ -7,7 +7,7 @@ Class {
 { #category : #initialize }
 GplDyadicOperatorNode >> initialize [
 	super initialize.
-	self at: #numArgs put: 2.
+	self at: #numArgs put: 2
 ]
 
 { #category : #printing }
@@ -16,7 +16,5 @@ GplDyadicOperatorNode >> printOn: aStream [
 	aStream nextPutAll: ' '.
 	aStream nextPutAll: self opName.
 	aStream nextPutAll: ' '.
-	aStream nextPutAll: self param2 printString.
-	
-	
+	aStream nextPutAll: self param2 printString
 ]

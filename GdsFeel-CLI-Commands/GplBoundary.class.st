@@ -6,16 +6,16 @@ Class {
 
 { #category : #'as yet unclassified' }
 GplBoundary class >> methodName [
-	^'HOGE'
+	^ 'HOGE'
 ]
 
 { #category : #'as yet unclassified' }
 GplBoundary >> functionCall: aToken [
-	^ GdsInteger fromLiteral: 1.
+	^ GdsInteger fromLiteral: 1
 ]
 
 { #category : #'as yet unclassified' }
 GplBoundary >> procedureCall: aToken [
 	self currentItem boundary.
-	^self nullVector.
+	^ self nullVector
 ]

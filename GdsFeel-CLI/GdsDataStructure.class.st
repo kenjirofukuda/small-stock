@@ -13,25 +13,23 @@ Class {
 
 { #category : #accessing }
 GdsDataStructure class >> acceptRegexPattern [
-	self subclassResponsibility.
-
+	self subclassResponsibility
 ]
 
 { #category : #test }
 GdsDataStructure class >> acceptableExpression: aString [
-	^(aString matchesRegex: self acceptRegexPattern)
+	^ aString matchesRegex: self acceptRegexPattern
 ]
 
 { #category : #'instance creation' }
 GdsDataStructure class >> cantConvertSmalltalkObject: anObject [
-	^self error: 'CAN''T CREATE FROM Smalltalk Object: ', anObject printString.
-	
+	^ self
+		error: 'CAN''T CREATE FROM Smalltalk Object: ' , anObject printString
 ]
 
 { #category : #test }
 GdsDataStructure class >> coreceExpressionAsSmalltalkNumber: anGplExpression [
-	^anGplExpression.
-	
+	^ anGplExpression
 ]
 
 { #category : #'instance creation' }
@@ -41,54 +39,52 @@ GdsDataStructure class >> fromLiteral: aString [
 
 { #category : #'instance creation' }
 GdsDataStructure class >> fromLiteralString: aString [
-	(self acceptableExpression: (aString asString))
-		ifFalse: [
-	     self syntaxError: 'ILLIGAL LITERAL FORMAT'].
-	^self new stringValue: (self coreceExpressionAsSmalltalkNumber: aString asString).	
+	(self acceptableExpression: aString asString)
+		ifFalse: [ self syntaxError: 'ILLIGAL LITERAL FORMAT' ].
+	^ self new
+		stringValue: (self coreceExpressionAsSmalltalkNumber: aString asString)
 ]
 
 { #category : #'instance creation' }
 GdsDataStructure class >> fromSmalltalk: aObject [
-	^self subclassResponsibility.
-	
+	^ self subclassResponsibility
 ]
 
 { #category : #'instance creation' }
 GdsDataStructure class >> fromSmalltalkObject: anObject [
 	(self isAcceptableSmalltalkObject: anObject)
-		ifFalse: [^self cantConvertSmalltalkObject: anObject].
-	^self fromSmalltalk: anObject.
-	
+		ifFalse: [ ^ self cantConvertSmalltalkObject: anObject ].
+	^ self fromSmalltalk: anObject
 ]
 
 { #category : #test }
 GdsDataStructure class >> isAcceptableSmalltalkObject: anObject [
-	^self subclassResponsibility 
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 GdsDataStructure class >> mode [
-	^self subclassResponsibility
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 GdsDataStructure class >> rank [
-	^self  subclassResponsibility.
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 GdsDataStructure class >> shape [
-	self subclassResponsibility.
+	self subclassResponsibility
 ]
 
 { #category : #arithmetic }
 GdsDataStructure >> % aObject [
-	^self applySymbol: #% to: aObject
+	^ self applySymbol: #% to: aObject
 ]
 
 { #category : #arithmetic }
 GdsDataStructure >> * aObject [
-	^self applySymbol: #* to: aObject
+	^ self applySymbol: #* to: aObject
 ]
 
 { #category : #arithmetic }
@@ -96,63 +92,71 @@ GdsDataStructure >> + aObject [
 	| v |
 	"self halt."
 	v := self applySymbol: #+ to: aObject.
-	^v.
+	^ v
 ]
 
 { #category : #arithmetic }
 GdsDataStructure >> - aObject [
-	^self applySymbol: #- to: aObject
+	^ self applySymbol: #- to: aObject
 ]
 
 { #category : #arithmetic }
 GdsDataStructure >> = aObject [
-	(aObject isKindOf: GdsDataStructure ) ifFalse: [^false].
-	(self size = aObject size) ifFalse: [^false].
-	(self mode = aObject mode) ifFalse: [^false].
-	^self asSmalltalkValue = aObject asSmalltalkValue.
+	(aObject isKindOf: GdsDataStructure)
+		ifFalse: [ ^ false ].
+	self size = aObject size
+		ifFalse: [ ^ false ].
+	self mode = aObject mode
+		ifFalse: [ ^ false ].
+	^ self asSmalltalkValue = aObject asSmalltalkValue
 ]
 
 { #category : #arithmetic }
-GdsDataStructure >> applySymbol: aSymbol to: aObject [ 
-	^self illigalDataMode.
+GdsDataStructure >> applySymbol: aSymbol to: aObject [
+	^ self illigalDataMode
 ]
 
 { #category : #private }
-GdsDataStructure >> applySymbolCheck: aSymbol to: aObject [ 
-	(#(+ - * %) includes: aSymbol) ifFalse: [self error: 'ILLIGAL ARITHMETIC OPERATOR'].
-	self isCharVector ifTrue: [^self illigalDataMode].
-	(self isKindOf: GdsNull) ifTrue: [^self illigalDataMode].
-	aObject isCharVector ifTrue: [^self illigalDataMode].
-	(aObject isKindOf: GdsNull) ifTrue: [^self illigalDataMode].
-	
+GdsDataStructure >> applySymbolCheck: aSymbol to: aObject [
+	(#(+ - * %) includes: aSymbol)
+		ifFalse: [ self error: 'ILLIGAL ARITHMETIC OPERATOR' ].
+	self isCharVector
+		ifTrue: [ ^ self illigalDataMode ].
+	(self isKindOf: GdsNull)
+		ifTrue: [ ^ self illigalDataMode ].
+	aObject isCharVector
+		ifTrue: [ ^ self illigalDataMode ].
+	(aObject isKindOf: GdsNull)
+		ifTrue: [ ^ self illigalDataMode ]
 ]
 
 { #category : #convert }
 GdsDataStructure >> asGdsFloating [
-	^self subclassResponsibility
+	^ self subclassResponsibility
 ]
 
 { #category : #convert }
 GdsDataStructure >> asGdsValue [
-	^self
+	^ self
 ]
 
 { #category : #convert }
 GdsDataStructure >> asGplValue [
-	^self
+	^ self
 ]
 
 { #category : #convert }
 GdsDataStructure >> asScalar [
-	self isScalar ifTrue: [^self].
+	self isScalar
+		ifTrue: [ ^ self ].
 	self size = 1
-		ifFalse: [^self error: 'CANT CONVERT TO SCALAR'].
-	^self at: 1.
+		ifFalse: [ ^ self error: 'CANT CONVERT TO SCALAR' ].
+	^ self at: 1
 ]
 
 { #category : #convert }
 GdsDataStructure >> asSmalltalkValue [
-	^self subclassResponsibility.
+	^ self subclassResponsibility
 ]
 
 { #category : #convert }
@@ -161,160 +165,154 @@ GdsDataStructure >> asVector [
 ]
 
 { #category : #convert }
-GdsDataStructure >> asVector: aSize [ 
-	^ self vectorClass withAll: self elements 
+GdsDataStructure >> asVector: aSize [
+	^ self vectorClass withAll: self elements
 ]
 
 { #category : #accessing }
 GdsDataStructure >> at: aIndex [
-	^self error: 'ILIIGAL ACCESS FOR SCALAR []'.
+	^ self error: 'ILIIGAL ACCESS FOR SCALAR []'
 ]
 
 { #category : #accessing }
-GdsDataStructure >> atSubscript: aGdsDataStructure. [
-	^self subclassResponsibility.
+GdsDataStructure >> atSubscript: aGdsDataStructure [
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 GdsDataStructure >> atSubscript: aGdsDataStructure put: aGdsValue [
-	^self subclassResponsibility
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-GdsDataStructure >> atSubscriptWithCheck: aGdsDataStructure [ 
+GdsDataStructure >> atSubscriptWithCheck: aGdsDataStructure [
 	| subscript |
 	subscript := self subscriptCheckForReturn: aGdsDataStructure.
-	^self atSubscript: subscript
+	^ self atSubscript: subscript
 ]
 
 { #category : #accessing }
 GdsDataStructure >> atSubscriptWithCheck: aGdsDataStructure put: aGdsValue [
 	| subscript |
 	subscript := self subscriptCheckForAssign: aGdsDataStructure.
-	^self atSubscript: subscript put: aGdsValue.
+	^ self atSubscript: subscript put: aGdsValue
 ]
 
 { #category : #copying }
 GdsDataStructure >> copy [
-	^super copy copyValues.
+	^ super copy copyValues
 ]
 
 { #category : #copying }
 GdsDataStructure >> copyValues [
-
+	
 ]
 
 { #category : #accessing }
 GdsDataStructure >> elements [
-	^self subclassResponsibility.
+	^ self subclassResponsibility
 ]
 
 { #category : #convert }
 GdsDataStructure >> gplSourceString [
-	^self gplString.
+	^ self gplString
 ]
 
 { #category : #convert }
 GdsDataStructure >> gplString [
-	^self asSmalltalkValue asString.
+	^ self asSmalltalkValue asString
 ]
 
 { #category : #convert }
 GdsDataStructure >> gplValueOfLength [
-	^GdsInteger fromLiteral: self length.
-
+	^ GdsInteger fromLiteral: self length
 ]
 
 { #category : #convert }
 GdsDataStructure >> gplValueOfRank [
-	^GdsInteger fromLiteral: self rank.
-
+	^ GdsInteger fromLiteral: self rank
 ]
 
 { #category : #convert }
 GdsDataStructure >> gplValueOfShape [
-	^GdsInteger fromLiteral: self shape.
-
+	^ GdsInteger fromLiteral: self shape
 ]
 
 { #category : #convert }
 GdsDataStructure >> gplValueOfSize [
-	^GdsInteger fromLiteral: self size.
-	
+	^ GdsInteger fromLiteral: self size
 ]
 
 { #category : #convert }
 GdsDataStructure >> gplValueOfTypeof [
-	^GdsString fromLiteral: ('"', self typeString , '"')
+	^ GdsString fromLiteral: '"' , self typeString , '"'
 ]
 
 { #category : #'utility for subclass' }
 GdsDataStructure >> illigalDataMode [
-	^self runtimeError: 'ILLIGAL DATA MODE'.
+	^ self runtimeError: 'ILLIGAL DATA MODE'
 ]
 
 { #category : #'utility for subclass' }
 GdsDataStructure >> indexedValues: aIndexArray [
-	^(aIndexArray collect: [:each | self at: each]) asArray
+	^ (aIndexArray collect: [ :each | self at: each ]) asArray
 ]
 
 { #category : #'utility for subclass' }
 GdsDataStructure >> indexesOfSubscript: aGdsDataStructure [
-	^aGdsDataStructure asVector elements collect: [:each | each asSmalltalkValue].
-
+	^ aGdsDataStructure asVector elements
+		collect: [ :each | each asSmalltalkValue ]
 ]
 
 { #category : #testing }
 GdsDataStructure >> isCharVector [
-	^false
+	^ false
 ]
 
 { #category : #testing }
 GdsDataStructure >> isList [
-	^false
+	^ false
 ]
 
 { #category : #testing }
 GdsDataStructure >> isNullVector [
-	^false
+	^ false
 ]
 
 { #category : #testing }
 GdsDataStructure >> isScalar [
-	^false
+	^ false
 ]
 
 { #category : #accessing }
 GdsDataStructure >> length [
-	^1.
+	^ 1
 ]
 
 { #category : #accessing }
 GdsDataStructure >> mode [
-	^self class mode.
+	^ self class mode
 ]
 
 { #category : #convert }
 GdsDataStructure >> mostCompactValue [
-	^self subclassResponsibility
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 GdsDataStructure >> nonIntegralValue [
-	^self runtimeError: 'ILLIGAL SUBSCRIPT ACCESS. NON INTEGRAL VALUE'.
-
+	^ self runtimeError: 'ILLIGAL SUBSCRIPT ACCESS. NON INTEGRAL VALUE'
 ]
 
 { #category : #private }
 GdsDataStructure >> notSupportMatrixSubscription [
-	^self error: 'Sorry: current implement not support Matrix subscription'.
-
+	^ self
+		error: 'Sorry: current implement not support Matrix subscription'
 ]
 
 { #category : #accessing }
 GdsDataStructure >> rank [
-	^self class rank.
-	
+	^ self class rank
 ]
 
 { #category : #testing }
@@ -324,7 +322,7 @@ GdsDataStructure >> sameAsInteger [
 
 { #category : #accessing }
 GdsDataStructure >> shape [
-	^self class shape.
+	^ self class shape
 ]
 
 { #category : #accessing }
@@ -333,38 +331,39 @@ GdsDataStructure >> size [
 ]
 
 { #category : #accessing }
-GdsDataStructure >> subscriptCheckFor: aSubscript [ 
+GdsDataStructure >> subscriptCheckFor: aSubscript [
 	(self isMemberOf: GdsMatrix)
-		ifFalse: [
-			(aSubscript = GdsNull instance)
-				ifTrue: [^self nonIntegralValue]].
+		ifFalse: [ aSubscript = GdsNull instance
+				ifTrue: [ ^ self nonIntegralValue ] ].
 	aSubscript isCharVector
-		ifTrue: [^self nonIntegralValue].
+		ifTrue: [ ^ self nonIntegralValue ].
 	(aSubscript isMemberOf: GdsMatrix)
-		ifTrue: [^self nonIntegralValue].
-	((aSubscript isMemberOf: GdsVector) or: [aSubscript isKindOf: GdsScalar]) 
-		ifTrue: [
-			(aSubscript sameAsInteger)
-				ifFalse: [^self nonIntegralValue]].
+		ifTrue: [ ^ self nonIntegralValue ].
+	((aSubscript isMemberOf: GdsVector)
+		or: [ aSubscript isKindOf: GdsScalar ])
+		ifTrue: [ aSubscript sameAsInteger
+				ifFalse: [ ^ self nonIntegralValue ] ].
 	^ aSubscript
 ]
 
 { #category : #accessing }
-GdsDataStructure >> subscriptCheckForAssign: aSubscript [ 
+GdsDataStructure >> subscriptCheckForAssign: aSubscript [
 	^ self subscriptCheckFor: aSubscript
 ]
 
 { #category : #accessing }
-GdsDataStructure >> subscriptCheckForReturn: aSubscript [ 
+GdsDataStructure >> subscriptCheckForReturn: aSubscript [
 	^ self subscriptCheckFor: aSubscript
 ]
 
 { #category : #accessing }
 GdsDataStructure >> typeString [
-	^self subclassResponsibility.
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 GdsDataStructure >> vectorClass [
-	^self typeString = 'CHAR' ifTrue: [GdsString] ifFalse: [GdsVector].
+	^ self typeString = 'CHAR'
+		ifTrue: [ GdsString ]
+		ifFalse: [ GdsVector ]
 ]

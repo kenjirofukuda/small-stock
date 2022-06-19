@@ -6,19 +6,17 @@ Class {
 
 { #category : #accessing }
 GplQuit class >> methodName [
-	^'QUIT'
+	^ 'QUIT'
 ]
 
 { #category : #handler }
 GplQuit >> evaluateToken: aToken [
-	| clazz instances|
-	self station structure
-		ifNotNil: [self call: 'TSTRUCT'].
+	| clazz instances |
+	self station structure ifNotNil: [ self call: 'TSTRUCT' ].
 	clazz := self stationUIClass.
-	clazz 
-		ifNotNil: [
-			instances := clazz noGarbageTargetInstances. 
-			instances do: [:each | each delete.].
+	clazz
+		ifNotNil: [ instances := clazz noGarbageTargetInstances.
+			instances do: [ :each | each delete ].
 			Smalltalk garbageCollect ].
-	^self nullVector.
+	^ self nullVector
 ]

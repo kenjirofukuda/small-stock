@@ -12,7 +12,9 @@ GplLiteralNode >> initialize [
 
 { #category : #printing }
 GplLiteralNode >> inspectString [
-	^ [self token fragment] on: Error do: [ '"" (Fixed)' ]
+	^ [ self token fragment ]
+		on: Error
+		do: [ '"" (Fixed)' ]
 ]
 
 { #category : #printing }

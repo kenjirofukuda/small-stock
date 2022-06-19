@@ -9,5 +9,5 @@ Class {
 
 { #category : #'tests-as yet unclassified' }
 GplLanguageTest >> testInitializeKeywords [
-	GplLanguage new explore.
+	GplLanguage new explore
 ]

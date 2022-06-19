@@ -6,13 +6,12 @@ Class {
 
 { #category : #'as yet unclassified' }
 GplGridScale class >> methodName [
-	^'GSCALE'
+	^ 'GSCALE'
 ]
 
 { #category : #'as yet unclassified' }
 GplGridScale >> functionCall: aToken [
-	^self viewport grid asArray asGdsValue
-
+	^ self viewport grid asArray asGdsValue
 ]
 
 { #category : #'as yet unclassified' }
@@ -22,20 +21,16 @@ GplGridScale >> procedureCall: aToken [
 	gv1 := evaluator popArg asGplValue.
 	vec := gv1 asVector.
 	smVec := vec asSmalltalkValue.
-	(#(1 2 4) includes: (smVec size))
-		ifFalse: [^self error: 'ILLIGAL ARGUMENT '].
+	(#(1 2 4) includes: smVec size)
+		ifFalse: [ ^ self error: 'ILLIGAL ARGUMENT ' ].
 	smVec size = 1
-		ifTrue: [
-			 self viewport grid scale: smVec first asPoint].
+		ifTrue: [ self viewport grid scale: smVec first asPoint ].
 	smVec size = 2
-		ifTrue: [
-			 self viewport grid scale: (smVec first@smVec second)].
+		ifTrue: [ self viewport grid scale: smVec first @ smVec second ].
 	smVec size = 4
-		ifTrue: [
-			 self viewport
-				grid 
-					offset: (smVec first@smVec second);
-					scale: (smVec third@smVec fourth).].		
+		ifTrue: [ self viewport grid
+				offset: smVec first @ smVec second;
+				scale: smVec third @ smVec fourth ].
 	self fullRedraw.
-	^self nullVector
+	^ self nullVector
 ]

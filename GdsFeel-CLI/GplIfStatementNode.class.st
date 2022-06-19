@@ -27,7 +27,7 @@ GplIfStatementNode >> ifPart [
 { #category : #'as yet unclassified' }
 GplIfStatementNode >> initialize [
 	super initialize.
-	ifPart := GplIfPartNode new.
+	ifPart := GplIfPartNode new
 ]
 
 { #category : #'as yet unclassified' }
@@ -37,10 +37,7 @@ GplIfStatementNode >> inspectString [
 
 { #category : #'as yet unclassified' }
 GplIfStatementNode >> lastElif [
-	self elifParts nodes 
-		ifEmpty: [
-			^ self newElif  
-		 ].
+	self elifParts nodes ifEmpty: [ ^ self newElif ].
 	^ self elifParts nodes last
 ]
 
