@@ -45,12 +45,6 @@ GplHelp >> evaluateToken: aToken [
 		detect: [ :fref | fref basenameWithoutExtension sameAs: helpName ]
 		ifNone: [  ].
 	helpFile ifNil: [ ^ self runtimeError: 'Not found: ' , helpName ].
-	OSProcess isWindows
-		ifFalse: [ text := (PipeableOSProcess
-				command: 'tr "\r" "\n" < "' , helpFile fullName , '" | expand ')
-				upToEnd.
-			^ self strings: text lines ].
-
 	"expandTab: has BUG. but Windows..."
 	lines := helpFile readStream contents lines
 		collect: [ :line | self class expandTab: line ].
@@ -60,5 +54,5 @@ GplHelp >> evaluateToken: aToken [
 
 { #category : #handler }
 GplHelp >> helpFolder [
-	^ FileLocator home / 'Nextcloud' / 'gds' / 'calma4' / 'help'
+	^ GdsDocumentCenter helpDirectory
 ]
