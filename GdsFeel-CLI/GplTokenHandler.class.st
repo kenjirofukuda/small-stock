@@ -77,5 +77,7 @@ GplTokenHandler >> syntaxMessage: aMessage token: aGplToken [
 				timesRepeat: [ s nextPut: Character space ].
 			aGplToken fragment size timesRepeat: [ s nextPut: $^ ].
 			s nextPut: Character space.
-			s nextPutAll: aMessage , ': ' , aGplToken fragment ]
+			s
+				nextPutAll: aMessage , ': ';
+				nextPutAll: aGplToken fragment ]
 ]

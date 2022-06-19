@@ -335,7 +335,7 @@ GdsMatrix >> rowCount [
 
 { #category : #'initialize-release' }
 GdsMatrix >> rows: rows columns: columns contents: anArray [
-	stMatrix := Matrix rows: rows columns: columns contents: anArray
+	stMatrix := Array2D rows: rows columns: columns contents: anArray
 ]
 
 { #category : #accessing }
@@ -364,7 +364,7 @@ GdsMatrix >> subscriptIndexMatrix: aGdsDataStructure [
 	| rowIndexes columnIndexes mat |
 	rowIndexes := self indexesOf: aGdsDataStructure at: 1.
 	columnIndexes := self indexesOf: aGdsDataStructure at: 2.
-	mat := Matrix rows: rowIndexes size columns: columnIndexes size.
+	mat := Array2D rows: rowIndexes size columns: columnIndexes size.
 	rowIndexes
 		doWithIndex: [ :ra :ri | 
 			columnIndexes
@@ -377,7 +377,7 @@ GdsMatrix >> subscriptMatrix: aGdsDataStructure [
 	| rowIndexes columnIndexes mat |
 	rowIndexes := self indexesOf: aGdsDataStructure at: 1.
 	columnIndexes := self indexesOf: aGdsDataStructure at: 2.
-	mat := Matrix rows: rowIndexes size columns: columnIndexes size.
+	mat := Array2D rows: rowIndexes size columns: columnIndexes size.
 	rowIndexes
 		doWithIndex: [ :ra :ri | 
 			columnIndexes

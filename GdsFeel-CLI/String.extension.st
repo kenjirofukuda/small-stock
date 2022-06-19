@@ -14,11 +14,7 @@ String >> isAllHex [
 
 { #category : #'*GdsFeel-CLI' }
 String >> isAllInsideChars: aString [
-	self
-		do: [ :c | 
-			(aString includes: c)
-				ifFalse: [ ^ false ] ].
-	^ true
+	^ self allSatisfy: [ :c | aString includes: c ]
 ]
 
 { #category : #'*GdsFeel-CLI' }

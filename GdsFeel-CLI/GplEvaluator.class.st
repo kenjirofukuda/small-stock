@@ -743,7 +743,7 @@ GplEvaluator >> pushSuspendContext: aContext [
 
 { #category : #'context stack' }
 GplEvaluator >> registerResult: aResultValue at: aContext [
-	self assert: (aContext isMemberOf: MethodContext).
+	self assert: (aContext isMemberOf: Context).
 	resultMap ifNil: [ resultMap := Dictionary new ].
 	resultMap at: aContext put: aResultValue
 ]
@@ -756,7 +756,7 @@ GplEvaluator >> resolveVariableNameFromTokens: aGplTokens [
 
 { #category : #'context stack' }
 GplEvaluator >> resultAt: aContext [
-	self assert: (aContext isMemberOf: MethodContext).
+	self assert: (aContext isMemberOf: Context).
 	resultMap ifNil: [ resultMap := Dictionary new ].
 	^ resultMap at: aContext
 ]

@@ -37,7 +37,7 @@ GplMarkHandler >> mark: aToken [
 	gv1 size \\ 2 = 0
 		ifFalse: [ ^ self illigalCoordinate ].
 	numRow := gv1 size // 2.
-	mat := Matrix rows: numRow columns: 2 contents: gv1 asSmalltalkValue.
+	mat := Array2D rows: numRow columns: 2 contents: gv1 asSmalltalkValue.
 	self structureMorph setVisible: true forKey: #mark.
 	points := OrderedCollection new.
 	1 to: mat rowCount do:

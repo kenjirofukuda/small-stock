@@ -20,7 +20,7 @@ GdsDglType class >> acceptableExpression: aString [
 		ifFalse: [ ^ false ].
 	num := (self coreceExpressionAsSmalltalkNumber: aString) asNumber.
 	num ifNil: [ ^ false ].
-	^ num >= self minValue and: [ num <= self maxValue ]
+	^ num between: self minValue and: self maxValue
 ]
 
 { #category : #private }

@@ -120,7 +120,7 @@ GdsList >> gplStringUnit: aCollection [
 				ifTrue: [ 0 ]
 				ifFalse: [ (each gplString lines collect: [ :each2 | each2 size ]) max ] ].
 	nCol := colWidth sum + (aCollection size * spaceSize - 1).
-	mat := Matrix rows: nRow columns: nCol element: Character space.
+	mat := Array2D rows: nRow columns: nCol element: Character space.
 	colStart := 1.
 	aCollection
 		doWithIndex: [ :each :index | 

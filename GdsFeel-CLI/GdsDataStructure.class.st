@@ -327,7 +327,7 @@ GdsDataStructure >> shape [
 
 { #category : #accessing }
 GdsDataStructure >> size [
-	self subclassresponsibility
+	self subclassResponsibility
 ]
 
 { #category : #accessing }

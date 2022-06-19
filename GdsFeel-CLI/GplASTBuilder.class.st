@@ -736,7 +736,7 @@ GplASTBuilder >> nextToken [
 	| token |
 	[ token := self basicNextToken.
 	self isEffectiveToken: token ] whileFalse.
-	token fragment = nil
+	token fragment isNil
 		ifTrue: [ self halt ].
 	currentToken := token.
 	^ token
