@@ -13,34 +13,31 @@ Class {
 }
 
 { #category : #adding }
-KFInputBuffer >> addChar: aCharacter [ 	
+KFInputBuffer >> addChar: aCharacter [
 	aCharacter = Character cr
-		ifFalse: [
-			self charWriteStream nextPut: aCharacter.
-			self insertPos: self charWriteStream position].
+		ifFalse: [ self charWriteStream nextPut: aCharacter.
+			self insertPos: self charWriteStream position ].
 	self announcer announce: #stringContents.
 	aCharacter = Character cr
-		ifTrue: [ self flush ].
-	"self inform: aCharacter asString."
+		ifTrue: [ "self inform: aCharacter asString." self flush ]
 ]
 
 { #category : #adding }
-KFInputBuffer >> addPoint: aPoint [ 
-	self ensureASpace. 
+KFInputBuffer >> addPoint: aPoint [
+	self ensureASpace.
 	self addString: aPoint x asString.
-	self addString: ' '.	
-	self addString: aPoint y asString.		
-		
+	self addString: ' '.
+	self addString: aPoint y asString
 ]
 
 { #category : #adding }
-KFInputBuffer >> addPoints: aPointCollection [ 
-	aPointCollection do: [ :point | self addPoint: point ].			
+KFInputBuffer >> addPoints: aPointCollection [
+	aPointCollection do: [ :point | self addPoint: point ]
 ]
 
 { #category : #adding }
-KFInputBuffer >> addString: aString [ 
-	aString do: [:char | self addChar: char].
+KFInputBuffer >> addString: aString [
+	aString do: [ :char | self addChar: char ]
 ]
 
 { #category : #accessing }
@@ -50,54 +47,49 @@ KFInputBuffer >> announcer [
 
 { #category : #tests }
 KFInputBuffer >> appendable [
-	self isEmpty 
-		ifTrue: [^true].
-	
+	self isEmpty
+		ifTrue: [ ^ true ].
 	self stringContents size = self insertPos
-		ifTrue: [ ^true ].
-	^false
+		ifTrue: [ ^ true ].
+	^ false
 ]
 
 { #category : #action }
 KFInputBuffer >> backspace [
-	self backspaceEnabled ifFalse: [ ^self ].
+	self backspaceEnabled
+		ifFalse: [ ^ self ].
 	self stringContents size = self insertPos
-		ifTrue: [
-			self charWriteStream skip: -1.
-			self insertPosIncrement: -1]
-		ifFalse: [ |pair|
+		ifTrue: [ self charWriteStream skip: -1.
+			self insertPosIncrement: -1 ]
+		ifFalse: [ | pair |
 			"self halt."
 			pair := self split.
 			charWriteStream := nil.
 			(pair at: 1)
-				ifNotEmpty: [:left |
-					self charWriteStream nextPutAll: left allButLast.
-					].
+				ifNotEmpty: [ :left | self charWriteStream nextPutAll: left allButLast ].
 			(pair at: 2)
-				ifNotEmpty: [:right |
-					self charWriteStream nextPutAll: right].
-			 self insertPosIncrement: -1.].
-	self announcer announce: #stringContents.
+				ifNotEmpty: [ :right | self charWriteStream nextPutAll: right ].
+			self insertPosIncrement: -1 ].
+	self announcer announce: #stringContents
 ]
 
 { #category : #tests }
 KFInputBuffer >> backspaceEnabled [
 	self isEmpty
-		ifTrue: [ ^ false].
+		ifTrue: [ ^ false ].
 	self insertPos = 0
-		ifTrue: [ ^ false].
-	^true.
-
+		ifTrue: [ ^ false ].
+	^ true
 ]
 
 { #category : #accessing }
 KFInputBuffer >> charWriteStream [
-	^ charWriteStream ifNil: [charWriteStream := WriteStream on: #()].
+	^ charWriteStream ifNil: [ charWriteStream := WriteStream on: #() ]
 ]
 
 { #category : #'character writing' }
 KFInputBuffer >> ensureASpace [
-	self charWriteStream ensureASpace 
+	self charWriteStream ensureASpace
 ]
 
 { #category : #action }
@@ -106,36 +98,39 @@ KFInputBuffer >> flush [
 	sc := self stringContents copy.
 	charWriteStream := nil.
 	self insertPos: 0.
-	self announcer announce: ((KFInputBufferFlushed new)
-	stringContents: sc;
-	yourself).
+	self announcer
+		announce:
+			(KFInputBufferFlushed new
+				stringContents: sc;
+				yourself)
 ]
 
 { #category : #initialize }
 KFInputBuffer >> initialize [
-
 	super initialize.
 	charWriteStream := nil.
 	insertPos := 0 asValueHolder.
-	insertPos whenChangedDo: [ self announcer announce: #insertPosChanged ]
+	insertPos
+		whenChangedDo: [ self announcer announce: #insertPosChanged ]
 ]
 
 { #category : #adding }
-KFInputBuffer >> insertChar: aCharacter [ 	
-	| leftAndRight | 
+KFInputBuffer >> insertChar: aCharacter [
+	| leftAndRight |
 	self appendable
-		ifTrue: [ ^ self addChar: aCharacter].
+		ifTrue: [ ^ self addChar: aCharacter ].
 	aCharacter = Character cr
 		ifTrue: [ ^ self flush ].
 	leftAndRight := self split.
-	self assert: self stringContents = ((leftAndRight at: 1), (leftAndRight at: 2)).
+	self
+		assert: self stringContents = ((leftAndRight at: 1) , (leftAndRight at: 2)).
 	charWriteStream := nil.
-	self charWriteStream 
-				nextPutAll: (leftAndRight at: 1);
-				nextPut: aCharacter;
-				nextPutAll: (leftAndRight at: 2).
+	self charWriteStream
+		nextPutAll: (leftAndRight at: 1);
+		nextPut: aCharacter;
+		nextPutAll: (leftAndRight at: 2).
 	self insertPosIncrement: 1.
-	self announcer announce: #stringContents.
+	self announcer announce: #stringContents
 ]
 
 { #category : #accessing }
@@ -145,7 +140,7 @@ KFInputBuffer >> insertPos [
 
 { #category : #accessing }
 KFInputBuffer >> insertPos: anInteger [
-	insertPos value: ((anInteger max: 0) min: (self stringContents size))
+	insertPos value: ((anInteger max: 0) min: self stringContents size)
 ]
 
 { #category : #accessing }
@@ -155,23 +150,23 @@ KFInputBuffer >> insertPosIncrement: anOffset [
 
 { #category : #action }
 KFInputBuffer >> insertPosToBegin [
-	self insertPos: 0.
+	self insertPos: 0
 ]
 
 { #category : #action }
 KFInputBuffer >> insertPosToEnd [
-	self insertPos: self stringContents size.
+	self insertPos: self stringContents size
 ]
 
 { #category : #adding }
-KFInputBuffer >> insertString: aString [ 
-	aString do: [:char | self insertChar: char].
+KFInputBuffer >> insertString: aString [
+	aString do: [ :char | self insertChar: char ]
 ]
 
 { #category : #tests }
 KFInputBuffer >> isEmpty [
-	charWriteStream ifNil: [ ^true ].
-	^ charWriteStream isEmpty  
+	charWriteStream ifNil: [ ^ true ].
+	^ charWriteStream isEmpty
 ]
 
 { #category : #action }
@@ -179,27 +174,25 @@ KFInputBuffer >> killFromInsertPos [
 	| pair |
 	pair := self split.
 	charWriteStream := nil.
-	self charWriteStream
-		nextPutAll: (pair at: 1).
-	self insertPosToEnd.
+	self charWriteStream nextPutAll: (pair at: 1).
+	self insertPosToEnd
 ]
 
 { #category : #tests }
-KFInputBuffer >> puts: aString [ 
+KFInputBuffer >> puts: aString [
 	self addString: aString.
-	self charWriteStream ensureEndsWith: Character cr.
-	
+	self charWriteStream ensureEndsWith: Character cr
 ]
 
 { #category : #adding }
-KFInputBuffer >> replaceString: aString [ 
+KFInputBuffer >> replaceString: aString [
 	charWriteStream := nil.
-	self addString: aString.
+	self addString: aString
 ]
 
 { #category : #adding }
-KFInputBuffer >> split [	
-	| left right len | 
+KFInputBuffer >> split [
+	| left right len |
 	self isEmpty
 		ifTrue: [ ^ Array with: '' with: '' ].
 	self insertPos = 0
@@ -209,12 +202,12 @@ KFInputBuffer >> split [
 	len := self stringContents size - self insertPos.
 	left := self stringContents allButLast: len.
 	right := self stringContents allButFirst: self insertPos.
-	^{ left . right }
+	^ {left.
+	right}
 ]
 
 { #category : #accessing }
 KFInputBuffer >> stringContents [
-	^ String streamContents: [ :ws |
-		ws nextPutAll: self charWriteStream contents
-		 ].
+	^ String
+		streamContents: [ :ws | ws nextPutAll: self charWriteStream contents ]
 ]

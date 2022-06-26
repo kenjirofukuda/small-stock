@@ -19,47 +19,52 @@ Class {
 
 { #category : #accessing }
 GdsBoolean class >> acceptRegexPattern [
-	^'[01]|TRUE|FALSE'
+	^ '[01]|TRUE|FALSE'
 ]
 
 { #category : #test }
 GdsBoolean class >> coreceExpressionAsSmalltalkNumber: anGplExpression [
-	anGplExpression = 'TRUE' ifTrue: [^'1'].
-	anGplExpression = 'FALSE' ifTrue: [^'0'].
-	^anGplExpression
+	anGplExpression = 'TRUE'
+		ifTrue: [ ^ '1' ].
+	anGplExpression = 'FALSE'
+		ifTrue: [ ^ '0' ].
+	^ anGplExpression
 ]
 
 { #category : #'instance creation' }
 GdsBoolean class >> fromSmalltalk: aObject [
-	aObject = true ifTrue: [ ^self new stringValue: '1'].
-	aObject = false ifTrue: [ ^self new stringValue: '0'].
-	^self new stringValue: aObject asString.
+	aObject = true
+		ifTrue: [ ^ self new stringValue: '1' ].
+	aObject = false
+		ifTrue: [ ^ self new stringValue: '0' ].
+	^ self new stringValue: aObject asString
 ]
 
 { #category : #test }
 GdsBoolean class >> isAcceptableSmalltalkObject: anObject [
-	(anObject isKindOf: Boolean) ifTrue: [^true].
-	^anObject isInteger and: [anObject  = 1 or: [anObject = 0]].
+	(anObject isKindOf: Boolean)
+		ifTrue: [ ^ true ].
+	^ anObject isInteger and: [ anObject = 1 or: [ anObject = 0 ] ]
 ]
 
 { #category : #accessing }
 GdsBoolean class >> maxValue [
-	^1
+	^ 1
 ]
 
 { #category : #accessing }
 GdsBoolean class >> minValue [
-	^0
+	^ 0
 ]
 
 { #category : #accessing }
 GdsBoolean class >> mode [
-	^1
+	^ 1
 ]
 
 { #category : #accessing }
 GdsBoolean class >> precisionRank [
-	^1
+	^ 1
 ]
 
 { #category : #accessing }
@@ -69,15 +74,14 @@ GdsBoolean class >> storageCost [
 
 { #category : #accessing }
 GdsBoolean class >> typeString [
-	^'LOGICAL'
+	^ 'LOGICAL'
 ]
 
 { #category : #convert }
 GdsBoolean >> asSmalltalkValue [
 	self stringValue = 'TRUE'
-		ifTrue: [^1].
+		ifTrue: [ ^ 1 ].
 	self stringValue = 'FALSE'
-		ifTrue: [^0].
-	^super asSmalltalkValue 	
-		
+		ifTrue: [ ^ 0 ].
+	^ super asSmalltalkValue
 ]

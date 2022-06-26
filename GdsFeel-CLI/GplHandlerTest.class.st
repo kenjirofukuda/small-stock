@@ -6,8 +6,8 @@ Class {
 
 { #category : #'as yet unclassified' }
 GplHandlerTest >> testIsVoid [
-	self assert: 
-		(GplToken builtinMethods allSatisfy: [:each | 
-			(GplHandler isVoid: each) not]).
-	
+	self
+		assert:
+			(GplToken builtinMethods
+				allSatisfy: [ :each | (GplHandler isVoid: each) not ])
 ]

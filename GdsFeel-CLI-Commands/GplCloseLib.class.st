@@ -6,18 +6,15 @@ Class {
 
 { #category : #'as yet unclassified' }
 GplCloseLib class >> methodName [
-	^'CLOSELIB'
+	^ 'CLOSELIB'
 ]
 
 { #category : #'as yet unclassified' }
 GplCloseLib >> evaluateToken: aToken [
-	self station structure
-		ifNotNil: [self call: 'TSTRUCT'].
+	self station structure ifNotNil: [ self call: 'TSTRUCT' ].
 	self library isOpen
-		ifTrue: [
-			evaluator console 
-				ifNotNil: [self station closeLibrary] 
-				ifNil: [ self stationUI closelib ].
-			].
-	^self nullVector.
+		ifTrue: [ evaluator console
+				ifNotNil: [ self station closeLibrary ]
+				ifNil: [ self stationUI closelib ] ].
+	^ self nullVector
 ]

@@ -12,6 +12,5 @@ KFConsoleMorphTest >> testDrawOn [
 	| m |
 	m := KFConsoleMorph new.
 	(m embeddedInMorphicWindowLabeled: 'Console')
-		ifNotNil: [ :w |
-			 w openInWorld ].
+		ifNotNil: [ :w | w openInWorld ]
 ]

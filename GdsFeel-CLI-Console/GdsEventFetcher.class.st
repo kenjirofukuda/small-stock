@@ -10,8 +10,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> addHandler: handler [
-	sema critical: [
-	self eventHandlers add: handler].
+	sema critical: [ self eventHandlers add: handler ]
 ]
 
 { #category : #accessing }
@@ -26,16 +25,14 @@ GdsEventFetcher >> eventBody [
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> eventHandlers [
-	^eventHandlers ifNil: [eventHandlers := OrderedCollection new]
+	^ eventHandlers ifNil: [ eventHandlers := OrderedCollection new ]
 ]
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> eventLoop [
-	[
-		(Delay forMilliseconds: 100) wait.
-		self eventBody.
-		] 
-		doWhileFalse: [ quitSignal and: [self eventHandlers isEmpty]. ]
+	[ (Delay forMilliseconds: 100) wait.
+	self eventBody ]
+		doWhileFalse: [ quitSignal and: [ self eventHandlers isEmpty ] ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -44,44 +41,42 @@ GdsEventFetcher >> everyBegin: handler [
 ]
 
 { #category : #'as yet unclassified' }
-GdsEventFetcher >> fetcherProcess [ 
-	^ fetcherProcess 
+GdsEventFetcher >> fetcherProcess [
+	^ fetcherProcess
 ]
 
 { #category : #initialize }
 GdsEventFetcher >> initialize [
-
 	super initialize.
-
 	eventHandlers := nil.
 	everyBegin := nil.
 	fetcherProcess := nil.
 	quitSignal := nil.
-	sema := Semaphore forMutualExclusion.
+	sema := Semaphore forMutualExclusion
 ]
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> installEventLoop [
 	"Initialize the event loop process. Terminate the old process if any."
+
 	"InputEventFetcher default installEventLoop"
 
 	self terminateEventLoop.
 	quitSignal := false.
-	fetcherProcess := [self eventLoop] forkAt: Processor userSchedulingPriority.
+	fetcherProcess := [ self eventLoop ]
+		forkAt: Processor userSchedulingPriority.
 	fetcherProcess name: 'Gds Event Fetcher Process'
 ]
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> popHandler [
 	| result |
-	sema critical: [
-		self eventHandlers 
-			ifEmpty: [ result := nil. ]
-			ifNotEmpty: [
-				result := self eventHandlers last.
-				eventHandlers := self eventHandlers allButLast.]].
-	^ result.
-	
+	sema
+		critical: [ self eventHandlers
+				ifEmpty: [ result := nil ]
+				ifNotEmpty: [ result := self eventHandlers last.
+					eventHandlers := self eventHandlers allButLast ] ].
+	^ result
 ]
 
 { #category : #'as yet unclassified' }
@@ -91,41 +86,40 @@ GdsEventFetcher >> processName [
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> quit [
-	quitSignal := true.
-	
+	quitSignal := true
 ]
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> quitAfter: aBlock [
 	self quit.
-	[[self fetcherProcess isTerminated ] 
+	[ [ self fetcherProcess isTerminated ]
 		whileFalse: [ (Delay forSeconds: 1) wait ].
-		aBlock value] fork 
+	aBlock value ] fork
 ]
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> restart [
-	self fetcherProcess isTerminated 
+	self fetcherProcess isTerminated
 		ifTrue: [ self installEventLoop ]
 ]
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> size [
 	| result |
-	sema critical: [
-	result := self eventHandlers size].
-	^result.
+	sema critical: [ result := self eventHandlers size ].
+	^ result
 ]
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> terminateEventLoop [
 	"Terminate the event loop process. Terminate the old process if any."
+
 	"InputEventFetcher default terminateEventLoop"
 
-	fetcherProcess ifNotNil: [fetcherProcess terminate]
+	fetcherProcess ifNotNil: [ fetcherProcess terminate ]
 ]
 
 { #category : #'as yet unclassified' }
 GdsEventFetcher >> unregisterHandler: handler [
-	self eventHandlers remove: handler ifAbsent: []
+	self eventHandlers remove: handler ifAbsent: [  ]
 ]

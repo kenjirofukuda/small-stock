@@ -1,6 +1,6 @@
 Extension { #name : #GdsStructureReference }
 
 { #category : #'*GdsFeel-UI' }
-GdsStructureReference class >> drawerClass [
+GdsStructureReference classSide >> drawerClass [
 	^GdsStructureReferenceDrawer
 ]

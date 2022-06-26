@@ -11,13 +11,11 @@ Class {
 { #category : #running }
 GdsTestCase >> setUp [
 	super setUp.
-	evaluator := GplEvaluator new.
-	
+	evaluator := GplEvaluator new
 ]
 
 { #category : #running }
 GdsTestCase >> tearDown [
 	evaluator := nil.
-	model := nil.
-	
+	model := nil
 ]

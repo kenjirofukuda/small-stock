@@ -15,25 +15,26 @@ Class {
 { #category : #testing }
 GdsReal2 class >> acceptableExpression: aString [
 	"TODO: implements minValue maxValue"
-	|num|
+
+	| num |
 	(aString matchesRegex: self acceptRegexPattern)
-		ifFalse: [^false].
+		ifFalse: [ ^ false ].
 	num := aString asNumber.
-	num ifNil: [^false].
-	^true.
+	num ifNil: [ ^ false ].
+	^ true
 ]
 
 { #category : #accessing }
 GdsReal2 class >> mode [
-	^8
+	^ 8
 ]
 
 { #category : #accessing }
 GdsReal2 class >> storageCost [
-	^4
+	^ 4
 ]
 
 { #category : #accessing }
 GdsReal2 class >> typeString [
-	^'REAL2'
+	^ 'REAL2'
 ]

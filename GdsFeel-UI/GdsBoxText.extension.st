@@ -1,6 +1,6 @@
 Extension { #name : #GdsBoxText }
 
 { #category : #'*GdsFeel-UI' }
-GdsBoxText class >> drawerClass [
+GdsBoxText classSide >> drawerClass [
 	^GdsBoxTextDrawer
 ]

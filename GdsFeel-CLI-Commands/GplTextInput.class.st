@@ -6,21 +6,19 @@ Class {
 
 { #category : #'as yet unclassified' }
 GplTextInput class >> isFunctionAllowed [
-	^true.
-	
+	^ true
 ]
 
 { #category : #'as yet unclassified' }
 GplTextInput class >> methodName [
-	^'TEXTINPUT'
+	^ 'TEXTINPUT'
 ]
 
 { #category : #handler }
-GplTextInput >> evaluateToken: aToken [ 
+GplTextInput >> evaluateToken: aToken [
 	evaluator hasSuspendContext
-		ifFalse: [
-			^self signalPrompt: thisContext].
-	^self signalResult.
+		ifFalse: [ ^ self signalPrompt: thisContext ].
+	^ self signalResult
 ]
 
 { #category : #handler }
@@ -29,10 +27,9 @@ GplTextInput >> signalPrompt: aContext [
 	arg1 := evaluator popArg.
 	gv1 := arg1 asGplValue.
 	gv1 isCharVector
-		ifFalse: [^self error: 'PROMPT MUST BE STRING'].
-	evaluator pushSuspendContext: aContext.	
-	^GplPromptException new signal: 	gv1 gplString
-
+		ifFalse: [ ^ self error: 'PROMPT MUST BE STRING' ].
+	evaluator pushSuspendContext: aContext.
+	^ GplPromptException new signal: gv1 gplString
 ]
 
 { #category : #handler }
@@ -41,6 +38,5 @@ GplTextInput >> signalResult [
 	smPrompt := evaluator popResult.
 	self assert: smPrompt isNil not.
 	"lastContext explore."
-	^smPrompt asGdsValue.
-
+	^ smPrompt asGdsValue
 ]

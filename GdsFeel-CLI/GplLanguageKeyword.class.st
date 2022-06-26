@@ -9,7 +9,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 GplLanguageKeyword class >> specText [
-	^'
+	^ '
 ABS
 ARCTAN
 BOOLEAN
@@ -110,6 +110,7 @@ CASE
 
 { #category : #'as yet unclassified' }
 GplLanguageKeyword >> foo [
+	
 ]
 
 { #category : #'as yet unclassified' }
@@ -121,6 +122,5 @@ GplLanguageKeyword >> parent: aGplLanguageKeyword [
 GplLanguageKeyword >> printOn: aStream [
 	aStream nextPutAll: 'KW['.
 	aStream nextPutAll: self string printString.
-	aStream nextPutAll: ']'.
-	
+	aStream nextPutAll: ']'
 ]

@@ -7,19 +7,19 @@ Class {
 { #category : #initialize }
 GplVariableNode >> initialize [
 	super initialize.
-	self kind: #variable.
+	self kind: #variable
 ]
 
 { #category : #printing }
 GplVariableNode >> inspectString [
-	([self token] on: Error do: [ nil ])
-		ifNil: [^ super inspectString ]
-		ifNotNil: [ :t |
-			^ t fragment
-			].
+	([ self token ]
+		on: Error
+		do: [ nil ])
+		ifNil: [ ^ super inspectString ]
+		ifNotNil: [ :t | ^ t fragment ]
 ]
 
 { #category : #printing }
 GplVariableNode >> tagPrefix [
-	^'VAR'
+	^ 'VAR'
 ]

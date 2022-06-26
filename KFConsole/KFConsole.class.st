@@ -21,12 +21,12 @@ Class {
 
 { #category : #'as yet unclassified' }
 KFConsole class >> puts: anObject [
-	self this puts: anObject.
+	self this puts: anObject
 ]
 
 { #category : #'as yet unclassified' }
 KFConsole class >> this [
-	^ KFConsoleMorph allInstances first model.
+	^ KFConsoleMorph allInstances first model
 ]
 
 { #category : #accessing }
@@ -36,130 +36,117 @@ KFConsole >> announcer [
 
 { #category : #drawing }
 KFConsole >> clearPrompt [
-	getUserInput := nil.
-		
-
+	getUserInput := nil
 ]
 
 { #category : #initialize }
 KFConsole >> echoCommandLine: aCommandLine [
-	self puts: aCommandLine.
-
+	self puts: aCommandLine
 ]
 
 { #category : #initialize }
 KFConsole >> eventFetcher [
-	^eventFetcher 
+	^ eventFetcher
 ]
 
 { #category : #accessing }
 KFConsole >> eventFetcherClass [
-	^ KFEventFetcher.
+	^ KFEventFetcher
 ]
 
 { #category : #initialize }
 KFConsole >> handleCommandLine: aCommandLine [
 	| reply |
-	reply := handlerTarget perform: handlerSelector  withEnoughArguments: { aCommandLine . self }.
-	self puts: reply. 
-
+	reply := handlerTarget
+		perform: handlerSelector
+		withEnoughArguments:
+			{aCommandLine.
+			self}.
+	self puts: reply
 ]
 
 { #category : #accessing }
-KFConsole >> handleSelector: anSymbol [ 
-	handlerSelector := anSymbol.
-	
+KFConsole >> handleSelector: anSymbol [
+	handlerSelector := anSymbol
 ]
 
 { #category : #accessing }
-KFConsole >> handlerTarget: anObject [ 
-	handlerTarget := anObject.
-	
+KFConsole >> handlerTarget: anObject [
+	handlerTarget := anObject
 ]
 
 { #category : #initialize }
 KFConsole >> initialize [
 	super initialize.
-	promptString := '$ ' asValueHolder .
-	self eventFetcherClass ifNotNil: [ :clazz | 
-		eventFetcher := clazz new.
-		eventFetcher installEventLoop.
-		eventFetcher everyBegin: [ self prompt. ].
-	].	
-	self installSmalltalkREPL.
-	
-		
+	promptString := '$ ' asValueHolder.
+	self eventFetcherClass
+		ifNotNil: [ :clazz | 
+			eventFetcher := clazz new.
+			eventFetcher installEventLoop.
+			eventFetcher everyBegin: [ self prompt ] ].
+	self installSmalltalkREPL
 ]
 
 { #category : #initialize }
 KFConsole >> installDefaultHandler [
 	self handlerTarget: self.
 	self handleSelector: #echoCommandLine:
-		
 ]
 
 { #category : #initialize }
 KFConsole >> installSmalltalkREPL [
-	self handlerTarget: [ :cmd :console | 
-		[(Smalltalk evaluate: cmd ) printString] 
-			on: Error 
-			do: [:ex | ex asString ]]. 	
-	self handleSelector: #value:value:.
-
+	self
+		handlerTarget: [ :cmd :console | 
+			[ (Smalltalk evaluate: cmd) printString ]
+				on: Error
+				do: [ :ex | ex asString ] ].
+	self handleSelector: #value:value:
 ]
 
 { #category : #initialize }
 KFConsole >> postCommandLine: aCommandLine [
-	eventFetcher 
-		ifNil: [ 
-			self handleCommandLine: aCommandLine.
+	eventFetcher
+		ifNil: [ self handleCommandLine: aCommandLine.
 			self clearPrompt.
-			^ self inform: 'eventFetcher not installed: Only echo'. ].
-	eventFetcher addHandler: [
-		self handleCommandLine: aCommandLine.
-		self clearPrompt.	].
+			^ self inform: 'eventFetcher not installed: Only echo' ].
+	eventFetcher
+		addHandler: [ self handleCommandLine: aCommandLine.
+			self clearPrompt ]
 ]
 
 { #category : #drawing }
 KFConsole >> prompt [
 	self prompt: self promptString
-
 ]
 
 { #category : #drawing }
 KFConsole >> prompt: aString [
-	getUserInput 
-		ifNil: [ 
-			self stdOut 
+	getUserInput
+		ifNil: [ self stdOut
 				nextPutAll: aString;
-				endEntry.			
+				endEntry.
 			getUserInput := 'DUMMY' ]
-	
-
 ]
 
 { #category : #accessing }
 KFConsole >> promptString [
-	^ promptString value.
+	^ promptString value
 ]
 
 { #category : #accessing }
 KFConsole >> promptString: aString [
-	promptString value: aString.
+	promptString value: aString
 ]
 
 { #category : #drawing }
 KFConsole >> puts: aString [
-	self stdOut 
+	self stdOut
 		nextPutAll: aString;
 		ensureEndsWith: Character cr;
-		endEntry.
-	
-	
+		endEntry
 ]
 
 { #category : #accessing }
 KFConsole >> stdOut [
-	^ stdOut ifNil: [ stdOut := ThreadSafeTranscript new ].
-	
+	^ stdOut ifNil: [ stdOut := ThreadSafeTranscript new ]
 ]

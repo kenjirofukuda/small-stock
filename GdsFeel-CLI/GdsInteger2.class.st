@@ -18,18 +18,20 @@ Class {
 { #category : #accessing }
 GdsInteger2 class >> maxValue [
 	"(2 raisedTo: (32 - 1)) - 1"
-	^2147483647 
+
+	^ 2147483647
 ]
 
 { #category : #accessing }
 GdsInteger2 class >> minValue [
 	"(2 raisedTo: (32 - 1)) negated"
-	^-2147483648	
+
+	^ -2147483648
 ]
 
 { #category : #accessing }
 GdsInteger2 class >> mode [
-	^7
+	^ 7
 ]
 
 { #category : #accessing }

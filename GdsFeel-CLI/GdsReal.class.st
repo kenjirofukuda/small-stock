@@ -16,7 +16,7 @@ Class {
 
 { #category : #accessing }
 GdsReal class >> precisionRank [
-	^3
+	^ 3
 ]
 
 { #category : #accessing }
@@ -26,5 +26,5 @@ GdsReal class >> storageCost [
 
 { #category : #accessing }
 GdsReal class >> typeString [
-	^'REAL'
+	^ 'REAL'
 ]

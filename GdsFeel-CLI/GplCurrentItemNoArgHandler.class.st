@@ -6,15 +6,14 @@ Class {
 
 { #category : #accessing }
 GplCurrentItemNoArgHandler class >> associateArray [
-	^{
-	'UNGET' -> #unget . 
-	'PUT' -> #put.
-	'ITEMREVERSE' -> #reverseVertices}
+	^ {('UNGET' -> #unget).
+	('PUT' -> #put).
+	('ITEMREVERSE' -> #reverseVertices)}
 ]
 
 { #category : #testing }
 GplCurrentItemNoArgHandler class >> isFunctionAllowed: aCommandName [
-	^false
+	^ false
 ]
 
 { #category : #handler }
@@ -22,5 +21,5 @@ GplCurrentItemNoArgHandler >> evaluateToken: aToken [
 	| selector |
 	selector := self class selectorForMethodName: aToken fragment.
 	self currentItem perform: selector.
-	^self nullVector.
+	^ self nullVector
 ]

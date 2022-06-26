@@ -18,6 +18,6 @@ KFInputBufferFlushed >> stringContents [
 ]
 
 { #category : #accessing }
-KFInputBufferFlushed >> stringContents: aString [ 
+KFInputBufferFlushed >> stringContents: aString [
 	stringContents := aString
 ]

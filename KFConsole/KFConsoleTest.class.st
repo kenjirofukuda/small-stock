@@ -11,5 +11,5 @@ Class {
 KFConsoleTest >> testFoo [
 	| console |
 	console := KFConsole new.
-	self inform: console printString 
+	self inform: console printString
 ]

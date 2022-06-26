@@ -6,15 +6,15 @@ Class {
 
 { #category : #accessing }
 GdsIntegral class >> acceptRegexPattern [
-	^'[-]?[0-9]+'
+	^ '[-]?[0-9]+'
 ]
 
 { #category : #'as yet unclassified' }
 GdsIntegral class >> fromSmalltalk: aObject [
-	^GdsInteger new stringValue: aObject asString.
+	^ GdsInteger new stringValue: aObject asString
 ]
 
 { #category : #'as yet unclassified' }
 GdsIntegral class >> isAcceptableSmalltalkObject: anObject [
-	^anObject isInteger.
+	^ anObject isInteger
 ]

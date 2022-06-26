@@ -6,20 +6,19 @@ Class {
 
 { #category : #accessing }
 GplFunctions class >> associateArray [
-	^{
-	'IDKEYS' -> #idKeys: .
-	'KEYCE' -> #keyCe: .
-	'CEKEY' -> #ceKey: }
+	^ {('IDKEYS' -> #idKeys:).
+	('KEYCE' -> #keyCe:).
+	('CEKEY' -> #ceKey:)}
 ]
 
 { #category : #testing }
 GplFunctions class >> isFunctionAllowed [
-	^true
+	^ true
 ]
 
 { #category : #testing }
 GplFunctions class >> isFunctionAllowed: aCommandName [
-	^true
+	^ true
 ]
 
 { #category : #handler }
@@ -28,20 +27,19 @@ GplFunctions >> ceKey: aToken [
 	self mustStructureOpen.
 	gv1 := evaluator popArg asGplValue asVector.
 	smVec := gv1 asSmalltalkValue.
-	smVec size = 2 ifFalse: [^self illigalCoordinate].
-	smPoint := smVec first@smVec second.
+	smVec size = 2
+		ifFalse: [ ^ self illigalCoordinate ].
+	smPoint := smVec first @ smVec second.
 	element := self structure findNearestElementByPoint: smPoint.
-	^element
-		ifNil: [self nullVector]
-		ifNotNil: [element keyNumber asGdsValue ]
-	
+	^ element
+		ifNil: [ self nullVector ]
+		ifNotNil: [ element keyNumber asGdsValue ]
 ]
 
 { #category : #handler }
 GplFunctions >> idKeys: aToken [
 	self mustStructureOpen.
-	^(self structure idSelection keyNumbers) asArray asGdsValue. 
-
+	^ self structure idSelection keyNumbers asArray asGdsValue
 ]
 
 { #category : #handler }
@@ -50,8 +48,10 @@ GplFunctions >> keyCe: aToken [
 	self mustStructureOpen.
 	gv1 := evaluator popArg asGplValue asVector.
 	smVec := gv1 asSmalltalkValue.
-	smVec size = 1 ifFalse: [^self error: 'ARGUMENT MUST KEYNUMBER ONLY'].
+	smVec size = 1
+		ifFalse: [ ^ self error: 'ARGUMENT MUST KEYNUMBER ONLY' ].
 	element := self findElementByKeyNumber: smVec first.
 	smPoint := element xy.
-	^{smPoint x . smPoint y } asGdsValue.
+	^ {smPoint x.
+	smPoint y} asGdsValue
 ]

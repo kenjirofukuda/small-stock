@@ -18,7 +18,7 @@ GplForPartNode >> eachVariable: aGplASTNode [
 GplForPartNode >> initialize [
 	super initialize.
 	self eachVariable: nil.
-	self range: nil.
+	self range: nil
 ]
 
 { #category : #'as yet unclassified' }

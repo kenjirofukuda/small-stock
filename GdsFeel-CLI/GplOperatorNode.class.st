@@ -7,8 +7,7 @@ Class {
 { #category : #'as yet unclassified' }
 GplOperatorNode >> initialize [
 	super initialize.
-	self kind: #op.
-	
+	self kind: #op
 ]
 
 { #category : #accessing }

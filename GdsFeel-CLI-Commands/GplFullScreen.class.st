@@ -6,13 +6,13 @@ Class {
 
 { #category : #accessing }
 GplFullScreen class >> methodName [
-	^'FULLSCREEN'
+	^ 'FULLSCREEN'
 ]
 
 { #category : #handler }
 GplFullScreen >> evaluateToken: aToken [
-	self stationUI 
+	self stationUI
 		expandBoxHit;
 		comeToFront.
-	^self nullVector.	
+	^ self nullVector
 ]

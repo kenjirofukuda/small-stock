@@ -10,14 +10,12 @@ Class {
 { #category : #'tests-as yet unclassified' }
 GplLanguageKeywordTest >> testFoo [
 	| words |
-	
-	words := Array streamContents: [ :s |
-		s nextPut:  (GplLanguageKeyword fromString: 'IF').
-		s nextPut:  ((GplLanguageKeyword fromString: 'ELSE') parent: 'IF').
-		s nextPut:  ((GplLanguageKeyword fromString: 'ELIF') parent: 'IF').
-		s nextPut:  ((GplLanguageKeyword fromString: 'ENDIF') parent: 'IF').
-	].
+	words := Array
+		streamContents: [ :s | 
+			s nextPut: (GplLanguageKeyword fromString: 'IF').
+			s nextPut: ((GplLanguageKeyword fromString: 'ELSE') parent: 'IF').
+			s nextPut: ((GplLanguageKeyword fromString: 'ELIF') parent: 'IF').
+			s nextPut: ((GplLanguageKeyword fromString: 'ENDIF') parent: 'IF') ].
 	words do: [ :each | each string ].
-	words explore.
-	
+	words explore
 ]
