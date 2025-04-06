@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsNullTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GdsNullTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNullTest >> testAcceptableExpression [
 	| input result expResult |
 	input := '""'.
@@ -25,7 +27,7 @@ GdsNullTest >> testAcceptableExpression [
 	self assert: result = expResult
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNullTest >> testAtSubscript [
 	self
 		should: [ GdsNull instance atSubscript: 1 asGdsValue ]
@@ -38,7 +40,7 @@ GdsNullTest >> testAtSubscript [
 		raise: GplRuntimeError
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNullTest >> testFromLiteral [
 	self should: [ GdsNull fromLiteral: '0' ] raise: GplSyntaxError.
 	self should: [ GdsNull fromLiteral: 'NULL' ] raise: GplSyntaxError.
@@ -51,27 +53,27 @@ GdsNullTest >> testFromLiteral [
 	self assert: (GdsNull fromLiteral: '""') == GdsNull instance
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNullTest >> testIsList [
 	self deny: GdsNull instance isList
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNullTest >> testMode [
 	self assert: GdsNull instance mode = 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNullTest >> testRank [
 	self assert: GdsNull instance rank = 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNullTest >> testShape [
 	self assert: GdsNull instance shape = #()
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNullTest >> testSize [
 	| result expResult |
 	self assert: GdsNull instance size = 0.
@@ -80,7 +82,7 @@ GdsNullTest >> testSize [
 	self assert: result = expResult
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNullTest >> testTypeString [
 	self assert: GdsNull instance typeString = 'NULL'
 ]

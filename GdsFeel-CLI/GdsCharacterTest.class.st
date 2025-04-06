@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsCharacterTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GdsCharacterTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsCharacterTest >> testConstants [
 	self assert: GdsCharacter nul asciiValue equals: 8r0.
 	self assert: GdsCharacter bel asciiValue equals: 8r7.

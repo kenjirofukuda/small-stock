@@ -29,8 +29,8 @@ stack
 
 "
 Class {
-	#name : #GplScanner,
-	#superclass : #GplScannerBase,
+	#name : 'GplScanner',
+	#superclass : 'GplScannerBase',
 	#instVars : [
 		'source',
 		'ranges',
@@ -40,16 +40,18 @@ Class {
 		'OperatorSpec',
 		'OperatorStrings'
 	],
-	#category : #'GdsFeel-CLI-Kernel'
+	#category : 'GdsFeel-CLI-Kernel',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Kernel'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GplScanner class >> assertGplTokens: aCollection [
 	self
 		assert: [ aCollection allSatisfy: [ :each | each isMemberOf: GplToken ] ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplScanner class >> fromFile: aFileReference [
 	^ (self new
 		source: aFileReference asFileReference readStream contents)
@@ -57,7 +59,7 @@ GplScanner class >> fromFile: aFileReference [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScanner class >> initialize [
 	"self initialize."
 
@@ -78,12 +80,12 @@ GplScanner class >> initialize [
 		asSet
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplScanner class >> isNumberFragment: aString [
 	^ (GdsDglType bestClassOfStatement: aString) isNil not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplScanner class >> isOperatorFragment: aString [
 	| upStr |
 	upStr := aString asUppercase.
@@ -94,7 +96,7 @@ GplScanner class >> isOperatorFragment: aString [
 	^ false
 ]
 
-{ #category : #specification }
+{ #category : 'specification' }
 GplScanner class >> lookupOperatorSpec [
 	"GplParser operatorSpec explore."
 
@@ -119,14 +121,14 @@ GplScanner class >> lookupOperatorSpec [
 	(8r0 -> #(':='))}
 ]
 
-{ #category : #specification }
+{ #category : 'specification' }
 GplScanner class >> operatorSpec [
 	^ OperatorSpec
 		ifNil: [ OperatorSpec := (self lookupOperatorSpec
 				collect: [ :assoc | assoc key -> assoc value asSet ]) asArray ]
 ]
 
-{ #category : #evaluter }
+{ #category : 'evaluter' }
 GplScanner class >> splitTokens: aString [
 	| parser |
 	parser := self new source: aString.
@@ -135,7 +137,7 @@ GplScanner class >> splitTokens: aString [
 	^ (parser tokens collect: [ :r | r fragment ]) asArray
 ]
 
-{ #category : #evaluter }
+{ #category : 'evaluter' }
 GplScanner class >> tokensFrom: aString [
 	| parser |
 	parser := self new source: aString.
@@ -143,12 +145,12 @@ GplScanner class >> tokensFrom: aString [
 	^ parser tokens
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScanner >> assertGplTokens: aCollection [
 	self class assertGplTokens: aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScanner >> decodeSource [
 	| prevRange |
 	^ self tokens
@@ -157,7 +159,7 @@ GplScanner >> decodeSource [
 			prevRange := r ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScanner >> fragmentOfRange: aGplRange [
 	| s |
 	s := (self source isKindOf: String)
@@ -171,28 +173,28 @@ GplScanner >> fragmentOfRange: aGplRange [
 	^ s
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScanner >> handleBlanks [
 	self scanBlanks
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GplScanner >> initialize [
 	super initialize.
 	ranges := OrderedCollection new
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplScanner >> mergeAsVector [
 	^ mergeAsVector ifNil: [ mergeAsVector := true ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScanner >> mergeAsVector: aBoolean [
 	mergeAsVector := aBoolean
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 GplScanner >> negativeToSubtractTokens: aGplTokens rejectAfter: aRemoveCollection [
 	| prevToken newTokens extracted |
 	newTokens := OrderedCollection new.
@@ -212,13 +214,13 @@ GplScanner >> negativeToSubtractTokens: aGplTokens rejectAfter: aRemoveCollectio
 	^ newTokens
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScanner >> pushNotEmpty: aWriteStream start: aInteger [
 	aWriteStream contents ifEmpty: [ ^ self ].
 	self start: aInteger length: aWriteStream contents size
 ]
 
-{ #category : #'range recording' }
+{ #category : 'range recording' }
 GplScanner >> rangeType: aSymbol start: s end: e [
 	^ ranges
 		add:
@@ -229,12 +231,12 @@ GplScanner >> rangeType: aSymbol start: s end: e [
 				parser: self)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScanner >> ranges [
 	^ ranges
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 GplScanner >> resolveLabelFromTokens: aGplTokens [
 	| prevToken removeTokens |
 	removeTokens := OrderedCollection new.
@@ -250,7 +252,7 @@ GplScanner >> resolveLabelFromTokens: aGplTokens [
 	^ aGplTokens reject: [ :token | removeTokens includes: token ]
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 GplScanner >> scanLineEnd: aCharacter [
 	| start length |
 	start := input position + 1.
@@ -270,27 +272,27 @@ GplScanner >> scanLineEnd: aCharacter [
 			^ self pushWord: #cr ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScanner >> source [
 	^ source
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScanner >> source: aString [
 	source := aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScanner >> splitRanges [
 	super splitTokens: source
 ]
 
-{ #category : #parse }
+{ #category : 'parse' }
 GplScanner >> splitTokens: aString [
 	^ self splitTokens: aString withSpace: false
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScanner >> splitTokens: aString withSpace: aBoolean [
 	| result |
 	self source: aString.
@@ -302,7 +304,7 @@ GplScanner >> splitTokens: aString withSpace: aBoolean [
 	^ result
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScanner >> splitTokensFrom: aStream [
 	| result p1 p2 p3 p4 newRanges vectorRanges colAssoc |
 	self source: aStream contents.
@@ -329,37 +331,38 @@ GplScanner >> splitTokensFrom: aStream [
 						anySatisfy:
 							[ :vt | t ~~ vt and: [ t start >= vt start and: [ t end <= vt end ] ] ] ] ]
 		ifFalse: [ newRanges := ranges ].
-	ranges := self resolveLabelFromTokens: newRanges
+	ranges := (self resolveLabelFromTokens: newRanges)
+		asOrderedCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScanner >> splitedWords [
 	^ self tokens collect: [ :r | r fragment ]
 ]
 
-{ #category : #'range recording' }
+{ #category : 'range recording' }
 GplScanner >> start: s end: e [
 	^ self rangeType: #unresolved start: s end: e
 ]
 
-{ #category : #'range recording' }
+{ #category : 'range recording' }
 GplScanner >> start: s length: l [
 	^ self start: s end: s + l - 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScanner >> tokens [
 	^ self tokensIgnoreSpace: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScanner >> tokensIgnoreSpace: aBoolean [
 	aBoolean
 		ifTrue: [ ^ (ranges reject: [ :r | r fragment trimBoth isEmpty ]) asArray ].
 	^ ranges asArray
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 GplScanner >> vectorAnalysisFromTokens: aGplTokens [
 	"TODO: remove duplicate flavor GplEvaluator's "
 

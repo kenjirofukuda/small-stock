@@ -1,1 +1,1 @@
-Package { #name : #'GdsFeel-CLI' }
+Package { #name : 'GdsFeel-CLI' }

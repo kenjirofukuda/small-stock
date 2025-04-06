@@ -10,17 +10,19 @@ Inherited Instance Variables
 
 "
 Class {
-	#name : #GdsString,
-	#superclass : #GdsVector,
-	#category : #'GdsFeel-CLI-Data'
+	#name : 'GdsString',
+	#superclass : 'GdsVector',
+	#category : 'GdsFeel-CLI-Data',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Data'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 GdsString class >> acceptRegexPattern [
 	^ '".*"'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsString class >> fromAsciiValues: asciiValues [
 	| elements |
 	elements := asciiValues
@@ -28,7 +30,7 @@ GdsString class >> fromAsciiValues: asciiValues [
 	^ self withAll: elements
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsString class >> fromLiteral: aString [
 	| realContents |
 	aString isByteString
@@ -43,12 +45,12 @@ GdsString class >> fromLiteral: aString [
 	^ self fromSmalltalkString: realContents
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsString class >> fromSmalltalk: anObject [
 	^ self fromSmalltalkString: anObject
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsString class >> fromSmalltalkString: aString [
 	| s msg c level markBuff resultBuff handled asciiValue |
 	s := aString readStream.
@@ -88,7 +90,7 @@ GdsString class >> fromSmalltalkString: aString [
 	^ self fromAsciiValues: resultBuff contents asByteArray asArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsString class >> isAcceptableSmalltalkObject: anObject [
 	(anObject isKindOf: Collection)
 		ifFalse: [ ^ false ].
@@ -97,28 +99,28 @@ GdsString class >> isAcceptableSmalltalkObject: anObject [
 		allSatisfy: [ :each | GdsCharacter isAcceptableSmalltalkObject: each ]
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsString >> applySymbol: aSymbol to: aObject [
 	^ self illigalDataMode
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsString >> gplSourceString [
 	^ '"' , self gplString , '"'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsString >> isCharVector [
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsString >> printGplOn: aStream [
 	aStream
 		nextPutAll: ((values collect: [ :elm | elm gplString ]) joinUsing: '')
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsString >> sameAsInteger [
 	^ false
 ]

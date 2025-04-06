@@ -7,49 +7,51 @@ Instance Variables:
 	procedureArgumentTypes	<Collection<Symbol>>
 "
 Class {
-	#name : #GplCommandSpec,
-	#superclass : #Object,
+	#name : 'GplCommandSpec',
+	#superclass : 'Object',
 	#instVars : [
 		'name',
 		'functionArgumentTypes',
 		'procedureArgumentTypes'
 	],
-	#category : #'GdsFeel-CLI-Handler'
+	#category : 'GdsFeel-CLI-Handler',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Handler'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec class >> selectorWithArgType: argType methodType: methodType methodName: methodName [
 	^ ({(argType asString asLowercase , methodType asString capitalized
 		, methodName asLowercase capitalized , ':')} joinUsing: '') asSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec >> acceptableTypeSymbols [
 	^ Array with: #niladic with: #monadic with: #diadic
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplCommandSpec >> asKeySymbol: aTypeName [
 	^ aTypeName asString asLowercase asSymbol
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplCommandSpec >> asPrintType: aTypeName [
 	^ aTypeName asString asUppercase asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec >> functionArgumentTypes [
 	functionArgumentTypes ifNil: [ ^ #() ].
 	^ functionArgumentTypes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec >> functionArgumentTypes: aCollection [
 	functionArgumentTypes := aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec >> generateSelecters [
 	^ (self
 		generateSelecters: self functionArgumentTypes
@@ -60,7 +62,7 @@ GplCommandSpec >> generateSelecters [
 				functionOrProcedure: #procedure)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec >> generateSelecters: typeSymbols functionOrProcedure: methodType [
 	^ typeSymbols
 		collect: [ :sym | 
@@ -70,51 +72,51 @@ GplCommandSpec >> generateSelecters: typeSymbols functionOrProcedure: methodType
 				methodName: self name ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplCommandSpec >> hasAnyTypes [
 	^ self functionArgumentTypes size + self procedureArgumentTypes size
 		> 0
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplCommandSpec >> isBiContext [
 	^ self functionArgumentTypes size > 0
 		and: [ self procedureArgumentTypes size > 0 ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplCommandSpec >> isFunctionAllowed [
 	^ functionArgumentTypes notEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplCommandSpec >> isValid [
 	^ self name notEmpty and: [ self hasAnyTypes ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec >> name [
 	name ifNil: [ ^ '' ].
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec >> name: aCommandName [
 	name := aCommandName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec >> procedureArgumentTypes [
 	procedureArgumentTypes ifNil: [ ^ #() ].
 	^ procedureArgumentTypes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplCommandSpec >> procedureArgumentTypes: aCollection [
 	procedureArgumentTypes := aCollection
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplCommandSpec >> statement [
 	^ String
 		streamContents: [ :s | 

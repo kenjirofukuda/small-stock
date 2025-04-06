@@ -1,6 +1,6 @@
-Extension { #name : #Character }
+Extension { #name : 'Character' }
 
-{ #category : #'*GdsFeel-CLI' }
+{ #category : '*GdsFeel-CLI' }
 Character >> asGdsValue [
 	^ GdsCharacter fromSmalltalkObject: self
 ]

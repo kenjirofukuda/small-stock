@@ -1,6 +1,6 @@
 Class {
-	#name : #GplAtomicToken,
-	#superclass : #GdsObject,
+	#name : 'GplAtomicToken',
+	#superclass : 'GdsObject',
 	#instVars : [
 		'start',
 		'end',
@@ -8,47 +8,49 @@ Class {
 		'parser',
 		'fragment'
 	],
-	#category : #'GdsFeel-CLI-Kernel'
+	#category : 'GdsFeel-CLI-Kernel',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Kernel'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplAtomicToken >> = aGplToken [
 	^ (self start = aGplToken start and: [ self end = aGplToken end ])
 		and: [ self parser source = aGplToken parser source ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> end [
 	^ end
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> end: anInteger [
 	end := anInteger.
 	fragment := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> fragment [
 	^ fragment ifNil: [ fragment := parser fragmentOfRange: self ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> length [
 	^ end - start + 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> parser [
 	^ parser
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> parser: aGplParser2 [
 	parser := aGplParser2
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplAtomicToken >> printOn: aStream [
 	"fragment = #cr ifTrue: [^aStream nextPutAll: 'CR']"
 
@@ -65,30 +67,30 @@ GplAtomicToken >> printOn: aStream [
 	aStream nextPutAll: ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> start [
 	^ start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> start: anInteger [
 	start := anInteger.
 	fragment := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> start: startInteger end: endInteger type: typeSymbol [
 	start := startInteger.
 	end := endInteger.
 	type := typeSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> type [
 	^ type
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplAtomicToken >> type: aSymbol [
 	type := aSymbol
 ]

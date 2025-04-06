@@ -1,25 +1,27 @@
 Class {
-	#name : #GplTokenHandler,
-	#superclass : #GdsObject,
+	#name : 'GplTokenHandler',
+	#superclass : 'GdsObject',
 	#instVars : [
 		'stack',
 		'showsLog'
 	],
-	#category : #'GdsFeel-CLI-Kernel'
+	#category : 'GdsFeel-CLI-Kernel',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Kernel'
 }
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplTokenHandler >> beforeEvaluateTokens: aGplTokens [
 	GplScanner assertGplTokens: aGplTokens.
 	self resetStack
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplTokenHandler >> clientPrompt [
 	^ '? '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplTokenHandler >> debugLog: aObject [
 	self showsLog
 		ifFalse: [ ^ self ].
@@ -28,19 +30,19 @@ GplTokenHandler >> debugLog: aObject [
 		show: aObject
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GplTokenHandler >> initialize [
 	super initialize.
 	showsLog := false.
 	self resetStack
 ]
 
-{ #category : #'syntax check' }
+{ #category : 'syntax check' }
 GplTokenHandler >> notImplementedToken: aGplToken [
 	^ self syntaxMessage: 'RESERVED BUT NOT IMPLEMENTED' token: aGplToken
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplTokenHandler >> pop [
 	| result |
 	result := stack last.
@@ -48,28 +50,28 @@ GplTokenHandler >> pop [
 	^ result
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplTokenHandler >> push: aToken [
 	stack add: aToken
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GplTokenHandler >> resetStack [
 	stack := OrderedCollection new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplTokenHandler >> showsLog [
 	^ showsLog
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplTokenHandler >> showsLog: aBoolean [
 	self assert: [ aBoolean isKindOf: Boolean ].
 	showsLog := aBoolean
 ]
 
-{ #category : #'syntax check' }
+{ #category : 'syntax check' }
 GplTokenHandler >> syntaxMessage: aMessage token: aGplToken [
 	^ String
 		streamContents: [ :s | 

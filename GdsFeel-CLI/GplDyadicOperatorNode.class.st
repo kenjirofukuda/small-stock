@@ -1,16 +1,18 @@
 Class {
-	#name : #GplDyadicOperatorNode,
-	#superclass : #GplOperatorNode,
-	#category : #'GdsFeel-CLI-AST'
+	#name : 'GplDyadicOperatorNode',
+	#superclass : 'GplOperatorNode',
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GplDyadicOperatorNode >> initialize [
 	super initialize.
 	self at: #numArgs put: 2
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplDyadicOperatorNode >> printOn: aStream [
 	aStream nextPutAll: self param1 printString.
 	aStream nextPutAll: ' '.

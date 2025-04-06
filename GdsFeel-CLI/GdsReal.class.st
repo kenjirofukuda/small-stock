@@ -9,22 +9,24 @@ SEEEEEEE MMMMMMMM MMMMMMMM MMMMMMMM MMMMMMMM MMMMMMMM MMMMMMMM MMMMMMMM
 
 "
 Class {
-	#name : #GdsReal,
-	#superclass : #GdsFloating,
-	#category : #'GdsFeel-CLI-DGL'
+	#name : 'GdsReal',
+	#superclass : 'GdsFloating',
+	#category : 'GdsFeel-CLI-DGL',
+	#package : 'GdsFeel-CLI',
+	#tag : 'DGL'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReal class >> precisionRank [
 	^ 3
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReal class >> storageCost [
 	^ 8
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReal class >> typeString [
 	^ 'REAL'
 ]

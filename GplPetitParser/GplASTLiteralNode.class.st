@@ -1,13 +1,15 @@
 Class {
-	#name : #GplASTLiteralNode,
-	#superclass : #GplASTValueNode,
+	#name : 'GplASTLiteralNode',
+	#superclass : 'GplASTValueNode',
 	#instVars : [
 		'gplValue'
 	],
-	#category : #'GplPetitParser-AST'
+	#category : 'GplPetitParser-AST',
+	#package : 'GplPetitParser',
+	#tag : 'AST'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTLiteralNode >> gplValue: aGdsString [
 	gplValue := aGdsString
 ]

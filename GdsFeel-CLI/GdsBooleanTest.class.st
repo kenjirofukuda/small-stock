@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsBooleanTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GdsBooleanTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testAcceptableExpression [
 	| input result expResult |
 	input := '1'.
@@ -41,13 +43,13 @@ GdsBooleanTest >> testAcceptableExpression [
 	self assert: result = expResult
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testFoo [
 	GdsBoolean initialize.
 	(GdsBoolean fromLiteral: 'TRUE') class inspect
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testFromLiteral [
 	self assert: (GdsBoolean fromLiteral: 'TRUE') asSmalltalkValue = 1.
 	self assert: (GdsBoolean fromLiteral: 'FALSE') asSmalltalkValue = 0.
@@ -80,39 +82,39 @@ GdsBooleanTest >> testFromLiteral [
 	self should: [ GdsBoolean fromLiteral: ' 1 ' ] raise: GplSyntaxError
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testIsList [
 	self deny: (GdsBoolean fromLiteral: 'TRUE') isList
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testLength [
 	self assert: true asGdsValue length = 1.
 	self assert: false asGdsValue length = 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testMode [
 	self assert: (GdsBoolean fromLiteral: 'TRUE') mode = 1.
 	self assert: (GdsBoolean fromLiteral: 'FALSE') mode = 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testRank [
 	self assert: (GdsBoolean fromLiteral: 'TRUE') rank = 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testShape [
 	self assert: (GdsBoolean fromLiteral: 'TRUE') shape = #()
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testSize [
 	self assert: (GdsBoolean fromLiteral: 'TRUE') size = 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsBooleanTest >> testTypeString [
 	self assert: (GdsBoolean fromLiteral: 'TRUE') typeString = 'LOGICAL'.
 	self assert: (GdsBoolean fromLiteral: 'FALSE') typeString = 'LOGICAL'

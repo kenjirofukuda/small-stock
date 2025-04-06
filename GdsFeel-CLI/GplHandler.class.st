@@ -1,13 +1,15 @@
 Class {
-	#name : #GplHandler,
-	#superclass : #GdsObject,
+	#name : 'GplHandler',
+	#superclass : 'GdsObject',
 	#instVars : [
 		'evaluator'
 	],
-	#category : #'GdsFeel-CLI-Handler'
+	#category : 'GdsFeel-CLI-Handler',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Handler'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler class >> checkFunctionAllowed: aCommandName [
 	"aCommandName = 'SETVIEW' ifTrue: [ self halt. ]."
 
@@ -21,18 +23,18 @@ GplHandler class >> checkFunctionAllowed: aCommandName [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler class >> checkNiladicAllowed: aCommandName [
 	^ self valueTestFor: aCommandName selector: #isNiladicAllowed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler class >> commandNames [
 	^ self
 		flattendArray: (self subclasses collect: [ :clazz | clazz commandNames ])
 ]
 
-{ #category : #fixFlattenNotFoundPharo20 }
+{ #category : 'fixFlattenNotFoundPharo20' }
 GplHandler class >> flattenCollection: aCollection on: aStream [
 	aCollection
 		do: [ :each | 
@@ -41,13 +43,13 @@ GplHandler class >> flattenCollection: aCollection on: aStream [
 				ifFalse: [ aStream nextPut: each ] ]
 ]
 
-{ #category : #fixFlattenNotFoundPharo20 }
+{ #category : 'fixFlattenNotFoundPharo20' }
 GplHandler class >> flattendArray: aCollection [
 	^ Array
 		streamContents: [ :stream | self flattenCollection: aCollection on: stream ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplHandler class >> fromCommand: aCommandName evaluator: aGplEvaluator [
 	| clazz |
 	clazz := self lookupHandlerClass: aCommandName.
@@ -55,31 +57,31 @@ GplHandler class >> fromCommand: aCommandName evaluator: aGplEvaluator [
 	^ clazz new evaluator: aGplEvaluator
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler class >> hasCommandName: aCommandName [
 	"GplHandler hasCommandName: 'BOUNDARY'."
 
 	^ (self lookupHandlerClass: aCommandName) isNil not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler class >> isFunctionAllowed: aCommandName [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler class >> isNiladicAllowed: aCommandName [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler class >> isVoid: aCommandName [
 	(GplToken isBuiltinMethod: aCommandName)
 		ifTrue: [ ^ false ].
 	^ (self checkFunctionAllowed: aCommandName) not
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplHandler class >> lookupHandlerClass: aCommandName [
 	GplHandler subclasses
 		do: [ :clazz | 
@@ -89,23 +91,23 @@ GplHandler class >> lookupHandlerClass: aCommandName [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler class >> methodName [
 	^ ''
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler class >> methodNames [
 	^ GplMultiHandler methodNames , GplSingleHandler methodNames
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler class >> noArgReturnValueEnabled: aCommandName [
 	^ (self checkFunctionAllowed: aCommandName)
 		and: [ self checkNiladicAllowed: aCommandName ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler class >> valueTestFor: aCommandName selector: aSelector [
 	| clazz target |
 	clazz := self lookupHandlerClass: aCommandName.
@@ -115,24 +117,24 @@ GplHandler class >> valueTestFor: aCommandName selector: aSelector [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler class >> voidCommandNames [
 	^ self commandNames select: [ :each | self isVoid: each ]
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplHandler >> biContextCall: aToken [
 	^ (self isFunctionCall: aToken)
 		ifTrue: [ self functionCall: aToken ]
 		ifFalse: [ self procedureCall: aToken ]
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> call: aGplStatement [
 	^ evaluator evaluateLine: aGplStatement
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplHandler >> checkStationInstances: aGdsStationUIs [
 	aGdsStationUIs isEmpty
 		ifTrue: [ ^ self error: 'STATION DOWN' ].
@@ -141,7 +143,7 @@ GplHandler >> checkStationInstances: aGdsStationUIs [
 	aGdsStationUIs first model ifNil: [ ^ self error: 'STATION DOWN' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> currentItem [
 	| station |
 	station := self station.
@@ -150,40 +152,40 @@ GplHandler >> currentItem [
 	^ station structure currentItem
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplHandler >> evaluateToken: aToken [
 	
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GplHandler >> evaluator: aGplEvaluator [
 	evaluator := aGplEvaluator
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> findElementByKeyNumber: aKeyNumber [
 	^ self structure liveElements
 		detect: [ :el | el keyNumber = aKeyNumber ]
 		ifNone: [ ^ self error: 'ELEMENT KEY NOT FOUND: ' , aKeyNumber asString ]
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> floatVector: aFloatCollection [
 	^ (aFloatCollection
 		collect: [ :each | GdsFloating fromLiteral: each asString ]) asArray
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> fullRedraw [
 	self structureMorph invalidRect: self structureMorph bounds
 ]
 
-{ #category : #checker }
+{ #category : 'checker' }
 GplHandler >> illigalCoordinate [
 	^ self error: 'ILLIGAL COORDINATE VALUE'
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> illigalKeyNumbers: errorKeys [
 	errorKeys
 		ifNotEmpty: [ ^ self
@@ -192,28 +194,28 @@ GplHandler >> illigalKeyNumbers: errorKeys [
 						, ((errorKeys collect: [ :each | each asString ]) joinUsing: ' ') ]
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> integerVector: aIntegerCollection [
 	^ (aIntegerCollection
 		collect: [ :each | GdsInteger fromLiteral: each asString ]) asArray
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler >> isFunctionAllowed [
 	^ self class isFunctionAllowed
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler >> isFunctionCall: aToken [
 	^ aToken leftTokens isEmpty not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplHandler >> isNiladicAllowed [
 	^ self class isNiladicAllowed
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> keyNumbers: keyNumbers doWithElement: aKeyAndElementBlock [
 	| element |
 	keyNumbers
@@ -224,7 +226,7 @@ GplHandler >> keyNumbers: keyNumbers doWithElement: aKeyAndElementBlock [
 			aKeyAndElementBlock value: each value: element ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> library [
 	| station library |
 	station := self station.
@@ -233,7 +235,7 @@ GplHandler >> library [
 	^ library
 ]
 
-{ #category : #marking }
+{ #category : 'marking' }
 GplHandler >> markByKeys: keyNumbers [
 	| points errorKeys |
 	points := OrderedCollection new.
@@ -248,7 +250,7 @@ GplHandler >> markByKeys: keyNumbers [
 	self markPoints: points asArray
 ]
 
-{ #category : #marking }
+{ #category : 'marking' }
 GplHandler >> markPoints: aPoints [
 	aPoints ifEmpty: [ ^ self ].
 	self structureMorph setVisible: true forKey: #mark.
@@ -256,34 +258,34 @@ GplHandler >> markPoints: aPoints [
 	self structureMorph invalidRect: self structureMorph bounds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> methodName [
 	^ self class methodName
 ]
 
-{ #category : #checker }
+{ #category : 'checker' }
 GplHandler >> mustBeCoordinatable: aGdsArray [
 	(#('CHAR' 'LIST' 'NULL') includes: aGdsArray typeString)
 		ifTrue: [ ^ self illigalCoordinate ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> mustStructureOpen [
 	^ self currentItem
 ]
 
-{ #category : #checker }
+{ #category : 'checker' }
 GplHandler >> mustbeString: aGplValue [
 	aGplValue isCharVector
 		ifFalse: [ ^ self error: 'ONLY SPECIFIED CHARACTER VECTOR' ]
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> nullVector [
 	^ GdsNull instance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> requireLibraryOpend [
 	| station |
 	station := self station.
@@ -291,13 +293,13 @@ GplHandler >> requireLibraryOpend [
 	^ self nullVector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> station [
 	evaluator console ifNotNil: [ ^ GdsStation default ].
 	^ self stationUI model
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> stationUI [
 	| instances |
 	instances := self stationUIInstances.
@@ -306,13 +308,13 @@ GplHandler >> stationUI [
 	^ instances first
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> stationUIClass [
 	Smalltalk garbageCollect.
 	^ Smalltalk at: #GdsStationUI ifAbsent: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> stationUIInstances [
 	| clazz |
 	clazz := self stationUIClass.
@@ -320,22 +322,22 @@ GplHandler >> stationUIInstances [
 	^ clazz noGarbageTargetInstances
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> stringVector: aByteString [
 	^ GdsString fromLiteral: '"' , aByteString , '"'
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplHandler >> strings: aByteStringCollection [
 	^ self stringVector: (aByteStringCollection joinUsing: String cr)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> structure [
 	^ self station structure
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> structureMorph [
 	| morph |
 	evaluator console
@@ -350,7 +352,7 @@ GplHandler >> structureMorph [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplHandler >> viewport [
 	^ self structureMorph viewport
 ]

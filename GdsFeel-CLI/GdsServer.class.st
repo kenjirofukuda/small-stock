@@ -13,8 +13,8 @@ sessionMap
 
 "
 Class {
-	#name : #GdsServer,
-	#superclass : #GdsAbstractServer,
+	#name : 'GdsServer',
+	#superclass : 'GdsAbstractServer',
 	#instVars : [
 		'sessionMap',
 		'evaluator'
@@ -22,10 +22,12 @@ Class {
 	#classInstVars : [
 		'server'
 	],
-	#category : #'GdsFeel-CLI-Service'
+	#category : 'GdsFeel-CLI-Service',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Service'
 }
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsServer class >> chomp: aString [
 	| lastIndex index |
 	aString isEmpty
@@ -41,17 +43,17 @@ GdsServer class >> chomp: aString [
 	^ aString
 ]
 
-{ #category : #constant }
+{ #category : 'constant' }
 GdsServer class >> eoString [
 	^ (Character value: 0) asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsServer class >> showsLog: aBoolean [
 	server ifNotNil: [ server showsLog: aBoolean ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsServer class >> start [
 	"self start"
 
@@ -61,7 +63,7 @@ GdsServer class >> start [
 	server := self startOn: 9999 named: 'gds'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsServer class >> stop [
 	server
 		ifNil: [ Transcript
@@ -72,29 +74,29 @@ GdsServer class >> stop [
 	server := nil
 ]
 
-{ #category : #'development support' }
+{ #category : 'development support' }
 GdsServer class >> workspace [
 	GdsServer start.
 	GdsServer stop
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> clearSession [
 	sessionMap := nil.
 	evaluator flushContextStacks
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsServer >> debugLog: aObject [
 	evaluator debugLog: aObject
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> endSession [
 	self clearSession
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> getReciveSession: aGdsInRecord [
 	| session |
 	session := self sessionOfNumber: aGdsInRecord session.
@@ -102,7 +104,7 @@ GdsServer >> getReciveSession: aGdsInRecord [
 	^ session
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> implementedMethodNames [
 	| col |
 	col := OrderedCollection new.
@@ -112,24 +114,24 @@ GdsServer >> implementedMethodNames [
 	^ col asSet asArray
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsServer >> initialize [
 	super initialize.
 	evaluator := GplEvaluator new
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> interactUsing: interactionSocket [
 	self serve: interactionSocket
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> send: aString on: aSocket [
 	aSocket sendData: (self class chomp: aString) , self class eoString.
 	self debugLog: (self class chomp: aString)
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> serve: aSocket [
 	| reciveData bytes |
 	reciveData := aSocket receiveData.
@@ -140,7 +142,7 @@ GdsServer >> serve: aSocket [
 				ifFalse: [ self serveClassic: aSocket reciveData: reciveData ] ]
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> serveClassic: aSocket reciveData: reciveData [
 	| data |
 	data := self class chomp: reciveData.
@@ -153,7 +155,7 @@ GdsServer >> serveClassic: aSocket reciveData: reciveData [
 		do: [ :ex | self send: ex asString on: aSocket ]
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> serveNew: aSocket reciveData: reciveData [
 	| ioForInspect session replySession reply isPrompt arg evaluateBlock |
 	ioForInspect := GdsIoRecive fromByteArray: reciveData asByteArray.
@@ -189,7 +191,7 @@ GdsServer >> serveNew: aSocket reciveData: reciveData [
 	replySession send: aSocket
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsServer >> sessionOfNumber: aNumber [
 	sessionMap ifNil: [ sessionMap := Dictionary new ].
 	^ sessionMap
@@ -197,17 +199,17 @@ GdsServer >> sessionOfNumber: aNumber [
 		ifAbsentPut: [ GdsIoSession new session: aNumber ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsServer >> showsLog [
 	^ evaluator showsLog
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsServer >> showsLog: aBoolean [
 	evaluator showsLog: aBoolean
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> startSession: aSocket [
 	| replySession |
 	self clearSession.
@@ -218,7 +220,7 @@ GdsServer >> startSession: aSocket [
 	replySession send: aSocket
 ]
 
-{ #category : #conversation }
+{ #category : 'conversation' }
 GdsServer >> suspendedGplExpressionLateResult: aResult [
 	| context suspendToken |
 	"self halt."

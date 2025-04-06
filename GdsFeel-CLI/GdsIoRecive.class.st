@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsIoRecive,
-	#superclass : #GdsIoRecord,
-	#category : #'GdsFeel-CLI-Service'
+	#name : 'GdsIoRecive',
+	#superclass : 'GdsIoRecord',
+	#category : 'GdsFeel-CLI-Service',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Service'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsIoRecive >> asString [
 	^ GdsServer
 		chomp:
@@ -12,7 +14,7 @@ GdsIoRecive >> asString [
 				contents
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsIoRecive >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPut: $(.

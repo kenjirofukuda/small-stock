@@ -1,10 +1,12 @@
 Class {
-	#name : #GplExpressionGrammarTest,
-	#superclass : #PPCompositeParserTest,
-	#category : #'GplPetitParser-Tests'
+	#name : 'GplExpressionGrammarTest',
+	#superclass : 'PPCompositeParserTest',
+	#category : 'GplPetitParser-Tests',
+	#package : 'GplPetitParser',
+	#tag : 'Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> ignoreTestDyadicCall [
 	"Tests GplExpressionGrammar>>#dyadicCall"
 
@@ -17,7 +19,7 @@ GplExpressionGrammarTest >> ignoreTestDyadicCall [
 	self fail: 'RESHAPE IOTA 10' rule: #dyadicCall
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> ignoreTestMonadicCall [
 	"Tests GplExpressionGrammar>>#monadicCall"
 
@@ -39,7 +41,7 @@ GplExpressionGrammarTest >> ignoreTestMonadicCall [
 	self fail: '10 IOTA' rule: #monadicCall
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> ignoreTestNiladicCall [
 	"Tests GplExpressionGrammar>>#niladicCall"
 
@@ -50,12 +52,12 @@ GplExpressionGrammarTest >> ignoreTestNiladicCall [
 	self fail: 'RESHAPE' rule: #niladicCall
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplExpressionGrammarTest >> parserClass [
 	^ GplExpressionGrammar
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testAddition [
 	"Tests GplExpressionGrammar>>#addition"
 
@@ -71,7 +73,7 @@ GplExpressionGrammarTest >> testAddition [
 	self parse: 'A + 1' rule: #addition
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testArrayConcatenate [
 	"Tests GplExpressionGrammar>>#arrayConcatenate"
 
@@ -80,7 +82,7 @@ GplExpressionGrammarTest >> testArrayConcatenate [
 	self parse: '1,2,3' rule: #expression
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testAssignment [
 	"Tests GplExpressionGrammar>>#assignment"
 
@@ -111,22 +113,22 @@ GplExpressionGrammarTest >> testAssignment [
 	self fail: 'RESHAPE := 1' rule: #assignment
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testAssignment2 [
 	self parse: 'A:=1' rule: #assignment
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testAssignment3 [
 	self parse: ' A:=1' rule: #assignment
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testAssignment4 [
 	self parse: ' A:=1 ' rule: #assignment
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testAssignment5 [
 	self
 		parse:
@@ -135,14 +137,14 @@ GplExpressionGrammarTest >> testAssignment5 [
 		rule: #assignment
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testBuiltinOperatorNames [
 	"Tests GplExpressionGrammar>>#prec015"
 
-	GplExpressionGrammar new builtinOperatorNames explore
+	GplExpressionGrammar new builtinOperatorNames inspect
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testExpression [
 	"Tests GplExpressionGrammar>>#value"
 
@@ -154,7 +156,7 @@ GplExpressionGrammarTest >> testExpression [
 	self parse: '1 ; 1 ; 1' rule: #expression
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testGdsName [
 	self parse: 'A' rule: #gdsName.
 
@@ -175,7 +177,7 @@ GplExpressionGrammarTest >> testGdsName [
 		rule: #gdsName
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testList [
 	"Tests GplExpressionGrammar>>#list"
 
@@ -185,7 +187,7 @@ GplExpressionGrammarTest >> testList [
 	self parse: '(1; 1);1' rule: #list
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testListLiteral [
 	"Tests GplLiteralGrammar>>#listLiteral"
 
@@ -196,7 +198,7 @@ GplExpressionGrammarTest >> testListLiteral [
 	self parse: '"HOGE" ; 2; 1.0 2.0' rule: #listLiteral
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testMultiplication [
 	"Tests GplExpressionGrammar>>#multiplication"
 
@@ -208,7 +210,7 @@ GplExpressionGrammarTest >> testMultiplication [
 	self parse: '1 2 3 4 * 1.0' rule: #multiplication
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testParlen [
 	"Tests GplExpressionGrammar>>#parlen"
 
@@ -220,7 +222,7 @@ GplExpressionGrammarTest >> testParlen [
 	self parse: '(1 + 1 * 3)' rule: #parenthesis
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testPrec007 [
 	"Tests GplExpressionGrammar>>#prec007"
 
@@ -229,7 +231,7 @@ GplExpressionGrammarTest >> testPrec007 [
 	self parse: '1 2 INDEXOF 1 2 3 4 5' rule: #prec007
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testPrec010 [
 	"Tests GplExpressionGrammar>>#prec010"
 
@@ -238,7 +240,7 @@ GplExpressionGrammarTest >> testPrec010 [
 	self parse: 'LENGTH "DARKER THAN BLACK"' rule: #prec010
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testPrec012 [
 	"Tests GplExpressionGrammar>>#prec012"
 
@@ -247,7 +249,7 @@ GplExpressionGrammarTest >> testPrec012 [
 	self parse: '3 NOR 4' rule: #prec012
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testPrec013 [
 	"Tests GplExpressionGrammar>>#prec013"
 
@@ -265,7 +267,7 @@ GplExpressionGrammarTest >> testPrec013 [
 	self parse: '1 <> 1' rule: #prec013
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testPrec015 [
 	"Tests GplExpressionGrammar>>#prec015"
 
@@ -275,7 +277,7 @@ GplExpressionGrammarTest >> testPrec015 [
 	self parse: '1-2' rule: #prec015	"Error"
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testPrec016 [
 	"Tests GplExpressionGrammar>>#prec016"
 
@@ -283,7 +285,7 @@ GplExpressionGrammarTest >> testPrec016 [
 	self parse: '1 % 1' rule: #prec016
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testPrec017 [
 	"Tests GplExpressionGrammar>>#prec017"
 
@@ -291,7 +293,7 @@ GplExpressionGrammarTest >> testPrec017 [
 	self parse: '1 POWER 10' rule: #prec017
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testPrec020 [
 	"Tests GplExpressionGrammar>>#prec020"
 
@@ -305,7 +307,7 @@ GplExpressionGrammarTest >> testPrec020 [
 	self parse: 'TAN 90.' rule: #prec020
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testSubscript [
 	"Tests GplExpressionGrammar>>#subscript"
 
@@ -320,7 +322,7 @@ GplExpressionGrammarTest >> testSubscript [
 	self fail: 'VARIABLE_NAME]' rule: #subscript
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testSubtraction [
 	"Tests GplExpressionGrammar>>#subtraction"
 
@@ -332,7 +334,7 @@ GplExpressionGrammarTest >> testSubtraction [
 	self parse: '1 2 3 4 - 1.0' rule: #subtraction
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplExpressionGrammarTest >> testVarName [
 	self parse: 'A' rule: #varName.
 

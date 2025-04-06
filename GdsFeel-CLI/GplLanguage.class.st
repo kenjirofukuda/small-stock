@@ -1,24 +1,26 @@
 Class {
-	#name : #GplLanguage,
-	#superclass : #Object,
+	#name : 'GplLanguage',
+	#superclass : 'Object',
 	#instVars : [
 		'keywords'
 	],
-	#category : #'GdsFeel-CLI-AST'
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplLanguage >> initialize [
 	self initializeKeywords
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplLanguage >> initializeKeywords [
 	keywords := Array streamContents: [ :s | self installIfOn: s ].
 	keywords do: [ :each | each string ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplLanguage >> installIfOn: aStream [
 	aStream nextPut: (GplLanguageKeyword fromString: 'IF').
 	aStream
@@ -29,7 +31,7 @@ GplLanguage >> installIfOn: aStream [
 		nextPut: ((GplLanguageKeyword fromString: 'ENDIF') parent: 'IF')
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplLanguage >> installLoopOn: aStream [
 	aStream nextPut: (GplLanguageKeyword fromString: 'DO').
 	aStream

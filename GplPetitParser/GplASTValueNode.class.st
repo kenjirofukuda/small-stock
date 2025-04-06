@@ -1,40 +1,42 @@
 Class {
-	#name : #GplASTValueNode,
-	#superclass : #GplPPASTNode,
-	#category : #'GplPetitParser-AST'
+	#name : 'GplASTValueNode',
+	#superclass : 'GplPPASTNode',
+	#category : 'GplPetitParser-AST',
+	#package : 'GplPetitParser',
+	#tag : 'AST'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTValueNode >> addParenthesis: anInterval [
 	parentheses ifNil: [ parentheses := OrderedCollection new: 1 ].
 	parentheses add: anInterval
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTValueNode >> parentheses [
 	^ parentheses ifNil: [ #() ] ifNotNil: [ parentheses ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTValueNode >> start [
 	^ parentheses
 		ifNil: [ self startWithoutParentheses ]
 		ifNotNil: [ parentheses last first ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTValueNode >> startWithoutParentheses [
 	^ start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTValueNode >> stop [
 	^ parentheses
 		ifNil: [ self stopWithoutParentheses ]
 		ifNotNil: [ parentheses last last ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTValueNode >> stopWithoutParentheses [
 	^ stop
 ]

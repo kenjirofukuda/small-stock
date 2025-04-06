@@ -1,6 +1,6 @@
 Class {
-	#name : #GplToken,
-	#superclass : #GplAtomicToken,
+	#name : 'GplToken',
+	#superclass : 'GplAtomicToken',
 	#instVars : [
 		'argumentType',
 		'subtokens',
@@ -11,42 +11,44 @@ Class {
 		'GdsiiMethods',
 		'ReservedKeywords'
 	],
-	#category : #'GdsFeel-CLI-Kernel'
+	#category : 'GdsFeel-CLI-Kernel',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Kernel'
 }
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> builtinMethods [
 	^ BuiltinMethods
 		ifNil: [ BuiltinMethods := self lookupBuiltinMethods asSet ]
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> dataTypeKeywords [
 	^ #('BOOLEAN' 'CHAR' 'INTEGER' 'INTEGER2' 'REAL' 'REAL2' 'LIST')
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> flowControlKeywords [
 	^ #('IF' 'THEN' 'ELSE' 'ELIF' 'ENDIF' 'FOR' 'WHILE' 'DO' 'ENDDO' 'UNTIL' 'GOTO' 'SWITCH' 'OF' 'CASE' 'OUT' 'ENDSWITCH')
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> gdsiiMethods [
 	^ GdsiiMethods
 		ifNil: [ GdsiiMethods := self lookupGdsiiMethods asSet ]
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> implementedDyadicMethods [
 	^ #('RESHAPE')
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> implementedMonadicMethods [
 	^ #('ABS' 'FLOOR' 'CEILING' 'EXP' 'LN' 'PI' 'SIN' 'COS' 'TAN' 'ARCTAN' 'NOT')
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplToken class >> initialize [
 	"self initialize"
 
@@ -56,32 +58,32 @@ GplToken class >> initialize [
 	ReservedKeywords := nil
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> inspectMonadicMethods [
 	^ #('TYPEOF' 'SHAPE' 'RANK' 'SIZE' 'LENGTH')
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken class >> isBuiltinMethod: aString [
 	^ self builtinMethods includes: aString asUppercase
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken class >> isGdsiiMethod: aString [
 	^ self gdsiiMethods includes: aString asUppercase
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken class >> isProgramOnlyKeyword: aString [
 	^ self programOnlyKeywords includes: aString asUppercase
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken class >> isReservedKeyword: aString [
 	^ self reservedKeywords includes: aString asUppercase
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> lookupBuiltinMethods [
 	^ #('TYPEOF' 'SHAPE' 'RANK' 'LENGTH' 'SIZE' 'IOTA' 'INDEXOF' 'GRADEUP' 'GRADEDOWN' 'SORT' 'SORTDOWN' 'ABS' 'FLOOR' 'CEILING' 'EXP' 'LN' 'PI' 'SIN' 'COS' 'TAN' 'ARCTAN' 'NOT')
 		,
@@ -95,14 +97,14 @@ GplToken class >> lookupBuiltinMethods [
 "
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> lookupGdsiiMethods [
 	^ #('BLUE' 'CYAN' 'GREEN' 'MAGENTA' 'RED' 'WHITE' 'YELLOW')
 		,
 			#('ABSANGLE' 'ABSMAG' 'ABSTATION' 'ABSWIDTH' 'ADDPLEX' 'ADDRT' 'ANGLE' 'ARC' 'AREF' 'AREFMARK' 'ASCALE' 'ASHAPE' 'AUTOHOLD' 'AND' 'ANDNOT' 'BACKUP' 'BINDATTR' 'BINDFONTS' 'BOUNDARY' 'BOUNDARYMARK' 'BOX' 'BOXTYPE' 'BROKEN' 'BSCALE' 'BSTRUCT' 'BUTTON' 'BUTTONMODE' 'BITAND' 'BITOR' 'BITXOR' 'BOUNDARYAREA' 'CE' 'CH' 'CHECKEXTERIOR1' 'CHECKEXTERIOR2' 'CHECKINTERIOR' 'CIRCLE' 'CIRCLESIZE' 'CLEAR' 'CLOSE' 'CLOSELIB' 'CLOSEREF1' 'CLOSEREF2' 'CLRPROP' 'COLORBY' 'COMMANDS' 'CONTEXT' 'COORDS' 'CRACL' 'CSTRUCT' 'CUTPATHIN' 'CUTPATHOUT' 'CARTESIAN' 'CEKEY' 'CFORMAT' 'CHECKAREA' 'CLOSESTTO' 'CRTTYPE' 'DACL' 'DASHED' 'DATACOPY' 'DATADELETE' 'DATADRAW' 'DATAMAGNIFY' 'DATAMOVE' 'DATAOVERSIZE' 'DATAPAN' 'DATAREDRAW' 'DATAREFLECT' 'DATAROTATE' 'DATASETVIEW' 'DATATYPE' 'DATAVIEWMOVE' 'DATAZOOM' 'DB' 'DE' 'DEFATTR' 'DEFMODE' 'DFUNCTION' 'DIGMODE' 'DIRECTORY' 'DISK' 'DISPLAYSTAT' 'DLN' 'DOTTED' 'DS' 'DSTRUCT' 'DVERT' 'DATAEXTENT' 'DATAVIEW' 'DAY' 'DIGIN' 'DROUND' 'DSELECT' 'EDATA' 'EDGE' 'ENAME' 'ENDLOG' 'ENTERTEXT' 'EREF' 'ESTAT' 'ESTRUCT' 'EXPLODE' 'EXPUNGE' 'EXECUTE' 'EXPINPUT' 'FCCONT' 'FCHATR' 'FCOPY' 'FDELETE' 'FILLA' 'FILLBY' 'FILLC' 'FILLD' 'FILLET' 'FILLSET' 'FINDDATA' 'FINIT' 'FLAYER' 'FLAYEROFF' 'FLAYERON' 'FLINK' 'FLIST' 'FONT' 'FONTINFO' 'FPRINT' 'FRELEASE' 'FRENAME' 'FUNCTIONS' 'FUNLINK' 'FETCH' 'FILEINFO' 'FILLB' 'FORMAT' 'GEDMODE' 'GET' 'GETITEM' 'GETP' 'GPL' 'GRID' 'GSCALE' 'GEDCOORDS' 'GEDELEMENT' 'GETEL' 'GLOBALTOLOCAL' 'GTIME' 'HARDCOPY' 'HARDLOCKS' 'HELP' 'HORIZFIRST' 'IB' 'ICOPY' 'ID' 'IDADD' 'IDCANGLE' 'IDCBOXTYPE' 'IDCDATATYPE' 'IDCFONT' 'IDCLAYER' 'IDCLEAR' 'IDCMAG' 'IDCNODETYPE' 'IDCOPY' 'IDCPATHTYPE' 'IDCTEXTTYPE' 'IDCWIDTH' 'IDDELETE' 'IDEXPLODE' 'IDMARK' 'IDMOVE' 'IDOVERSIZE' 'IDPATHEXP' 'IDREFLECT' 'IDROTATE' 'IDSTRUCT' 'IDSUMMARY' 'IDTEXTEXP' 'IDWINDOW' 'IDWINSTRUCT' 'IE' 'IFILE' 'IITEM' 'IMOVE' 'INACL' 'INFORM' 'INITDISPLAY' 'INITLIB' 'INTCHECKMODE' 'INTRT' 'ISTAT' 'ITEM' 'ITEMCOPY' 'ITEMMARK' 'ITEMREFLECT' 'ITEMREVERSE' 'ITEMROTATE' 'IDKEYS' 'INDICESOF' 'INPUTMASK' 'INSIDEBOUNDARY' 'INTERSECT' 'JOBABORT' 'JOBCREATE' 'JOBINFO' 'JOBLOG' 'JOBPRIORITY' 'JOBSTART' 'JOBSUSPEND' 'JOIN' 'JOBID' 'KEYSTRUCT' 'KEYCE' 'KEYMARK' 'LACL' 'LASTCOORD' 'LAYER' 'LAYERTYPE' 'LEVEL' 'LISTATTR' 'LISTDISPLAY' 'LISTGEN' 'LISTLIB' 'LISTREF1' 'LISTREF2' 'LOAD' 'LOCALTOGLOBAL' 'LOG' 'LOWERCASE' 'LSTAT' 'LAYERSIN' 'LINEINTERSECT' 'MAG' 'MARK' 'MARKSIZE' 'MASKFREE' 'MASKS' 'MASKSAVE' 'MEMORY' 'MENU' 'MENUMOVE' 'MERGELIB' 'MOVE' 'MOVEPOINT' 'MASKRESTORE' 'MEMBER' 'MINMAX' 'MSELECT' 'NAMES' 'NEWANGLE' 'NEWBOXTYPE' 'NEWDATATYPE' 'NEWFONT' 'NEWLAYER' 'NEWMAG' 'NEWNODETYPE' 'NEWPATHTYPE' 'NEWTEXTTYPE' 'NEWUNITS' 'NEWWIDTH' 'NODE' 'NODETYPE' 'NAMESBOUND' 'NAMESOPEN' 'NSELECT' 'OCTAGONAL' 'ODATA' 'ONAME' 'OPENDISPLAY' 'OPENLIB' 'OPENREF1' 'OPENREF2' 'OPTIONS' 'OREF' 'ORTHINT' 'OSTRUCT' 'OUTFORM' 'OUTFORM3' 'OUTPUTCHANGE' 'OUTPUTMASK' 'OUTPUTPATH' 'OUTPUTVIEW' 'OR' 'PAN' 'PATH' 'PATHEDGE' 'PATHMARK' 'PATHTYPE' 'PAUSE' 'PLEXMODE' 'PLOTSTAT' 'PROPVALUE' 'PUT' 'PUTALL' 'PATHBOUNDARY' 'PLEX' 'POLAR' 'PUTEL' 'QUIT' 'R3' 'RACL' 'RCSTRUCT' 'RECOVERLIB' 'REDO' 'REDRAW' 'REFL' 'REMOVE' 'REVERT' 'RJOB' 'RMENU' 'RS' 'RSCALE' 'RSCREEN' 'RSTRUCT' 'RT' 'RTDIGMODE' 'RULER' 'ROUND' 'ROUNDMASK' 'SAVE' 'SAVEDISPLAY' 'SB' 'SBTYPE' 'SBTYPEOFF' 'SBTYPEON' 'SCELL' 'SDTYPE' 'SDTYPEOFF' 'SDTYPEON' 'SEGS' 'SETCOLORS' 'SETDIG' 'SETLEVEL' 'SETTAB' 'SETVIEW' 'SHOWDEFAULTS' 'SHOWREFS' 'SHOWSNAPS' 'SKIND' 'SKINDOFF' 'SKINDON' 'SLAYER' 'SLAYEROFF' 'SLAYERON' 'SLIMSIZE' 'SNAME' 'SNAP' 'SNAPCE' 'SNAPSIZE' 'SNTYPE' 'SNTYPEOFF' 'SNTYPEON' 'SOLID' 'SPLIT' 'SPOOLQ' 'SREF' 'SREFMARK' 'SSTAT' 'SSTRUCT' 'STADPY' 'START' 'STRAIGHT' 'STREAMOUT' 'STRETCH' 'STRETCHCELL' 'STTYPE' 'STTYPEOFF' 'STTYPEON' 'STYLEBY' 'SUBRT' 'SUBS' 'SUMMARY' 'SYSDPY' 'SYSTAT' 'SLEEP' 'STADPYINFO' 'STANUM' 'STRUCINFO' 'STRUCLIST' 'STRUCOPEN' 'STRUCREFS' 'SUBSET' 'SYSN' 'TABMODE' 'TEMPLATE' 'TEMPLATEMARK' 'TEMPREF1' 'TEMPREF2' 'TEXT' 'TEXTFONT' 'TEXTMARK' 'TEXTTYPE' 'TIME' 'TJUST' 'TREE' 'TSTRUCT' 'TABTYPE' 'TEXTINPUT' 'TOD' 'UNDO' 'UNGET' 'UNID' 'UNIDWINDOW' 'UNMARK' 'UPDISPLAY' 'UPLIB' 'UPLOWCASE' 'UPPERCASE' 'USER' 'USERPROP' 'USTRUCT' 'UNDERSIZE' 'UNION' 'USELECT' 'VBTYPE' 'VBTYPEOFF' 'VBTYPEON' 'VDTYPE' 'VDTYPEOFF' 'VDTYPEON' 'VECTORCOUNT' 'VERTFIRST' 'VIEWEXTENT' 'VIEWMOVE' 'VKIND' 'VKINDOFF' 'VKINDON' 'VLAYER' 'VLAYEROFF' 'VLAYERON' 'VLEVELS' 'VLT' 'VMODE' 'VNTYPE' 'VNTYPEOFF' 'VNTYPEON' 'VSTRUCT' 'VTTYPE' 'VTTYPEOFF' 'VTTYPEON' 'VARS' 'VIEWWINDOW' 'WIDTH' 'WINCOPY' 'WINDELETE' 'WINFENCE' 'WINMOVE' 'WINOPTIONS' 'WINSTRETCH' 'WINSTRUCT' 'WIPE' 'WIPEALL' 'WITEM' 'WSCALE' 'WSCREEN' 'WASTAT' 'XSCALE' 'XOR' 'YSCALE' 'ZOOM' 'ZSCALE')
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> lookupReservedKeywords [
 	"GplToken reservedKeywords"
 
@@ -111,22 +113,22 @@ GplToken class >> lookupReservedKeywords [
 		, self storageScopeKeywords
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> methodKindKeywords [
 	^ #('PROCEDURE' 'FUNCTION')
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> methodTypeKeywords [
 	^ #('NILADIC' 'MONADIC' 'DYADIC')
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> methodUnitKeywords [
 	^ self methodKindKeywords , #('ENDSUB')
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplToken class >> newFromTokens: aGplTokens [
 	| newToken |
 	GplScanner assertGplTokens: aGplTokens.
@@ -138,19 +140,19 @@ GplToken class >> newFromTokens: aGplTokens [
 	^ newToken
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> programOnlyKeywords [
 	^ (self reservedKeywords , #('RANGE')
 		reject: [ :word | #('LOCAL' 'GLOBAL') includes: word ]) asArray
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> reservedKeywords [
 	^ ReservedKeywords
 		ifNil: [ ReservedKeywords := self lookupReservedKeywords asSet ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplToken class >> start: s end: e type: aSymbol parser: aGplParser2 [
 	^ self new
 		start: s end: e type: aSymbol;
@@ -158,12 +160,12 @@ GplToken class >> start: s end: e type: aSymbol parser: aGplParser2 [
 		yourself
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 GplToken class >> storageScopeKeywords [
 	^ #('EXTERNAL' 'LOCAL' 'GLOBAL')
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> addSubToken: aGplToken [
 	subtokens ifNil: [ subtokens := OrderedCollection new ].
 	subtokens add: aGplToken.
@@ -171,13 +173,13 @@ GplToken >> addSubToken: aGplToken [
 	type ifNil: [ self type: #vector ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> argumentType: aSymbol [
 	self assert: (#(monadic niladic dyadic) includes: aSymbol).
 	argumentType := aSymbol
 ]
 
-{ #category : #conversion }
+{ #category : 'conversion' }
 GplToken >> asAtomicToken [
 	^ GplAtomicToken new
 		start: start;
@@ -187,7 +189,7 @@ GplToken >> asAtomicToken [
 		yourself
 ]
 
-{ #category : #conversion }
+{ #category : 'conversion' }
 GplToken >> asGplValue [
 	| clazz |
 	self isNull
@@ -203,12 +205,12 @@ GplToken >> asGplValue [
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> depth [
 	^ self depthOfParlen + self depthOfSubscript
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> depthOfOpen: openFragment close: closeFragment [
 	| allTokens level |
 	allTokens := self parser tokens.
@@ -228,24 +230,24 @@ GplToken >> depthOfOpen: openFragment close: closeFragment [
 	^ 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> depthOfParlen [
 	^ self depthOfOpen: '(' close: ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> depthOfSubscript [
 	^ self depthOfOpen: '[' close: ']'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> end [
 	self hasSubTokens
 		ifTrue: [ ^ (subtokens collect: [ :token | token end ]) max ].
 	^ end
 ]
 
-{ #category : #conversion }
+{ #category : 'conversion' }
 GplToken >> extractNegativeNumber [
 	"[-5] -> [-][5]"
 
@@ -267,7 +269,7 @@ GplToken >> extractNegativeNumber [
 	^ Array with: operatorToken with: numberToken
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> fragmentForInspect [
 	| base |
 	base := self fragment.
@@ -283,28 +285,28 @@ GplToken >> fragmentForInspect [
 	^ base
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> fragmentForTest [
 	^ self fragment asUppercase
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> hasSubTokens [
 	subtokens ifNil: [ ^ false ].
 	^ subtokens isEmpty not
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplToken >> index [
 	^ index ifNil: [ index := self lookupIndex ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GplToken >> initialize [
 	super initialize
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isArithmeticOperator [
 	(#('POWER') includes: self fragmentForTest)
 		ifTrue: [ ^ true ].
@@ -312,7 +314,7 @@ GplToken >> isArithmeticOperator [
 		and: [ '+-*%' includes: self fragment first ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isBreakNegativeNumber [
 	#variable = self type
 		ifTrue: [ ^ true ].
@@ -325,106 +327,106 @@ GplToken >> isBreakNegativeNumber [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isBuiltinDyadic [
 	^ (self type = #operator or: [ self type = #builtinMethod ])
 		and: [ self class implementedDyadicMethods
 				includes: self fragment asUppercase ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isBuiltinMonadic [
 	^ (self type = #operator or: [ self type = #builtinMethod ])
 		and: [ self class implementedMonadicMethods
 				includes: self fragment asUppercase ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isComment [
 	^ self type = #comment
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isFunctionCall [
 	^ self isProcedureCall not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isInspectMonadic [
 	^ (self type = #operator or: [ self type = #builtinMethod ])
 		and:
 			[ self class inspectMonadicMethods includes: self fragment asUppercase ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isNegativeNumber [
 	^ self isNumber and: [ self fragment beginsWith: '-' ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isNull [
 	^ self isString and: [ self fragment = '""' ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isNumber [
 	^ self type = #number
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isOperator [
 	^ self type = #operator
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isProcedureCall [
 	^ self leftTokens isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isSpace [
 	^ self type = #space
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isString [
 	^ self type = #string
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplToken >> isVariableAllowed [
 	^ self type = #unresolved or: [ self type = #variable ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> leftFragment [
 	self start = 1
 		ifTrue: [ ^ '' ].
 	^ parser source copyFrom: 1 to: self start - 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> leftTokens [
 	^ GplScanner tokensFrom: self leftFragment
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> leftTokensOfDepth: aDepth [
 	^ self leftTokens select: [ :each | each depth = aDepth ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> leftTokensOfSameDepth [
 	^ self leftTokensOfDepth: self depth
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplToken >> lookupIndex [
 	parser ifNil: [ ^ 0 ].
 	^ parser ranges indexOf: self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplToken >> lookupType [
 	| s |
 	s := self fragment.
@@ -466,21 +468,21 @@ GplToken >> lookupType [
 	^ #unresolved
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> postfixExpr [
 	self fragment = '['
 		ifTrue: [ ^ '[]' ].
 	^ self fragmentForInspect
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> rightFragment [
 	self end = parser source size
 		ifTrue: [ ^ '' ].
 	^ parser source copyFrom: self end + 1 to: parser source size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> rightTokens [
 	| newTokens |
 	newTokens := GplScanner tokensFrom: self rightFragment.
@@ -492,24 +494,24 @@ GplToken >> rightTokens [
 	^ newTokens
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> rightTokensOfDepth: aDepth [
 	^ self rightTokens select: [ :each | each depth = aDepth ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> rightTokensOfSameDepth [
 	^ self rightTokensOfDepth: self depth
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> start [
 	self hasSubTokens
 		ifTrue: [ ^ (subtokens collect: [ :token | token start ]) min ].
 	^ start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplToken >> type [
 	type = #unresolved
 		ifTrue: [ self type: self lookupType ].

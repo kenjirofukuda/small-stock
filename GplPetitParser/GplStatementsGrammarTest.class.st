@@ -1,15 +1,17 @@
 Class {
-	#name : #GplStatementsGrammarTest,
-	#superclass : #PPCompositeParserTest,
-	#category : #'GplPetitParser-Tests'
+	#name : 'GplStatementsGrammarTest',
+	#superclass : 'PPCompositeParserTest',
+	#category : 'GplPetitParser-Tests',
+	#package : 'GplPetitParser',
+	#tag : 'Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplStatementsGrammarTest >> parserClass [
 	^ GplStatementsGrammar
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplStatementsGrammarTest >> testCodeBlock [
 	self parse: ' ' rule: #codeBlock.
 	self
@@ -55,7 +57,7 @@ GplStatementsGrammarTest >> testCodeBlock [
 		rule: #codeBlock
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplStatementsGrammarTest >> testEmptyStatement [
 	self parse: '' rule: #emptyStatement.
 	self parse: ' ' rule: #emptyStatement.
@@ -67,12 +69,12 @@ GplStatementsGrammarTest >> testEmptyStatement [
 		rule: #emptyStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement1 [
 	self parse: 'IF A = 1 THEN C := 1 ENDIF' rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement10 [
 	"double ELSE "
 
@@ -87,7 +89,7 @@ ENDIF'
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement11 [
 	"11"
 
@@ -96,7 +98,7 @@ GplStatementsGrammarTest >> testIfStatement11 [
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement12 [
 	"12"
 
@@ -106,7 +108,7 @@ GplStatementsGrammarTest >> testIfStatement12 [
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement13 [
 	"13"
 
@@ -115,7 +117,7 @@ GplStatementsGrammarTest >> testIfStatement13 [
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement14 [
 	"14"
 
@@ -138,7 +140,7 @@ ENDIF'
 "
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement15 [
 	"15"
 
@@ -154,7 +156,7 @@ ENDIF'
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement16 [
 	"Missing THEN"
 
@@ -163,7 +165,7 @@ GplStatementsGrammarTest >> testIfStatement16 [
 	self fail: 'IF A = 1  C := 1 ENDIF' rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement17 [
 	"17"
 
@@ -172,7 +174,7 @@ GplStatementsGrammarTest >> testIfStatement17 [
 	self fail: 'IF A = 1 THEN C := 1' rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement18 [
 	"double ELSE"
 
@@ -181,21 +183,21 @@ GplStatementsGrammarTest >> testIfStatement18 [
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement2 [
 	"expression empty"
 
 	self fail: 'IF  THEN C := 1 ENDIF' rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement3 [
 	"3"
 
 	self parse: 'IF A = 1 THEN C := 1 ELSE ENDIF' rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement4 [
 	"4"
 
@@ -204,14 +206,14 @@ GplStatementsGrammarTest >> testIfStatement4 [
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement5 [
 	"5"
 
 	self parse: 'IF A = 1 THEN ENDIF' rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement6 [
 	"6"
 
@@ -223,7 +225,7 @@ ENDIF'
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement7 [
 	"7"
 
@@ -237,7 +239,7 @@ ENDIF'
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement8 [
 	"emptyStatement"
 
@@ -250,7 +252,7 @@ ENDIF'
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - if' }
+{ #category : 'tests - if' }
 GplStatementsGrammarTest >> testIfStatement9 [
 	"9"
 
@@ -263,28 +265,28 @@ ENDIF'
 		rule: #ifStatement
 ]
 
-{ #category : #'tests - sourceLine' }
+{ #category : 'tests - sourceLine' }
 GplStatementsGrammarTest >> testSourceLine1 [
 	"without blanks"
 
 	self parse: 'A:=1' rule: #sourceLine
 ]
 
-{ #category : #'tests - sourceLine' }
+{ #category : 'tests - sourceLine' }
 GplStatementsGrammarTest >> testSourceLine2 [
 	"both spaces"
 
 	self parse: ' A:=1 ' rule: #sourceLine
 ]
 
-{ #category : #'tests - sourceLine' }
+{ #category : 'tests - sourceLine' }
 GplStatementsGrammarTest >> testSourceLine3 [
 	"both space and inline comment"
 
 	self parse: ' A:=1| comment' rule: #sourceLine
 ]
 
-{ #category : #'tests - sourceLine' }
+{ #category : 'tests - sourceLine' }
 GplStatementsGrammarTest >> testSourceLine4 [
 	"both space and inline comment"
 
@@ -295,7 +297,7 @@ GplStatementsGrammarTest >> testSourceLine4 [
 		rule: #sourceLine
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplStatementsGrammarTest >> testStatement [
 	self parse: 'A:=1' rule: #statement.
 	self

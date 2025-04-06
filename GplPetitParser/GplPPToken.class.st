@@ -1,23 +1,25 @@
 Class {
-	#name : #GplPPToken,
-	#superclass : #PPToken,
+	#name : 'GplPPToken',
+	#superclass : 'PPToken',
 	#instVars : [
 		'comments'
 	],
-	#category : #'GplPetitParser-Grammar'
+	#category : 'GplPetitParser-Grammar',
+	#package : 'GplPetitParser',
+	#tag : 'Grammar'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPToken >> comments [
 	^ comments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPToken >> comments: anArray [
 	comments := anArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPToken >> length [
 	^ self size
 ]

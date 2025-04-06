@@ -1,40 +1,42 @@
 Class {
-	#name : #GplBiContextHandler,
-	#superclass : #GplSingleHandler,
-	#category : #'GdsFeel-CLI-Handler'
+	#name : 'GplBiContextHandler',
+	#superclass : 'GplSingleHandler',
+	#category : 'GdsFeel-CLI-Handler',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Handler'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplBiContextHandler class >> functionNames [
 	^ self methodNames
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplBiContextHandler class >> isFunctionAllowed [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplBiContextHandler class >> isFunctionAllowed: aCommandName [
 	^ self isFunctionAllowed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplBiContextHandler class >> procedureNames [
 	^ self methodNames
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplBiContextHandler >> evaluateToken: aToken [
 	^ self biContextCall: aToken
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplBiContextHandler >> functionCall: aToken [
 	self subclassResponsibility
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplBiContextHandler >> procedureCall: aToken [
 	self subclassResponsibility
 ]

@@ -1,11 +1,11 @@
-Extension { #name : #PPPredicateObjectParser }
+Extension { #name : 'PPPredicateObjectParser' }
 
-{ #category : #'*GplPetitParser-extension' }
+{ #category : '*GplPetitParser-extension' }
 PPPredicateObjectParser classSide >> octalDigit [
 	^ self chars: '01234567' message: '$0 to $7 expected'
 ]
 
-{ #category : #'*GplPetitParser-extension' }
+{ #category : '*GplPetitParser-extension' }
 PPPredicateObjectParser classSide >> uppercaseLetter [
 	^ self
 		chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'

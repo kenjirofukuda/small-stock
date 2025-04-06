@@ -1,15 +1,17 @@
 Class {
-	#name : #GplShisokuTest,
-	#superclass : #PPCompositeParserTest,
-	#category : #'GplPetitParser-Tests'
+	#name : 'GplShisokuTest',
+	#superclass : 'PPCompositeParserTest',
+	#category : 'GplPetitParser-Tests',
+	#package : 'GplPetitParser',
+	#tag : 'Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplShisokuTest >> parserClass [
 	^ GplShisoku
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplShisokuTest >> testBigE [
 	"Tests GplShisoku>>#bigE"
 

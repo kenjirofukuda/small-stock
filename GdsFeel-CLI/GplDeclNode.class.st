@@ -1,37 +1,39 @@
 Class {
-	#name : #GplDeclNode,
-	#superclass : #GplASTNode,
-	#category : #'GdsFeel-CLI-AST'
+	#name : 'GplDeclNode',
+	#superclass : 'GplASTNode',
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 GplDeclNode >> dataType [
 	^ self at: #dataType
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplDeclNode >> inspectString [
 	^ (self at: #nameList) isEmpty
 		ifTrue: [ '' ]
 		ifFalse: [ (self at: #nameList) printString ]
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 GplDeclNode >> isVariable [
 	^ (self at: #kind) = #variable
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 GplDeclNode >> methodKind [
 	^ self at: #methodKind
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplDeclNode >> nameList [
 	^ self at: #nameList
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 GplDeclNode >> numArgs [
 	self isVariable
 		ifTrue: [ ^ self error: 'invalid call:' ].
@@ -44,36 +46,36 @@ GplDeclNode >> numArgs [
 	^ -1
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 GplDeclNode >> paramType [
 	^ self at: #paramType
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 GplDeclNode >> storageScope [
 	^ self at: #storageScope
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 GplDeclNode >> storageScope: aSymbol [
 	^ self at: #storageScope put: aSymbol
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplDeclNode >> subroutineNames [
 	self isVariable
 		ifTrue: [ ^ #() ].
 	^ self nameList asArray
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplDeclNode >> tagPrefix [
 	^ self isVariable
 		ifTrue: [ ^ 'V' ]
 		ifFalse: [ ^ 'M' ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplDeclNode >> variableNames [
 	self isVariable
 		ifFalse: [ ^ #() ].

@@ -1,15 +1,17 @@
 Class {
-	#name : #GplPPTokenParser,
-	#superclass : #PPTokenParser,
-	#category : #'GplPetitParser-Grammar'
+	#name : 'GplPPTokenParser',
+	#superclass : 'PPTokenParser',
+	#category : 'GplPetitParser-Grammar',
+	#package : 'GplPetitParser',
+	#tag : 'Grammar'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GplPPTokenParser >> defaultTokenClass [
 	^ GplPPToken
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 GplPPTokenParser >> parseComments: anArray on: aPPContext [
 	| start comments |
 	comments := anArray.
@@ -23,7 +25,7 @@ GplPPTokenParser >> parseComments: anArray on: aPPContext [
 	^ comments
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 GplPPTokenParser >> parseOn: aPPContext [
 	| memento comments token |
 	memento := aPPContext remember.

@@ -1,47 +1,49 @@
 Class {
-	#name : #GplASTBinaryNode,
-	#superclass : #GplASTValueNode,
+	#name : 'GplASTBinaryNode',
+	#superclass : 'GplASTValueNode',
 	#instVars : [
 		'operator',
 		'left',
 		'right'
 	],
-	#category : #'GplPetitParser-AST'
+	#category : 'GplPetitParser-AST',
+	#package : 'GplPetitParser',
+	#tag : 'AST'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBinaryNode >> formatedCodeOld [
 	^ {left formatedCode.
 	operator formatedCode.
 	right formatedCode} joinUsing: ' '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBinaryNode >> left [
 	^ left
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBinaryNode >> left: anObject [
 	left := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBinaryNode >> operator [
 	^ operator
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBinaryNode >> operator: anObject [
 	operator := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBinaryNode >> right [
 	^ right
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBinaryNode >> right: anObject [
 	right := anObject
 ]

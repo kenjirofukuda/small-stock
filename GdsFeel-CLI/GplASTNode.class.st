@@ -1,47 +1,49 @@
 Class {
-	#name : #GplASTNode,
-	#superclass : #GdsObject,
+	#name : 'GplASTNode',
+	#superclass : 'GdsObject',
 	#instVars : [
 		'nodes',
 		'tags',
 		'property',
 		'parent'
 	],
-	#category : #'GdsFeel-CLI-AST'
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #adding }
+{ #category : 'adding' }
 GplASTNode >> addSubNode: aGplTreeNode [
 	nodes add: aGplTreeNode.
 	aGplTreeNode parent: self
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GplASTNode >> addTag: aSymbol [
 	tags add: aSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTNode >> at: aKey [
 	^ property at: aKey
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTNode >> at: aKey put: aValue [
 	property at: aKey put: aValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTNode >> condition [
 	^ self at: #condition
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTNode >> condition: node [
 	self at: #condition put: node
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GplASTNode >> initialize [
 	super initialize.
 	nodes := OrderedCollection new.
@@ -50,32 +52,32 @@ GplASTNode >> initialize [
 	self at: #kind put: #defaultClass
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplASTNode >> inspectString [
 	^ (self at: #kind) printString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTNode >> kind [
 	^ self at: #kind
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTNode >> kind: aToken [
 	self at: #kind put: aToken
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GplASTNode >> nodes [
 	^ nodes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTNode >> parent: aGplTreeNode [
 	parent := aGplTreeNode
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplASTNode >> printOn: aStream [
 	aStream nextPutAll: self tagPrefix.
 	aStream nextPutAll: '['.
@@ -83,17 +85,17 @@ GplASTNode >> printOn: aStream [
 	aStream nextPutAll: ']'
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplASTNode >> tagPrefix [
 	^ 'N'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTNode >> token [
 	^ self at: #token
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTNode >> token: aToken [
 	self at: #token put: aToken
 ]

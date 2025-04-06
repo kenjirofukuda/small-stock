@@ -1,13 +1,15 @@
 Class {
-	#name : #GplPostfix,
-	#superclass : #GplTokenHandler,
+	#name : 'GplPostfix',
+	#superclass : 'GplTokenHandler',
 	#instVars : [
 		'outTokens'
 	],
-	#category : #'GdsFeel-CLI-Kernel'
+	#category : 'GdsFeel-CLI-Kernel',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Kernel'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplPostfix class >> isOperator: aGplTokenOrString [
 	| fragment |
 	fragment := (aGplTokenOrString isKindOf: GplAtomicToken)
@@ -18,7 +20,7 @@ GplPostfix class >> isOperator: aGplTokenOrString [
 	^ GplScanner isOperatorFragment: fragment
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplPostfix >> gotOperator: aToken [
 	| done |
 	self precedenceOf: aToken.
@@ -36,7 +38,7 @@ GplPostfix >> gotOperator: aToken [
 	self push: aToken
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplPostfix >> gotParen: aToken [
 	| done |
 	done := false.
@@ -48,7 +50,7 @@ GplPostfix >> gotParen: aToken [
 				ifFalse: [ outTokens add: topToken ] ]
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplPostfix >> gotSlice: aToken [
 	| done |
 	done := false.
@@ -60,7 +62,7 @@ GplPostfix >> gotSlice: aToken [
 				ifTrue: [ done := true ] ]
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplPostfix >> guessAgumentType: aToken monadicBlock: aMonadicBlock dyadicBlock: aDyadicBlock [
 	| leftTokens |
 	leftTokens := aToken leftTokens.
@@ -73,12 +75,12 @@ GplPostfix >> guessAgumentType: aToken monadicBlock: aMonadicBlock dyadicBlock: 
 	^ aMonadicBlock value
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GplPostfix >> initialize [
 	super initialize
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplPostfix >> operatorSwitch: aGplToken [
 	aGplToken fragment = ':='
 		ifTrue: [ self push: aGplToken.
@@ -102,7 +104,7 @@ GplPostfix >> operatorSwitch: aGplToken [
 	^ self
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplPostfix >> precedenceOf: aToken [
 	GplScanner operatorSpec
 		do: [ :assoc | 
@@ -134,7 +136,7 @@ GplPostfix >> precedenceOf: aToken [
 	^ 8r555
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplPostfix >> returnValueEnabled: aToken [
 	('([' includes: aToken fragment first)
 		ifTrue: [ ^ false ].
@@ -145,7 +147,7 @@ GplPostfix >> returnValueEnabled: aToken [
 	^ aToken isOperator not
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplPostfix >> translateToPostfixFromTokens: aGplTokens [
 	self beforeEvaluateTokens: aGplTokens.
 	outTokens := OrderedCollection new.
