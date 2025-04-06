@@ -159,12 +159,13 @@ GplText class >> openViewOfFile: aFileReference [
 		on: Error
 		do: [ :err | 
 			5 timesRepeat: [ self inform: err asString ].
-			errToken := builder currentToken.
-			#cr = errToken type
-				ifTrue: [ errToken := (builder
-						leftTokens: errToken
-						until: [ :tk | tk type = #cr ]) first ].
-			builder explore ].
+			errToken
+				ifNotNil: [ errToken := builder currentToken.
+					#cr = errToken type
+						ifTrue: [ errToken := (builder
+								leftTokens: errToken
+								until: [ :tk | tk type = #cr ]) first ].
+					builder explore ] ].
 	browser := GLMTabulator new.
 	browser row: #list.
 	browser transmit
@@ -216,7 +217,7 @@ GplText class >> setupTokenColor: aDictionary [
 GplText class >> toolDir [
 	""
 
-	^ FileLocator home / 'Nextcloud' / 'gds' / 'calma4' / 'gsroom'
+	^ FileLocator home / 'Nextcloud' / 'gds' / 'calma4' / 'tool'
 ]
 
 { #category : #resource }

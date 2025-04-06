@@ -384,6 +384,12 @@ GplEvaluator >> flushContextStacks [
 	suspendContext := nil
 ]
 
+{ #category : #command }
+GplEvaluator >> fragments: aInputString [
+	^ ((GplScanner tokensFrom: aInputString)
+		collect: [ :token | token fragment ]) asArray printString
+]
+
 { #category : #'evaluator-inside' }
 GplEvaluator >> getVariable: variableArg wantsStrictDeclare: aBoolean [
 	| variableObject varName |
@@ -807,8 +813,7 @@ GplEvaluator >> syntaxCheck: aGplTokens [
 
 { #category : #command }
 GplEvaluator >> tokens: aInputString [
-	^ ((GplScanner tokensFrom: aInputString)
-		collect: [ :token | token fragment ]) asArray printString
+	^ (GplScanner tokensFrom: aInputString) printString
 ]
 
 { #category : #evaluator }

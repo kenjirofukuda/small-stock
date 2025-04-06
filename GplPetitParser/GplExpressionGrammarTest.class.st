@@ -139,7 +139,7 @@ GplExpressionGrammarTest >> testAssignment5 [
 GplExpressionGrammarTest >> testBuiltinOperatorNames [
 	"Tests GplExpressionGrammar>>#prec015"
 
-	GplExpressionGrammar new builtinOperatorNames explore
+	GplExpressionGrammar new builtinOperatorNames inspect
 ]
 
 { #category : #tests }

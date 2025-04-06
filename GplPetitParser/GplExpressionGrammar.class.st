@@ -117,12 +117,27 @@ GplExpressionGrammar >> gdsNameHead [
 
 { #category : #'grammar-parts' }
 GplExpressionGrammar >> gdsNameRest [
-	^ gdsNameHead / #digit asParser / $_ asParser / $$ asParser
+	^ gdsNameHead / #letter asParser / #digit asParser / $_ asParser / $$ asParser
+]
+
+{ #category : #precedence }
+GplExpressionGrammar >> keys000 [
+	^ #(':=')	"assignment"
+]
+
+{ #category : #precedence }
+GplExpressionGrammar >> keys005 [
+	^ #(';')	"list separator"
+]
+
+{ #category : #precedence }
+GplExpressionGrammar >> keys006 [
+	^ #(',') "dyadic array concatenation"
 ]
 
 { #category : #precedence }
 GplExpressionGrammar >> keys007 [
-	^ #('RESHAPE' 'INDEXOF')
+	^ #('INDEXOF' 'RESHAPE' 'DROP' 'SAVE' 'SUBSTRING' 'DSELECT' 'INDICES_OF')
 ]
 
 { #category : #precedence }

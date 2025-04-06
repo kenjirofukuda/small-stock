@@ -94,7 +94,9 @@ GplASTBuilder >> bothArgumentFragments [
 GplASTBuilder >> buildTree [
 	scanner := GplScanner new splitTokensFrom: inputStream.
 	self patchAdditionalMethods.
+	scanner splitRanges.
 	rangeStream := scanner ranges readStream.
+	""
 	self nextTokenIgnoreCr.
 	self subroutine
 ]

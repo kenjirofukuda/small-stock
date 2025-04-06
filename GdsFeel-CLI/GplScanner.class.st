@@ -329,7 +329,8 @@ GplScanner >> splitTokensFrom: aStream [
 						anySatisfy:
 							[ :vt | t ~~ vt and: [ t start >= vt start and: [ t end <= vt end ] ] ] ] ]
 		ifFalse: [ newRanges := ranges ].
-	ranges := self resolveLabelFromTokens: newRanges
+	ranges := (self resolveLabelFromTokens: newRanges)
+		asOrderedCollection
 ]
 
 { #category : #accessing }
