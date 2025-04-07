@@ -1,6 +1,6 @@
 Class {
 	#name : #GdsStatesSpecView,
-	#superclass : #ComposableModel,
+	#superclass : #ComposablePresenter,
 	#instVars : [
 		'listModel',
 		'viewMap',

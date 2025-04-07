@@ -8,7 +8,7 @@ GdsTreeBrowser open.
 "
 Class {
 	#name : #GdsTreeBrowser,
-	#superclass : #ComposableModel,
+	#superclass : #ComposablePresenter,
 	#instVars : [
 		'tree',
 		'menu',
