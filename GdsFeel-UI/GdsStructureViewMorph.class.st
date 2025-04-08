@@ -39,7 +39,8 @@ Class {
 		'handleEventsBySelf',
 		'ttContext',
 		'autoFitOnResize',
-		'state'
+		'state',
+		'defaultToolClass'
 	],
 	#category : #'GdsFeel-UI-Morph'
 }

@@ -239,8 +239,7 @@ GdsTreeBrowser >> createAthensStructureView [
 
 { #category : #initialization }
 GdsTreeBrowser >> createBalloonView [
-	^ GdsStructureEditorMorph
-		new
+	^ GdsStructureEditorMorph new
 		defaultToolClass: GdsSelectTool;
 		currentToolClass: GdsSelectTool;
 		yourself

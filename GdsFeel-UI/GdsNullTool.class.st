@@ -100,7 +100,7 @@ GdsNullTool >> currentItem [
 ]
 
 { #category : #drawing }
-GdsNullTool >> drawFeedbackOn: aLocalCanvas. [
+GdsNullTool >> drawFeedbackOn: aLocalCanvas [.
 ]
 
 { #category : #drawing }

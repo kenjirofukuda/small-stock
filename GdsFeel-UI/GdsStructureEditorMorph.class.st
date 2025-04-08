@@ -236,7 +236,9 @@ GdsStructureEditorMorph >> createViewport [
 
 { #category : #'event handling' }
 GdsStructureEditorMorph >> crossHandCursor [
-	^self canGriddedCursor ifTrue: [Cursor blank] ifFalse: [Cursor crossHair].
+	^ self canGriddedCursor
+		ifTrue: [ Cursor blank ]
+		ifFalse: [ Cursor crossHair ]
 ]
 
 { #category : #tools }
@@ -475,7 +477,7 @@ GdsStructureEditorMorph >> enterArea: anEvent [
 	self startStepping.
 	GdsFeelMorphic useCustomCursor
 		ifTrue: [ 
-			self mouseLayer startStepping.
+			"self mouseLayer startStepping."
 			self activeHand showTemporaryCursor: self crossHandCursor ]
 ]
 
@@ -538,6 +540,12 @@ GdsStructureEditorMorph >> fileOutPreview [
 GdsStructureEditorMorph >> getElementEnabled [
 	self structure ifNil: [^false].
 	^self structure currentItem getEnabled.
+]
+
+{ #category : #accessing }
+GdsStructureEditorMorph >> globalPoint [ 
+	^ InputEventSensor default cursorPoint.
+	"Don't use: self activeHand cursorPoint"
 ]
 
 { #category : #drawing }
@@ -1403,39 +1411,50 @@ GdsStructureEditorMorph >> showsElementKey: aBoolean [
 
 { #category : #'event handling' }
 GdsStructureEditorMorph >> step [
-
-	| wp2 |
+	| wp2 globalPoint |
 	self viewport ifNil: [ ^ self ].
 	offCanvas ifNil: [ ^ self ].
-	self handleEventsBySelf ifTrue: [ 
-		(self bounds containsPoint: self activeHand cursorPoint) ifTrue: [ 
-			self activeHand keyboardFocus == self ifFalse: [ 
-				self activeHand newKeyboardFocus: self ].
-			GdsFeelMorphic useCustomCursor ifTrue: [ 
-				self activeHand showTemporaryCursor: self crossHandCursor ] ] ].
-	Sensor redButtonPressed ifTrue: [ ^ self ].
-	wp2 := self viewport worldPointFromGlobal: self activeHand cursorPoint.
+	globalPoint := self globalPoint.
+	self handleEventsBySelf
+		ifTrue: [ 
+			(self bounds containsPoint: globalPoint)
+				ifTrue: [ 
+					self activeHand keyboardFocus == self
+						ifFalse: [ 
+							self activeHand newKeyboardFocus: self ].
+					GdsFeelMorphic useCustomCursor
+						ifTrue: [ 
+							self activeHand showTemporaryCursor: self crossHandCursor ] ] ].
+	Sensor redButtonPressed
+		ifTrue: [ ^ self ].
+	wp2 := self viewport
+		worldPointFromGlobal: globalPoint.
 	lastPoint ifNil: [ lastPoint := wp2 copy ].
-	lastPoint = wp2 ifTrue: [ ^ self ].
-	self currentTool rubberBandEnabled ifTrue: [ 
-		self rubberbandPoint: wp2 ]
+	lastPoint = wp2
+		ifTrue: [ ^ self ].
+	self currentTool rubberBandEnabled
+		ifTrue: [ 
+			self rubberbandPoint: wp2 ]
 ]
 
 { #category : #rubberband }
 GdsStructureEditorMorph >> stepSensorLayerMorph: aMorph [
-
-	| oldP p |
+	| oldP p globalPoint |
 	self viewport ifNil: [ ^ self ].
-	p := self viewport worldPointFromGlobal: self activeHand cursorPoint.
+	globalPoint := self globalPoint.
+	p := self viewport worldPointFromGlobal: globalPoint.
 	oldP := aMorph valueOfProperty: #worldPoint ifAbsent: 0 @ 0.
-	oldP = p ifTrue: [ ^ self ].
+	oldP = p
+		ifTrue: [ ^ self ].
 	aMorph setProperty: #worldPoint toValue: p copy.
 	self showLocationPane: self locationPane at: p.
-	self referenceLocationPane visible ifTrue: [ 
-		self
-			showLocationPane: self referenceLocationPane
-			at: (self referenceLocationPane valueOfProperty: #worldPoint) ].
-	false ifTrue: [ ^ aMorph invalidRect: aMorph bounds ].
+	self referenceLocationPane visible
+		ifTrue: [ 
+			self
+				showLocationPane: self referenceLocationPane
+				at: (self referenceLocationPane valueOfProperty: #worldPoint) ].
+	false
+		ifTrue: [ ^ aMorph invalidRect: aMorph bounds ].
 	aMorph invalidRect: (self updateBoundsFromPoint1: oldP point2: p)
 ]
 
