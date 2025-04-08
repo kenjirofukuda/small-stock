@@ -477,7 +477,7 @@ GdsStructureEditorMorph >> enterArea: anEvent [
 	self startStepping.
 	GdsFeelMorphic useCustomCursor
 		ifTrue: [ 
-			"self mouseLayer startStepping."
+			self mouseLayer startStepping.
 			self activeHand showTemporaryCursor: self crossHandCursor ]
 ]
 
