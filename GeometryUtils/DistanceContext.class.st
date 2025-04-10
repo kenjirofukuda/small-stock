@@ -36,7 +36,8 @@ DistanceContext >> clearCache [
 
 { #category : #accessing }
 DistanceContext >> cross [
-	^ cross ifNil: [ cross := testPoint dist: self crossPoint ]
+
+	^ cross ifNil: [ cross := testPoint distanceTo: self crossPoint ]
 ]
 
 { #category : #accessing }
@@ -46,7 +47,8 @@ DistanceContext >> crossPoint [
 
 { #category : #accessing }
 DistanceContext >> end [
-	^ end ifNil: [end := lineSegment end dist: testPoint ]
+
+	^ end ifNil: [ end := lineSegment end distanceTo: testPoint ]
 ]
 
 { #category : #accessing }
@@ -93,7 +95,8 @@ DistanceContext >> side [
 
 { #category : #accessing }
 DistanceContext >> start [
-	^ start ifNil: [start := lineSegment start dist: testPoint ]
+
+	^ start ifNil: [ start := lineSegment start distanceTo: testPoint ]
 ]
 
 { #category : #accessing }
