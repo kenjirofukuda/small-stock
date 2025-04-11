@@ -24,11 +24,14 @@ GdsTreePresenter class >> defaultSpec [
 				   add: #tree;
 				   add: (SpBoxLayout newVertical
 						    add: #visibleElementList;
-						    add: #inspectorView);
+						    add: #inspectorView;
+						    yourself);
 				   add: #tabManager;
 				   add: (SpBoxLayout newVertical
 						    add: #layers;
-						    add: #kinds));
+						    add: #kinds;
+						    yourself);
+				   yourself);
 		  add: #statusBar height: self toolbarHeight;
 		  yourself
 ]
@@ -56,7 +59,18 @@ GdsTreePresenter >> childrenFor: anItem [
 
 { #category : #initialization }
 GdsTreePresenter >> debugMenu [
-	^ self newMenu
+
+	^ self newMenu addGroup: [ :aGroup | 
+		  aGroup addItem: [ :anItem | 
+			  anItem
+				  name: 'inspect tree presenter';
+				  "icon: (self iconNamed: #open);"
+				  action: [ tree inspect ] ].
+			aGroup addItem: [ :anItem | 
+			  anItem
+				  name: 'open example tree';
+				  "icon: (self iconNamed: #open);"
+				  action: [ self registerExampleTree ] ] ]
 ]
 
 { #category : #'menu building' }
@@ -117,16 +131,15 @@ GdsTreePresenter >> iconKeyFor: anItem [
 GdsTreePresenter >> initializeMenuBar [
 
 	menuBar := self newMenuBar.
-	menuBar addGroup: [ :group | 
+	menuBar addGroup: [ :group | "menuBar addKeybindingsTo: self"
 		group addItem: [ :item | 
 			item
 				name: 'File';
-				subMenu: self fileMenu ]
-		"group addItem: [ :item |
+				subMenu: self fileMenu ].
+		group addItem: [ :item | 
 			item
 				name: 'Debug';
-				subMenu: self debugMenu ]" ]
-	"menuBar addKeybindingsTo: self"
+				subMenu: self debugMenu ] ]
 ]
 
 { #category : #initialization }
@@ -135,6 +148,7 @@ GdsTreePresenter >> initializePresenters [
 	super initializePresenters.
 	self initializeMenuBar.
 	tree := self newTree.
+	"self registerExampleTree ."
 	structureSortBlock := [ :s1 :s2 | s1 name < s2 name ] asValueHolder.
 	structureSortBlock whenChangedDo: [ tree update ].
 	visibleElementList := self newMorph.
@@ -187,24 +201,35 @@ GdsTreePresenter >> openLibrary [
 ]
 
 { #category : #'ui building' }
+GdsTreePresenter >> registerExampleTree [
+	tree := self newTree.
+	tree roots: (Array with: SpPresenter).
+	tree display: [ :aClass | aClass name ].
+	tree children: [ :aClass | aClass subclasses ].
+	tree displayIcon: [ :aClass | self iconNamed: #system ].
+	self  update.
+]
+
+{ #category : #'ui building' }
 GdsTreePresenter >> registerLibraryFile: aFileReference [
 
 	| lib |
 	lib := GdsLibrary fromFile: aFileReference.
 	self station openLibrary: lib.
 
+	"tree := self newTree."
 	tree roots
 		ifEmpty: [ tree roots: (Array with: lib) ]
 		ifNotEmpty: [ tree roots: tree roots , (Array with: lib) ].
-	
+
 	"tabManager addTab: (self newTabForLibrary: lib)."
 	self sortByName.
 	tree children: [ :item | 
 		(self childrenFor: item) sort: self structureSortBlock ].
-	tree display: [ :item | item name. "self displayNameHandler: item" ].
+	tree display: [ :item | item name "self displayNameHandler: item" ].
 	tree displayIcon: [ :item | self iconFor: item ].
 	"tree displayIcon: [ :item | self iconNamed: #system ]."
-	tree inspect.
+	self update
 	"tree doubleClick: [ self handleDoubleClick ]."
 	"tree menu: [ :m | self inspectionMenu: m ]."
 	"tree whenSelectedItemChanged: [ :item | self treeChangeSelection: item ]"
