@@ -1,6 +1,6 @@
 Class {
-	#name : #GdsNewTool,
-	#superclass : #GdsAbstractIdTool,
+	#name : 'GdsNewTool',
+	#superclass : 'GdsAbstractIdTool',
 	#instVars : [
 		'downTimeStamp',
 		'upTimeStamp',
@@ -12,22 +12,24 @@ Class {
 		'oldFindRect',
 		'upDragging'
 	],
-	#category : #'GdsFeel-UI-Tools'
+	#category : 'GdsFeel-UI-Tools',
+	#package : 'GdsFeel-UI',
+	#tag : 'Tools'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsNewTool >> findPoint: aMouseEvent [
 	findRect := self findRectOfCenter: (self worldPointFromGlobalEvent: aMouseEvent)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsNewTool >> initialize [
 	super initialize.
 	worldPoints := OrderedCollection new.
 	upDragging := false.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsNewTool >> mouseDown: anEvent [
 	anEvent traceCr.
 	moveCount := 0.
@@ -44,19 +46,19 @@ GdsNewTool >> mouseDown: anEvent [
 					^ self ] ]
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsNewTool >> mouseMove: anEvent [
 	self moveHandler: anEvent.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsNewTool >> mouseOver: anEvent [
 	upDragging 
 		ifTrue: [	
 			self rangeMouseOver: anEvent].
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsNewTool >> mouseUp: anEvent [
 	| ellapsedTime |
 	downTimeStamp ifNil: [ ^ self ].
@@ -85,7 +87,7 @@ GdsNewTool >> mouseUp: anEvent [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsNewTool >> moveHandler: anEvent [
 	moveCount ifNil: [ moveCount := 0 ].
 	worldPoints add: (self worldPointFromGlobalEvent: anEvent).
@@ -98,7 +100,7 @@ GdsNewTool >> moveHandler: anEvent [
 	morph rubberbandPoint: worldPoints last.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsNewTool >> rangeMouseOver: anEvent [
 	prevOverPoint ifNil: [ prevOverPoint := 0 @ 0 ].
 	prevOverPoint = anEvent cursorPoint
@@ -108,7 +110,7 @@ GdsNewTool >> rangeMouseOver: anEvent [
 			"(anEvent asString , anEvent timeStamp asString) traceCr" ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsNewTool >> rubberBandEnabled [
 	moveCount ifNil: [ moveCount := 0 ].
 	^ moveCount > 0

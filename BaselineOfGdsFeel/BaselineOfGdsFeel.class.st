@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfGdsFeel,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfGdsFeel
+	#name : 'BaselineOfGdsFeel',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfGdsFeel',
+	#package : 'BaselineOfGdsFeel'
 }
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfGdsFeel >> baseline: spec [
 	<baseline>
 	spec
@@ -17,7 +18,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				with: [ spec repository: 'github://svenvc/NeoCSV/repository' ].
 			spec
 				baseline: 'INIFile'
-				with: [ spec repository: 'github://astares/Pharo-INIFile/src' ].
+				with: [ spec repository: 'github://astares/Pharo-INIFile:main/src' ].
 			spec
 				baseline: 'XMLParser'
 				with: [ spec repository: 'github://pharo-contributions/XML-XMLParser/src' ].
@@ -93,7 +94,8 @@ BaselineOfGdsFeel >> baseline: spec [
 				with: [ spec requires: #('GdsFeel-UI' 'GdsFeel-UI-ElementAddition') ].
 			spec
 				package: 'GdsFeel-Magritte'
-				with: [ spec requires: #('GdsFeel-UI' 'Magritte' 'GdsFeel-Model-ElementAddition') ].
+				with: [ spec
+						requires: #('GdsFeel-UI' 'Magritte' 'GdsFeel-Model-ElementAddition') ].
 			spec
 				group: 'Foundation'
 					with:

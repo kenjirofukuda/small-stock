@@ -1,25 +1,27 @@
 Class {
-	#name : #GdsArrayedStructureReferenceDrawer,
-	#superclass : #GdsStructureReferenceDrawer,
-	#category : #'GdsFeel-UI-Drawer'
+	#name : 'GdsArrayedStructureReferenceDrawer',
+	#superclass : 'GdsStructureReferenceDrawer',
+	#category : 'GdsFeel-UI-Drawer',
+	#package : 'GdsFeel-UI',
+	#tag : 'Drawer'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsArrayedStructureReferenceDrawer >> canDisplayBorder [
 	^self canDisplayKindForKey: 'AB'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsArrayedStructureReferenceDrawer >> canDisplayExtent [
 	^self canDisplayKindForKey: 'AE'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsArrayedStructureReferenceDrawer >> canDisplayOrigin [
 	^ self canDisplayKindForKey: 'AO'
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsArrayedStructureReferenceDrawer >> drawBorderOn: aCanvas [
 	self pushedPort: [
 		morph penColor: morph visiblePenColor during: [
@@ -29,7 +31,7 @@ GdsArrayedStructureReferenceDrawer >> drawBorderOn: aCanvas [
 			self strokeVerticesOn: aCanvas points: points.]].
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsArrayedStructureReferenceDrawer >> optionalDrawOn: aCanvas [
 	super optionalDrawOn: aCanvas.
 	self canDisplayBorder 
@@ -37,7 +39,7 @@ GdsArrayedStructureReferenceDrawer >> optionalDrawOn: aCanvas [
 		
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsArrayedStructureReferenceDrawer >> pushedPort: aBlock [
 	| transforms |
 	self assert: element isNil not.

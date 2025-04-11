@@ -1,1 +1,1 @@
-Package { #name : #GeometryUtils }
+Package { #name : 'GeometryUtils' }

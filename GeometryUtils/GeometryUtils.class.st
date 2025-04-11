@@ -1,20 +1,21 @@
 Class {
-	#name : #GeometryUtils,
-	#superclass : #Object,
+	#name : 'GeometryUtils',
+	#superclass : 'Object',
 	#classVars : [
 		'Degree45Theta',
 		'MinusBounds',
 		'Pi2'
 	],
-	#category : #GeometryUtils
+	#category : 'GeometryUtils',
+	#package : 'GeometryUtils'
 }
 
-{ #category : #'analisys-linesegment' }
+{ #category : 'analisys-linesegment' }
 GeometryUtils class >> analisysSegmentsAt: aPoint pointArray: vertices [ 
 	^ self analisysSegmentsNewAt: aPoint  pointArray: vertices
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GeometryUtils class >> analisysSegmentsNewAt: aPoint pointArray: vertices [
 	| contexts infos minSegIndex result minInfo |
 	contexts := self segmentDistanceContexts: aPoint pointArray: vertices.
@@ -32,7 +33,7 @@ GeometryUtils class >> analisysSegmentsNewAt: aPoint pointArray: vertices [
 	^ result
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GeometryUtils class >> asCirculerIndex: segIndex segments: segs [
 	| index |
 	index := segIndex \\ segs size.
@@ -42,7 +43,7 @@ GeometryUtils class >> asCirculerIndex: segIndex segments: segs [
 	^ index
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> degressNormalized: aNumber [
 	| newAngle |
 	newAngle := aNumber.
@@ -53,14 +54,14 @@ GeometryUtils class >> degressNormalized: aNumber [
 	^ newAngle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GeometryUtils class >> distanceContextAt: aPoint segment: aLineSegment [
 	| distanceInfo |
 	distanceInfo := DistanceContext fromPoint: aPoint lineSegment: aLineSegment.
 	^ distanceInfo
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GeometryUtils class >> distanceContextAt: aPoint segment: aLineSegment index: segIndex [
 	| distanceContext |
 	distanceContext := self distanceContextAt: aPoint segment: aLineSegment.
@@ -68,7 +69,7 @@ GeometryUtils class >> distanceContextAt: aPoint segment: aLineSegment index: se
 	^ distanceContext
 ]
 
-{ #category : #deprecated }
+{ #category : 'deprecated' }
 GeometryUtils class >> distanceMapAt: aPoint segment: aLineSegment [
 	| distanceMap p distP |
 	distanceMap := Dictionary new.
@@ -91,7 +92,7 @@ GeometryUtils class >> distanceMapAt: aPoint segment: aLineSegment [
 	^ distanceMap
 ]
 
-{ #category : #deprecated }
+{ #category : 'deprecated' }
 GeometryUtils class >> distanceMapAt: aPoint segment: aLineSegment index: segIndex [
 	| distanceMap |
 	distanceMap := self distanceMapAt: aPoint segment: aLineSegment.
@@ -99,7 +100,7 @@ GeometryUtils class >> distanceMapAt: aPoint segment: aLineSegment index: segInd
 	^ distanceMap
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GeometryUtils class >> initialize [
 	"GeometryUtils initialize"
 	
@@ -108,7 +109,7 @@ GeometryUtils class >> initialize [
 	MinusBounds := nil
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> limitedPoint: aPoint [
 	| x y |
 	x := aPoint x < 0
@@ -120,7 +121,7 @@ GeometryUtils class >> limitedPoint: aPoint [
 	^ x @ y
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> lineSegmentsFormPointArray: aPointArray [
 	^ Array
 		streamContents:
@@ -129,7 +130,7 @@ GeometryUtils class >> lineSegmentsFormPointArray: aPointArray [
 					lineSegmentsDo: [ :seg | s nextPut: seg ] ]
 ]
 
-{ #category : #lookups }
+{ #category : 'lookups' }
 GeometryUtils class >> lookupDataBounds: vertices [
 	| minX minY maxX maxY |
 	minX := SmallInteger maxVal.
@@ -145,14 +146,14 @@ GeometryUtils class >> lookupDataBounds: vertices [
 	^ minX @ minY corner: maxX @ maxY
 ]
 
-{ #category : #lookups }
+{ #category : 'lookups' }
 GeometryUtils class >> lookupMinusBounds [
 	^ Rectangle
 		origin: SmallInteger maxVal @ SmallInteger maxVal
 		corner: SmallInteger minVal @ SmallInteger minVal
 ]
 
-{ #category : #'analisys-linesegment' }
+{ #category : 'analisys-linesegment' }
 GeometryUtils class >> lookupVertexIndex: anAlisysResult [
 	| segInfo distanceMap segIndex whichSide |
 	segIndex := anAlisysResult at: #index.
@@ -169,12 +170,12 @@ GeometryUtils class >> lookupVertexIndex: anAlisysResult [
 		ifFalse: [ segIndex + 1 ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> midPointP1: pt1 p2: pt2 [
 	^ (pt1 + pt2) / 2.0
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> minusBounds [
 	MinusBounds ifNil: [ MinusBounds := self lookupMinusBounds ].
 	MinusBounds origin < MinusBounds corner
@@ -187,7 +188,7 @@ GeometryUtils class >> minusBounds [
 	^ MinusBounds copy
 ]
 
-{ #category : #'analisys-linesegment' }
+{ #category : 'analisys-linesegment' }
 GeometryUtils class >> nearyInfoOfDistanceContext: aDistanceContext [
 	| infos sortItemBlock |
 	sortItemBlock := [:context :sel | {sel . context perform: sel . context} ].
@@ -202,7 +203,7 @@ GeometryUtils class >> nearyInfoOfDistanceContext: aDistanceContext [
 	
 ]
 
-{ #category : #'analisys-linesegment' }
+{ #category : 'analisys-linesegment' }
 GeometryUtils class >> nearyInfoOfDistanceMap: aDictionary [
 	| infos sortItemBlock |
 	sortItemBlock := [:map :sel | {sel . map at: sel . map} ].
@@ -217,7 +218,7 @@ GeometryUtils class >> nearyInfoOfDistanceMap: aDictionary [
 	
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> octagonalRoundTheta: aTheta [
 	| ratio roundedRatio |
 	ratio := aTheta / Pi2.
@@ -225,7 +226,7 @@ GeometryUtils class >> octagonalRoundTheta: aTheta [
 	^ Pi2 * roundedRatio
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> offsetValues: aNumberArray [
 	| values |
 	values := OrderedCollection new.
@@ -239,7 +240,7 @@ GeometryUtils class >> offsetValues: aNumberArray [
 	^ values asArray
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> point: aPoint roundTo: grid [
 	"Answer a Point that is the receiver's x and y rounded to grid x and 
 	grid y."
@@ -255,7 +256,7 @@ GeometryUtils class >> point: aPoint roundTo: grid [
 	^ nX @ nY
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GeometryUtils class >> pointArray: aPointArray lineSegmentsDo: aLineSegmentBlock [
 	| p1 p2 segment |
 	aPointArray size < 2
@@ -267,7 +268,7 @@ GeometryUtils class >> pointArray: aPointArray lineSegmentsDo: aLineSegmentBlock
 		aLineSegmentBlock value: segment ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> reducedPoints: aLength p1: pt1 p2: pt2 [
 	| deltaPoint theta dx dy |
 	deltaPoint := pt2 - pt1.
@@ -277,7 +278,7 @@ GeometryUtils class >> reducedPoints: aLength p1: pt1 p2: pt2 [
 	^ {(pt1 + (dx @ dy)). (pt2 - (dx @ dy))}
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 GeometryUtils class >> removeDuplicatePoints: aPointArray on: aOrderedCollection [
 	| prevPoint |
 	prevPoint := nil.
@@ -291,7 +292,7 @@ GeometryUtils class >> removeDuplicatePoints: aPointArray on: aOrderedCollection
 			prevPoint := each ]
 ]
 
-{ #category : #'analisys-linesegment' }
+{ #category : 'analisys-linesegment' }
 GeometryUtils class >> segmentDistanceContexts: aPoint pointArray: vertices [
 	| segIndex |
 	^ Array
@@ -306,7 +307,7 @@ GeometryUtils class >> segmentDistanceContexts: aPoint pointArray: vertices [
 					s nextPut: distanceContext ] ]
 ]
 
-{ #category : #'analisys-linesegment' }
+{ #category : 'analisys-linesegment' }
 GeometryUtils class >> segmentDistanceMaps: aPoint pointArray: vertices [
 	| segIndex |
 	^ Array
@@ -321,7 +322,7 @@ GeometryUtils class >> segmentDistanceMaps: aPoint pointArray: vertices [
 					s nextPut: distanceMap ] ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> splitSegment: aLineSegment crossPoints: aCrossPoints epsilon: epsilon [
 	^ Array
 		streamContents: [ :stream | 
@@ -346,7 +347,7 @@ GeometryUtils class >> splitSegment: aLineSegment crossPoints: aCrossPoints epsi
 				ifEmpty: [ stream nextPut: aLineSegment ] ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 GeometryUtils class >> verticesFromBounds: aBounds [
 	^ {
 	(aBounds origin x @ aBounds origin y).
@@ -357,7 +358,7 @@ GeometryUtils class >> verticesFromBounds: aBounds [
 	}
 ]
 
-{ #category : #'look in class' }
+{ #category : 'look in class' }
 GeometryUtils >> seeClassSide [
 	"All the code for GeometryUtils is on the class side"
 ]

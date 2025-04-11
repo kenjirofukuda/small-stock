@@ -1,1 +1,1 @@
-Package { #name : #'GdsFeel-UI' }
+Package { #name : 'GdsFeel-UI' }

@@ -3,23 +3,25 @@ A TGdsStructureDrawable is structure drawing shared protcol.
 
 "
 Trait {
-	#name : #TGdsStructureDrawable,
-	#category : #'GdsFeel-UI-Morph'
+	#name : 'TGdsStructureDrawable',
+	#category : 'GdsFeel-UI-Morph',
+	#package : 'GdsFeel-UI',
+	#tag : 'Morph'
 }
 
-{ #category : #appearance }
+{ #category : 'appearance' }
 TGdsStructureDrawable >> backgroundColor [
 
 	^ self shouldBeImplemented
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGdsStructureDrawable >> clipedElements [
 	"Array of GdsElement"
 	^ self shouldBeImplemented
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 TGdsStructureDrawable >> colorForElement: aGdsElement [
 
 	| fixPureWhite |
@@ -35,7 +37,7 @@ TGdsStructureDrawable >> colorForElement: aGdsElement [
 	^ self visiblePenColor
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 TGdsStructureDrawable >> colorForLayer: aLayerNumber [
 
 	| usingColor |
@@ -45,19 +47,19 @@ TGdsStructureDrawable >> colorForLayer: aLayerNumber [
 	^ usingColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGdsStructureDrawable >> structure [
 	"instance of GdsStructure"
 	^ self shouldBeImplemented
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 TGdsStructureDrawable >> visibleElements [
 
 	^ self clipedElements select: [ :el | el isVisible ]
 ]
 
-{ #category : #appearance }
+{ #category : 'appearance' }
 TGdsStructureDrawable >> visibleGridColor [
 
 	^ self backgroundColor luminance > 0.7
@@ -65,7 +67,7 @@ TGdsStructureDrawable >> visibleGridColor [
 		  ifFalse: [ Color white ]
 ]
 
-{ #category : #appearance }
+{ #category : 'appearance' }
 TGdsStructureDrawable >> visibleLocationColor [
 
 	| test |
@@ -76,13 +78,13 @@ TGdsStructureDrawable >> visibleLocationColor [
 		  ifFalse: [ Color black ]
 ]
 
-{ #category : #appearance }
+{ #category : 'appearance' }
 TGdsStructureDrawable >> visibleMarkerColor [
 
 	^ self visibleGridColor
 ]
 
-{ #category : #appearance }
+{ #category : 'appearance' }
 TGdsStructureDrawable >> visiblePenColor [
 
 	^ self backgroundColor luminance > 0.7
@@ -90,7 +92,7 @@ TGdsStructureDrawable >> visiblePenColor [
 		  ifFalse: [ Color lightGray ]
 ]
 
-{ #category : #appearance }
+{ #category : 'appearance' }
 TGdsStructureDrawable >> visiblePickingColor [
 
 	^ self backgroundColor luminance > 0.7

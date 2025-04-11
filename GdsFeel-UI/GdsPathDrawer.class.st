@@ -1,25 +1,27 @@
 Class {
-	#name : #GdsPathDrawer,
-	#superclass : #GdsPrimitiveDrawer,
-	#category : #'GdsFeel-UI-Drawer'
+	#name : 'GdsPathDrawer',
+	#superclass : 'GdsPrimitiveDrawer',
+	#category : 'GdsFeel-UI-Drawer',
+	#package : 'GdsFeel-UI',
+	#tag : 'Drawer'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsPathDrawer class >> radiansFor45 [
 	^45 degreeSin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsPathDrawer class >> radiansFor90 [
 	^90 degreeSin
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsPathDrawer >> canDisplaySegmentLength [
 	^ self canDisplayKindForKey: 'SL'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsPathDrawer >> canFill [
 	| pixelSize |
 	morph fastDrawing ifTrue: [ ^ false ].
@@ -29,7 +31,7 @@ GdsPathDrawer >> canFill [
 	^ pixelSize >= 3.0 and: [self canStrokePathBoundaryWithKind].
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsPathDrawer >> canStrokePathBoundary [
 	| pixelSize |
 	morph fastDrawing ifTrue: [ ^ element width > 0.0 ].
@@ -38,14 +40,14 @@ GdsPathDrawer >> canStrokePathBoundary [
 	^ pixelSize >= 2.0
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsPathDrawer >> canStrokePathBoundaryWithKind [
 	^(self canStrokePathBoundary and: [(element structure kinds atKey: 'PB') isVisible])
 	
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsPathDrawer >> canStrokePathCenter [
 	morph fastDrawing 
 		ifTrue: [ ^ element width <= 0.0 ].
@@ -53,14 +55,14 @@ GdsPathDrawer >> canStrokePathCenter [
 	
 ]
 
-{ #category : #'drawing-utility' }
+{ #category : 'drawing-utility' }
 GdsPathDrawer >> drawOn: strokeCanvas intersctAt: aPoint index: aIndex [
 	morph drawOn: strokeCanvas markDiamondPointAt: aPoint.
 	morph drawOn: strokeCanvas text: aIndex at: aPoint..
 	
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsPathDrawer >> drawSegmentLengthOn: aCanvas [
 	| p1 p2 points center proxyMorph |
 	points := self element vertices.
@@ -91,7 +93,7 @@ GdsPathDrawer >> drawSegmentLengthOn: aCanvas [
 		
 ]
 
-{ #category : #caliculate }
+{ #category : 'caliculate' }
 GdsPathDrawer >> intersectionPoints: segs1 other: segs2 [
 	^ Array streamContents: [ :s | 
 		segs1 do: [:seg1 |
@@ -100,7 +102,7 @@ GdsPathDrawer >> intersectionPoints: segs1 other: segs2 [
 				p ifNotNil: [s nextPut: p] ] ] ]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsPathDrawer >> optionalDrawOn: aCanvas [
 	super optionalDrawOn: aCanvas.
 	self canDisplaySegmentLength
@@ -110,13 +112,13 @@ GdsPathDrawer >> optionalDrawOn: aCanvas [
 			self element removeProperty: #proxyMorph ]
 ]
 
-{ #category : #caliculate }
+{ #category : 'caliculate' }
 GdsPathDrawer >> outlineSegment: aLineSegment offsetRadians: offsetRadians r: r [
  	^element outlineSegmentsOf: aLineSegment offsetRadians: offsetRadians r: r.
 	
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsPathDrawer >> strokeOutlineOn: aCanvas [
 	(self canStrokePathBoundaryWithKind)
 		ifTrue: [self strokePathBoundaryOn: aCanvas].		
@@ -126,12 +128,12 @@ GdsPathDrawer >> strokeOutlineOn: aCanvas [
 	
 ]
 
-{ #category : #'drawing-utility' }
+{ #category : 'drawing-utility' }
 GdsPathDrawer >> strokePathBoundaryOn: aCanvas [
 	self strokeVerticesOn: aCanvas points: element dataOutlinePoints 
 ]
 
-{ #category : #'drawing-utility' }
+{ #category : 'drawing-utility' }
 GdsPathDrawer >> strokePathCenterOn: aCanvas [
 	self strokeVerticesOn: aCanvas points: element vertices 	
 ]

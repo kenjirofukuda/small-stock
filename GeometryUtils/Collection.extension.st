@@ -1,6 +1,6 @@
-Extension { #name : #Collection }
+Extension { #name : 'Collection' }
 
-{ #category : #'*GeometryUtils' }
+{ #category : '*GeometryUtils' }
 Collection >> offsetValues [
 	^ GeometryUtils offsetValues: self
 ]

@@ -1,23 +1,25 @@
 Class {
-	#name : #GdsIdTool,
-	#superclass : #GdsAbstractIdTool,
-	#category : #'GdsFeel-UI-Tools'
+	#name : 'GdsIdTool',
+	#superclass : 'GdsAbstractIdTool',
+	#category : 'GdsFeel-UI-Tools',
+	#package : 'GdsFeel-UI',
+	#tag : 'Tools'
 }
 
-{ #category : #action }
+{ #category : 'action' }
 GdsIdTool >> eventActionAt: aWorldPoint elementId: aKeyNumber [
 	morph structure idSelection perform: self idSelecter with: aKeyNumber.
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsIdTool >> findNearestElementByPoint: resultPoint [ 
 	^ self structure 
 		findNearestElementByPoint: resultPoint
 		elements: (self idEnabledElementsInverted: self idSelecter = #unId:)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsIdTool >> idSelecter [
 	^userInfo
 ]

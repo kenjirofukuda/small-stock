@@ -1,16 +1,17 @@
 Class {
-	#name : #GdsStateSpecView,
-	#superclass : #ComposableModel,
+	#name : 'GdsStateSpecView',
+	#superclass : 'ComposablePresenter',
 	#instVars : [
 		'labelModel',
 		'visibleModel',
 		'selectableModel',
 		'model'
 	],
-	#category : #'GdsFeel-UI-Spec'
+	#category : 'GdsFeel-UI-Spec',
+	#package : 'GdsFeel-UI-Spec'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStateSpecView >> activateNewState: newState [
 	self enabledModels.
 	selectableModel state: newState isSelectable.
@@ -21,26 +22,26 @@ GdsStateSpecView >> activateNewState: newState [
 	newState visibleProperty whenChangedDo: [ :newBoolean | visibleModel state: newBoolean ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStateSpecView >> disableModels [
 	labelModel enabled: false.
 	selectableModel enabled: false.
 	visibleModel enabled: false
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStateSpecView >> enabledModels [
 	labelModel enabled: true.
 	selectableModel enabled: true.
 	visibleModel enabled: true
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStateSpecView >> initializePresenter [
 	self initializePresenterForState: self stateProperty.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStateSpecView >> initializePresenterForState: aGdsState [
 	aGdsState
 		whenChangedDo: [ :newState | newState 
@@ -48,7 +49,7 @@ GdsStateSpecView >> initializePresenterForState: aGdsState [
 			ifNotNil: [ self activateNewState: newState ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsStateSpecView >> initializeWidgets [
 	labelModel := self newLabel.
 	visibleModel := self newCheckBox.
@@ -62,32 +63,32 @@ GdsStateSpecView >> initializeWidgets [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStateSpecView >> labelModel [
 	^ labelModel
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsStateSpecView >> model [
 	^ model value
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsStateSpecView >> model: aGdsState [
 	^ model value: aGdsState
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStateSpecView >> selectableModel [
 	^ selectableModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStateSpecView >> stateProperty [
 	^ model
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStateSpecView >> visibleModel [
 	^ visibleModel
 ]

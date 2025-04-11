@@ -1,15 +1,17 @@
 Class {
-	#name : #GdsPrimitiveDrawer,
-	#superclass : #GdsElementDrawer,
-	#category : #'GdsFeel-UI-Drawer'
+	#name : 'GdsPrimitiveDrawer',
+	#superclass : 'GdsElementDrawer',
+	#category : 'GdsFeel-UI-Drawer',
+	#package : 'GdsFeel-UI',
+	#tag : 'Drawer'
 }
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsPrimitiveDrawer >> drawItemFeedbackOn: aCanvas [
 	morph drawItemLineSegmentsOn: aCanvas.
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsPrimitiveDrawer >> fillOutlineOn: aCanvas [ 
 	morph 
 		penColor:  self elementFill
@@ -20,7 +22,7 @@ GdsPrimitiveDrawer >> fillOutlineOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsPrimitiveDrawer >> strokeOutlineOn: aCanvas [
 	self strokeVerticesOn: aCanvas
 ]

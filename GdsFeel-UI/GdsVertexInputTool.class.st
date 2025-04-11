@@ -1,24 +1,26 @@
 Class {
-	#name : #GdsVertexInputTool,
-	#superclass : #GdsNullTool,
+	#name : 'GdsVertexInputTool',
+	#superclass : 'GdsNullTool',
 	#instVars : [
 		'lastRubberBandPoint'
 	],
-	#category : #'GdsFeel-UI-Tools'
+	#category : 'GdsFeel-UI-Tools',
+	#package : 'GdsFeel-UI',
+	#tag : 'Tools'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsVertexInputTool >> autoFinishAfterPut [
 	^true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsVertexInputTool >> canFinish [
 	^((self currentItem putEnabled) and: [(self currentItem vertices last) = self snapedWorldPoint2])
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsVertexInputTool >> drawFeedbackOn: aLocalCanvas [
 	self currentItem isReferenceType 
 		ifTrue: [morph drawItemReferencesOn: aLocalCanvas.]
@@ -27,7 +29,7 @@ GdsVertexInputTool >> drawFeedbackOn: aLocalCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsVertexInputTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [ 
 	| points wp1 vwp  |
 	self structure currentItem editElement ifNotNil: [^self].
@@ -53,7 +55,7 @@ GdsVertexInputTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [
 	lastRubberBandPoint := aPoint copy.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsVertexInputTool >> eventAction [
 	|vPoint ce1 points |
 	points := self currentItem vertices.
@@ -89,20 +91,20 @@ GdsVertexInputTool >> eventAction [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsVertexInputTool >> initialize [
 	super initialize.
 	stopCE := false.
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsVertexInputTool >> rubberBandEnabled [
 	stopCE ifNil: [stopCE := false].
 	^stopCE not.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsVertexInputTool >> stopCE [
 	stopCE := true.
 ]
