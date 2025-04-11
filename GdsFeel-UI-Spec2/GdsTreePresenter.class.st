@@ -36,11 +36,32 @@ GdsTreePresenter class >> defaultLayout [
 		  yourself
 ]
 
+{ #category : #layout }
+GdsTreePresenter class >> defaultSpec [
+
+	^ SpBoxLayout newVertical
+		  add: #menuBar height: self toolbarHeight;
+		  add: (SpBoxLayout newHorizontal
+				   add: #tree;
+				   add: (SpBoxLayout newVertical
+						    add: #visibleElementList;
+						    add: #inspectorView;
+						    yourself);
+				   add: #tabManager;
+				   add: (SpBoxLayout newVertical
+						    add: #layers;
+						    add: #kinds;
+						    yourself);
+				   yourself);
+		  add: #statusBar height: self toolbarHeight;
+		  yourself
+]
+
 { #category : #examples }
 GdsTreePresenter class >> open [
 
 	<example>
-	self new open
+	self new openWithSpec
 ]
 
 { #category : #private }
