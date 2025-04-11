@@ -370,13 +370,18 @@ GdsTreeBrowser >> extent [
 
 { #category : #initialization }
 GdsTreeBrowser >> fileMenu [
-	^ MenuModel new
-		addGroup: [ :group | 
-			group
-				addItem: [ :item | 
-					item
-						name: 'New Library...';
-						action: [ self newLibrary ] ] ]
+
+	^ MenuModel new addGroup: [ :group | 
+		  group
+			  addItem: [ :item | 
+				  item
+					  name: 'Open Ziped DB...';
+					  icon: (self iconNamed: #open);
+					  action: [ self openLibrary ] ];
+			  addItem: [ :item | 
+				  item
+					  name: 'New Library...';
+					  action: [ self newLibrary ] ] ]
 ]
 
 { #category : #'action - tree' }
@@ -461,6 +466,11 @@ GdsTreeBrowser >> idStructure [
 ]
 
 { #category : #initialization }
+GdsTreeBrowser >> initialExtent [
+	^ 800 @ 600
+]
+
+{ #category : #initialization }
 GdsTreeBrowser >> initializeMenu [
 	menu := self instantiate: MenuModel
 ]
@@ -469,13 +479,6 @@ GdsTreeBrowser >> initializeMenu [
 GdsTreeBrowser >> initializeMenuPresenter [
 	menu
 		addGroup: [ :group | 
-			group
-				addItem: [ :item | 
-					item
-						name: nil;
-						description: 'Open .DB file';
-						icon: Smalltalk ui icons openIcon;
-						action: [ self openLibrary ] ].
 			group
 				addItem: [ :item | 
 					item
@@ -513,6 +516,7 @@ GdsTreeBrowser >> initializeMenuPresenter [
 { #category : #initialization }
 GdsTreeBrowser >> initializePresenter [
 	super initializePresenter.
+	GdsFeel loadExampleZippedDatabaseToLocal. 
 	tabManager whenTabSelected: [ self changeTabSelection ].
 	self initializeMenuPresenter.
 	structureSortBlock whenChangedDo: [ tree updateTree ].
@@ -524,6 +528,7 @@ GdsTreeBrowser >> initializePresenter [
 			listModel
 				whenSelectedItemChanged: [ :el | el ifNotNil: [ el structure idSelection id: el keyNumber ] ] ].
 	self whenWindowChanged: [ :w | w whenClosedDo: [ self onWindowClosed ] ].
+	self whenBuiltDo: [ :ann | ann model window inspect ].
 	GdsStation default announcer
 		when: GdsStructureDuplicated
 		do: [ :ann | 
@@ -843,17 +848,22 @@ GdsTreeBrowser >> rebuildMenus [
 
 { #category : #'ui building' }
 GdsTreeBrowser >> registerLibraryFile: aFileReference [
+
 	| lib |
 	lib := GdsLibrary fromFile: aFileReference.
 	self station openLibrary: lib.
-	tree roots ifEmpty: [ tree roots: (Array with: lib) ] ifNotEmpty: [ tree roots: tree roots , (Array with: lib) ].
+	tree roots
+		ifEmpty: [ tree roots: (Array with: lib) ]
+		ifNotEmpty: [ tree roots: tree roots , (Array with: lib) ].
 	tabManager addTab: (self newTabForLibrary: lib).
-	tree childrenBlock: [ :item | (self childrenFor: item) sort: self structureSortBlock ].
+	tree childrenBlock: [ :item | 
+		(self childrenFor: item) sort: self structureSortBlock ].
 	tree displayBlock: [ :item | self displayNameHandler: item ].
 	tree iconBlock: [ :item | self iconFor: item ].
 	tree doubleClick: [ self handleDoubleClick ].
 	tree menu: [ :m | self inspectionMenu: m ].
-	tree whenSelectedItemChanged: [ :item | self treeChangeSelection: item ]
+	tree whenSelectedItemChanged: [ :item | 
+		self treeChangeSelection: item ]
 ]
 
 { #category : #private }
