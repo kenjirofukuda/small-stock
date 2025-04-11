@@ -119,6 +119,25 @@ GdsFeel class >> join: anArray using: joint [
 	^path allButLast:  joint size.
 ]
 
+{ #category : #utilities }
+GdsFeel class >> loadExampleZippedDatabaseToLocal [
+
+	| srcFile destFolder destFile |
+	srcFile := (FileLocator home / 'Nextcloud' / 'gds' / 'BGHIER.DB')
+		           asFileReference.
+	srcFile exists 
+		ifFalse: [ 
+			self inform: srcFile fullName , 'Not found'.
+			^ self ].
+
+	destFolder := (Path workingDirectory / 'GdsFeel') asFileReference.
+	destFolder ensureCreateDirectory.
+	destFile := destFolder / srcFile basename.
+	destFile ensureDelete.
+	srcFile copyTo: destFile.
+	destFile
+]
+
 { #category : #maintenance }
 GdsFeel class >> migrateConfigulationValues [
 	"self migrateConfigulationValues"
