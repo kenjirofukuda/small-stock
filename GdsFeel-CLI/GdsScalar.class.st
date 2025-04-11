@@ -9,15 +9,17 @@ stringValue
 
 "
 Class {
-	#name : #GdsScalar,
-	#superclass : #GdsArray,
+	#name : 'GdsScalar',
+	#superclass : 'GdsArray',
 	#instVars : [
 		'stringValue'
 	],
-	#category : #'GdsFeel-CLI-Data'
+	#category : 'GdsFeel-CLI-Data',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Data'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsScalar class >> fromLiteral: aString [
 	| clazz |
 	clazz := GdsDglType bestClassOfStatement: aString.
@@ -25,22 +27,22 @@ GdsScalar class >> fromLiteral: aString [
 	^ clazz fromLiteralString: aString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsScalar class >> rank [
 	^ 0
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsScalar class >> shape [
 	^ GdsNull instance
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> abs [
 	^ self newRealSelector: #abs
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsScalar >> applySmalltalkValueSymbol: aSymbol to: aObject [
 	| leftValue |
 	aObject isScalar not
@@ -59,93 +61,93 @@ GdsScalar >> applySmalltalkValueSymbol: aSymbol to: aObject [
 		with: aObject asFloat
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsScalar >> applySymbol: aSymbol to: aObject [
 	self applySymbolCheck: aSymbol to: aObject.
 	^ (self applySmalltalkValueSymbol: aSymbol to: aObject) asGdsValue
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> arcTan [
 	^ self newRealBlock: [ self asFloat arcTan radiansToDegrees ]
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdsScalar >> asFloat [
 	^ self asSmalltalkValue asFloat
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdsScalar >> asGdsFloating [
 	^ GdsReal fromLiteral: self asFloat
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdsScalar >> asVector [
 	^ self vectorClass withAll: (Array with: self)
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdsScalar >> asVector: aSize [
 	^ self vectorClass withAll: (Array new: aSize withAll: self)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsScalar >> at: aIndex [
 	^ self error: 'ILIIGAL ACCESS FOR SCALAR []'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsScalar >> atSubscript: aSubscript [
 	^ self subscriptCheckForReturn: aSubscript
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsScalar >> atSubscript: aSubscript put: aGdsValue [
 	^ self subscriptCheckForAssign: aSubscript
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> ceiling [
 	^ self newRealSelector: #ceiling
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> cos [
 	^ self newRealBlock: [ self asFloat degreesToRadians cos ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsScalar >> elements [
 	^ Array with: self
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> exp [
 	^ self newRealSelector: #exp
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> floor [
 	^ self newRealSelector: #floor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsScalar >> gplValueOfShape [
 	^ GdsNull instance
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsScalar >> isScalar [
 	^ true
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> ln [
 	^ self newRealSelector: #ln
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsScalar >> mostCompactValue [
 	| smInt |
 	self sameAsInteger
@@ -156,37 +158,37 @@ GdsScalar >> mostCompactValue [
 	^ self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdsScalar >> negated [
 	^ self newRealSelector: #negated
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsScalar >> negative [
 	^ self asFloat negative
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsScalar >> newIntegerBlock: aBlock [
 	^ GdsInteger fromLiteral: aBlock value asInteger
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsScalar >> newIntegerSelector: aSelector [
 	^ GdsInteger fromLiteral: (self asFloat perform: aSelector) asInteger
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsScalar >> newRealBlock: aBlock [
 	^ GdsReal new stringValue: aBlock value asFloat
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsScalar >> newRealSelector: aSelector [
 	^ GdsReal fromLiteral: (self asFloat perform: aSelector) asFloat
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> not [
 	^ self
 		newIntegerBlock: [ self asFloat isZero
@@ -194,12 +196,12 @@ GdsScalar >> not [
 				ifFalse: [ 0 ] ]
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> pi [
 	^ self newRealBlock: [ self asFloat * Float pi ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsScalar >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPutAll: '('.
@@ -207,52 +209,52 @@ GdsScalar >> printOn: aStream [
 	aStream nextPutAll: ')'
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdsScalar >> reciprocal [
 	^ self newRealSelector: #reciprocal
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsScalar >> sameAsInteger [
 	^ self asSmalltalkValue asFloat fractionPart = 0.0
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdsScalar >> sign [
 	^ self newIntegerSelector: #sign
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> sin [
 	^ self newRealBlock: [ self asFloat degreesToRadians sin ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsScalar >> size [
 	^ 1
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsScalar >> strictlyPositive [
 	^ self asFloat strictlyPositive
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsScalar >> stringValue [
 	^ stringValue asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsScalar >> stringValue: aGplExpression [
 	stringValue := aGplExpression
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsScalar >> subscriptCheckFor: aGdsDataStructure [
 	^ self runtimeError: 'CAN''T  SUBSCRIPTION ACCESS TO SCALAR VALUE '
 ]
 
-{ #category : #'math function' }
+{ #category : 'math function' }
 GdsScalar >> tan [
 	^ self newRealBlock: [ self asFloat degreesToRadians tan ]
 ]

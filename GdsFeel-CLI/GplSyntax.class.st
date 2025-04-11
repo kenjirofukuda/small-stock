@@ -5,22 +5,24 @@ Instance Variables
 
 "
 Class {
-	#name : #GplSyntax,
-	#superclass : #GplTokenHandler,
+	#name : 'GplSyntax',
+	#superclass : 'GplTokenHandler',
 	#instVars : [
 		'model'
 	],
-	#category : #'GdsFeel-CLI-Kernel'
+	#category : 'GdsFeel-CLI-Kernel',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Kernel'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplSyntax class >> check: aString [
 	| tokens |
 	tokens := GplScanner tokensFrom: aString.
 	self new checkFromTokens: tokens
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> assignCheck: aGplTokens [
 	| assignToken leftTokens keywordToken |
 	assignToken := aGplTokens
@@ -38,7 +40,7 @@ GplSyntax >> assignCheck: aGplTokens [
 				token: keywordToken ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplSyntax >> betweenCheck: aGplTokens openFragment: aOpenFragment closeFragment: aCloseFragment [
 	| openParlens closeParlens |
 	openParlens := aGplTokens
@@ -53,7 +55,7 @@ GplSyntax >> betweenCheck: aGplTokens openFragment: aOpenFragment closeFragment:
 		ifTrue: [ ^ self syntaxError: 'EXTRA ' token: closeParlens last ]
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> cantUseCheck: aGplTokens [
 	self isInteractive
 		ifFalse: [ ^ self ].
@@ -64,7 +66,7 @@ GplSyntax >> cantUseCheck: aGplTokens [
 					[ ^ self syntaxError: 'KEYWORD NOT LEAGAL IN THIS CONTEXT' token: each ] ]
 ]
 
-{ #category : #check }
+{ #category : 'check' }
 GplSyntax >> checkFromTokens: aGplTokens [
 	self beforeEvaluateTokens: aGplTokens.
 	self depthCheck: aGplTokens.
@@ -74,13 +76,13 @@ GplSyntax >> checkFromTokens: aGplTokens [
 	self cantUseCheck: aGplTokens
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> declareCheck: aGplTokens [
 	self methodDeclareCheck: aGplTokens.
 	self variableDeclareCheck: aGplTokens
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> depthCheck: aGplTokens [
 	self parlenDepthCheck: aGplTokens.
 	self subscriptDepthCheck: aGplTokens.
@@ -90,13 +92,13 @@ GplSyntax >> depthCheck: aGplTokens [
 		closeFragments: {')' . ']'}
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplSyntax >> hasVariableName: aWord [
 	model ifNil: [ ^ false ].
 	^ model hasVariableName: aWord
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplSyntax >> insideEmptyCheck: aGplTokens openFragment: aOpenFragment closeFragment: aCloseFragment [
 	| openParlens |
 	openParlens := aGplTokens
@@ -111,19 +113,19 @@ GplSyntax >> insideEmptyCheck: aGplTokens openFragment: aOpenFragment closeFragm
 	^ nil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplSyntax >> isDefined: aWord [
 	model ifNil: [ ^ false ].
 	^ model isDefined: aWord
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplSyntax >> isInteractive [
 	model ifNil: [ ^ true ].
 	^ model isInteractive
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> leftCheckFor: anAssignToken [
 	| leftTokens expressionToken |
 	leftTokens := anAssignToken leftTokens
@@ -140,7 +142,7 @@ GplSyntax >> leftCheckFor: anAssignToken [
 	^ leftTokens
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> methodDeclareCheck: aGplTokens [
 	| voidToken voidTokens |
 	voidTokens := aGplTokens
@@ -156,7 +158,7 @@ GplSyntax >> methodDeclareCheck: aGplTokens [
 				token: voidToken ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplSyntax >> missMatchCheck: aGplTokens openFragments: aOpenFragments closeFragments: aCloseFragments [
 	| topToken |
 	self resetStack.
@@ -180,12 +182,12 @@ GplSyntax >> missMatchCheck: aGplTokens openFragments: aOpenFragments closeFragm
 								token: each ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplSyntax >> model: aModel [
 	model := aModel
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> numberLiteralCheck: aGplTokens [
 	| unresolvedTokens |
 	unresolvedTokens := aGplTokens
@@ -199,7 +201,7 @@ GplSyntax >> numberLiteralCheck: aGplTokens [
 		token: unresolvedTokens first
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> parlenDepthCheck: aGplTokens [
 	| emptyToken |
 	self betweenCheck: aGplTokens openFragment: '(' closeFragment: ')'.
@@ -210,7 +212,7 @@ GplSyntax >> parlenDepthCheck: aGplTokens [
 	emptyToken ifNotNil: [ ^ self syntaxError: 'EMPTY EXPRESSION ()' ]
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> rightCheckFor: anAssignToken [
 	| rightTokens voidToken |
 	rightTokens := anAssignToken rightTokens.
@@ -230,7 +232,7 @@ GplSyntax >> rightCheckFor: anAssignToken [
 				token: voidToken ]
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> subscriptDepthCheck: aGplTokens [
 	| emptyToken |
 	self betweenCheck: aGplTokens openFragment: '[' closeFragment: ']'.
@@ -242,12 +244,12 @@ GplSyntax >> subscriptDepthCheck: aGplTokens [
 		ifNotNil: [ ^ self syntaxError: 'EMPTY SUBSCRIPT EXPRESSION []' ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplSyntax >> syntaxError: aMessage token: aGplToken [
 	^ self syntaxError: (self syntaxMessage: aMessage token: aGplToken)
 ]
 
-{ #category : #'private check' }
+{ #category : 'private check' }
 GplSyntax >> variableDeclareCheck: aGplTokens [
 	"allow undefined "
 

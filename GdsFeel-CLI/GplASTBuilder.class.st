@@ -1,6 +1,6 @@
 Class {
-	#name : #GplASTBuilder,
-	#superclass : #GdsObject,
+	#name : 'GplASTBuilder',
+	#superclass : 'GdsObject',
 	#instVars : [
 		'inputStream',
 		'file',
@@ -18,34 +18,36 @@ Class {
 		'subroutineDeclNodes',
 		'inTraceMode'
 	],
-	#category : #'GdsFeel-CLI-AST'
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplASTBuilder class >> fromFile: aFileReference [
 	^ self new
 		file: aFileReference;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplASTBuilder class >> fromString: aString [
 	^ self new
 		inputStream: aString readStream;
 		yourself
 ]
 
-{ #category : #'stack operation' }
+{ #category : 'stack operation' }
 GplASTBuilder >> addToBlock: aNode [
 	self topBlock addSubNode: aNode
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> assignStatement [
 	^ self assignStatement: nil
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> assignStatement: aFollowSet [
 	| opNode leftNode rightNode followSet |
 	leftNode := self variable.
@@ -68,7 +70,7 @@ GplASTBuilder >> assignStatement: aFollowSet [
 	^ opNode
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> basicNextToken [
 	rangeStream ifNil: [ ^ nil ].
 	rangeStream atEnd
@@ -77,20 +79,20 @@ GplASTBuilder >> basicNextToken [
 	^ currentToken
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> block: aFollowSet [
 	| temp |
 	temp := self statement: aFollowSet.
 	^ temp
 ]
 
-{ #category : #spec }
+{ #category : 'spec' }
 GplASTBuilder >> bothArgumentFragments [
 	^ #('ANGLE' 'ASHAPE' 'CE' 'DATADRAW' 'EXPINPUT' 'GSCALE' 'GRID' 'ITEM' 'NODETYPE' 'PLEX' 'PLEXMODE' 'REFL' 'SDTYPE' 'SKIND' 'VKIND' 'SLAYER' 'TEXTINPUT' 'VLAYER' 'INITLIB' 'VLAYERON' 'SLAYERON' 'VBTYPEON' 'VDTYPEON' 'VTTYPEON' 'VNTYPEON' 'SBTYPEON' 'SDTYPEON' 'STTYPEON' 'SNTYPEON' 'SBTYPE' 'SDTYPE' 'STTYPE' 'SNTYPE' 'VBTYPE' 'VDTYPE' 'VNTYPE' 'VTTYPE' 'SNAME' 'TSTRUCT' 'MAG')
 		, self colorFragments , self fillFragments
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> buildTree [
 	scanner := GplScanner new splitTokensFrom: inputStream.
 	self patchAdditionalMethods.
@@ -101,22 +103,22 @@ GplASTBuilder >> buildTree [
 	self subroutine
 ]
 
-{ #category : #spec }
+{ #category : 'spec' }
 GplASTBuilder >> colorFragments [
 	^ #('WHITE' 'RED' 'BLUE' 'YELLOW' 'CYAN' 'MAGENTA' 'GREEN')
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBuilder >> currentNode [
 	^ blockStack top
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBuilder >> currentToken [
 	^ currentToken
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> declareStatement [
 	| node |
 	node := GplDeclNode new.
@@ -148,7 +150,7 @@ GplASTBuilder >> declareStatement [
 	self endStatement
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> declareStatements [
 	self nextTokenIgnoreCr.
 	self declareStatement.
@@ -162,7 +164,7 @@ GplASTBuilder >> declareStatements [
 	self postUnresolvedPatch
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> doStatement: aFollowSet [
 	| doNode followSet |
 	doNode := GplDoNode new.
@@ -189,7 +191,7 @@ GplASTBuilder >> doStatement: aFollowSet [
 	self skipTokenExpected: 'ENDDO'
 ]
 
-{ #category : #deprecated }
+{ #category : 'deprecated' }
 GplASTBuilder >> doUntilStatement: aFollowSet [
 	| loopNode followSet conditionNode |
 	self skipTokenExpected: 'DO'.
@@ -211,7 +213,7 @@ GplASTBuilder >> doUntilStatement: aFollowSet [
 	^ loopNode
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> dyadicOperator: aToken [
 	| node |
 	node := GplDyadicOperatorNode new.
@@ -225,13 +227,13 @@ GplASTBuilder >> dyadicOperator: aToken [
 	^ node
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> endStatement [
 	currentToken type = #cr
 		ifFalse: [ ^ self error: '<CR> required.' ]
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> endsubStatement: aFollowSet [
 	| stNode |
 	self expected: 'ENDSUB'.
@@ -242,12 +244,12 @@ GplASTBuilder >> endsubStatement: aFollowSet [
 	^ stNode	"NIL TOKEN"
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> expected: aFragment [
 	self expected: aFragment onSuccess: [  ]
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> expected: aFragment onSuccess: aSuccessBlock [
 	(aFragment sameAs: currentToken fragment)
 		ifFalse: [ self
@@ -259,7 +261,7 @@ GplASTBuilder >> expected: aFragment onSuccess: aSuccessBlock [
 		ifTrue: aSuccessBlock
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> exploreErrorRanges [
 	| start end |
 	currentToken ifNil: [ ^ self ].
@@ -268,12 +270,12 @@ GplASTBuilder >> exploreErrorRanges [
 	(rangeStream contents copyFrom: start to: end) explore
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> expression [
 	^ self expression: nil
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> expression: aFollowSet [
 	| temp |
 	"self haltIf: [currentToken start = 4250]."
@@ -284,7 +286,7 @@ GplASTBuilder >> expression: aFollowSet [
 	^ temp
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> expressionStatement: aFollowSet [
 	| opNode expressionNode followSet |
 	self haltString: 'hoge'.
@@ -298,7 +300,7 @@ GplASTBuilder >> expressionStatement: aFollowSet [
 	^ opNode
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> factor: aFollowSet [
 	#variable = currentToken type
 		ifTrue: [ ^ self variable ].
@@ -314,23 +316,23 @@ GplASTBuilder >> factor: aFollowSet [
 	self error: ('factor: {1}' format: {currentToken printString})
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBuilder >> file: aFileReference [
 	file := aFileReference.
 	self inputStream: file readStream
 ]
 
-{ #category : #spec }
+{ #category : 'spec' }
 GplASTBuilder >> fillFragments [
 	^ #('FILLB' 'FILLC')
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> followSet: aCurrentSet [
 	^ self followSet: aCurrentSet based: nil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> followSet: aCurrentSet based: aFollowSet [
 	| followSet |
 	followSet := Set new.
@@ -343,12 +345,12 @@ GplASTBuilder >> followSet: aCurrentSet based: aFollowSet [
 	^ followSet
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBuilder >> foo [
 	
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> gdsiiMethod: aFollowSet [
 	| argcContext methodNode numArgs opToken argVariations |
 	self haltString: 'hage'.
@@ -391,7 +393,7 @@ GplASTBuilder >> gdsiiMethod: aFollowSet [
 	^ methodNode
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> gotoStatement: aFollowSet [
 	| stNode |
 	self expected: 'GOTO'.
@@ -405,12 +407,12 @@ GplASTBuilder >> gotoStatement: aFollowSet [
 	^ stNode
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> haltString: aString [
 	self haltIf: [ currentToken fragment sameAs: aString ]
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> ifStatement: aFollowSet [
 	| stNode followSet |
 	self expected: 'IF'.
@@ -477,7 +479,7 @@ GplASTBuilder >> ifStatement: aFollowSet [
 	^ stNode
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> inPrecedenceToken: aGplToken precedence: aPrecedence [
 	| assoc |
 	assoc := operatorGroups at: aPrecedence.
@@ -490,12 +492,12 @@ GplASTBuilder >> inPrecedenceToken: aGplToken precedence: aPrecedence [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> inTraceMode [
 	^ inTraceMode
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GplASTBuilder >> initialize [
 	super initialize.
 	self initializeOperatorGroups.
@@ -509,7 +511,7 @@ GplASTBuilder >> initialize [
 	subroutineDeclNodes := OrderedCollection new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GplASTBuilder >> initializeOperatorGroups [
 	operatorGroups := OrderedCollection new.
 	operatorGroups
@@ -527,32 +529,32 @@ GplASTBuilder >> initializeOperatorGroups [
 								ifFalse: [ words first ] ]) asSet ]) asArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBuilder >> inputStream [
 	^ inputStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBuilder >> inputStream: aStream [
 	inputStream := aStream
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isArgumentTypeToken: aGplToken [
 	^ GplToken methodTypeKeywords includes: aGplToken fragmentForTest
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isDataTypeToken: aGplToken [
 	^ GplToken dataTypeKeywords includes: aGplToken fragmentForTest
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isEffectiveToken: aToken [
 	^ self isEffectiveToken: aToken ignoreCr: false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isEffectiveToken: aToken ignoreCr: aBoolean [
 	aToken ifNil: [ ^ false ].
 	aToken isComment
@@ -565,12 +567,12 @@ GplASTBuilder >> isEffectiveToken: aToken ignoreCr: aBoolean [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isFunctionContext [
 	^ self isFunctionContext: currentToken
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isFunctionContext: aGplToken [
 	"1. var := BISUB  <- assignment rightValue context "
 
@@ -589,7 +591,7 @@ GplASTBuilder >> isFunctionContext: aGplToken [
 	^ leftToekns notEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isLeftStetementSeparator: aGplToken [
 	#cr = aGplToken type
 		ifTrue: [ ^ true ].
@@ -598,14 +600,14 @@ GplASTBuilder >> isLeftStetementSeparator: aGplToken [
 	^ #('THEN' 'ELSE' 'DO' 'OUT') includes: aGplToken fragment
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isLiteral: aGplToken [
 	({#string . #number . #vector} includes: aGplToken type)
 		ifTrue: [ ^ true ].
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isRightStetementSeparator: aGplToken [
 	#cr = aGplToken type
 		ifTrue: [ ^ true ].
@@ -623,13 +625,13 @@ GplASTBuilder >> isRightStetementSeparator: aGplToken [
 		includes: aGplToken fragment
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> isStorageScopeToken: aGplToken [
 	^ GplToken storageScopeKeywords
 		includes: currentToken fragmentForTest
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> leftTokens: aGplToken until: aGplTokenBlock [
 	| ti done tokens |
 	ti := aGplToken index.
@@ -645,7 +647,7 @@ GplASTBuilder >> leftTokens: aGplToken until: aGplTokenBlock [
 	^ tokens
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> listExpression: aFollowSet [
 	| op aPrecedence leftNode rightNode |
 	aPrecedence := 2.
@@ -676,7 +678,7 @@ GplASTBuilder >> listExpression: aFollowSet [
 	^ operandStack pop
 ]
 
-{ #category : #'syntax parts' }
+{ #category : 'syntax parts' }
 GplASTBuilder >> literal [
 	| node |
 	node := GplLiteralNode new.
@@ -685,7 +687,7 @@ GplASTBuilder >> literal [
 	^ node
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> methodModifire: aNode [
 	(GplToken methodTypeKeywords includes: currentToken fragmentForTest)
 		ifFalse: [ ^ self error: 'NILADIC, MONADIC, DYADIC expectd' ].
@@ -697,17 +699,17 @@ GplASTBuilder >> methodModifire: aNode [
 	self nextToken
 ]
 
-{ #category : #spec }
+{ #category : 'spec' }
 GplASTBuilder >> monadicFragments [
 	^ (self monadicOnlyFragments , self bothArgumentFragments) asSet
 ]
 
-{ #category : #spec }
+{ #category : 'spec' }
 GplASTBuilder >> monadicOnlyFragments [
 	^ #('BINDATTR' 'BINDFONTS' 'BSTRUCT' 'CALL' 'CSTRUCT' 'CFORMAT' 'DATACOPY' 'DATADELETE' 'DATATYPE' 'DEFMODE' 'DFUNCTION' 'DRAWARROW' 'DRAWSEGS' 'DRAWTEXT' 'DSTRUCT' 'ENTERTEXT' 'EXECUTE' 'FDELETE' 'FETCH' 'FILEINFO' 'FLAYER' 'FONT' 'FORMAT' 'G' 'GEDMODE' 'GET' 'GETEL' 'GPL' 'GSCALE' 'INTERRUPTMODE' 'JOBCREATE' 'LAYER' 'LOAD' 'LOCALTOGLOBAL' 'MAG' 'MARK' 'MINMAX' 'MOVE' 'MSELECT' 'NEWWIDTH' 'ONAME' 'OPENLIB' 'OSTRUCT' 'PATHTYPE' 'POLAR' 'PROPERTY' 'PROPVALUE' 'PUTEL' 'ROUND' 'SETCOLORS' 'SETVIEW' 'STADPYINFO' 'STRUCINFO' 'STRUCLIST' 'T' 'TEXTTYPE' 'TJUST' 'W' 'WIDTH' 'WINOPTIONS' 'WIPE' 'ZOOM')
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> monadicOperator: aGplToken [
 	| node |
 	node := GplMonadicOperatorNode new.
@@ -720,7 +722,7 @@ GplASTBuilder >> monadicOperator: aGplToken [
 	^ node
 ]
 
-{ #category : #'syntax parts' }
+{ #category : 'syntax parts' }
 GplASTBuilder >> nameList [
 	self currentNode at: #nameList put: OrderedCollection new.
 	(self currentNode at: #nameList) add: currentToken fragment.
@@ -733,7 +735,7 @@ GplASTBuilder >> nameList [
 			self nextToken ]
 ]
 
-{ #category : #tokenizing }
+{ #category : 'tokenizing' }
 GplASTBuilder >> nextToken [
 	| token |
 	[ token := self basicNextToken.
@@ -744,7 +746,7 @@ GplASTBuilder >> nextToken [
 	^ token
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> nextTokenIgnoreCr [
 	| token |
 	[ token := self basicNextToken.
@@ -754,17 +756,17 @@ GplASTBuilder >> nextTokenIgnoreCr [
 	^ token
 ]
 
-{ #category : #spec }
+{ #category : 'spec' }
 GplASTBuilder >> niladicFragments [
 	^ (self niladicOnlyFragments , self bothArgumentFragments) asSet
 ]
 
-{ #category : #spec }
+{ #category : 'spec' }
 GplASTBuilder >> niladicOnlyFragments [
 	^ #('ADDRT' 'AREF' 'BOUNDARY' 'BOXTYPE' 'CONTEXT' 'CLOSELIB' 'CLRPROP' 'COORDS' 'CRTTYPE' 'DATAVIEW' 'GEDCOORDS' 'GEDDATATYPE' 'GEDKEY' 'GEDLAYER' 'GEDNAME' 'GEDPLEX' 'GEDSTRING' 'GEDTEXT' 'GEDTEXTTYPE' 'GEDTYPE' 'IDCLEAR' 'IDKEYS' 'NAMESOPEN' 'NODE' 'OCTAGONAL' 'ORTHINT' 'PATH' 'PUT' 'PUTALL' 'REMOVE' 'SBTYPE' 'SCELL' 'SETLEVEL' 'SNTYPE' 'SREF' 'STANUM' 'STRUCOPEN' 'STTYPE' 'TABTYPE' 'TEXT' 'VERTFIRST' 'WASTAT')
 ]
 
-{ #category : #'syntax parts' }
+{ #category : 'syntax parts' }
 GplASTBuilder >> numArgsOfToken: aGplToken [
 	| col |
 	(subroutineDeclNodes
@@ -779,7 +781,7 @@ GplASTBuilder >> numArgsOfToken: aGplToken [
 	^ col asArray
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> operandSizeOfPrecendence: aPrecedence [
 	"see: GplParser>>operatorSpec"
 
@@ -812,7 +814,7 @@ GplASTBuilder >> operandSizeOfPrecendence: aPrecedence [
 	^ -1
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> paramCheck [
 	"(currentToken type = #localVariable)
 		ifFalse: [ self error: ('{1} not declare in LOCAL ' format: { currentToken fragment }) ]. "
@@ -820,20 +822,20 @@ GplASTBuilder >> paramCheck [
 	
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> paramCheckAt: aPropertyName [
 	self paramCheck.
 	self currentNode at: aPropertyName put: currentToken.
 	self nextToken
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> paramName [
 	self currentNode at: #name put: currentToken fragment.
 	self nextToken
 ]
 
-{ #category : #'syntax parts' }
+{ #category : 'syntax parts' }
 GplASTBuilder >> parlen [
 	| valNode parenNode |
 	self nextToken.
@@ -847,7 +849,7 @@ GplASTBuilder >> parlen [
 	^ parenNode
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> patchAdditionalMethods [
 	scanner ranges
 		do: [ :token | 
@@ -857,25 +859,25 @@ GplASTBuilder >> patchAdditionalMethods [
 				ifTrue: [ token type: #gdsiiMethod ] ]
 ]
 
-{ #category : #'stack operation' }
+{ #category : 'stack operation' }
 GplASTBuilder >> popBlock [
 	^ blockStack pop
 ]
 
-{ #category : #'stack operation' }
+{ #category : 'stack operation' }
 GplASTBuilder >> popBlockIf: anObject [
 	blockStack top == anObject
 		ifTrue: [ ^ self popBlock ].
 	^ nil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> postUnresolvedPatch [
 	self
 		unresolvedTokensDo: [ :unresolvedTokens | stilUnresolvedTokens := unresolvedTokens ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> precedenceOfToken: aGplToken [
 	aGplToken fragment = '['
 		ifTrue: [ ^ 1 ].
@@ -886,24 +888,24 @@ GplASTBuilder >> precedenceOfToken: aGplToken [
 	^ 0
 ]
 
-{ #category : #'stack operation' }
+{ #category : 'stack operation' }
 GplASTBuilder >> pushBlock: aNode [
 	blockStack push: aNode
 ]
 
-{ #category : #'stack operation' }
+{ #category : 'stack operation' }
 GplASTBuilder >> pushBlock: aNode during: aBlock [
 	self pushBlock: aNode.
 	aBlock value.
 	self popBlockIf: aNode
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> ranges [
 	^ scanner ranges
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> resolveSubroutineNames [
 	subroutineDeclNodes ifEmpty: [ ^ self ].
 	self
@@ -912,7 +914,7 @@ GplASTBuilder >> resolveSubroutineNames [
 				do: [ :unresolvedToken | self resolveTokenAsSubroutine: unresolvedToken ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBuilder >> resolveTokenAsSubroutine: aGplToken [
 	(subroutineDeclNodes
 		detect: [ :node | node nameList includes: aGplToken fragment ]
@@ -920,7 +922,7 @@ GplASTBuilder >> resolveTokenAsSubroutine: aGplToken [
 		ifNotNil: [ :foundDeclNode | aGplToken type: #gdsiiMethod ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> resolveTokenAsVariable: aGplToken [
 	variableScopeMap keys
 		do: [ :scope | 
@@ -928,14 +930,14 @@ GplASTBuilder >> resolveTokenAsVariable: aGplToken [
 				ifTrue: [ aGplToken type: #variable ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> resolveVariableNames [
 	self
 		unresolvedTokensDo:
 			[ :unresolvedTokens | unresolvedTokens do: [ :t | self resolveTokenAsVariable: t ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplASTBuilder >> rightTokens: aGplToken until: aGplTokenBlock [
 	| ti done tokens max |
 	ti := aGplToken index.
@@ -952,7 +954,7 @@ GplASTBuilder >> rightTokens: aGplToken until: aGplTokenBlock [
 	^ tokens
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> routineParams [
 	"DYADIC"
 
@@ -976,13 +978,13 @@ GplASTBuilder >> routineParams [
 	^ self error: 'invalid PARAMETER form'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> skipCr [
 	[ currentToken notNil and: [ currentToken type = #cr ] ]
 		whileTrue: [ self nextToken ]
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> skipFollowSet: aFollowSet [
 	aFollowSet
 		ifNotNil: [ | followSet |
@@ -999,12 +1001,12 @@ GplASTBuilder >> skipFollowSet: aFollowSet [
 						ifFalse: [ self error: ('skip without <CR> {1} ' format: {skiped}) ] ] ]
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> skipTokenExpected: aFragment [
 	self expected: aFragment onSuccess: [ self nextToken ]
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> statement: aFollowSet [
 	| temp labelToken |
 	statementCount ifNil: [ statementCount := 0 ].
@@ -1037,7 +1039,7 @@ GplASTBuilder >> statement: aFollowSet [
 	^ temp
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> statementSwitch: aFollowSet [
 	self haltString: 'HOGE'.
 	('IF' sameAs: currentToken fragment)
@@ -1056,7 +1058,7 @@ GplASTBuilder >> statementSwitch: aFollowSet [
 	^ nil
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> subroutine [
 	self subroutineHeader.
 	self declareStatements.
@@ -1064,7 +1066,7 @@ GplASTBuilder >> subroutine [
 	self expected: 'ENDSUB'
 ]
 
-{ #category : #deprecated }
+{ #category : 'deprecated' }
 GplASTBuilder >> subroutineCallStatement: aFollowSet [
 	| tempNode opToken argumentNode subNode |
 	self assert: #gdsiiMethod = currentToken type.
@@ -1081,7 +1083,7 @@ GplASTBuilder >> subroutineCallStatement: aFollowSet [
 	^ subNode
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplASTBuilder >> subroutineHeader [
 	| node |
 	node := GplASTNode new.
@@ -1100,7 +1102,7 @@ GplASTBuilder >> subroutineHeader [
 	self endStatement
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> subscriptOn: aGplValueNode [
 	| subscriptNode |
 	'[' = currentToken fragment
@@ -1110,7 +1112,7 @@ GplASTBuilder >> subscriptOn: aGplValueNode [
 			self skipTokenExpected: ']' ]
 ]
 
-{ #category : #statement }
+{ #category : 'statement' }
 GplASTBuilder >> switchStatement: aFollowSet [
 	| stNode followSet conditionNode literalNode caseNode outNode |
 	self expected: 'SWITCH'.
@@ -1148,7 +1150,7 @@ GplASTBuilder >> switchStatement: aFollowSet [
 	^ stNode
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> term: aPrecedence followSet: aFollowSet [
 	| opSize |
 	self inTraceMode
@@ -1190,7 +1192,7 @@ GplASTBuilder >> term: aPrecedence followSet: aFollowSet [
 	^ self term: aPrecedence + 1 followSet: aFollowSet
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> termNew: aPrecedence followSet: aFollowSet [
 	| opSize |
 	self inTraceMode
@@ -1235,7 +1237,7 @@ GplASTBuilder >> termNew: aPrecedence followSet: aFollowSet [
 	^ self term: aPrecedence + 1 followSet: aFollowSet
 ]
 
-{ #category : #expression }
+{ #category : 'expression' }
 GplASTBuilder >> termOld: aPrecedence followSet: aFollowSet [
 	| opSize |
 	self inTraceMode
@@ -1277,17 +1279,17 @@ GplASTBuilder >> termOld: aPrecedence followSet: aFollowSet [
 	^ self term: aPrecedence + 1 followSet: aFollowSet
 ]
 
-{ #category : #'stack operation' }
+{ #category : 'stack operation' }
 GplASTBuilder >> topBlock [
 	^ blockStack top
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTBuilder >> traceMode: aBoolean [
 	inTraceMode := aBoolean
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> unresolvedTokensDo: aTokensBlock [
 	| savedPosition |
 	savedPosition := rangeStream position.
@@ -1300,7 +1302,7 @@ GplASTBuilder >> unresolvedTokensDo: aTokensBlock [
 		ensure: [ rangeStream position: savedPosition ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTBuilder >> upToCr [
 	| done token tokens |
 	done := false.
@@ -1314,7 +1316,7 @@ GplASTBuilder >> upToCr [
 	^ tokens
 ]
 
-{ #category : #'syntax parts' }
+{ #category : 'syntax parts' }
 GplASTBuilder >> variable [
 	| varNode |
 	self assert: #variable = currentToken type.
@@ -1324,7 +1326,7 @@ GplASTBuilder >> variable [
 	^ varNode
 ]
 
-{ #category : #deprecated }
+{ #category : 'deprecated' }
 GplASTBuilder >> whileDoStatement: aFollowSet [
 	| loopNode followSet conditionNode |
 	self skipTokenExpected: 'WHILE'.

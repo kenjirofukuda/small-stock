@@ -7,12 +7,14 @@ storage cost: 4byte(2word) 16bit machine
 SEEEEEEE MMMMMMMM MMMMMMMM MMMMMMMM
 "
 Class {
-	#name : #GdsReal2,
-	#superclass : #GdsFloating,
-	#category : #'GdsFeel-CLI-DGL'
+	#name : 'GdsReal2',
+	#superclass : 'GdsFloating',
+	#category : 'GdsFeel-CLI-DGL',
+	#package : 'GdsFeel-CLI',
+	#tag : 'DGL'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsReal2 class >> acceptableExpression: aString [
 	"TODO: implements minValue maxValue"
 
@@ -24,17 +26,17 @@ GdsReal2 class >> acceptableExpression: aString [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReal2 class >> mode [
 	^ 8
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReal2 class >> storageCost [
 	^ 4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReal2 class >> typeString [
 	^ 'REAL2'
 ]

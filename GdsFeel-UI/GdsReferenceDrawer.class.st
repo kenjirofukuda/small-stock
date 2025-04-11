@@ -1,24 +1,26 @@
 Class {
-	#name : #GdsReferenceDrawer,
-	#superclass : #GdsElementDrawer,
+	#name : 'GdsReferenceDrawer',
+	#superclass : 'GdsElementDrawer',
 	#instVars : [
 		'refStructure'
 	],
-	#category : #'GdsFeel-UI-Drawer'
+	#category : 'GdsFeel-UI-Drawer',
+	#package : 'GdsFeel-UI',
+	#tag : 'Drawer'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsReferenceDrawer >> canDisplayExtent [
 	^self subclassResponsibility
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> drawExtentOn: aCanvas [
 	morph penColor: morph visiblePenColor during: [
 		self strokeVerticesOn: aCanvas points: element dataOutlinePoints.]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> drawItemFeedbackOn: aCanvas [
 	self strokeOutlineOn: aCanvas.
 	element ifNotNil: [
@@ -26,7 +28,7 @@ GdsReferenceDrawer >> drawItemFeedbackOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> elementsDrawOn: aCanvas [
 	self pushedPort: 
 		[ self visibleElements do: 
@@ -36,12 +38,12 @@ GdsReferenceDrawer >> elementsDrawOn: aCanvas [
 				element: each ] ]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> fillOutlineOn: aCanvas [
 	self pushedPort: [self privateFillOutlineOn: aCanvas] 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> fullDrawOn: aCanvas [
 	element state = #inStructure
 		ifTrue: [ 
@@ -52,19 +54,19 @@ GdsReferenceDrawer >> fullDrawOn: aCanvas [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsReferenceDrawer >> isDrawable [
 	^ true
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> optionalDrawOn: aCanvas [
 	super optionalDrawOn: aCanvas.
 	self canDisplayExtent 
 		ifTrue: [self drawExtentOn: aCanvas].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsReferenceDrawer >> privateFillOutlineOn: aCanvas [
 	morph 
 		drawLocalIgnoreItemOn: aCanvas 
@@ -75,7 +77,7 @@ GdsReferenceDrawer >> privateFillOutlineOn: aCanvas [
 				element: el].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsReferenceDrawer >> privateStrokeOutlineOn: aCanvas color: aColor [
 	morph 
 		drawLocalIgnoreItemOn: aCanvas 
@@ -87,13 +89,13 @@ GdsReferenceDrawer >> privateStrokeOutlineOn: aCanvas color: aColor [
 				color: aColor].	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsReferenceDrawer >> pushedPort: aBlock [
 	self assert: element isNil not.
 	morph viewport pushTransform: element transform during: aBlock.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReferenceDrawer >> refStructure [
 	^ element refStructure
 	"refStructure ifNil: [
@@ -103,7 +105,7 @@ GdsReferenceDrawer >> refStructure [
 	^refStructure"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsReferenceDrawer >> shallowStrokeOutlineOn: aCanvas color: aColor [
 	morph 
 		drawLocalIgnoreItemOn: aCanvas 
@@ -121,19 +123,19 @@ GdsReferenceDrawer >> shallowStrokeOutlineOn: aCanvas color: aColor [
 				
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> strokeEachColorOutlineOn: aCanvas [
 	self refStructure ifNil: [^self].
 	self pushedPort: 
 		[ self privateStrokeOutlineOn: aCanvas color: nil ]	
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> strokeOutlineOn: aCanvas [
 	self strokeSolidColorOutlineOn: aCanvas.
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> strokeSolidColorOutlineOn: aCanvas [
 	| color |
 	self refStructure ifNil: [^self].
@@ -144,7 +146,7 @@ GdsReferenceDrawer >> strokeSolidColorOutlineOn: aCanvas [
 		 self shallowStrokeOutlineOn: aCanvas color: color]. 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsReferenceDrawer >> visibleElements [
 	^self refStructure elements select: [:each | 
 		each isVisible and: [self isDrawableElement: each] ].

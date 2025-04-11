@@ -1,6 +1,6 @@
 Class {
-	#name : #GplLiteralGrammar,
-	#superclass : #PPCompositeParser,
+	#name : 'GplLiteralGrammar',
+	#superclass : 'PPCompositeParser',
 	#instVars : [
 		'natural',
 		'e',
@@ -23,10 +23,12 @@ Class {
 		'start',
 		'expression'
 	],
-	#category : #'GplPetitParser-Grammar'
+	#category : 'GplPetitParser-Grammar',
+	#package : 'GplPetitParser',
+	#tag : 'Grammar'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplLiteralGrammar class >> exampleWorkSpace [
 	| gg |
 	gg := GplLiteralGrammar new.
@@ -48,27 +50,27 @@ GplLiteralGrammar class >> exampleWorkSpace [
 	"#(nil $. '1') "
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> arrayLiteral [
 	^ vectorLiteral / scalarLiteral
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplLiteralGrammar >> asToken: aParser [
 	^ aParser gplPPToken
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> blankDelimiter [
 	^ #blank asParser plus flatten
 ]
 
-{ #category : #'grammar-parts' }
+{ #category : 'grammar-parts' }
 GplLiteralGrammar >> charLiteral [
 	^ charNormalLiteral / charMnemonicLiteral / charOctalLiteral
 ]
 
-{ #category : #'grammar-parts' }
+{ #category : 'grammar-parts' }
 GplLiteralGrammar >> charMnemonicLiteral [
 	^ $< asParser
 		,
@@ -81,12 +83,12 @@ GplLiteralGrammar >> charMnemonicLiteral [
 	"'GT' asParser / "
 ]
 
-{ #category : #'grammar-parts' }
+{ #category : 'grammar-parts' }
 GplLiteralGrammar >> charNormalLiteral [
 	^ PPPredicateObjectParser anyExceptAnyOf: '"<>'
 ]
 
-{ #category : #'grammar-parts' }
+{ #category : 'grammar-parts' }
 GplLiteralGrammar >> charOctalLiteral [
 	"TODO: currenty 177 over check not implemented"
 
@@ -101,53 +103,53 @@ GplLiteralGrammar >> charOctalLiteral [
 				ifTrue: [ token ] ]
 ]
 
-{ #category : #'grammar-parts' }
+{ #category : 'grammar-parts' }
 GplLiteralGrammar >> e [
 	^ $E asParser , integer
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> expression [
 	^ arrayLiteral
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> integer [
 	^ ($- asParser optional , natural) flatten
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> logical [
 	^ ('TRUE' asParser / 'FALSE' asParser / $1 asParser / $0 asParser)
 		flatten
 ]
 
-{ #category : #'grammar-parts' }
+{ #category : 'grammar-parts' }
 GplLiteralGrammar >> natural [
 	^ #digit asParser plus flatten
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> nullLiteral [
 	^ '""' asParser
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> numberVectorLiteral [
 	^ (scalarLiteral separatedBy: blankDelimiter) withoutSeparators
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> real [
 	^ realExponentFormat / realFixedPart
 ]
 
-{ #category : #'grammar-parts' }
+{ #category : 'grammar-parts' }
 GplLiteralGrammar >> realExponentFormat [
 	^ realFixedPart / integer , e
 ]
 
-{ #category : #'grammar-parts' }
+{ #category : 'grammar-parts' }
 GplLiteralGrammar >> realFixedPart [
 	^ $- asParser optional
 		,
@@ -155,22 +157,22 @@ GplLiteralGrammar >> realFixedPart [
 				/ (natural optional , $. asParser , natural))	"1.   <- 1.0"	" .1  <- 0.1"
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> scalarLiteral [
 	^ (real / integer / logical) flatten
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> start [
 	^ expression end
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> stringLiteral [
 	^ ($" asParser , charLiteral star , $" asParser) / nullLiteral
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GplLiteralGrammar >> tokenFor: aString [
 	| p |
 	p := aString asString asParser.
@@ -179,7 +181,7 @@ GplLiteralGrammar >> tokenFor: aString [
 	^ self asToken: p
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplLiteralGrammar >> vectorLiteral [
 	^ numberVectorLiteral / stringLiteral
 ]

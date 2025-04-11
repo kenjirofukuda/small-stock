@@ -1,10 +1,12 @@
 Class {
-	#name : #GplEvaluatorTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GplEvaluatorTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluateConsoleLine [
 	| input result expResult |
 	input := '1'.
@@ -77,7 +79,7 @@ GplEvaluatorTest >> testEvaluateConsoleLine [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluateJoinVector [
 	self should: [ evaluator evaluateLine: '"ABC" ,1' ] raise: GplError.
 	self should: [ evaluator evaluateLine: '1, "ABC"' ] raise: GplError.
@@ -88,28 +90,28 @@ GplEvaluatorTest >> testEvaluateJoinVector [
 		assert: (evaluator evaluateLine: '"ABC", "DEF"') gplString = 'ABCDEF'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluatePower1 [
 	self
 		shouldnt: [ evaluator evaluateLine: '2 POWER 16' ]
 		raise: GplRuntimeError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluatePower2 [
 	self
 		shouldnt: [ evaluator evaluateLine: '2 POWER 32' ]
 		raise: GplRuntimeError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluatePower3 [
 	self
 		should: [ evaluator evaluateLine: 'POWER ' ]
 		raise: GplRuntimeError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluatePower4 [
 	"missing right"
 
@@ -118,7 +120,7 @@ GplEvaluatorTest >> testEvaluatePower4 [
 		raise: GplRuntimeError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluatePower5 [
 	"missing left"
 
@@ -127,7 +129,7 @@ GplEvaluatorTest >> testEvaluatePower5 [
 		raise: GplRuntimeError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluatePowerScalar1 [
 	| input result expResult |
 	input := '2 POWER 5'.
@@ -136,7 +138,7 @@ GplEvaluatorTest >> testEvaluatePowerScalar1 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluatePowerScalar2 [
 	| input result expResult |
 	input := '13 POWER 2'.
@@ -145,7 +147,7 @@ GplEvaluatorTest >> testEvaluatePowerScalar2 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluatePowerScalar3 [
 	| input result expResult |
 	input := '5 POWER 3'.
@@ -154,7 +156,7 @@ GplEvaluatorTest >> testEvaluatePowerScalar3 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluatePowerVector1 [
 	| input result expResult |
 	input := '2 13 5 POWER 5 2 3'.
@@ -164,7 +166,7 @@ GplEvaluatorTest >> testEvaluatePowerVector1 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testEvaluateReshape [
 	self
 		should: [ evaluator evaluateLine: 'RESHAPE ' ]
@@ -206,7 +208,7 @@ GplEvaluatorTest >> testEvaluateReshape [
 		raise: GplRuntimeError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplEvaluatorTest >> testMonadicPlusSign [
 	| input result expResult |
 	input := '+ 1'.

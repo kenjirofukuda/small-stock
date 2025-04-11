@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsScalarTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GdsScalarTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsScalarTest >> testApplySymbolTo [
 	| expResult result |
 	"not a GdsDataStructure"
@@ -82,7 +84,7 @@ GdsScalarTest >> testApplySymbolTo [
 		raise: Exception
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsScalarTest >> testAtSubscript [
 	self
 		should: [ 1 asGdsValue atSubscript: 1 asGdsValue ]
@@ -99,12 +101,12 @@ GdsScalarTest >> testAtSubscript [
 		raise: GplRuntimeError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsScalarTest >> testIsList [
 	self deny: 1.0 asGdsValue isList
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsScalarTest >> testLength [
 	self assert: 1 asGdsValue length = 1.
 	self assert: 1.0 asGdsValue length = 1.
@@ -113,7 +115,7 @@ GdsScalarTest >> testLength [
 	self assert: $a asGdsValue length = 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsScalarTest >> testMostCompactValue [
 	self assert: 0.0 asGdsValue mostCompactValue = false asGdsValue.
 	self assert: 0.1 asGdsValue mostCompactValue = 0.1 asGdsValue.
@@ -123,7 +125,7 @@ GdsScalarTest >> testMostCompactValue [
 	self assert: 2.1 asGdsValue mostCompactValue = 2.1 asGdsValue
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsScalarTest >> testSign [
 	self assert: 0.0 asGdsValue sign = (GdsInteger fromSmalltalk: 0).
 	self assert: 0 asGdsValue sign = (GdsInteger fromSmalltalk: 0).

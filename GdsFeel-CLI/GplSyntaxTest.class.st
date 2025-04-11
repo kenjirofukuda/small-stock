@@ -1,17 +1,19 @@
 Class {
-	#name : #GplSyntaxTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GplSyntaxTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplSyntaxTest >> check: aGplStatement [
 	| tokens |
 	tokens := GplScanner tokensFrom: aGplStatement.
 	model checkFromTokens: tokens
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GplSyntaxTest >> setUp [
 	super setUp.
 	model := GplSyntax new.
@@ -19,7 +21,7 @@ GplSyntaxTest >> setUp [
 	model model: evaluator
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplSyntaxTest >> testAssignCheck [
 	"not presents ':=' "
 
@@ -52,7 +54,7 @@ GplSyntaxTest >> testAssignCheck [
 	self shouldnt: [ self check: 'A := TOD' ] raise: GplSyntaxError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplSyntaxTest >> testDeclareCheck [
 	self shouldnt: [ self check: '' ] raise: GplSyntaxError.
 	self shouldnt: [ self check: String tab ] raise: GplSyntaxError.
@@ -68,7 +70,7 @@ GplSyntaxTest >> testDeclareCheck [
 	self should: [ self check: 'CORDS' ] raise: GplSyntaxError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplSyntaxTest >> testDepthCheck [
 	"not presents ':=' "
 

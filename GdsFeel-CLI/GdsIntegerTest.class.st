@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsIntegerTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GdsIntegerTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 GdsIntegerTest >> testAcceptableExpression [
 	| input result expResult |
 	input := '1'.
@@ -41,7 +43,7 @@ GdsIntegerTest >> testAcceptableExpression [
 	self assert: result = expResult
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsIntegerTest >> testFromLiteral [
 	self assert: (GdsInteger fromLiteral: '1') asSmalltalkValue = 1.
 	self assert: (GdsInteger fromLiteral: '0') asSmalltalkValue = 0.
@@ -62,32 +64,32 @@ GdsIntegerTest >> testFromLiteral [
 	self should: [ GdsInteger fromLiteral: ' 1 ' ] raise: GplSyntaxError
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsIntegerTest >> testIsList [
 	self deny: (GdsInteger fromLiteral: '1') isList
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsIntegerTest >> testMode [
 	self assert: (GdsInteger fromLiteral: '1') mode = 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsIntegerTest >> testRank [
 	self assert: (GdsInteger fromLiteral: '1') rank = 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsIntegerTest >> testShape [
 	self assert: (GdsInteger fromLiteral: '1') shape = #()
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsIntegerTest >> testSize [
 	self assert: (GdsInteger fromLiteral: '1') size = 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsIntegerTest >> testTypeString [
 	self assert: (GdsInteger fromLiteral: '1') typeString = 'INTEGER'
 ]

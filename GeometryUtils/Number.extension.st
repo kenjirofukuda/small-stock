@@ -1,6 +1,6 @@
-Extension { #name : #Number }
+Extension { #name : 'Number' }
 
-{ #category : #'*GeometryUtils' }
+{ #category : '*GeometryUtils' }
 Number >> degressNormalized [
 	^ GeometryUtils degressNormalized: self
 ]

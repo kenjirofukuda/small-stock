@@ -9,15 +9,17 @@ values
 
 "
 Class {
-	#name : #GdsVector,
-	#superclass : #GdsArray,
+	#name : 'GdsVector',
+	#superclass : 'GdsArray',
 	#instVars : [
 		'values'
 	],
-	#category : #'GdsFeel-CLI-Data'
+	#category : 'GdsFeel-CLI-Data',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Data'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsVector class >> fromLiteral: aGplExpr [
 	| exprs gValues |
 	exprs := aGplExpr findTokens: ' '.
@@ -25,36 +27,36 @@ GdsVector class >> fromLiteral: aGplExpr [
 	^ self withAll: gValues
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsVector class >> fromSmalltalk: anObject [
 	^ self withAll: (anObject collect: [ :each | each asGdsValue ])
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsVector class >> gplStringValues: aCollection [
 	^ (aCollection collect: [ :elm | elm gplString ]) joinUsing: ' '
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsVector class >> gplStringValues: aCollection paddLeftWidth: aWidth [
 	^ (aCollection collect: [ :elm | elm gplString padLeftTo: aWidth ])
 		joinUsing: ' '
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsVector class >> gplStringValues: aCollection paddLeftWidth: aLeftWidth rightWidth: aRightWidth [
 	^ (aCollection
 		collect: [ :elm | elm gplStringLeftWidth: aLeftWidth rightWidth: aRightWidth ])
 		joinUsing: ' '
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsVector class >> gplStringValues: aCollection paddWidth: aWidth [
 	^ (aCollection collect: [ :elm | elm gplString padLeftTo: aWidth ])
 		joinUsing: ' '
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsVector class >> isAcceptableSmalltalkObject: anObject [
 	(anObject isKindOf: Collection)
 		ifFalse: [ ^ false ].
@@ -63,12 +65,12 @@ GdsVector class >> isAcceptableSmalltalkObject: anObject [
 		allSatisfy: [ :each | GdsNumber isAcceptableSmalltalkObject: each ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector class >> rank [
 	^ 1
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsVector class >> withAll: aGplValues [
 	| modes maxMode upperClazz vec |
 	modes := aGplValues collect: [ :gValue | gValue mode ].
@@ -85,7 +87,7 @@ GdsVector class >> withAll: aGplValues [
 	^ vec
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GdsVector >> add: aGdsDataStructure [
 	self
 		assert: (aGdsDataStructure isKindOf: GdsDataStructure)
@@ -94,30 +96,30 @@ GdsVector >> add: aGdsDataStructure [
 	values add: aGdsDataStructure
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsVector >> asSmalltalkValue [
 	^ (self elements collect: [ :each | each asSmalltalkValue copy ])
 		asArray
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsVector >> asVector [
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> at: aInteger [
 	^ [ values at: aInteger ]
 		on: Error
 		do: [ :ex | self runtimeError: 'SUBSCRIPTION OUT OF RANGE' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> at: aInteger put: aGplValue [
 	values at: aInteger put: aGplValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> atSubscript: aGdsDataStructure [
 	| indexes vec |
 	indexes := self indexesOfSubscript: aGdsDataStructure.
@@ -127,7 +129,7 @@ GdsVector >> atSubscript: aGdsDataStructure [
 		ifFalse: [ vec ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> atSubscript: aSubscript put: aGdsValue [
 	| subscripts |
 	(aSubscript isMemberOf: GdsList)
@@ -140,12 +142,12 @@ GdsVector >> atSubscript: aSubscript put: aGdsValue [
 	^ aGdsValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> copyFrom: from to: to [
 	^ values copyFrom: from to: to
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GdsVector >> copyValues [
 	| newValues |
 	newValues := values collect: [ :each | each copy ].
@@ -153,29 +155,29 @@ GdsVector >> copyValues [
 	values addAll: newValues
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> elements [
 	^ values asArray
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsVector >> gplString [
 	^ String streamContents: [ :s | self printGplOn: s ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> mode [
 	values ifNil: [ ^ GdsNull mode ].
 	values ifEmpty: [ ^ GdsNull mode ].
 	^ values first mode
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsVector >> printGplOn: aStream [
 	aStream nextPutAll: (self class gplStringValues: values)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsVector >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPutAll: '('.
@@ -183,18 +185,18 @@ GdsVector >> printOn: aStream [
 	aStream nextPutAll: ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> shape [
 	^ self size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> size [
 	values ifNil: [ ^ 0 ].
 	^ values size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsVector >> typeString [
 	values ifNil: [ ^ GdsNull typeString ].
 	values ifEmpty: [ ^ GdsNull typeString ].

@@ -1,31 +1,33 @@
 Class {
-	#name : #GdsReplySession,
-	#superclass : #GdsIoSession,
+	#name : 'GdsReplySession',
+	#superclass : 'GdsIoSession',
 	#instVars : [
 		'isPrompt',
 		'isCodeComplete'
 	],
-	#category : #'GdsFeel-CLI-Service'
+	#category : 'GdsFeel-CLI-Service',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Service'
 }
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GdsReplySession >> initialize [
 	super initialize.
 	isPrompt := false.
 	isCodeComplete := false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsReplySession >> isCodeComplete [
 	^ isCodeComplete
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsReplySession >> isPrompt [
 	^ isPrompt
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReplySession >> message [
 	| stream |
 	stream := WriteStream on: (String new: 4096).
@@ -34,7 +36,7 @@ GdsReplySession >> message [
 		contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReplySession >> message: aString [
 	| base64 nSplit unit rest start end fragment reply consume |
 	records := OrderedCollection new.
@@ -61,7 +63,7 @@ GdsReplySession >> message: aString [
 	self setSplitNumber: nSplit
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsReplySession >> send: aSocket [
 	| data |
 	self assert: [ records isEmpty not ].
@@ -73,17 +75,17 @@ GdsReplySession >> send: aSocket [
 	records := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReplySession >> setCodeCompleteState: aBoolean [
 	isCodeComplete := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReplySession >> setPrommptState: aBoolean [
 	isPrompt := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsReplySession >> setSplitNumber: nSplit [
 	records
 		do: [ :each | 

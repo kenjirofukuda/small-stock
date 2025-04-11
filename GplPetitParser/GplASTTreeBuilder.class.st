@@ -1,15 +1,17 @@
 Class {
-	#name : #GplASTTreeBuilder,
-	#superclass : #GplSubroutineGrammar,
-	#category : #'GplPetitParser-Grammar'
+	#name : 'GplASTTreeBuilder',
+	#superclass : 'GplSubroutineGrammar',
+	#category : 'GplPetitParser-Grammar',
+	#package : 'GplPetitParser',
+	#tag : 'Grammar'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTTreeBuilder >> assignVariableNameExpr [
 	^ super assignVariableNameExpr gplPPToken
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTTreeBuilder >> buildBinaryNode: aPPToken [
 	| ast |
 	ast := GplASTBinaryNode new.
@@ -34,7 +36,7 @@ GplASTTreeBuilder >> buildBinaryNode: aPPToken [
 	^ ast
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTTreeBuilder >> buildGplScalar: aPPToken [
 	| gplObject |
 	gplObject := aPPToken parsedValue
@@ -43,7 +45,7 @@ GplASTTreeBuilder >> buildGplScalar: aPPToken [
 	^ gplObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTTreeBuilder >> buildGplString: aPPToken [
 	| gplObject |
 	gplObject := aPPToken parsedValue second
@@ -61,7 +63,7 @@ GplASTTreeBuilder >> buildGplString: aPPToken [
 	^ gplObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplASTTreeBuilder >> buildGplVector: aPPToken [
 	| gplObject |
 	gplObject := aPPToken parsedValue
@@ -74,13 +76,13 @@ GplASTTreeBuilder >> buildGplVector: aPPToken [
 	^ gplObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTTreeBuilder >> expression [
 	^ [ :stream | stream collection ] asParser and , super expression
 		map: [ :source :node | node source: source ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplASTTreeBuilder >> left: aLargerPrecParser op: op right: aOwnPrecParser [
 	^ (super left: aLargerPrecParser op: op right: aOwnPrecParser)
 		gplPPToken
@@ -94,7 +96,7 @@ GplASTTreeBuilder >> left: aLargerPrecParser op: op right: aOwnPrecParser [
 			ast ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTTreeBuilder >> numberVectorLiteral [
 	^ super numberVectorLiteral gplPPToken
 		==> [ :token | 
@@ -107,14 +109,14 @@ GplASTTreeBuilder >> numberVectorLiteral [
 			ast ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTTreeBuilder >> parenthesis [
 	^ super parenthesis
 		==>
 			[ :token | (token at: 3) addParenthesis: (token first start to: token last start) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTTreeBuilder >> scalarLiteral [
 	^ super scalarLiteral	"gplPPToken ==> [ :token |
 		| gplObject ast |
@@ -127,7 +129,7 @@ GplASTTreeBuilder >> scalarLiteral [
 	]"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplASTTreeBuilder >> stringLiteral [
 	"GplExpressionTreeBuilder new stringLiteral parse: '""*** <BRON>ERROR<BROFF>***""' "
 

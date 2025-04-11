@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsAbstractIdTool,
-	#superclass : #GdsNullTool,
-	#category : #'GdsFeel-UI-Tools'
+	#name : 'GdsAbstractIdTool',
+	#superclass : 'GdsNullTool',
+	#category : 'GdsFeel-UI-Tools',
+	#package : 'GdsFeel-UI',
+	#tag : 'Tools'
 }
 
-{ #category : #action }
+{ #category : 'action' }
 GdsAbstractIdTool >> eventAction [
 	self elementDetectAction.
 	super eventAction.
@@ -12,7 +14,7 @@ GdsAbstractIdTool >> eventAction [
 	
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsAbstractIdTool >> eventActionAt: aWorldPoint element: aGdsElement [
 	| keyNumber |
 	keyNumber := aGdsElement ifNil: [0] ifNotNil: [aGdsElement keyNumber].
@@ -22,17 +24,17 @@ GdsAbstractIdTool >> eventActionAt: aWorldPoint element: aGdsElement [
 	
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsAbstractIdTool >> eventActionAt: aWorldPoint elementId: aKeyNumber [
 	self subclassResponsibility.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsAbstractIdTool >> idEnabledElements [
 	^self idEnabledElementsInverted: false.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsAbstractIdTool >> idEnabledElementsInverted: aBoolean [ 
 	| targetElements |
 	targetElements := morph visibleElements.
@@ -42,12 +44,12 @@ GdsAbstractIdTool >> idEnabledElementsInverted: aBoolean [
 			[ targetElements reject: [ :each | #(inId inItem) includes: each state ] ]
 ]
 
-{ #category : #'prompt message' }
+{ #category : 'prompt message' }
 GdsAbstractIdTool >> nearestPointMessage [
 	^'Enter nearest point for element.'.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsAbstractIdTool >> toolDidChange [
 	self prompt: self nearestPointMessage.
 ]

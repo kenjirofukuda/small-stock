@@ -9,20 +9,22 @@ elements
 
 "
 Class {
-	#name : #GdsList,
-	#superclass : #GdsDataStructure,
+	#name : 'GdsList',
+	#superclass : 'GdsDataStructure',
 	#instVars : [
 		'elements'
 	],
-	#category : #'GdsFeel-CLI-Data'
+	#category : 'GdsFeel-CLI-Data',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Data'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList class >> mode [
 	^ 6
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsList class >> withAll: aGplValues [
 	| newInstance |
 	newInstance := self new.
@@ -30,7 +32,7 @@ GdsList class >> withAll: aGplValues [
 	^ newInstance
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GdsList >> add: aGdsDataStructure [
 	self assert: (aGdsDataStructure isKindOf: GdsDataStructure).
 	(aGdsDataStructure isMemberOf: GdsList)
@@ -38,24 +40,24 @@ GdsList >> add: aGdsDataStructure [
 		ifFalse: [ elements add: aGdsDataStructure ]
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsList >> asVector [
 	^ self runtimeError: 'ILLIGAL DATA MODE'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> at: anIndex [
 	((1 to: self elements size) includes: anIndex)
 		ifFalse: [ ^ self runtimeError: 'SUBSCRIPT OUT OF BOUNDS' ].
 	^ self elements at: anIndex
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> atPutUsage [
 	^ 'Only: [{Integer}] := {Array}'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> atSubscript: aGdsDataStructure [
 	| indexes list |
 	aGdsDataStructure asVector size = 1
@@ -68,7 +70,7 @@ GdsList >> atSubscript: aGdsDataStructure [
 		ifFalse: [ list ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> atSubscript: aSubscript put: aGdsValue [
 	| index |
 	"subscipt := self subscriptArgumentCheck:  aSubscript."
@@ -80,17 +82,17 @@ GdsList >> atSubscript: aSubscript put: aGdsValue [
 	elements at: index put: aGdsValue
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsList >> displayUnit [
 	^ 4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> elements [
 	^ elements asArray
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsList >> gplString [
 	| numRepeat rem allUnits |
 	allUnits := OrderedCollection new.
@@ -108,7 +110,7 @@ GdsList >> gplString [
 		joinUsing: String cr , String cr
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsList >> gplStringUnit: aCollection [
 	| nRow nCol colWidth mat colStart cols spaceSize |
 	spaceSize := 2.
@@ -140,22 +142,22 @@ GdsList >> gplStringUnit: aCollection [
 	^ cols joinUsing: String cr
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GdsList >> initialize [
 	elements := OrderedCollection new
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsList >> isList [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> length [
 	^ self elements size
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsList >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPutAll: '('.
@@ -167,22 +169,22 @@ GdsList >> printOn: aStream [
 	aStream nextPutAll: ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> rank [
 	^ self runtimeError: 'ILLIGAL DATA MODE'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> shape [
 	^ self runtimeError: 'ILLIGAL DATA MODE'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> size [
 	^ self runtimeError: 'ILLIGAL DATA MODE'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> subscriptCheckForAssign: aSubscript [
 	| subscipt |
 	subscipt := aSubscript.
@@ -197,7 +199,7 @@ GdsList >> subscriptCheckForAssign: aSubscript [
 	^ self subscriptCheckFor: subscipt
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsList >> typeString [
 	^ 'LIST'
 ]

@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsVectorTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GdsVectorTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testApplySymbolTo [
 	| expResult result |
 	"{vector} {scalr}"
@@ -51,7 +53,7 @@ GdsVectorTest >> testApplySymbolTo [
 		raise: GplError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testAtSubscript [
 	self
 		assert:
@@ -133,7 +135,7 @@ GdsVectorTest >> testAtSubscript [
 		raise: GplRuntimeError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testFromLiteral [
 	| result expResult |
 	expResult := GdsVector fromLiteral: '1. 1. 0. 1.'.
@@ -143,7 +145,7 @@ GdsVectorTest >> testFromLiteral [
 	self should: [ GdsVector fromLiteral: '"ABC"' ] raise: GplSyntaxError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testIsAcceptableSmalltalkObject [
 	self
 		assert: [ (GdsVector isAcceptableSmalltalkObject: 1) = false ]
@@ -164,31 +166,31 @@ GdsVectorTest >> testIsAcceptableSmalltalkObject [
 		description: 'Vector not aceptable empty collection'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testIsList [
 	self deny: (GdsVector fromLiteral: '1 1 1 1') isList
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testLength [
 	self assert: (GdsVector fromLiteral: '1 ') length = 1.
 	self assert: (GdsVector fromLiteral: '1 1 ') length = 1.
 	self assert: (GdsVector fromLiteral: '1 1 1') length = 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testMode [
 	self assert: (GdsVector fromLiteral: '1 1 1 1') mode = 1.
 	self assert: (GdsVector fromLiteral: '1 1 1 1.0') mode = 3
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testShape [
 	self assert: (GdsVector fromLiteral: '1 1 1 1') shape = 4.
 	self assert: (GdsVector fromLiteral: '1 1 1 1.0 5.0') shape = 5
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testSign [
 	| result expResult |
 	expResult := GdsVector fromLiteral: '-1 0 1 1'.
@@ -196,13 +198,13 @@ GdsVectorTest >> testSign [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testSize [
 	self assert: (GdsVector fromLiteral: '1 1 1 1') size = 4.
 	self assert: (GdsVector fromLiteral: '1 1 1 1.0 5.0') size = 5
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsVectorTest >> testTypeString [
 	self
 		assert: (GdsVector fromLiteral: '1 1 1 1') typeString = 'LOGICAL'.

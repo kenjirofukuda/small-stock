@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsIoReply,
-	#superclass : #GdsIoRecord,
-	#category : #'GdsFeel-CLI-Service'
+	#name : 'GdsIoReply',
+	#superclass : 'GdsIoRecord',
+	#category : 'GdsFeel-CLI-Service',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Service'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsIoReply class >> consume: aindex base64: aString [
 	| reply |
 	reply := self new.
@@ -13,7 +15,7 @@ GdsIoReply class >> consume: aindex base64: aString [
 	^ reply
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsIoReply >> contents [
 	| s |
 	s := WriteStream on: (ByteArray new: self class bufferSize).
@@ -21,7 +23,7 @@ GdsIoReply >> contents [
 	^ s contents
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsIoReply >> message: aString [
 	self
 		base64:

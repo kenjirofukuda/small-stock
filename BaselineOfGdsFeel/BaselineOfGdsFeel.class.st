@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfGdsFeel,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfGdsFeel
+	#name : 'BaselineOfGdsFeel',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfGdsFeel',
+	#package : 'BaselineOfGdsFeel'
 }
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfGdsFeel >> baseline: spec [
 	<baseline>
 	spec

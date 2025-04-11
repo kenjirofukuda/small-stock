@@ -12,12 +12,14 @@ A GdsFloating is abstract class for Real number on GDSII.
 
 "
 Class {
-	#name : #GdsFloating,
-	#superclass : #GdsNumber,
-	#category : #'GdsFeel-CLI-DGL'
+	#name : 'GdsFloating',
+	#superclass : 'GdsNumber',
+	#category : 'GdsFeel-CLI-DGL',
+	#package : 'GdsFeel-CLI',
+	#tag : 'DGL'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsFloating class >> acceptRegexPattern [
 	"'(\+|-)?([0-9]+\.?[0-9]*|\.[0-9]+)([eE](\+|-)?[0-9]+)?'"
 
@@ -32,7 +34,7 @@ GdsFloating class >> acceptRegexPattern [
 	^ '(-)?([0-9]+\.?[0-9]*|\.[0-9]+)([E](-)?[0-9]+)?'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsFloating class >> coreceExpressionAsSmalltalkNumber: anGplExpression [
 	((anGplExpression beginsWith: '.')
 		or: [ anGplExpression beginsWith: '-.' ])
@@ -47,37 +49,37 @@ GdsFloating class >> coreceExpressionAsSmalltalkNumber: anGplExpression [
 	^ anGplExpression
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsFloating class >> fromSmalltalk: aObject [
 	^ GdsReal new stringValue: aObject asString
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsFloating class >> isAcceptableSmalltalkObject: anObject [
 	^ anObject isNumber and: [ anObject isKindOf: Float ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsFloating class >> maxValue [
 	^ 7.24e75
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsFloating class >> minValue [
 	^ -7.24e75
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsFloating class >> mode [
 	^ 3
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsFloating >> asSmalltalkValue [
 	^ self stringValue asLowercase asNumber asFloat
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsFloating >> gplString [
 	| expr |
 	expr := super gplString.
@@ -90,7 +92,7 @@ GdsFloating >> gplString [
 	^ expr asUppercase
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsFloating >> gplStringLeftWidth: aLeftWidth rightWidth: aRightWidth [
 	| gs items |
 	gs := self gplString.

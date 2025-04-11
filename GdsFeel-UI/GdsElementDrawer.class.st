@@ -29,22 +29,24 @@ strokeMaskImage
 
 "
 Class {
-	#name : #GdsElementDrawer,
-	#superclass : #Object,
+	#name : 'GdsElementDrawer',
+	#superclass : 'Object',
 	#instVars : [
 		'element',
 		'morph'
 	],
-	#category : #'GdsFeel-UI-Drawer'
+	#category : 'GdsFeel-UI-Drawer',
+	#package : 'GdsFeel-UI',
+	#tag : 'Drawer'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsElementDrawer class >> drawerClassForItemContext: aGdsItemContext [ 
 	^aGdsItemContext elementClass drawerClass
 
 ]
 
-{ #category : #'deprecated MVC style' }
+{ #category : 'deprecated MVC style' }
 GdsElementDrawer class >> fromElement: aGdsElement morph: aMorph [
 	| drawer |
 	drawer := aGdsElement drawerClass new.
@@ -53,32 +55,32 @@ GdsElementDrawer class >> fromElement: aGdsElement morph: aMorph [
 	^drawer
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsElementDrawer >> canDisplayKindForKey: aKey [ 
 	^ (element structure kinds atKey: aKey) isVisible
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsElementDrawer >> canDisplayOrigin [
 	^false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsElementDrawer >> canFill [
 	^morph fastDrawing not
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GdsElementDrawer >> defaultQDPatternIndex [
 	^26.
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsElementDrawer >> drawItemFeedbackOn: aCanvas [
 	self subclassResponsibility	
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsElementDrawer >> drawOriginOn: aCanvas [
 	| origin |
 	element vertices ifEmpty: [^self].
@@ -88,37 +90,37 @@ GdsElementDrawer >> drawOriginOn: aCanvas [
 		morph drawOn: aCanvas markDiamondPointAt: origin].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsElementDrawer >> element [
 	^ element
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsElementDrawer >> element: aGdsElement [
 	element := aGdsElement.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsElementDrawer >> elementFill [
 	self useFlatFill
 		ifTrue: [^self flatFill].
 	^BitmapFillStyle fromForm: self petternForFill
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsElementDrawer >> fillOutlineOn: aCanvas [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsElementDrawer >> flatFill [
 	^morph colorForElement: element.
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsElementDrawer >> fullDrawOn: aCanvas [
 	<todo: 're activate fillOutlineOn:'>
 	element isReference
@@ -132,7 +134,7 @@ GdsElementDrawer >> fullDrawOn: aCanvas [
 	self optionalDrawOn: aCanvas
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsElementDrawer >> isDrawable [
 	| drawer longSide pixelSize |
 	drawer := GdsElementDrawer fromElement: self element morph: morph.
@@ -141,54 +143,54 @@ GdsElementDrawer >> isDrawable [
 	^ pixelSize > (morph fastDrawing ifTrue: [ 10.0 ] ifFalse: [ 2.0 ])
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsElementDrawer >> isDrawableElement: aGdsElement [ 
 	| drawer |
 	drawer := GdsElementDrawer fromElement: aGdsElement morph: morph.
 	^ drawer isDrawable
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsElementDrawer >> morph: aMorph [
 	morph := aMorph.
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsElementDrawer >> optionalDrawOn: aCanvas [
 	self canDisplayOrigin
 		ifTrue: [self drawOriginOn: aCanvas].
 ]
 
-{ #category : #'drawing-attribute' }
+{ #category : 'drawing-attribute' }
 GdsElementDrawer >> petternForFill [
 	^ ColorForm 
 		mappingWhiteToTransparentFrom: (QDPattern formAt: self defaultQDPatternIndex)
 		blackAsColor: (morph colorForElement: element)
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsElementDrawer >> pixelSize: worldSize [ 
 	^morph viewport pixelSize: worldSize abs asPoint
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsElementDrawer >> strokeOutlineOn: aCanvas [
 	self subclassResponsibility
 ]
 
-{ #category : #'drawing-utility' }
+{ #category : 'drawing-utility' }
 GdsElementDrawer >> strokeVerticesOn: aCanvas [
 	self strokeVerticesOn: aCanvas points:  element vertices.
 ]
 
-{ #category : #'drawing-utility' }
+{ #category : 'drawing-utility' }
 GdsElementDrawer >> strokeVerticesOn: aCanvas points: aPoints [ 
 	morph drawOn: aCanvas polyLineVertices: aPoints.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsElementDrawer >> useFlatFill [
 	^false
 ]

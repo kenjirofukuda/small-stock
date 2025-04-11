@@ -1,17 +1,19 @@
 Class {
-	#name : #GplSingleHandler,
-	#superclass : #GplHandler,
-	#category : #'GdsFeel-CLI-Handler'
+	#name : 'GplSingleHandler',
+	#superclass : 'GplHandler',
+	#category : 'GdsFeel-CLI-Handler',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Handler'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplSingleHandler class >> commandNames [
 	^ ((self allSubclasses
 		collect: [ :clazz | clazz methodName asUppercase ])
 		reject: [ :each | each isEmpty ]) asArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplSingleHandler class >> functionNames [
 	"self functionNames"
 
@@ -19,21 +21,21 @@ GplSingleHandler class >> functionNames [
 		collect: [ :each | each methodName ]) asArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplSingleHandler class >> lookupHandlerClass: aCommandName [
 	^ self allSubclasses
 		detect: [ :clazz | clazz methodName sameAs: aCommandName ]
 		ifNone: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplSingleHandler class >> methodNames [
 	^ ((self allSubclasses
 		collect: [ :clazz | clazz methodName asUppercase ])
 		reject: [ :each | each isEmpty ]) asArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplSingleHandler class >> procedureNames [
 	"self procedureNames"
 

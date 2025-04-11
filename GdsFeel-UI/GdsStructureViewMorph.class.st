@@ -22,8 +22,8 @@ portStack
 
 "
 Class {
-	#name : #GdsStructureViewMorph,
-	#superclass : #PluggableLayersMorph,
+	#name : 'GdsStructureViewMorph',
+	#superclass : 'PluggableLayersMorph',
 	#traits : 'TGdsStructureDrawable',
 	#classTraits : 'TGdsStructureDrawable classTrait',
 	#instVars : [
@@ -42,10 +42,12 @@ Class {
 		'state',
 		'defaultToolClass'
 	],
-	#category : #'GdsFeel-UI-Morph'
+	#category : 'GdsFeel-UI-Morph',
+	#package : 'GdsFeel-UI',
+	#tag : 'Morph'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsStructureViewMorph class >> exampleMorphOnly [
 	"GdsStructureMorph exampleMorphOnly"
 	| window |
@@ -54,27 +56,27 @@ GdsStructureViewMorph class >> exampleMorphOnly [
 	(window submorphOfClass: self) color: Color black.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStructureViewMorph >> autoFitOnResize [
 	^ autoFitOnResize ifNil: [ autoFitOnResize := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStructureViewMorph >> autoFitOnResize: aBoolean [
 	autoFitOnResize := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStructureViewMorph >> backgroundColor [
 	^ GdsFeelMorphic backgroundColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStructureViewMorph >> backgroundColor: aColor [
 	self color: aColor
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> bindCurrentItemFor: aGdsStructure [
 	self unbindCurrentItemFor: aGdsStructure.
 	aGdsStructure currentItem
@@ -85,21 +87,21 @@ GdsStructureViewMorph >> bindCurrentItemFor: aGdsStructure [
 				to: self ]
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GdsStructureViewMorph >> clearAllProxyMorphs [
 	self structure ifNil: [ ^ self ].
 	self structure elements do: [ :each |
 		self clearProxyMorph: each ]
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GdsStructureViewMorph >> clearProxyMorph: aGdsElement [
 	(aGdsElement valueOfProperty: #proxyMorph ifAbsent: [  ])
 		ifNotNil: [ :m | self removeMorph: m ].
 	aGdsElement removeProperty: #proxyMorph
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> clipedElements [
 	"^ self structure elements"
 	^ self clipedElements:  self viewport worldViewBounds.
@@ -107,7 +109,7 @@ GdsStructureViewMorph >> clipedElements [
 	
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> clipedElements: viewBounds [
 	^model liveElements select: [:each |
 		each findBounds intersects: viewBounds.].
@@ -115,14 +117,14 @@ GdsStructureViewMorph >> clipedElements: viewBounds [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStructureViewMorph >> color: aColor [
 	super color: aColor.
 	self removeCachedCanvas.
 	self invalidRect: self bounds.
 ]
 
-{ #category : #viewport }
+{ #category : 'viewport' }
 GdsStructureViewMorph >> createViewport [
 	| vp |
 	vp := GdsViewport new.
@@ -139,33 +141,33 @@ GdsStructureViewMorph >> createViewport [
 
 ]
 
-{ #category : #deprecated }
+{ #category : 'deprecated' }
 GdsStructureViewMorph >> defaultBoundsDeprecated [
 	^0@0 corner: 512@342.
 		
 	
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GdsStructureViewMorph >> defaultOffCanvasDepth [
 	^32
 	
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> drawInlineOn: aCanvas [
 	super drawOn: aCanvas.
 	self drawOffOn: aCanvas
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> drawLocalIgnoreItemOn: aLocalCanvas [
 	self drawLocalIgnoreItemOn: aLocalCanvas elements: self visibleElements
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> drawLocalIgnoreItemOn: aLocalCanvas elements: aElements [
 	self 
 		drawLocalIgnoreItemOn: aLocalCanvas 
@@ -174,7 +176,7 @@ GdsStructureViewMorph >> drawLocalIgnoreItemOn: aLocalCanvas elements: aElements
 			self drawOn: canvas element: element] 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> drawLocalIgnoreItemOn: aLocalCanvas elements: aElements drawBlock: aDrawBlock [
 	|  sElements pElements consumed|
 	self fastDrawing 
@@ -200,7 +202,7 @@ GdsStructureViewMorph >> drawLocalIgnoreItemOn: aLocalCanvas elements: aElements
 					consumed add: e keyNumber]]]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> drawOffOn: aCanvas [
 	model ifNil: [^self].
 	offCanvas
@@ -216,23 +218,23 @@ GdsStructureViewMorph >> drawOffOn: aCanvas [
 			aCanvas drawImage: offCanvas form at: self pixelBounds origin.].
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> drawOn: aCanvas [
 	self viewport ifNil: [^super drawOn: aCanvas].
 	self drawInlineOn: aCanvas.
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas centerCircleAt: aWorldPoint [
 	self drawOn: aCanvas centerCircleAt: aWorldPoint  pixelUnit: 5.
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas centerCircleAt: aWorldPoint pixelUnit: unit [ 
 	self drawOn: aCanvas centerCircleAt: aWorldPoint  pixelUnit: unit width: 1.
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas centerCircleAt: aWorldPoint pixelUnit: unit width: width [
 	| np1 box|
 	np1 := self viewport xy2hv: aWorldPoint.
@@ -240,7 +242,7 @@ GdsStructureViewMorph >> drawOn: aCanvas centerCircleAt: aWorldPoint pixelUnit: 
 	aCanvas frameOval: box width: width color: self penColor.
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas centerCrossAt: aWorldPoint pixelUnit: unit width: width [
 	| np1 |
 	np1 := self viewport xy2hv: aWorldPoint.
@@ -249,12 +251,12 @@ GdsStructureViewMorph >> drawOn: aCanvas centerCrossAt: aWorldPoint pixelUnit: u
 	
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> drawOn: aCanvas element: aGdsElement [ 
 	self drawOn: aCanvas element: aGdsElement  color: (self colorForElement: aGdsElement)
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> drawOn: aCanvas element: aGdsElement  color: aColor [
 	| drawer |
 	self
@@ -266,7 +268,7 @@ GdsStructureViewMorph >> drawOn: aCanvas element: aGdsElement  color: aColor [
 			drawer fullDrawOn: aCanvas]
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aLocalCanvas elements: elements drawingSelector: aDrawSel [
 	elements ifNil: [^self].
 	elements ifEmpty: [^self].
@@ -277,7 +279,7 @@ GdsStructureViewMorph >> drawOn: aLocalCanvas elements: elements drawingSelector
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas fillPolyLineVertices: aPointArray [
 	| hvPoins |	
 	aPointArray isEmpty ifTrue: [^self].
@@ -286,7 +288,7 @@ GdsStructureViewMorph >> drawOn: aCanvas fillPolyLineVertices: aPointArray [
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas fittingFillString: aObject at: aWorldPoint extent: aWorldExtent [
 	self 
 		drawOn: aCanvas 
@@ -298,7 +300,7 @@ GdsStructureViewMorph >> drawOn: aCanvas fittingFillString: aObject at: aWorldPo
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas fittingString: aObject at: aWorldPoint extent: aWorldExtent pointsBlock: aBlock [
 	| defaultFTDesc glyph translatedContours finalTransform scaleTransform locationTransform heightRatio widthRatio ttBounds string xStart colPoints np1 skipBlock |
 	defaultFTDesc := FTBoxTextPrimitive defaultFont.
@@ -350,7 +352,7 @@ GdsStructureViewMorph >> drawOn: aCanvas fittingString: aObject at: aWorldPoint 
 			xStart := xStart + glyph advanceX asFloat ]
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas fittingStrokeString: aObject at: aWorldPoint extent: aWorldExtent [
 	self 
 		drawOn: aCanvas 
@@ -362,7 +364,7 @@ GdsStructureViewMorph >> drawOn: aCanvas fittingStrokeString: aObject at: aWorld
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas fittingStrokeString: aObject bounds: aWorldBounds [
 	self 
 		drawOn: aCanvas 
@@ -371,7 +373,7 @@ GdsStructureViewMorph >> drawOn: aCanvas fittingStrokeString: aObject bounds: aW
 		extent: aWorldBounds extent.
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas fittingStrokeStringOrig: aObject at: aWorldPoint extent: aWorldExtent [
 	| origin extent string  morphicBounds ttbox|
 	string := aObject asString.
@@ -390,7 +392,7 @@ GdsStructureViewMorph >> drawOn: aCanvas fittingStrokeStringOrig: aObject at: aW
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas fittingStrokeStringOrig: aObject bounds: aWorldBounds [
 	self 
 		drawOn: aCanvas 
@@ -399,13 +401,13 @@ GdsStructureViewMorph >> drawOn: aCanvas fittingStrokeStringOrig: aObject bounds
 		extent: aWorldBounds extent.
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas lineFrom: aWorldPoint1 to: aWorldPoint2 [ 
 	self drawOn: aCanvas lineFrom: aWorldPoint1 to: aWorldPoint2 width: 1.
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas lineFrom: aWorldPoint1 to: aWorldPoint2 width: width [
 	| np1 np2 |
 	np1 := self viewport xy2hv: aWorldPoint1.
@@ -414,25 +416,25 @@ GdsStructureViewMorph >> drawOn: aCanvas lineFrom: aWorldPoint1 to: aWorldPoint2
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas lineSegment: aLineSegment [
 	self drawOn: aCanvas lineSegment: aLineSegment width: 1
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas lineSegment: aLineSegment width: width [
 	self drawOn: aCanvas lineFrom: aLineSegment start to: aLineSegment end width: width.
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas markDiamondPointAt: aWorldPoint [
 	self drawOn: aCanvas markDiamondPointAt: aWorldPoint pixelUnit: 5.
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas markDiamondPointAt: aWorldPoint pixelUnit: unit [
 	| points |
 	points := self pixelPointsOfDiamondPointAt: aWorldPoint pixelUnit: unit.
@@ -440,14 +442,14 @@ GdsStructureViewMorph >> drawOn: aCanvas markDiamondPointAt: aWorldPoint pixelUn
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas markPointAt: aWorldPoint [
 	self drawOn: aCanvas  markPointAt: aWorldPoint  pixelUnit: 4.
 	
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas markPointAt: aWorldPoint pixelUnit: unit [
 	| center p1 p2 p3 p4|
 	center := self viewport xy2hv: aWorldPoint.
@@ -460,7 +462,7 @@ GdsStructureViewMorph >> drawOn: aCanvas markPointAt: aWorldPoint pixelUnit: uni
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas pointAt: aWorldPoint [
 	| np1 |
 	np1 := self viewport xy2hv: aWorldPoint.
@@ -468,14 +470,14 @@ GdsStructureViewMorph >> drawOn: aCanvas pointAt: aWorldPoint [
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas polyLineVertices: aPointArray [
 	self drawOn: aCanvas polyLineVertices: aPointArray width: 1.
 	
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas polyLineVertices: aPointArray width: aWidth [
 	| p1 p2 |
 	aPointArray ifEmpty: [^self].
@@ -487,13 +489,13 @@ GdsStructureViewMorph >> drawOn: aCanvas polyLineVertices: aPointArray width: aW
 	
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas strokeBounds: aBounds [
 	self drawOn:  aCanvas polyLineVertices: (GeometryUtils verticesFromBounds: aBounds).		
 
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> drawOn: aCanvas text: aObject at: aWorldPoint [
 	| center |
 	center := self viewport xy2hv: aWorldPoint.
@@ -501,7 +503,7 @@ GdsStructureViewMorph >> drawOn: aCanvas text: aObject at: aWorldPoint [
 	
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GdsStructureViewMorph >> extent: aPoint [
 	super extent: aPoint.
 	self removeCachedCanvas.
@@ -514,18 +516,18 @@ GdsStructureViewMorph >> extent: aPoint [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> fastDrawing [
 	^ fastDrawing
 	
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GdsStructureViewMorph >> findNearestElementByPoint: aPoint [
 	^self structure findNearestElementByPoint: aPoint elements: self visibleElements. 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> fireFirstdrawing [
 	fastDrawing := true.
 	processFirstDrawing ifNotNil: [ processFirstDrawing terminate ].	
@@ -535,54 +537,54 @@ GdsStructureViewMorph >> fireFirstdrawing [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsStructureViewMorph >> handleEventsBySelf [
 	^ handleEventsBySelf ifNil: [ handleEventsBySelf := true ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsStructureViewMorph >> handleEventsBySelf: aBoolean [
 	handleEventsBySelf := aBoolean
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> handlesKeyboard: anEvent [
 	self viewport ifNil: [^false].
 	^ self handleEventsBySelf.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> handlesMouseDown: anEvent [
 	self viewport ifNil: [ ^ false ].
 	^ self handleEventsBySelf and: [ self pixelBounds containsPoint: anEvent cursorPoint ]
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> handlesMouseOver: anEvent [
 	self viewport ifNil: [^false].
 	^ self handleEventsBySelf.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> handlesMouseWheel: event [
 	^ self handleEventsBySelf.
 ]
 
-{ #category : #'state tracking' }
+{ #category : 'state tracking' }
 GdsStructureViewMorph >> inState: stateName [
 
 
 	^ (state at: stateName ifAbsent: nil) notNil
 ]
 
-{ #category : #'state tracking' }
+{ #category : 'state tracking' }
 GdsStructureViewMorph >> inState: stateName do: aBlock [
 
 
 	^ (state at: stateName ifAbsent: nil) ifNotNil: aBlock 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> initialize [
 	super initialize.
 	self clipSubmorphs: true.
@@ -592,19 +594,19 @@ GdsStructureViewMorph >> initialize [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> initializeLayers [
 
 ]
 
-{ #category : #viewport }
+{ #category : 'viewport' }
 GdsStructureViewMorph >> insideViewLevels [
 	viewRange ifNil: [^true].
 	^self viewRange includes: self portStack size - 1.
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> inspectFastdrawing: anAnnouncement [
 	| current diff |
 	current := Time microsecondClockValue.
@@ -616,27 +618,27 @@ GdsStructureViewMorph >> inspectFastdrawing: anAnnouncement [
 	
 ]
 
-{ #category : #'damage control' }
+{ #category : 'damage control' }
 GdsStructureViewMorph >> invalidBounds: aRectangle [
 	false
 		ifTrue: [ ^self invalidRect: (self bounds) ].
 	self invalidRect: (self updateBoundsFromWorldRectangle: aRectangle).
 ]
 
-{ #category : #'damage control' }
+{ #category : 'damage control' }
 GdsStructureViewMorph >> invalidBoundsForSegment: aLineSegment [
 	self invalidBoundsFromPoint1:  aLineSegment start point2: aLineSegment end. 
 
 ]
 
-{ #category : #'damage control' }
+{ #category : 'damage control' }
 GdsStructureViewMorph >> invalidBoundsFromPoint1: aPoint1 point2: aPoint2 [
 	false ifTrue: [ ^self invalidRect: self bounds ].
 	self invalidRect: (self updateBoundsFromPoint1: aPoint1 point2: aPoint2 )
 
 ]
 
-{ #category : #'damage control' }
+{ #category : 'damage control' }
 GdsStructureViewMorph >> invalidMarkDiamondAt: aWorldPoint [
 	| aRectangle |
 	aRectangle := GeometryUtils 
@@ -645,23 +647,23 @@ GdsStructureViewMorph >> invalidMarkDiamondAt: aWorldPoint [
 	self invalidRect: aRectangle.
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GdsStructureViewMorph >> isElementCollection: anObject [
 	^((anObject isKindOf: Collection) and: [anObject notEmpty and: [anObject first isKindOf: GdsElement]])
 
 ]
 
-{ #category : #'tests-as yet unclassified' }
+{ #category : 'tests-as yet unclassified' }
 GdsStructureViewMorph >> isNavigarionClick: aMouseButtonEvent [ 
 	^ aMouseButtonEvent yellowButtonPressed 
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GdsStructureViewMorph >> itemAttributeChanged: anAnnouncer [
 	anAnnouncer traceCr.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> model: aGdsStructure [
 	| oldModel |
 	self structureWillChange.
@@ -679,7 +681,7 @@ GdsStructureViewMorph >> model: aGdsStructure [
 	self changed
 ]
 
-{ #category : #'event handling 2' }
+{ #category : 'event handling 2' }
 GdsStructureViewMorph >> mouseDown2: evt [
 
 	| pos |
@@ -692,7 +694,7 @@ GdsStructureViewMorph >> mouseDown2: evt [
 		 ].
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> mouseDown: anEvent [
 	self handleEventsBySelf
 		ifFalse: [ ^ super mouseDown: anEvent ].
@@ -703,34 +705,34 @@ GdsStructureViewMorph >> mouseDown: anEvent [
 			self setProperty: #gdsTracking toValue: track ]
 ]
 
-{ #category : #'event handling 2' }
+{ #category : 'event handling 2' }
 GdsStructureViewMorph >> mouseEnter2: evt [
 
 	self setState: #mouseIn
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> mouseEnter: anEvent [
 	self handleEventsBySelf 
 		ifFalse: [ ^ super mouseEnter: anEvent ].
 	anEvent hand newKeyboardFocus: self.
 ]
 
-{ #category : #'event handling 2' }
+{ #category : 'event handling 2' }
 GdsStructureViewMorph >> mouseLeave2: evt [
 	self 
 		resetState: #mouseIn;
 		resetState: #panning.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> mouseLeave: anEvent [
 	self handleEventsBySelf 
 		ifFalse: [ ^ super mouseLeave: anEvent ].
 	anEvent hand newKeyboardFocus: nil.	
 ]
 
-{ #category : #'event handling 2' }
+{ #category : 'event handling 2' }
 GdsStructureViewMorph >> mouseMove2: evt [
 
 	self inState: #panning do: [ :startPanAndPos |
@@ -744,7 +746,7 @@ GdsStructureViewMorph >> mouseMove2: evt [
 	] 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> mouseMove: anEvent [
 	self handleEventsBySelf
 		ifFalse: [ ^ super mouseMove: anEvent ].
@@ -754,7 +756,7 @@ GdsStructureViewMorph >> mouseMove: anEvent [
 			track viewMove ]
 ]
 
-{ #category : #'event handling 2' }
+{ #category : 'event handling 2' }
 GdsStructureViewMorph >> mouseUp2: evt [
 
 	"self halt."
@@ -762,7 +764,7 @@ GdsStructureViewMorph >> mouseUp2: evt [
 	self resetState: #panning
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> mouseUp: anEvent [
 	self handleEventsBySelf
 		ifFalse: [ ^ super mouseUp: anEvent ].
@@ -774,7 +776,7 @@ GdsStructureViewMorph >> mouseUp: anEvent [
 			self removeProperty: #gdsTracking ]
 ]
 
-{ #category : #'event handling 2' }
+{ #category : 'event handling 2' }
 GdsStructureViewMorph >> mouseWheel2: event [
 
 
@@ -797,7 +799,7 @@ GdsStructureViewMorph >> mouseWheel2: event [
 	]  
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> mouseWheel: event [
 	| center dir localPoint |
 	self handleEventsBySelf 
@@ -816,7 +818,7 @@ GdsStructureViewMorph >> mouseWheel: event [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsStructureViewMorph >> mustBeAllPoints: aPointCollection [
 	"Why large positive integer included."
 	(aPointCollection allSatisfy: [:each | each isMemberOf: Point ])
@@ -826,32 +828,32 @@ GdsStructureViewMorph >> mustBeAllPoints: aPointCollection [
 	^aPointCollection.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> normalDrawing [
 	fastDrawing := false.
 	self removeCachedCanvas.
 	self changed
 ]
 
-{ #category : #viewport }
+{ #category : 'viewport' }
 GdsStructureViewMorph >> peekViewport [
 	^self portStack last. 
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> penColor [
 	"penColor ifNil: [penColor := self visiblePenColor]."
 	^penColor.
 	
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> penColor: aColor [
 	penColor := aColor.
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> penColor: aColor during: aBlock [
 	| savedColor |
 	savedColor := self penColor.
@@ -860,12 +862,12 @@ GdsStructureViewMorph >> penColor: aColor during: aBlock [
 	self penColor: savedColor.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsStructureViewMorph >> pixelBounds [
 	^self innerBounds
 ]
 
-{ #category : #'drawing-world' }
+{ #category : 'drawing-world' }
 GdsStructureViewMorph >> pixelPointsOfDiamondPointAt: aWorldPoint pixelUnit: unit [
 	| center p1 p2 p3 p4 points |
 	center := self viewport xy2hv: aWorldPoint.
@@ -877,7 +879,7 @@ GdsStructureViewMorph >> pixelPointsOfDiamondPointAt: aWorldPoint pixelUnit: uni
 	^points	
 ]
 
-{ #category : #viewport }
+{ #category : 'viewport' }
 GdsStructureViewMorph >> popViewport [
 	| result |
 	result := self portStack last. 
@@ -885,13 +887,13 @@ GdsStructureViewMorph >> popViewport [
 	^result.
 ]
 
-{ #category : #viewport }
+{ #category : 'viewport' }
 GdsStructureViewMorph >> portStack [
 	portStack ifNil: [portStack := OrderedCollection new.].
 	^portStack
 ]
 
-{ #category : #viewport }
+{ #category : 'viewport' }
 GdsStructureViewMorph >> pushViewport: aGdsViewport [
 	self assert: aGdsViewport isNil not.
 	self portStack add: aGdsViewport.
@@ -899,14 +901,14 @@ GdsStructureViewMorph >> pushViewport: aGdsViewport [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsStructureViewMorph >> redraw [
 	self removeOffCanvas.
 	self changed
 	
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> redrawElements [
 	colClipBounds ifNil: [^self visibleElements].
 	colClipBounds ifEmpty: [^self visibleElements].
@@ -915,12 +917,12 @@ GdsStructureViewMorph >> redrawElements [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsStructureViewMorph >> referenceEnabledStructureNames [
 	^ self model referenceEnabledStructureNames
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> release [
 	"self halt."
 
@@ -938,24 +940,24 @@ GdsStructureViewMorph >> release [
 	super release
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> releaseViewports [
 	viewport := nil.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsStructureViewMorph >> removeCachedCanvas [
 	self removeOffCanvas.
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsStructureViewMorph >> removeOffCanvas [
 	offCanvas := nil.
 
 ]
 
-{ #category : #'state tracking' }
+{ #category : 'state tracking' }
 GdsStructureViewMorph >> resetState: stateName [
 
 	state at: stateName put: nil.
@@ -965,7 +967,7 @@ GdsStructureViewMorph >> resetState: stateName [
 	self changed.
 ]
 
-{ #category : #'state tracking' }
+{ #category : 'state tracking' }
 GdsStructureViewMorph >> setState: stateName [
 
 	state at: stateName put: true.
@@ -975,7 +977,7 @@ GdsStructureViewMorph >> setState: stateName [
 	self changed.
 ]
 
-{ #category : #'state tracking' }
+{ #category : 'state tracking' }
 GdsStructureViewMorph >> setState: stateName value: aValue [
 
 	state at: stateName put: aValue.
@@ -985,7 +987,7 @@ GdsStructureViewMorph >> setState: stateName value: aValue [
 	self changed.
 ]
 
-{ #category : #'zoom animation' }
+{ #category : 'zoom animation' }
 GdsStructureViewMorph >> startZooming: zoom center: center [
 	| start end |
 
@@ -998,7 +1000,7 @@ GdsStructureViewMorph >> startZooming: zoom center: center [
 	self startStepping
 ]
 
-{ #category : #'zoom animation' }
+{ #category : 'zoom animation' }
 GdsStructureViewMorph >> stepViewing [
 
 	self inState: #zooming do: [ :zoomState |
@@ -1029,12 +1031,12 @@ GdsStructureViewMorph >> stepViewing [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> strokeOn: aCanvas element: aGdsElement [
 	self strokeOn:  aCanvas element: aGdsElement color: nil
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsStructureViewMorph >> strokeOn: aCanvas element: aGdsElement  color: aColor [
 	| drawer |
 	self
@@ -1046,17 +1048,17 @@ GdsStructureViewMorph >> strokeOn: aCanvas element: aGdsElement  color: aColor [
 				drawer strokeOutlineOn: aCanvas]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsStructureViewMorph >> structure [
 	^self model.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsStructureViewMorph >> structure: aGdsStructure [
 	self model: aGdsStructure
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> structureDidBind [
 	viewport := self createViewport.
 	GdsFeel dependentEnabled
@@ -1066,19 +1068,19 @@ GdsStructureViewMorph >> structureDidBind [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> structureDidChanged [
 	self removeOffCanvas.
 	self changed.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> structureDidUnbind [
 	self releaseViewports.
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> structureWillChange [
 	self model
 		ifNotNil: [ 
@@ -1086,19 +1088,19 @@ GdsStructureViewMorph >> structureWillChange [
 				ifTrue: [ self model layers removeDependent: self ] ]
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsStructureViewMorph >> trackingObject [
 	^ (self valueOfProperty: #gdsTracking ifAbsent: [])
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdsStructureViewMorph >> unbindCurrentItemFor: aGdsStructure [
 	aGdsStructure currentItem
 		ifNotNil: [ :item | item announcer unsubscribe: self ]
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GdsStructureViewMorph >> update: anObject [
 	(anObject == #newLayer)
 		ifTrue: [self changed: #newLayer].
@@ -1117,7 +1119,7 @@ GdsStructureViewMorph >> update: anObject [
 	^super update: anObject.
 ]
 
-{ #category : #'damage control' }
+{ #category : 'damage control' }
 GdsStructureViewMorph >> updateBoundsFromPoint1: aPoint1 point2: aPoint2 [
 	| upBounds p1 p2 left top right bottom |
 	p1 := self viewport xy2hv: aPoint1.
@@ -1132,12 +1134,12 @@ GdsStructureViewMorph >> updateBoundsFromPoint1: aPoint1 point2: aPoint2 [
 	^upBounds
 ]
 
-{ #category : #'damage control' }
+{ #category : 'damage control' }
 GdsStructureViewMorph >> updateBoundsFromWorldRectangle: aRectangle [
 	^self updateBoundsFromPoint1: aRectangle origin point2: aRectangle corner.
 ]
 
-{ #category : #'zoom animation' }
+{ #category : 'zoom animation' }
 GdsStructureViewMorph >> updateZoom: zoom cursor: cursorPoint [
 
 	| zoomState targetZoom start end now fraction newCenter |
@@ -1169,77 +1171,77 @@ GdsStructureViewMorph >> updateZoom: zoom cursor: cursorPoint [
 
 ]
 
-{ #category : #'viewing navigation' }
+{ #category : 'viewing navigation' }
 GdsStructureViewMorph >> viewFit [
 	self viewport ifNil: [^self].
 	self viewport viewFit
 ]
 
-{ #category : #'viewing navigation' }
+{ #category : 'viewing navigation' }
 GdsStructureViewMorph >> viewMoveDown [
 	self viewport ifNil: [^self].
 	self viewport viewMove: (0.0@self viewMoveRatio negated).
 
 ]
 
-{ #category : #'viewing navigation' }
+{ #category : 'viewing navigation' }
 GdsStructureViewMorph >> viewMoveLeft [
 	self viewport ifNil: [^self].
 	self viewport viewMove: (self viewMoveRatio negated@0.0).
 
 ]
 
-{ #category : #'viewing navigation' }
+{ #category : 'viewing navigation' }
 GdsStructureViewMorph >> viewMoveRatio [
 	^0.2
 
 ]
 
-{ #category : #'viewing navigation' }
+{ #category : 'viewing navigation' }
 GdsStructureViewMorph >> viewMoveRight [
 	self viewport ifNil: [^self].
 	self viewport viewMove: (self viewMoveRatio@0.0).
 
 ]
 
-{ #category : #'viewing navigation' }
+{ #category : 'viewing navigation' }
 GdsStructureViewMorph >> viewMoveUp [
 	self viewport ifNil: [^self].
 	self viewport viewMove: (0.0@self viewMoveRatio).
 
 ]
 
-{ #category : #viewport }
+{ #category : 'viewport' }
 GdsStructureViewMorph >> viewRange [
 	^viewRange
 	
 ]
 
-{ #category : #viewport }
+{ #category : 'viewport' }
 GdsStructureViewMorph >> viewRangeFrom: minValue to: maxValue [
 	viewRange := Interval from: minValue to: maxValue.
 	self changed: #viewRange
 ]
 
-{ #category : #'viewing navigation' }
+{ #category : 'viewing navigation' }
 GdsStructureViewMorph >> viewZoomDouble [
 	self viewport ifNil: [^self].
 	self viewport zoom: 2.0
 ]
 
-{ #category : #'viewing navigation' }
+{ #category : 'viewing navigation' }
 GdsStructureViewMorph >> viewZoomHalf [
 	self viewport ifNil: [^self].
 	self viewport zoom: 0.5
 ]
 
-{ #category : #viewport }
+{ #category : 'viewport' }
 GdsStructureViewMorph >> viewport [
 	^ viewport 
 	
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GdsStructureViewMorph >> worldPointOfEvent: event [
 	| localPoint worldPoint |	
 	localPoint := event cursorPoint - self innerBounds origin.

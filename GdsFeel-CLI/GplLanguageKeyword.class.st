@@ -1,13 +1,15 @@
 Class {
-	#name : #GplLanguageKeyword,
-	#superclass : #GplSyntaxEntity,
+	#name : 'GplLanguageKeyword',
+	#superclass : 'GplSyntaxEntity',
 	#instVars : [
 		'parent'
 	],
-	#category : #'GdsFeel-CLI-AST'
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplLanguageKeyword class >> specText [
 	^ '
 ABS
@@ -108,17 +110,17 @@ CASE
 	'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplLanguageKeyword >> foo [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplLanguageKeyword >> parent: aGplLanguageKeyword [
 	parent := aGplLanguageKeyword
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplLanguageKeyword >> printOn: aStream [
 	aStream nextPutAll: 'KW['.
 	aStream nextPutAll: self string printString.

@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsRealTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GdsRealTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 GdsRealTest >> testAcceptableExpression [
 	| input result expResult |
 	input := '1'.
@@ -43,7 +45,7 @@ GdsRealTest >> testAcceptableExpression [
 	self assert: result = expResult
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsRealTest >> testFromLiteral [
 	self
 		assert: ((GdsReal fromLiteral: '1') asSmalltalkValue isKindOf: Float).
@@ -64,22 +66,22 @@ GdsRealTest >> testFromLiteral [
 	self assert: (GdsReal fromLiteral: '0.1234') gplString = '.1234'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsRealTest >> testIsList [
 	self deny: (GdsReal fromLiteral: '1.0') isList
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsRealTest >> testLength [
 	self assert: 1.0 asGdsValue length = 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsRealTest >> testMode [
 	self assert: (GdsReal fromLiteral: '1.0') mode = 3
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsRealTest >> testRank [
 	self assert: (GdsReal fromLiteral: '1.0') rank = 0.
 	self
@@ -88,17 +90,17 @@ GdsRealTest >> testRank [
 				= (GdsReal fromLiteral: '1E-16') rank
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsRealTest >> testShape [
 	self assert: (GdsReal fromLiteral: '1.0') shape = #()
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsRealTest >> testSize [
 	self assert: (GdsReal fromLiteral: '1.0') size = 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsRealTest >> testTypeString [
 	self assert: (GdsReal fromLiteral: '1.0') typeString = 'REAL'
 ]

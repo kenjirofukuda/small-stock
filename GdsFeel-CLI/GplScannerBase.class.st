@@ -29,81 +29,83 @@ stack
 
 "
 Class {
-	#name : #GplScannerBase,
-	#superclass : #GdsObject,
+	#name : 'GplScannerBase',
+	#superclass : 'GdsObject',
 	#instVars : [
 		'input',
 		'words'
 	],
-	#category : #'GdsFeel-CLI-Kernel'
+	#category : 'GdsFeel-CLI-Kernel',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Kernel'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplScannerBase class >> isLineEndFirst: aCharacter [
 	^ aCharacter = Character cr or: [ aCharacter = Character lf ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplScannerBase class >> isNameAfterSecond: aCharacter [
 	(aCharacter isLetter or: [ aCharacter isDigit ])
 		ifTrue: [ ^ true ].
 	^ '$_' includes: aCharacter
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplScannerBase class >> isNameFirst: aCharacter [
 	aCharacter = $$
 		ifTrue: [ ^ true ].
 	^ aCharacter isLetter
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplScannerBase class >> isNumberAllowed: aCharacter [
 	^ aCharacter isDigit or: [ '#-.E' includes: aCharacter ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplScannerBase class >> isNumberFirst: aCharacter [
 	^ aCharacter isDigit or: [ '#-.' includes: aCharacter ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplScannerBase class >> isTabOrSpace: aCharacter [
 	^ aCharacter asciiValue == 32 or: [ aCharacter asciiValue == 9 ]
 ]
 
-{ #category : #parse }
+{ #category : 'parse' }
 GplScannerBase class >> splitTokens: aString [
 	^ self new splitTokens: aString
 ]
 
-{ #category : #parse }
+{ #category : 'parse' }
 GplScannerBase class >> textTookenStream: aString [
 	^ ReadStream on: (self splitTokens: aString)
 ]
 
-{ #category : #parse }
+{ #category : 'parse' }
 GplScannerBase class >> tokenStream: aString [
 	^ ReadStream on: (self splitTokens: aString)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScannerBase >> char2Words [
 	^ {':=' . '<>' . '<=' . '>='}
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScannerBase >> handleBlanks [
 	self skipBlanks
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GplScannerBase >> initialize [
 	super initialize.
 	words := OrderedCollection new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScannerBase >> passResolveVariableName [
 	| local varNames |
 	varNames := OrderedCollection new.
@@ -122,7 +124,7 @@ GplScannerBase >> passResolveVariableName [
 				do: [ :token | token type: #localVariable ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScannerBase >> peek2 [
 	| nextObject |
 	nextObject := nil.
@@ -134,23 +136,23 @@ GplScannerBase >> peek2 [
 	^ nextObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScannerBase >> pushNotEmpty: aWriteStream [
 	self pushNotEmpty: aWriteStream start: -1	"ignore -1"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScannerBase >> pushNotEmpty: aWriteStream start: aInteger [
 	aWriteStream contents
 		ifNotEmpty: [ self pushWord: aWriteStream contents ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScannerBase >> pushWord: aWord [
 	words add: aWord
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScannerBase >> scanBlanks [
 	| noSpace start s |
 	start := input position + 1.
@@ -171,7 +173,7 @@ GplScannerBase >> scanBlanks [
 	self pushNotEmpty: s start: start
 ]
 
-{ #category : #'scanning-deprecated' }
+{ #category : 'scanning-deprecated' }
 GplScannerBase >> scanDigitOnly [
 	| digit s start |
 	digit := true.
@@ -186,7 +188,7 @@ GplScannerBase >> scanDigitOnly [
 	self pushNotEmpty: s start: start
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 GplScannerBase >> scanInlineComment [
 	| c endOfLine s start |
 	endOfLine := false.
@@ -201,7 +203,7 @@ GplScannerBase >> scanInlineComment [
 	self pushNotEmpty: s start: start
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 GplScannerBase >> scanLineEnd: aCharacter [
 	| length |
 	length := 0.
@@ -218,7 +220,7 @@ GplScannerBase >> scanLineEnd: aCharacter [
 			^ self pushWord: #cr ]
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 GplScannerBase >> scanNoSpace [
 	| space s start |
 	space := false.
@@ -235,7 +237,7 @@ GplScannerBase >> scanNoSpace [
 	self pushNotEmpty: s start: start
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 GplScannerBase >> scanNumber [
 	"TODO: implements floating point expression. ex. 1E-5"
 
@@ -268,7 +270,7 @@ GplScannerBase >> scanNumber [
 	self pushNotEmpty: s start: start
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 GplScannerBase >> scanRangeComment [
 	| c endOfComment s start |
 	endOfComment := false.
@@ -282,7 +284,7 @@ GplScannerBase >> scanRangeComment [
 	self pushNotEmpty: s start: start
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 GplScannerBase >> scanString [
 	| count s end start |
 	count := 0.
@@ -309,7 +311,7 @@ GplScannerBase >> scanString [
 	self pushNotEmpty: s start: start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplScannerBase >> scanToken [
 	| c c2 start |
 	input atEnd
@@ -351,7 +353,7 @@ GplScannerBase >> scanToken [
 	self error: 'USE ILLIGAL CHARACTER: ' , c asString printString
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 GplScannerBase >> scanWord [
 	| accept s start |
 	start := input position.
@@ -373,7 +375,7 @@ GplScannerBase >> scanWord [
 	self pushNotEmpty: s start: start
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScannerBase >> skipBlanks [
 	| noSpace |
 	input atEnd
@@ -389,13 +391,13 @@ GplScannerBase >> skipBlanks [
 		ifFalse: [ input skip: -1 ]
 ]
 
-{ #category : #parse }
+{ #category : 'parse' }
 GplScannerBase >> splitTokens: aString [
 	self splitTokensFrom: aString readStream.
 	^ words asArray
 ]
 
-{ #category : #'private-scanning' }
+{ #category : 'private-scanning' }
 GplScannerBase >> splitTokensFrom: aStream [
 	| count infinit lastPos |
 	input := aStream.
@@ -415,7 +417,7 @@ GplScannerBase >> splitTokensFrom: aStream [
 					lastPos := input position ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplScannerBase >> writeStream [
 	^ WriteStream on: (String new: 1000)
 ]

@@ -1,15 +1,17 @@
 Class {
-	#name : #GplMultiHandler,
-	#superclass : #GplHandler,
-	#category : #'GdsFeel-CLI-Handler'
+	#name : 'GplMultiHandler',
+	#superclass : 'GplHandler',
+	#category : 'GdsFeel-CLI-Handler',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Handler'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplMultiHandler class >> associateArray [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplMultiHandler class >> commandNames [
 	^ Array
 		streamContents: [ :s | 
@@ -18,7 +20,7 @@ GplMultiHandler class >> commandNames [
 					[ :clazz | clazz methodNames do: [ :mname | s nextPut: mname asUppercase ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplMultiHandler class >> functionNames [
 	"self functionNames"
 
@@ -32,12 +34,12 @@ GplMultiHandler class >> functionNames [
 								ifTrue: [ s nextPut: each ] ] ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplMultiHandler class >> isFunctionAllowed: aCommandName [
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplMultiHandler class >> lookupHandlerClass: aCommandName [
 	^ self allSubclasses
 		detect:
@@ -45,12 +47,12 @@ GplMultiHandler class >> lookupHandlerClass: aCommandName [
 		ifNone: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplMultiHandler class >> methodNames [
 	^ self associateArray collect: [ :each | each key ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplMultiHandler class >> procedureNames [
 	"self procedureNames"
 
@@ -64,17 +66,17 @@ GplMultiHandler class >> procedureNames [
 								ifFalse: [ s nextPut: each ] ] ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplMultiHandler class >> selectorForMethodName: aCommandName [
 	^ self selectorMap at: aCommandName asUppercase
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplMultiHandler class >> selectorMap [
 	^ Dictionary newFrom: self associateArray
 ]
 
-{ #category : #handler }
+{ #category : 'handler' }
 GplMultiHandler >> evaluateToken: aToken [
 	| selector |
 	selector := self class selectorForMethodName: aToken fragment.

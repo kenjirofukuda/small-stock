@@ -1,6 +1,6 @@
-Extension { #name : #Collection }
+Extension { #name : 'Collection' }
 
-{ #category : #'*GdsFeel-CLI' }
+{ #category : '*GdsFeel-CLI' }
 Collection >> asGdsValue [
 	self isEmpty
 		ifTrue: [ ^ GdsNull fromSmalltalkObject: self ].

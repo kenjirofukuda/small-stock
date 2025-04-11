@@ -5,15 +5,17 @@ Instance Variables
 
 "
 Class {
-	#name : #GdsDglType,
-	#superclass : #GdsScalar,
+	#name : 'GdsDglType',
+	#superclass : 'GdsScalar',
 	#classInstVars : [
 		'regexPat'
 	],
-	#category : #'GdsFeel-CLI-DGL'
+	#category : 'GdsFeel-CLI-DGL',
+	#package : 'GdsFeel-CLI',
+	#tag : 'DGL'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsDglType class >> acceptableExpression: aString [
 	| num |
 	(aString matchesRegex: self acceptRegexPattern)
@@ -23,7 +25,7 @@ GdsDglType class >> acceptableExpression: aString [
 	^ num between: self minValue and: self maxValue
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsDglType class >> bestClassOfStatement: aString [
 	| classes |
 	classes := (self handledClassesOfStatement: aString) asArray.
@@ -33,22 +35,22 @@ GdsDglType class >> bestClassOfStatement: aString [
 	^ (classes sort: [ :a :b | a storageCost < b storageCost ]) first
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsDglType class >> displayName [
 	^ (self name asString allButFirst: 3) asUppercase
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsDglType class >> fromLiteral: aString [
 	^ self fromLiteralString: aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsDglType class >> handledClassesOfStatement: aString [
 	^ self instanciateClasses select: [ :clazz | clazz matches: aString ]
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GdsDglType class >> initialize [
 	"self initialize"
 
@@ -59,12 +61,12 @@ GdsDglType class >> initialize [
 				do: [  ] ]
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GdsDglType class >> initializeRegexPat [
 	regexPat := self acceptRegexPattern asRegex
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsDglType class >> instanciateClasses [
 	^ {GdsBoolean.	"GdsCharacter . "
 	GdsInteger.
@@ -72,67 +74,67 @@ GdsDglType class >> instanciateClasses [
 	GdsReal}
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsDglType class >> matches: aString [
 	^ regexPat matches: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsDglType class >> maxValue [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsDglType class >> minValue [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsDglType class >> precisionRank [
 	^ -1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsDglType class >> shape [
 	^ #() copy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsDglType class >> storageCost [
 	^ 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsDglType class >> typeString [
 	^ self name asString asUppercase allButFirst: 3
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsDglType >> asSmalltalkValue [
 	^ self stringValue asNumber
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsDglType >> displayName [
 	^ self class displayName
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsDglType >> maxValue [
 	self class maxValue
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsDglType >> minValue [
 	self class minValue
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsDglType >> storageCost [
 	^ self class storageCost
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsDglType >> typeString [
 	^ self class typeString
 ]

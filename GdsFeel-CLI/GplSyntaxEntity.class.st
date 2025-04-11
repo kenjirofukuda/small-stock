@@ -1,34 +1,36 @@
 Class {
-	#name : #GplSyntaxEntity,
-	#superclass : #Object,
+	#name : 'GplSyntaxEntity',
+	#superclass : 'Object',
 	#instVars : [
 		'symbol',
 		'string'
 	],
-	#category : #'GdsFeel-CLI-AST'
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplSyntaxEntity class >> fromString: aString [
 	^ self new string: aString
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 GplSyntaxEntity >> string [
 	^ string
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 GplSyntaxEntity >> string: aString [
 	string := aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplSyntaxEntity >> symbol [
 	^ symbol ifNil: [ symbol := self string asLowercase asSymbol ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplSyntaxEntity >> symbol: anObject [
 	symbol := anObject
 ]

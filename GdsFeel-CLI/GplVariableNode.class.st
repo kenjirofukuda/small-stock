@@ -1,16 +1,18 @@
 Class {
-	#name : #GplVariableNode,
-	#superclass : #GplValueNode,
-	#category : #'GdsFeel-CLI-AST'
+	#name : 'GplVariableNode',
+	#superclass : 'GplValueNode',
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GplVariableNode >> initialize [
 	super initialize.
 	self kind: #variable
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplVariableNode >> inspectString [
 	([ self token ]
 		on: Error
@@ -19,7 +21,7 @@ GplVariableNode >> inspectString [
 		ifNotNil: [ :t | ^ t fragment ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplVariableNode >> tagPrefix [
 	^ 'VAR'
 ]

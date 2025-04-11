@@ -1,15 +1,17 @@
 Class {
-	#name : #GdsListTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GdsListTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GdsListTest >> sampleList [
 	^ evaluator evaluateLine: '"ABC" ; IOTA 3 ; 3 4 RESHAPE IOTA 12'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsListTest >> testAtSubscript [
 	evaluator evaluateLine: 'L := "ABC"; IOTA 3'.
 	self
@@ -36,32 +38,32 @@ GdsListTest >> testAtSubscript [
 		raise: GplRuntimeError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsListTest >> testIsList [
 	self assert: self sampleList isList
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsListTest >> testLength [
 	self assert: self sampleList length = 3
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsListTest >> testMode [
 	self assert: self sampleList mode = 6
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsListTest >> testShape [
 	self should: [ self sampleList shape ] raise: GplError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsListTest >> testSize [
 	self should: [ self sampleList size ] raise: GplError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsListTest >> testTypeString [
 	self assert: self sampleList typeString = 'LIST'
 ]

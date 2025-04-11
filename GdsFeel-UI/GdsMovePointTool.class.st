@@ -17,27 +17,29 @@ replaceVertexIndex
 
 "
 Class {
-	#name : #GdsMovePointTool,
-	#superclass : #GdsNullTool,
+	#name : 'GdsMovePointTool',
+	#superclass : 'GdsNullTool',
 	#instVars : [
 		'analisysResult',
 		'replaceVertexIndex',
 		'moveToPoint'
 	],
-	#category : #'GdsFeel-UI-Tools'
+	#category : 'GdsFeel-UI-Tools',
+	#package : 'GdsFeel-UI',
+	#tag : 'Tools'
 }
 
-{ #category : #action }
+{ #category : 'action' }
 GdsMovePointTool >> afterSecondAction [
 	self moveToVertex.		
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsMovePointTool >> autoFinishAfterPut [
 	^true
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsMovePointTool >> calcUpdateBounds [
 	| p1 p2 p3 p4 |
 	p1 := nil.
@@ -59,21 +61,21 @@ GdsMovePointTool >> calcUpdateBounds [
 
 ]
 
-{ #category : #'prompt message' }
+{ #category : 'prompt message' }
 GdsMovePointTool >> coodinateMessage [
 	^self multiMoveSupported 
 		ifTrue: ['Coordinate(s):']
 		ifFalse: ['Coordinate:']
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GdsMovePointTool >> drawFeedbackOn: aLocalCanvas [
 	analisysResult ifNil: [^self].
 	({ referencePoint . moveToPoint } reject: [:each | each isNil])
 		do: [:each | morph drawOn: aLocalCanvas markDiamondPointAt: each].
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsMovePointTool >> eventAction [
 	self firstAndSecondAction.
 	self prompt: self moveToMessage.
@@ -81,7 +83,7 @@ GdsMovePointTool >> eventAction [
 
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsMovePointTool >> firstAction [
 	analisysResult := GeometryUtils 
 		analisysSegmentsAt: (self snapedWorldPoint2) pointArray: self currentItem vertices.
@@ -92,17 +94,17 @@ GdsMovePointTool >> firstAction [
 		
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsMovePointTool >> lookupReplaceVertexIndex [
 	^GeometryUtils lookupVertexIndex: analisysResult
 ]
 
-{ #category : #'prompt message' }
+{ #category : 'prompt message' }
 GdsMovePointTool >> moveToMessage [
 	^'Move to:'
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsMovePointTool >> moveToVertex [
 	moveToPoint := self snapedWorldPoint2.
 	self currentItem 
@@ -113,12 +115,12 @@ GdsMovePointTool >> moveToVertex [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsMovePointTool >> multiMoveSupported [
 	^false
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsMovePointTool >> toolDidChange [
 	self prompt: self coodinateMessage.
 ]

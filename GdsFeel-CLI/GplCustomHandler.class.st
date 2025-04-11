@@ -1,10 +1,12 @@
 Class {
-	#name : #GplCustomHandler,
-	#superclass : #GplHandler,
-	#category : #'GdsFeel-CLI-Handler'
+	#name : 'GplCustomHandler',
+	#superclass : 'GplHandler',
+	#category : 'GdsFeel-CLI-Handler',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Handler'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplCustomHandler class >> commandNames [
 	"GplCustomHandler commandNames explore."
 
@@ -14,12 +16,12 @@ GplCustomHandler class >> commandNames [
 				collect: [ :clazz | clazz handledSpecs collect: [ :spec | spec name ] ])
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplCustomHandler class >> handledSpecs [
 	^ #()
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplCustomHandler class >> isFunctionAllowed: aCommandName [
 	^ (self handledSpecs
 		detect:
@@ -27,7 +29,7 @@ GplCustomHandler class >> isFunctionAllowed: aCommandName [
 		ifNone: [  ]) notNil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplCustomHandler class >> lookupHandlerClass: aCommandName [
 	^ self allSubclasses
 		detect: [ :clazz | 
@@ -37,7 +39,7 @@ GplCustomHandler class >> lookupHandlerClass: aCommandName [
 		ifNone: [  ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplCustomHandler >> argumentType: aToken [
 	(evaluator numArgs: aToken) = 1
 		ifTrue: [ ^ #monadic ].
@@ -46,17 +48,17 @@ GplCustomHandler >> argumentType: aToken [
 	^ #niladic
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplCustomHandler >> evaluateToken: aToken [
 	^ self biContextCall: aToken
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplCustomHandler >> functionCall: aToken [
 	^ self methodCall: aToken methodType: #function
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplCustomHandler >> methodCall: aToken methodType: methodType [
 	| sel |
 	sel := GplCommandSpec
@@ -71,7 +73,7 @@ GplCustomHandler >> methodCall: aToken methodType: methodType [
 	^ self perform: sel with: aToken
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplCustomHandler >> procedureCall: aToken [
 	^ self methodCall: aToken methodType: #procedure
 ]

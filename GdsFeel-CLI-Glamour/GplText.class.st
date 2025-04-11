@@ -1,6 +1,6 @@
 Class {
-	#name : #GplText,
-	#superclass : #Object,
+	#name : 'GplText',
+	#superclass : 'Object',
 	#instVars : [
 		'file',
 		'errorToken',
@@ -11,16 +11,17 @@ Class {
 	#classVars : [
 		'ActiveSourceFile'
 	],
-	#category : #'GdsFeel-CLI-Glamour'
+	#category : 'GdsFeel-CLI-Glamour',
+	#package : 'GdsFeel-CLI-Glamour'
 }
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 GplText class >> activeSourceFile [
 	^ ActiveSourceFile
 		ifNil: [ ActiveSourceFile := self toolFiles atRandom ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplText class >> applyText: aText tokens: aTokenCollection [
 	| colorMap |
 	aText
@@ -42,7 +43,7 @@ GplText class >> applyText: aText tokens: aTokenCollection [
 				ifNotNil: [ :color | aText makeColor: color from: token start to: token end ] ]
 ]
 
-{ #category : #resource }
+{ #category : 'resource' }
 GplText class >> contentsOfFileReference: aFileReference [
 	"TODO: remove duplicate method GdsDeveloperDocument"
 
@@ -55,7 +56,7 @@ GplText class >> contentsOfFileReference: aFileReference [
 							ts cr ] ] ]
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 GplText class >> example [
 	"self example"
 
@@ -63,7 +64,7 @@ GplText class >> example [
 	"(PluggableButtonMorph on: GplText getState: nil action: #example) openInWorld. "
 ]
 
-{ #category : #menu }
+{ #category : 'menu' }
 GplText class >> gdsMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #'Gpl Syntax Check')
@@ -72,14 +73,14 @@ GplText class >> gdsMenuOn: aBuilder [
 		yourself
 ]
 
-{ #category : #resource }
+{ #category : 'resource' }
 GplText class >> helpFiles [
 	"self helpFiles"
 
 	^ self toolDir allFiles select: [ :f | f extension sameAs: 'HP' ]
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 GplText class >> makeOpenActiveButton [
 	"self makeOpenActiveButton"
 
@@ -91,7 +92,7 @@ GplText class >> makeOpenActiveButton [
 		openCenteredInWorld
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 GplText class >> makeRandomButton [
 	"self makeRandomButton"
 
@@ -103,14 +104,14 @@ GplText class >> makeRandomButton [
 		openCenteredInWorld
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 GplText class >> openActiveFile [
 	"self example"
 
 	self openViewOfFile: self activeSourceFile
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplText class >> openView [
 	"self openView"
 
@@ -148,7 +149,7 @@ GplText class >> openView [
 	browser openOn: 1
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplText class >> openViewOfFile: aFileReference [
 	"self openViewOfFile:(self toolFiles atRandom)"
 
@@ -188,21 +189,21 @@ GplText class >> openViewOfFile: aFileReference [
 				ifNotNil: [ :f | self openWorkSpaceFromFileReference: f ] ]
 ]
 
-{ #category : #resource }
+{ #category : 'resource' }
 GplText class >> openWorkSpaceFromFileReference: aFileReference [
 	Workspace new
 		contents: (self contentsOfFileReference: aFileReference);
 		openLabel: aFileReference base
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 GplText class >> setRandomFile [
 	"self setRandomFile"
 
 	ActiveSourceFile := self toolFiles atRandom
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GplText class >> setupTokenColor: aDictionary [
 	{(#unresolved -> Color orange darker).
 	(#gdsiiMethod -> Color green muchDarker muchDarker).
@@ -213,21 +214,21 @@ GplText class >> setupTokenColor: aDictionary [
 	(#string -> Color purple)} do: [ :assoc | aDictionary add: assoc ]
 ]
 
-{ #category : #resource }
+{ #category : 'resource' }
 GplText class >> toolDir [
 	""
 
 	^ FileLocator home / 'Nextcloud' / 'gds' / 'calma4' / 'tool'
 ]
 
-{ #category : #resource }
+{ #category : 'resource' }
 GplText class >> toolFiles [
 	""
 
 	^ self toolDir allFiles select: [ :f | f extension sameAs: 'GS' ]
 ]
 
-{ #category : #'see class side' }
+{ #category : 'see class side' }
 GplText >> buildTree [
 	errorToken := nil.
 	errorString := nil.
@@ -244,32 +245,32 @@ GplText >> buildTree [
 						until: [ :tk | tk type = #cr ]) first ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplText >> builder [
 	^ builder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplText >> errorString [
 	^ errorString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplText >> errorToken [
 	^ errorToken
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplText >> file [
 	^ file
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplText >> file: aFileReference [
 	file := aFileReference
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplText >> lookupText [
 	| gText |
 	self buildTree.
@@ -282,7 +283,7 @@ GplText >> lookupText [
 	^ gText
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplText >> statusString [
 	self text.
 	^ self errorString
@@ -290,7 +291,7 @@ GplText >> statusString [
 		ifNotNil: [ self errorString ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplText >> text [
 	text ifNil: [ text := self lookupText ].
 	^ text
