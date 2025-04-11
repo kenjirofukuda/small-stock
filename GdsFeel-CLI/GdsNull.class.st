@@ -15,110 +15,112 @@ is a vector. not sclar
 
 "
 Class {
-	#name : #GdsNull,
-	#superclass : #GdsVector,
+	#name : 'GdsNull',
+	#superclass : 'GdsVector',
 	#classVars : [
 		'Singleton'
 	],
-	#category : #'GdsFeel-CLI-Data'
+	#category : 'GdsFeel-CLI-Data',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Data'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull class >> acceptRegexPattern [
 	^ '""'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull class >> fromLiteral: aString [
 	(self acceptableExpression: aString asString)
 		ifFalse: [ self syntaxError: 'ILLIGAL LITERAL FORMAT' ].
 	^ self instance
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsNull class >> fromSmalltalk: aObject [
 	^ GdsNull instance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull class >> instance [
 	Singleton ifNil: [ Singleton := GdsNull new ].
 	^ Singleton
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GdsNull class >> isAcceptableSmalltalkObject: anObject [
 	(anObject isKindOf: Collection)
 		ifFalse: [ ^ false ].
 	^ anObject isEmpty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull class >> mode [
 	^ 5
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull class >> shape [
 	^ #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull class >> typeString [
 	^ 'NULL'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull >> applySymbol: aSymbol to: aObject [
 	^ self illigalDataMode
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsNull >> asSmalltalkValue [
 	^ #() copy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull >> atSubscript: aGdsDataStructure [
 	^ self runtimeError: 'ILLIGAL ACCESS FOR NULL VECTOR []'
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GdsNull >> copy [
 	^ self
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsNull >> gplSourceString [
 	^ '""'
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsNull >> gplString [
 	^ ''
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsNull >> isNullVector [
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsNull >> printOn: aStream [
 	aStream nextPutAll: 'a GdsNull'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsNull >> sameAsInteger [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull >> shape [
 	^ #() copy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsNull >> size [
 	^ 0
 ]

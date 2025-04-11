@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsArray,
-	#superclass : #GdsDataStructure,
-	#category : #'GdsFeel-CLI-Data'
+	#name : 'GdsArray',
+	#superclass : 'GdsDataStructure',
+	#category : 'GdsFeel-CLI-Data',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Data'
 }
 
-{ #category : #arithmetic }
+{ #category : 'arithmetic' }
 GdsArray >> applySymbol: aSymbol to: aObject [
 	| col |
 	self applySymbolCheck: aSymbol to: aObject.
@@ -24,13 +26,13 @@ GdsArray >> applySymbol: aSymbol to: aObject [
 				collect: [ :value | value perform: aSymbol with: aObject ])
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsArray >> asGdsFloating [
 	^ self vectorClass
 		withAll: (self elements collect: [ :v | v asGdsFloating ])
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GdsArray >> doesNotUnderstand: aMessage [
 	"Transcript cr; show: aMessage."
 
@@ -39,19 +41,19 @@ GdsArray >> doesNotUnderstand: aMessage [
 	^ super doesNotUnderstand: aMessage
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsArray >> mostCompactValue [
 	^ self vectorClass
 		withAll: (self elements collect: [ :v | v mostCompactValue ])
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsArray >> newElementSelector: aSelector [
 	^ self vectorClass
 		withAll: (self elements collect: [ :v | v perform: aSelector ])
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsArray >> sameAsInteger [
 	^ self asVector elements allSatisfy: [ :v | v sameAsInteger ]
 ]

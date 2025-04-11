@@ -10,31 +10,33 @@ SMMMMMMM MMMMMMMM MMMMMMMM MMMMMMMM
 
 "
 Class {
-	#name : #GdsInteger2,
-	#superclass : #GdsIntegral,
-	#category : #'GdsFeel-CLI-DGL'
+	#name : 'GdsInteger2',
+	#superclass : 'GdsIntegral',
+	#category : 'GdsFeel-CLI-DGL',
+	#package : 'GdsFeel-CLI',
+	#tag : 'DGL'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsInteger2 class >> maxValue [
 	"(2 raisedTo: (32 - 1)) - 1"
 
 	^ 2147483647
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsInteger2 class >> minValue [
 	"(2 raisedTo: (32 - 1)) negated"
 
 	^ -2147483648
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsInteger2 class >> mode [
 	^ 7
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsInteger2 class >> storageCost [
 	^ 4
 ]

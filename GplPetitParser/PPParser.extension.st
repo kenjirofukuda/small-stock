@@ -1,6 +1,6 @@
-Extension { #name : #PPParser }
+Extension { #name : 'PPParser' }
 
-{ #category : #'*GplPetitParser' }
+{ #category : '*GplPetitParser' }
 PPParser >> gplPPToken [
 	^ GplPPTokenParser on: self
 ]

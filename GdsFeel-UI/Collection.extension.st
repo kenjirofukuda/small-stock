@@ -1,6 +1,6 @@
-Extension { #name : #Collection }
+Extension { #name : 'Collection' }
 
-{ #category : #'*GdsFeel-UI' }
+{ #category : '*GdsFeel-UI' }
 Collection >> mark [
 	GdsStructureEditorMorph topmost markPoints: self
 ]

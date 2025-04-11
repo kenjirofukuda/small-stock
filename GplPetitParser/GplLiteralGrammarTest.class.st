@@ -1,28 +1,30 @@
 Class {
-	#name : #GplLiteralGrammarTest,
-	#superclass : #PPCompositeParserTest,
+	#name : 'GplLiteralGrammarTest',
+	#superclass : 'PPCompositeParserTest',
 	#instVars : [
 		'gplGrammar'
 	],
-	#category : #'GplPetitParser-Tests'
+	#category : 'GplPetitParser-Tests',
+	#package : 'GplPetitParser',
+	#tag : 'Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplLiteralGrammarTest >> parserClass [
 	^ GplLiteralGrammar
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GplLiteralGrammarTest >> setUp [
 	gplGrammar := GplLiteralGrammar new
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GplLiteralGrammarTest >> tearDown [
 	gplGrammar := nil
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testCharLiteral [
 	"Tests GplLiteralGrammar>>#charLiteral"
 
@@ -38,7 +40,7 @@ GplLiteralGrammarTest >> testCharLiteral [
 	self fail: '>' rule: #charLiteral
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testCharMnemonicLiteral [
 	"Tests GplExpressionGrammar>>#charMnemonicLiteral"
 
@@ -85,7 +87,7 @@ GplLiteralGrammarTest >> testCharMnemonicLiteral [
 	self fail: '<del>' rule: #charMnemonicLiteral
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testCharNormalLiteral [
 	"Tests GplLiteralGrammar>>#charNormalLiteral"
 
@@ -100,7 +102,7 @@ GplLiteralGrammarTest >> testCharNormalLiteral [
 	self fail: 'aa' rule: #charNormalLiteral
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testCharOctalLiteral [
 	"Tests GplExpressionGrammar>>#charOctalLiteral"
 
@@ -124,7 +126,7 @@ GplLiteralGrammarTest >> testCharOctalLiteral [
 	self fail: '<1777>' rule: #charOctalLiteral
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testIntegerLiteral [
 	self parse: '-1' rule: #integer.
 	self parse: '0' rule: #integer.
@@ -140,12 +142,12 @@ GplLiteralGrammarTest >> testIntegerLiteral [
 		description: 'Can''t use floating point'
 ]
 
-{ #category : #'tests-grammar' }
+{ #category : 'tests-grammar' }
 GplLiteralGrammarTest >> testLogical [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testLogicalLiteral [
 	self parse: '1' rule: #logical.
 	self parse: '0' rule: #logical.
@@ -161,7 +163,7 @@ GplLiteralGrammarTest >> testLogicalLiteral [
 	self fail: 'false' rule: #logical
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testNullLiteral [
 	"Tests GplExpressionGrammar>>#nullLiteral"
 
@@ -174,7 +176,7 @@ GplLiteralGrammarTest >> testNullLiteral [
 	self fail: '" "' rule: #nullLiteral	"Space"
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testRealLiteral [
 	self assert: (gplGrammar realExponentFormat end matches: '-1.0E5').
 	self assert: (gplGrammar realExponentFormat end matches: '-0.1E5').
@@ -214,7 +216,7 @@ GplLiteralGrammarTest >> testRealLiteral [
 	self assert: (gplGrammar real end matches: '-.1E-5')
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testScalarLiteral [
 	self parse: '0' rule: #natural.
 	self fail: '-0' rule: #natural.
@@ -245,7 +247,7 @@ GplLiteralGrammarTest >> testScalarLiteral [
 	self parse: '1.0E-1' rule: #real
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testStringLiteral [
 	"Tests GplLiteralGrammar>>#stringLiteral"
 
@@ -259,7 +261,7 @@ GplLiteralGrammarTest >> testStringLiteral [
 	self parse: '"a"' rule: #stringLiteral
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testStringLiteral2 [
 	"Tests GplLiteralGrammar>>#stringLiteral"
 
@@ -279,7 +281,7 @@ GplLiteralGrammarTest >> testStringLiteral2 [
 							"$a ..." ]) ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplLiteralGrammarTest >> testVectorLiteral [
 	self parse: '1' rule: #scalarLiteral.
 	self parse: '1' rule: #vectorLiteral.

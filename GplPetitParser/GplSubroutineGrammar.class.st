@@ -1,6 +1,6 @@
 Class {
-	#name : #GplSubroutineGrammar,
-	#superclass : #GplStatementsGrammar,
+	#name : 'GplSubroutineGrammar',
+	#superclass : 'GplStatementsGrammar',
 	#instVars : [
 		'functionHeader',
 		'procedureHeader',
@@ -19,20 +19,22 @@ Class {
 		'externalSubroutineDeclare',
 		'declares'
 	],
-	#category : #'GplPetitParser-Grammar'
+	#category : 'GplPetitParser-Grammar',
+	#package : 'GplPetitParser',
+	#tag : 'Grammar'
 }
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> declare [
 	^ externalSubroutineDeclare / variableDeclare
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> declares [
 	^ (self sourceLineOf: [ declare ]) delimitedBy: #newline asParser
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> dyadicFunctionHeader [
 	"
 DYADIC FUNCTION RESULT := PARAM1 FOO PARAM2
@@ -44,13 +46,13 @@ DYADIC FUNCTION RESULT := PARAM1 FOO PARAM2
 		, paramName
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> externalSubroutineDeclare [
 	^ 'EXTERNAL' asParser , blankDelimiter , subroutineType
 		, blankDelimiter , symbolList
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> functionHeader [
 	"
 NILADIC FUNCTION RESULT := FOO
@@ -62,12 +64,12 @@ DYADIC FUNCTION RESULT := PARAM1 FOO PARAM2
 		/ dyadicFunctionHeader
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> inlineComment [
 	^ $| asParser / $` asParser , #any asParser star
 ]
 
-{ #category : #'grammar-function' }
+{ #category : 'grammar-function' }
 GplSubroutineGrammar >> monadicFunctionHeader [
 	"
 MONADIC FUNCTION RESULT := FOO PARAM1
@@ -79,7 +81,7 @@ MONADIC FUNCTION RESULT := FOO PARAM1
 		, blankDelimiter , paramName
 ]
 
-{ #category : #'grammar-procedure' }
+{ #category : 'grammar-procedure' }
 GplSubroutineGrammar >> monadicProcedureHeader [
 	"
 MONADIC PROCEDURE FOO PARAM1
@@ -89,7 +91,7 @@ MONADIC PROCEDURE FOO PARAM1
 		, blankDelimiter , subroutineName , blankDelimiter , paramName
 ]
 
-{ #category : #'grammar-function' }
+{ #category : 'grammar-function' }
 GplSubroutineGrammar >> niladicFunctionHeader [
 	"
 NILADIC FUNCTION RESULT := FOO
@@ -100,7 +102,7 @@ NILADIC FUNCTION RESULT := FOO
 		, ':=' asParser , blankDelimiter optional , subroutineName
 ]
 
-{ #category : #'grammar-procedure' }
+{ #category : 'grammar-procedure' }
 GplSubroutineGrammar >> niladicProcedureHeader [
 	"
 NILADIC PROCEDURE FOO
@@ -110,12 +112,12 @@ NILADIC PROCEDURE FOO
 		, blankDelimiter , subroutineName
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> paramName [
 	^ gdsName flatten
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> procedureHeader [
 	"
 NILADIC PROCEDURE FOO
@@ -125,34 +127,34 @@ MONADIC PROCEDURE FOO PARAM1
 	^ niladicProcedureHeader / monadicProcedureHeader
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> program [
 	^ subroutineHeader , declares , codeBlock
 		, (blankDelimiter star , #newline asParser plus) , 'ENDSUB' asParser
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> start [
 	^ program end
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> storageScope [
 	^ 'EXTERNAL' asParser / 'GLOBAL' asParser / 'LOCAL' asParser
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> subroutineHeader [
 	^ (self sourceLineOf: [ functionHeader / procedureHeader ])
 		, #newline asParser
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> subroutinePrototype1 [
 	^ 'EXTERNAL' asParser , blankDelimiter , subroutineHeader
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> subroutinePrototype2 [
 	| cammaDelimiter |
 	cammaDelimiter := (#blank asParser star , $, asParser
@@ -164,7 +166,7 @@ GplSubroutineGrammar >> subroutinePrototype2 [
 		, subroutineName
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> symbolList [
 	| semicolonDelimiter |
 	semicolonDelimiter := (#blank asParser star , $; asParser
@@ -172,7 +174,7 @@ GplSubroutineGrammar >> symbolList [
 	^ varName separatedBy: semicolonDelimiter
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 GplSubroutineGrammar >> variableDeclare [
 	^ storageScope , blankDelimiter , symbolList
 ]

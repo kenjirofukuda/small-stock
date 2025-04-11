@@ -1,1 +1,1 @@
-Package { #name : #'GdsFeel-CLI-Glamour' }
+Package { #name : 'GdsFeel-CLI-Glamour' }

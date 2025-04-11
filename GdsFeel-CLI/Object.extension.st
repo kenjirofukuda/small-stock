@@ -1,6 +1,6 @@
-Extension { #name : #Object }
+Extension { #name : 'Object' }
 
-{ #category : #'*GdsFeel-CLI' }
+{ #category : '*GdsFeel-CLI' }
 Object >> asGdsValue [
 	^ GdsDataStructure cantConvertSmalltalkObject: self
 ]

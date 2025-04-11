@@ -1,6 +1,6 @@
 Class {
-	#name : #GplPPASTNode,
-	#superclass : #Object,
+	#name : 'GplPPASTNode',
+	#superclass : 'Object',
 	#instVars : [
 		'parent',
 		'start',
@@ -8,26 +8,28 @@ Class {
 		'source',
 		'parentheses'
 	],
-	#category : #'GplPetitParser-AST'
+	#category : 'GplPetitParser-AST',
+	#package : 'GplPetitParser',
+	#tag : 'AST'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPASTNode >> formatedCode [
 	self source ifNil: [ ^ '***BINDERR***' ].
 	^ self source copyFrom: self start to: self stop
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplPPASTNode >> parent [
 	^ parent
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplPPASTNode >> parent: aGplASTNode [
 	parent := aGplASTNode
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplPPASTNode >> printOn: aSteam [
 	super printOn: aSteam.
 	aSteam nextPut: $(.
@@ -35,32 +37,32 @@ GplPPASTNode >> printOn: aSteam [
 	aSteam nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPASTNode >> source [
 	^ parent ifNil: [ source ] ifNotNil: [ parent source ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPASTNode >> source: anObject [
 	source := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPASTNode >> start [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPASTNode >> start: anObject [
 	start := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPASTNode >> stop [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplPPASTNode >> stop: anObject [
 	stop := anObject
 ]

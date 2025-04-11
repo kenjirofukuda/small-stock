@@ -10,56 +10,58 @@ varName
 
 "
 Class {
-	#name : #GplVariable,
-	#superclass : #GdsDataStructure,
+	#name : 'GplVariable',
+	#superclass : 'GdsDataStructure',
 	#instVars : [
 		'varName',
 		'gplValue'
 	],
-	#category : #'GdsFeel-CLI-Kernel'
+	#category : 'GdsFeel-CLI-Kernel',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Kernel'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplVariable class >> named: aVariableName [
 	^ self new name: aVariableName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplVariable >> asGplValue [
 	^ gplValue
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GplVariable >> asSmalltalkValue [
 	^ gplValue asSmalltalkValue
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GplVariable >> doesNotUnderstand: aMessage [
 	gplValue perform: aMessage selector withArguments: aMessage arguments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplVariable >> gplValue: aGdsDataStructure [
 	gplValue := aGdsDataStructure
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplVariable >> isVariableAllowed [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplVariable >> name [
 	^ varName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplVariable >> name: aVariableName [
 	varName := aVariableName
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplVariable >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPutAll: '('.
@@ -69,7 +71,7 @@ GplVariable >> printOn: aStream [
 	aStream nextPutAll: ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplVariable >> rank [
 	^ gplValue rank
 ]

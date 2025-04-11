@@ -30,25 +30,27 @@ readable notation           octal notation
 
 "
 Class {
-	#name : #GdsCharacter,
-	#superclass : #GdsDglType,
+	#name : 'GdsCharacter',
+	#superclass : 'GdsDglType',
 	#classVars : [
 		'KeyToOctalMap'
 	],
-	#category : #'GdsFeel-CLI-DGL'
+	#category : 'GdsFeel-CLI-DGL',
+	#package : 'GdsFeel-CLI',
+	#tag : 'DGL'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsCharacter class >> acceptRegexPattern [
 	^ '[0-9]+'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsCharacter class >> acceptableExpression: aString [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsCharacter class >> asciiValueInsideCharMarkLiteral: aCharMarkLiteral [
 	| map octString v |
 	self assert: aCharMarkLiteral notEmpty.
@@ -64,63 +66,63 @@ GdsCharacter class >> asciiValueInsideCharMarkLiteral: aCharMarkLiteral [
 	^ v
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> bel [
 	^ self fromCharMarkLiteral: 'BEL'
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> broff [
 	^ self fromCharMarkLiteral: 'BROFF'
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> bron [
 	^ self fromCharMarkLiteral: 'BRON'
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> cr [
 	^ self fromCharMarkLiteral: 'CR'
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> del [
 	^ self fromCharMarkLiteral: 'DEL'
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> esc [
 	^ self fromCharMarkLiteral: 'ESC'
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> ff [
 	^ self fromCharMarkLiteral: 'FF'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsCharacter class >> fromAsciiValue: asciiValue [
 	^ self new stringValue: asciiValue
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsCharacter class >> fromCharMarkLiteral: octalExprOrCharSymbol [
 	^ GdsCharacter
 		fromAsciiValue: (self asciiValueInsideCharMarkLiteral: octalExprOrCharSymbol)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsCharacter class >> fromLiteral: aString [
 	^ self error: 'GdsCharacter can''t instanciate by #fromLiteral:'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsCharacter class >> fromSmalltalk: aObject [
 	^ self fromAsciiValue: aObject asciiValue
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsCharacter class >> initialize [
 	"GdsCharacter initialize."
 
@@ -128,17 +130,17 @@ GdsCharacter class >> initialize [
 	KeyToOctalMap := self lookuplToOctalExprMap
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdsCharacter class >> isAcceptableSmalltalkObject: anObject [
 	^ anObject isCharacter and: [ anObject isOctetCharacter ]
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> lf [
 	^ self fromCharMarkLiteral: 'LF'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsCharacter class >> lookuplToOctalExprMap [
 	"return ocatal expr String"
 
@@ -158,68 +160,68 @@ GdsCharacter class >> lookuplToOctalExprMap [
 			('DEL' -> '177')}
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsCharacter class >> maxValue [
 	^ 255
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsCharacter class >> minValue [
 	^ 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsCharacter class >> mode [
 	^ 4
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> nl [
 	^ self fromCharMarkLiteral: 'NL'
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> nul [
 	^ self fromCharMarkLiteral: 'NUL'
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> qt [
 	^ self fromCharMarkLiteral: 'QT'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsCharacter class >> specialLiteralToOctalExprMap [
 	KeyToOctalMap ifNil: [ KeyToOctalMap := self lookuplToOctalExprMap ].
 	^ KeyToOctalMap
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsCharacter class >> storageCost [
 	^ 1
 ]
 
-{ #category : #constans }
+{ #category : 'constans' }
 GdsCharacter class >> tab [
 	^ self fromCharMarkLiteral: 'TAB'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsCharacter class >> typeString [
 	^ 'CHAR'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsCharacter >> asSmalltalkCharacter [
 	^ Character value: self asciiValue
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsCharacter >> asciiValue [
 	^ self asSmalltalkValue asInteger
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsCharacter >> gplString [
 	^ (Character value: self asSmalltalkValue asInteger) asString
 ]

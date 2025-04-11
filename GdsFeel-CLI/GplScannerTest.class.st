@@ -1,10 +1,12 @@
 Class {
-	#name : #GplScannerTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GplScannerTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens [
 	| input result expResult |
 	input := '5 - 9'.
@@ -17,7 +19,7 @@ GplScannerTest >> testSplitTokens [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens1 [
 	| input result expResult |
 	input := 'var$1:=-5 + 3 + 4 + 6 - 10.'.
@@ -27,7 +29,7 @@ GplScannerTest >> testSplitTokens1 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens10 [
 	| input result expResult |
 	input := '(1234 1235 1236)[6] ` Oh Bad Access!!'''.
@@ -36,7 +38,7 @@ GplScannerTest >> testSplitTokens10 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens11 [
 	| input result expResult |
 	input := 'IF LIB="" THEN "<BEL>"'.
@@ -45,7 +47,7 @@ GplScannerTest >> testSplitTokens11 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens12 [
 	| input result expResult |
 	input := '5-9'.
@@ -54,7 +56,7 @@ GplScannerTest >> testSplitTokens12 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens13 [
 	| input result expResult |
 	input := '5 - 9'.
@@ -63,7 +65,7 @@ GplScannerTest >> testSplitTokens13 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens14 [
 	| input result expResult |
 	input := '5- 9'.
@@ -72,7 +74,7 @@ GplScannerTest >> testSplitTokens14 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens15 [
 	| input result expResult |
 	input := 'LABEL:K:=K-1'.
@@ -81,7 +83,7 @@ GplScannerTest >> testSplitTokens15 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens2 [
 	| input result expResult |
 	input := 'var$1 := 1 + 1'.
@@ -90,7 +92,7 @@ GplScannerTest >> testSplitTokens2 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens3 [
 	| input result expResult |
 	input := 'foo[;6]:=1+1'.
@@ -99,7 +101,7 @@ GplScannerTest >> testSplitTokens3 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens4 [
 	| input result expResult |
 	input := '(1234 1235 1236)[6] | Oh Bad Access!!'.
@@ -108,7 +110,7 @@ GplScannerTest >> testSplitTokens4 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens5 [
 	| input result expResult |
 	input := 'LABEL:K:=K+1'.
@@ -117,7 +119,7 @@ GplScannerTest >> testSplitTokens5 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens6 [
 	| input result expResult |
 	input := 'IF 1 <> 2 THEN'.
@@ -126,7 +128,7 @@ GplScannerTest >> testSplitTokens6 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens7 [
 	| input result expResult |
 	input := '"this is a basic" INDECES_OF "fuck"    '.
@@ -135,7 +137,7 @@ GplScannerTest >> testSplitTokens7 [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens8 [
 	| input result expResult |
 	input := 'IF FOO = BAR THEN
@@ -146,7 +148,7 @@ ENDIF'.
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GplScannerTest >> testSplitTokens9 [
 	| input result expResult |
 	input := '1 1 1 ^

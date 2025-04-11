@@ -9,20 +9,22 @@ stMatrix
 
 "
 Class {
-	#name : #GdsMatrix,
-	#superclass : #GdsArray,
+	#name : 'GdsMatrix',
+	#superclass : 'GdsArray',
 	#instVars : [
 		'stMatrix'
 	],
-	#category : #'GdsFeel-CLI-Data'
+	#category : 'GdsFeel-CLI-Data',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Data'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsMatrix class >> fromGdsVector: aGdsDataVector col: aColCount [
 	^ self fromGdsVector: aGdsDataVector row: 1 col: aColCount
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsMatrix class >> fromGdsVector: aGdsDataVector row: aRowCount col: aColCount [
 	| size fillSize appends total fillCount vector |
 	vector := aGdsDataVector asVector.
@@ -42,7 +44,7 @@ GdsMatrix class >> fromGdsVector: aGdsDataVector row: aRowCount col: aColCount [
 	^ self new rows: aRowCount columns: aColCount contents: total
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsMatrix class >> fromOrigin: anOrigin corner: aCorner [
 	| gplVec |
 	gplVec := {anOrigin x.
@@ -52,17 +54,17 @@ GdsMatrix class >> fromOrigin: anOrigin corner: aCorner [
 	^ GdsMatrix fromGdsVector: gplVec row: 2 col: 2
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsMatrix class >> fromRectangle: aRectangle [
 	^ self fromOrigin: aRectangle origin corner: aRectangle corner
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix class >> rank [
 	^ 2
 ]
 
-{ #category : #arithmetic }
+{ #category : 'arithmetic' }
 GdsMatrix >> applySymbol: aSymbol to: aObject [
 	| target calcedVec |
 	self applySymbolCheck: aSymbol to: aObject.
@@ -76,29 +78,29 @@ GdsMatrix >> applySymbol: aSymbol to: aObject [
 	^ self fromGdsVector: calcedVec
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsMatrix >> asGdsFloating [
 	^ self fromGdsVector: super asGdsFloating
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsMatrix >> asVector [
 	^ self vectorClass withAll: stMatrix contents copy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> at: aInteger [
 	^ [ self asVector at: aInteger ]
 		on: Error
 		do: [ :ex | self runtimeError: 'SUBSCRIPTION OUT OF RANGE' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> at: rowIndex at: columnIndex [
 	^ stMatrix at: rowIndex at: columnIndex
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> atSubscript: aSubscript [
 	| mat result |
 	"self subscriptArgumentCheck: aSubscript."
@@ -114,7 +116,7 @@ GdsMatrix >> atSubscript: aSubscript [
 	^ result
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> atSubscript: aSubscript put: aGdsValue [
 	| mat pair pairs reshapedValue |
 	"self subscriptArgumentCheck: aSubscript."
@@ -173,17 +175,17 @@ GdsMatrix >> atSubscript: aSubscript put: aGdsValue [
 	^ aGdsValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> columnCount [
 	^ stMatrix columnCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> elements [
 	^ stMatrix readStream contents asArray
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsMatrix >> fromGdsScalar: aGdsScalar [
 	self assert: [ aGdsScalar isKindOf: GdsScalar ].
 	^ self class
@@ -192,7 +194,7 @@ GdsMatrix >> fromGdsScalar: aGdsScalar [
 		col: self columnCount
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdsMatrix >> fromGdsVector: aGdsVector [
 	self
 		assert: [ (aGdsVector isMemberOf: GdsVector) or: [ aGdsVector isCharVector ] ].
@@ -202,14 +204,14 @@ GdsMatrix >> fromGdsVector: aGdsVector [
 		col: self columnCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> gplString [
 	(self typeString beginsWith: 'REAL')
 		ifTrue: [ ^ self gplStringFloating ].
 	^ self gplStringNonFloating
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsMatrix >> gplStringFloating [
 	| maxWidths strings |
 	(stMatrix contents
@@ -227,7 +229,7 @@ GdsMatrix >> gplStringFloating [
 	^ strings joinUsing: String cr
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsMatrix >> gplStringNonFloating [
 	| strings maxWidth |
 	maxWidth := self maxGplStringWidth.
@@ -241,7 +243,7 @@ GdsMatrix >> gplStringNonFloating [
 	^ strings joinUsing: String cr
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsMatrix >> gplValueOfShape [
 	^ GdsVector
 		withAll:
@@ -249,7 +251,7 @@ GdsMatrix >> gplValueOfShape [
 			(GdsInteger fromLiteral: stMatrix columnCount)}
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsMatrix >> indexesOf: aGdsDataStructure at: aIndex [
 	| indexes gplValue ranges outRanges |
 	ranges := 1 to:
@@ -268,12 +270,12 @@ GdsMatrix >> indexesOf: aGdsDataStructure at: aIndex [
 	^ indexes
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsMatrix >> maxGplStringWidth [
 	^ (stMatrix contents collect: [ :each | each gplString size ]) max
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsMatrix >> maxGplStringWidthPair [
 	"{ leftWidth . rightWidth }"
 
@@ -291,19 +293,19 @@ GdsMatrix >> maxGplStringWidthPair [
 	^ Array with: leftMax with: rightMax
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> mode [
 	stMatrix ifNil: [ ^ GdsNull mode ].
 	stMatrix asOrderedCollection ifEmpty: [ ^ GdsNull mode ].
 	^ stMatrix asOrderedCollection first mode
 ]
 
-{ #category : #convert }
+{ #category : 'convert' }
 GdsMatrix >> mostCompactValue [
 	^ self fromGdsVector: super mostCompactValue
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsMatrix >> newElementSelector: aSelector [
 	| gdsArray |
 	gdsArray := super newElementSelector: aSelector.
@@ -313,7 +315,7 @@ GdsMatrix >> newElementSelector: aSelector [
 		col: self columnCount
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsMatrix >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPut: $(.
@@ -328,27 +330,27 @@ GdsMatrix >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> rowCount [
 	^ stMatrix rowCount
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GdsMatrix >> rows: rows columns: columns contents: anArray [
 	stMatrix := Array2D rows: rows columns: columns contents: anArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> shape [
 	^ Array with: stMatrix rowCount with: stMatrix columnCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> size [
 	^ stMatrix size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> subscriptCheckFor: aSubscript [
 	(aSubscript isMemberOf: GdsList)
 		ifFalse: [ ^ self error: 'ILLIGAL SUBSCRIPT ACCESS. only [row;col]' ].
@@ -359,7 +361,7 @@ GdsMatrix >> subscriptCheckFor: aSubscript [
 	^ aSubscript
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsMatrix >> subscriptIndexMatrix: aGdsDataStructure [
 	| rowIndexes columnIndexes mat |
 	rowIndexes := self indexesOf: aGdsDataStructure at: 1.
@@ -372,7 +374,7 @@ GdsMatrix >> subscriptIndexMatrix: aGdsDataStructure [
 	^ mat
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsMatrix >> subscriptMatrix: aGdsDataStructure [
 	| rowIndexes columnIndexes mat |
 	rowIndexes := self indexesOf: aGdsDataStructure at: 1.
@@ -385,7 +387,7 @@ GdsMatrix >> subscriptMatrix: aGdsDataStructure [
 	^ mat
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsMatrix >> typeString [
 	stMatrix ifNil: [ ^ GdsNull typeString ].
 	stMatrix asOrderedCollection ifEmpty: [ ^ GdsNull typeString ].

@@ -21,8 +21,8 @@ stack
 
 "
 Class {
-	#name : #GplEvaluator,
-	#superclass : #GplTokenHandler,
+	#name : 'GplEvaluator',
+	#superclass : 'GplTokenHandler',
 	#instVars : [
 		'history',
 		'argStack',
@@ -33,10 +33,12 @@ Class {
 		'junction',
 		'console'
 	],
-	#category : #'GdsFeel-CLI-Kernel'
+	#category : 'GdsFeel-CLI-Kernel',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Kernel'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplEvaluator class >> arithmeticSelector: aGplToken [
 	| sel |
 	('POWER' sameAs: aGplToken fragment)
@@ -47,7 +49,7 @@ GplEvaluator class >> arithmeticSelector: aGplToken [
 		ifFalse: [ sel ]
 ]
 
-{ #category : #'debug-utility' }
+{ #category : 'debug-utility' }
 GplEvaluator class >> debugEvaluate: anGplExpression [
 	| e tokens |
 	e := self new.
@@ -56,29 +58,29 @@ GplEvaluator class >> debugEvaluate: anGplExpression [
 	^ e evaluateLine: anGplExpression
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplEvaluator >> assertGplTokens: aCollection [
 	self
 		assert: [ aCollection allSatisfy: [ :each | each isMemberOf: GplToken ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplEvaluator >> assertGplValues: aCollection [
 	self
 		assert: [ aCollection allSatisfy: [ :each | each isKindOf: GdsDglType ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplEvaluator >> console [
 	^ console
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplEvaluator >> console: aGdsConsole [
 	console := aGdsConsole
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateArithmetic: aGplToken [
 	(aGplToken fragmentForInspect endsWith: '(dyadic)')
 		ifTrue: [ ^ self evaluateDyadicArithmetic: aGplToken ].
@@ -89,7 +91,7 @@ GplEvaluator >> evaluateArithmetic: aGplToken [
 	^ self error: 'ILLIGAL ARGUMENT SIZE'
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> evaluateAsString: aBlock [
 	| result reply |
 	result := nil.
@@ -104,14 +106,14 @@ GplEvaluator >> evaluateAsString: aBlock [
 	^ reply
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateAsVector: aGplToken [
 	| arg1 |
 	arg1 := self popArg.
 	^ arg1 asGplValue asVector
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateAssign: aGplToken [
 	| gv1 variableObject valueArg variableArg |
 	self assert: [ aGplToken fragment = ':=' ].
@@ -129,12 +131,12 @@ GplEvaluator >> evaluateAssign: aGplToken [
 	^ variableObject
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateBuiltinDyadic: aGplToken [
 	^ self evaluateReshape: aGplToken
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateBuiltinMonadic: aGplToken [
 	| sel arg1 gv1 |
 	sel := aGplToken fragment asLowercase asSymbol.
@@ -146,7 +148,7 @@ GplEvaluator >> evaluateBuiltinMonadic: aGplToken [
 	^ gv1 perform: sel
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> evaluateConsoleLine: aString [
 	| tokens reply result |
 	reply := aString.
@@ -164,7 +166,7 @@ GplEvaluator >> evaluateConsoleLine: aString [
 	^ self evaluateAsString: [ self evaluateLine: aString ]
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateDyadicArithmetic: aGplToken [
 	| arg1 arg2 real1 real2 result gv1 gv2 |
 	arg2 := self popArg.
@@ -188,7 +190,7 @@ GplEvaluator >> evaluateDyadicArithmetic: aGplToken [
 			result ]
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateInspectMonadic: aGplToken [
 	| sel arg1 gv1 |
 	sel := aGplToken fragment asLowercase capitalized.
@@ -198,7 +200,7 @@ GplEvaluator >> evaluateInspectMonadic: aGplToken [
 	^ gv1 perform: sel
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateJoinVector: aGplToken [
 	| rightArg leftArg leftArray rightArray leftType rightType |
 	rightArg := self popArg.
@@ -216,7 +218,7 @@ GplEvaluator >> evaluateJoinVector: aGplToken [
 	^ self runtimeError: 'ILLIGAL TYPE CPNVERSION'
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> evaluateLine: aString [
 	| tokens |
 	aString ifEmpty: [ ^ GdsNull instance ].
@@ -226,7 +228,7 @@ GplEvaluator >> evaluateLine: aString [
 	^ self evaluateTokens: tokens
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateList: aGplToken [
 	| rightArg leftArg result leftValue rightValue |
 	self fillListRightArgument: aGplToken.
@@ -241,7 +243,7 @@ GplEvaluator >> evaluateList: aGplToken [
 	^ result
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateMonadicArithmetic: aGplToken [
 	| arg1 gv1 |
 	arg1 := self popArg.
@@ -256,7 +258,7 @@ GplEvaluator >> evaluateMonadicArithmetic: aGplToken [
 		ifTrue: [ ^ gv1 reciprocal ]
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> evaluatePostfixStream: aPostfixStream [
 	| token result |
 	argStack ifNil: [ argStack := OrderedCollection new ].
@@ -268,12 +270,12 @@ GplEvaluator >> evaluatePostfixStream: aPostfixStream [
 	^ result
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> evaluatePostfixTokens: aGplTokens [
 	^ self evaluatePostfixStream: (ReadStream on: aGplTokens)
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateReshape: aGplToken [
 	| argRight argLeft gvRight gvLeft columnCount rowCount mustIntegerBlock |
 	argRight := self popArg.
@@ -298,7 +300,7 @@ GplEvaluator >> evaluateReshape: aGplToken [
 	^ self runtimeError: 'INVALID SHAPE FORMAT'
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateSubscript: aGplToken [
 	(self hasMoreAssign: aGplToken)
 		ifTrue: [ self debugLog: '*** skip subscription return'.
@@ -306,7 +308,7 @@ GplEvaluator >> evaluateSubscript: aGplToken [
 	^ self evaluateSubscriptReturn: aGplToken
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateSubscriptAssign: aGplToken [
 	| assignValue valueArg variableArg subscriptArg subscriptValue target returnValue |
 	self assert: [ aGplToken fragment = ':=' ].
@@ -326,7 +328,7 @@ GplEvaluator >> evaluateSubscriptAssign: aGplToken [
 	^ returnValue
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateSubscriptReturn: aGplToken [
 	| arg1 arg2 target subscript |
 	arg2 := self popArg.
@@ -336,7 +338,7 @@ GplEvaluator >> evaluateSubscriptReturn: aGplToken [
 	^ target atSubscriptWithCheck: subscript
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> evaluateTokens: aGplTokens [
 	| postfixGenerator |
 	postfixGenerator := GplPostfix new.
@@ -347,7 +349,7 @@ GplEvaluator >> evaluateTokens: aGplTokens [
 	^ self evaluatePostfixTokens: postfixTokens
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> evaluateVector: aGplToken [
 	(aGplToken fragmentForInspect endsWith: '(dyadic)')
 		ifTrue: [ ^ self evaluateJoinVector: aGplToken ].
@@ -356,7 +358,7 @@ GplEvaluator >> evaluateVector: aGplToken [
 	^ self error: 'ILLIGAL ARGUMENT SIZE'
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> fillListLeftArgument: aGplToken [
 	| leftTokens missingLeft |
 	leftTokens := aGplToken leftTokens.
@@ -367,7 +369,7 @@ GplEvaluator >> fillListLeftArgument: aGplToken [
 		ifTrue: [ self pushArg: GdsNull instance ]
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> fillListRightArgument: aGplToken [
 	| rightTokens missingRight |
 	rightTokens := aGplToken rightTokens.
@@ -378,19 +380,19 @@ GplEvaluator >> fillListRightArgument: aGplToken [
 		ifTrue: [ self pushArg: GdsNull instance ]
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> flushContextStacks [
 	resultMap := nil.
 	suspendContext := nil
 ]
 
-{ #category : #command }
+{ #category : 'command' }
 GplEvaluator >> fragments: aInputString [
 	^ ((GplScanner tokensFrom: aInputString)
 		collect: [ :token | token fragment ]) asArray printString
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> getVariable: variableArg wantsStrictDeclare: aBoolean [
 	| variableObject varName |
 	varName := (variableArg isKindOf: GplAtomicToken)
@@ -405,14 +407,14 @@ GplEvaluator >> getVariable: variableArg wantsStrictDeclare: aBoolean [
 	^ variableObject
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 GplEvaluator >> gplValueFromGplValues: aGplValues [
 	aGplValues size = 1
 		ifTrue: [ ^ aGplValues first ].
 	^ GdsVector withAll: aGplValues asArray
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 GplEvaluator >> handleForKey: aKey line: aString [
 	| sel |
 	sel := aKey , ':'.
@@ -422,7 +424,7 @@ GplEvaluator >> handleForKey: aKey line: aString [
 	^ 'Not found: ' , aKey
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> handleToken: aToken [
 	| result |
 	self showsLog
@@ -433,7 +435,7 @@ GplEvaluator >> handleToken: aToken [
 	self pushArg: result
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> handleTokenResult: aToken [
 	| handler |
 	handler := GplHandler fromCommand: aToken fragment evaluator: self.
@@ -466,7 +468,7 @@ GplEvaluator >> handleTokenResult: aToken [
 	^ #notImplemented
 ]
 
-{ #category : #'evaluator-inside' }
+{ #category : 'evaluator-inside' }
 GplEvaluator >> hasMoreAssign: aGplToken [
 	"^((outTokens last fragment = ':=') and: [aGplToken start < outTokens last start  ])"
 
@@ -488,19 +490,19 @@ GplEvaluator >> hasMoreAssign: aGplToken [
 		isNil not
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> hasSuspendContext [
 	suspendContext ifNil: [ suspendContext := OrderedCollection new ].
 	^ suspendContext isEmpty not
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> hasVariableName: aVariableName [
 	varMap ifNil: [ ^ false ].
 	^ varMap includesKey: aVariableName
 ]
 
-{ #category : #command }
+{ #category : 'command' }
 GplEvaluator >> history: aInputString [
 	| digitLength num |
 	digitLength := history size asString.
@@ -511,7 +513,7 @@ GplEvaluator >> history: aInputString [
 			' ' , num asString , ' ' , line ]) asArray joinUsing: String cr
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplEvaluator >> indexes: aGplTokens ofType: aSymbol [
 	^ Array
 		streamContents: [ :s | 
@@ -521,19 +523,19 @@ GplEvaluator >> indexes: aGplTokens ofType: aSymbol [
 						ifTrue: [ s nextPut: index ] ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GplEvaluator >> initialize [
 	super initialize.
 	history := OrderedCollection new.
 	showsLog := false
 ]
 
-{ #category : #command }
+{ #category : 'command' }
 GplEvaluator >> inspect: aInputString [
 	^ (self evaluateLine: aInputString) printString
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 GplEvaluator >> inspectConsoleLine: aString [
 	| tokens parser |
 	parser := GplScanner new.
@@ -542,22 +544,22 @@ GplEvaluator >> inspectConsoleLine: aString [
 	^ tokens printString
 ]
 
-{ #category : #command }
+{ #category : 'command' }
 GplEvaluator >> inspectPostfix: aInputString [
 	^ (self translateToPostfix: aInputString) printString
 ]
 
-{ #category : #command }
+{ #category : 'command' }
 GplEvaluator >> inspectToken: aInputString [
 	^ (GplScanner splitTokens: aInputString) printString
 ]
 
-{ #category : #command }
+{ #category : 'command' }
 GplEvaluator >> inspectTokens: aInputString [
 	^ (self tokensFrom: aInputString) printString
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplEvaluator >> isDefined: aWord [
 	aWord = #cr
 		ifTrue: [ ^ true ].
@@ -567,7 +569,7 @@ GplEvaluator >> isDefined: aWord [
 	^ self isOperator: aWord
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplEvaluator >> isDyadic: aGplTokenOrString [
 	| fragment |
 	(self isOperator: aGplTokenOrString)
@@ -580,56 +582,56 @@ GplEvaluator >> isDyadic: aGplTokenOrString [
 	^ #(#RESHAPE ':=' 'POWER') includes: fragment
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplEvaluator >> isInteractive [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplEvaluator >> isNumber: aString [
 	^ GplScanner isNumberFragment: aString
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplEvaluator >> isOperandToken: aGplToken [
 	^ #(number string vector unresolved) includes: aGplToken type
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplEvaluator >> isOperator: aGplTokenOrString [
 	^ GplPostfix isOperator: aGplTokenOrString
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplEvaluator >> isScalarToken: aGplToken [
 	(self isVariableRegistered: aGplToken fragment)
 		ifTrue: [ ^ (self variableNamed: aGplToken fragment) rank = 0 ].
 	^ aGplToken type = #number
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GplEvaluator >> isVariableRegistered: aWord [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplEvaluator >> junction [
 	^ junction
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplEvaluator >> junction: aPipeJunction [
 	junction := aPipeJunction
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 GplEvaluator >> lastEvaluatedLine [
 	history isEmpty
 		ifTrue: [ ^ '' ]
 		ifFalse: [ ^ history last ]
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> notConsumedTokens: aGplToken [
 	| restSize ownPos depth |
 	depth := aGplToken depth.
@@ -641,19 +643,19 @@ GplEvaluator >> notConsumedTokens: aGplToken [
 		select: [ :each | each depth = depth and: [ self isDyadic: each ] ]
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> numArgs: aGplToken [
 	^ self numPushed + (self numReturn: aGplToken)
 		- (self notConsumedTokens: aGplToken) size
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> numPushed [
 	argStack ifNil: [ argStack := OrderedCollection new ].
 	^ argStack size
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> numReturn: aGplToken [
 	(GplHandler isVoid: aGplToken fragment)
 		ifTrue: [ ^ 0 ].
@@ -662,18 +664,18 @@ GplEvaluator >> numReturn: aGplToken [
 		ifFalse: [ 1 ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplEvaluator >> numberTokens: aGplTokens [
 	^ aGplTokens select: [ :token | token isNumber ]
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> peekSuspendContext [
 	suspendContext ifNil: [ suspendContext := OrderedCollection new ].
 	^ suspendContext last
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> popArg [
 	| result |
 	argStack ifEmpty: [ self runtimeError: 'Missing argument' ].
@@ -686,7 +688,7 @@ GplEvaluator >> popArg [
 	^ result
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> popResult [
 	| lastContext result |
 	self hasSuspendContext
@@ -697,7 +699,7 @@ GplEvaluator >> popResult [
 	^ result
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> popSuspendContext [
 	| result |
 	suspendContext ifNil: [ suspendContext := OrderedCollection new ].
@@ -706,18 +708,18 @@ GplEvaluator >> popSuspendContext [
 	^ result
 ]
 
-{ #category : #command }
+{ #category : 'command' }
 GplEvaluator >> postfix: aInputString [
 	^ ((self translateToPostfix: aInputString)
 		collect: [ :token | token postfixExpr ]) printString
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> postfixIndexOf: aGplToken [
 	^ postfixTokens indexOf: aGplToken
 ]
 
-{ #category : #debug }
+{ #category : 'debug' }
 GplEvaluator >> printArgStack: aToken [
 	argStack ifNil: [ ^ self ].
 	Transcript
@@ -725,14 +727,14 @@ GplEvaluator >> printArgStack: aToken [
 		show: aToken -> argStack
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> pushArg: aToken [
 	self assert: (aToken isMemberOf: GplEvaluator) not.
 	argStack ifNil: [ argStack := OrderedCollection new ].
 	argStack add: aToken
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> pushResult: aObject [
 	self assert: aObject isNil not.
 	self hasSuspendContext
@@ -741,33 +743,33 @@ GplEvaluator >> pushResult: aObject [
 			self registerResult: aObject at: lastContext ]
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> pushSuspendContext: aContext [
 	suspendContext ifNil: [ suspendContext := OrderedCollection new ].
 	suspendContext add: aContext
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> registerResult: aResultValue at: aContext [
 	self assert: (aContext isMemberOf: Context).
 	resultMap ifNil: [ resultMap := Dictionary new ].
 	resultMap at: aContext put: aResultValue
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> resolveVariableNameFromTokens: aGplTokens [
 	GplScanner assertGplTokens: aGplTokens.
 	^ aGplTokens
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> resultAt: aContext [
 	self assert: (aContext isMemberOf: Context).
 	resultMap ifNil: [ resultMap := Dictionary new ].
 	^ resultMap at: aContext
 ]
 
-{ #category : #'context stack' }
+{ #category : 'context stack' }
 GplEvaluator >> resume [
 	| context suspendedToken suspendPc skippedStream |
 	self hasSuspendContext
@@ -780,7 +782,7 @@ GplEvaluator >> resume [
 	^ self evaluatePostfixStream: skippedStream
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplEvaluator >> selectorOf: aGplToken [
 	self assert: #operator = aGplToken type.
 	aGplToken fragment isAllAlphaNumerics
@@ -788,22 +790,22 @@ GplEvaluator >> selectorOf: aGplToken [
 	^ aGplToken fragment asSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplEvaluator >> stderr [
 	^ self junction errorPipelineStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplEvaluator >> stdin [
 	^ self junction pipeToInput
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GplEvaluator >> stdout [
 	^ self junction pipeFromOutput
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> syntaxCheck: aGplTokens [
 	| checker |
 	checker := GplSyntax new.
@@ -811,12 +813,12 @@ GplEvaluator >> syntaxCheck: aGplTokens [
 	checker checkFromTokens: aGplTokens
 ]
 
-{ #category : #command }
+{ #category : 'command' }
 GplEvaluator >> tokens: aInputString [
 	^ (GplScanner tokensFrom: aInputString) printString
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> tokensFrom: aString [
 	| tokens |
 	tokens := GplScanner tokensFrom: aString.
@@ -828,13 +830,13 @@ GplEvaluator >> tokensFrom: aString [
 	^ tokens
 ]
 
-{ #category : #'analysis-postfix' }
+{ #category : 'analysis-postfix' }
 GplEvaluator >> translateToPostfix: aSourceCode [
 	^ GplPostfix new
 		translateToPostfixFromTokens: (self tokensFrom: aSourceCode)
 ]
 
-{ #category : #evaluator }
+{ #category : 'evaluator' }
 GplEvaluator >> variableNamed: aVariableName [
 	varMap ifNil: [ varMap := Dictionary new ].
 	^ varMap
@@ -842,7 +844,7 @@ GplEvaluator >> variableNamed: aVariableName [
 		ifAbsentPut: [ GplVariable named: aVariableName ]
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 GplEvaluator >> vectorAnalysisFromTokens: aGplTokens [
 	"TODO: remove duplicate flavor GplParser's "
 
@@ -869,7 +871,7 @@ GplEvaluator >> vectorAnalysisFromTokens: aGplTokens [
 	^ newOutput asArray
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GplEvaluator >> voidReturn [
 	^ GdsNull instance
 ]

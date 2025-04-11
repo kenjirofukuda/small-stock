@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsGetTool,
-	#superclass : #GdsNullTool,
-	#category : #'GdsFeel-UI-Tools'
+	#name : 'GdsGetTool',
+	#superclass : 'GdsNullTool',
+	#category : 'GdsFeel-UI-Tools',
+	#package : 'GdsFeel-UI',
+	#tag : 'Tools'
 }
 
-{ #category : #action }
+{ #category : 'action' }
 GdsGetTool >> eventAction [
 	self elementDetectAction.
 	self finish. "one shot command".
@@ -12,7 +14,7 @@ GdsGetTool >> eventAction [
 	
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GdsGetTool >> eventActionAt: aWorldPoint element: aGdsElement [
 	aGdsElement ifNotNil: [self currentItem get: aGdsElement ].
 	GdsFeelMorphic debugFindElement 
@@ -20,12 +22,12 @@ GdsGetTool >> eventActionAt: aWorldPoint element: aGdsElement [
 			aGdsElement ifNotNil: [(aGdsElement analisys: aWorldPoint) explore]].		
 ]
 
-{ #category : #'prompt message' }
+{ #category : 'prompt message' }
 GdsGetTool >> nearestPointMessage [
 	^'Enter nearest point for element.'.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GdsGetTool >> toolDidChange [
 	self prompt: self nearestPointMessage.
 ]

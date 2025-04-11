@@ -1,11 +1,11 @@
-Extension { #name : #String }
+Extension { #name : 'String' }
 
-{ #category : #'*GdsFeel-UI' }
+{ #category : '*GdsFeel-UI' }
 String >> localizedGdsCaption [
 	^ GdsFeelMorphic localizedCaption: self
 ]
 
-{ #category : #'*GdsFeel-UI' }
+{ #category : '*GdsFeel-UI' }
 String >> localizedGdsHelpText [
 	^ GdsFeelMorphic localizedHelpText: self
 ]

@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsStringTest,
-	#superclass : #GdsTestCase,
-	#category : #'GdsFeel-CLI-Test'
+	#name : 'GdsStringTest',
+	#superclass : 'GdsTestCase',
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testAcceptableExpression [
 	self deny: (GdsString acceptableExpression: '').
 	self deny: (GdsString acceptableExpression: '"').
@@ -12,7 +14,7 @@ GdsStringTest >> testAcceptableExpression [
 	self assert: (GdsString acceptableExpression: '""')
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testApplySymbolTo [
 	| sample |
 	sample := 'ABC' asGdsValue.
@@ -32,7 +34,7 @@ GdsStringTest >> testApplySymbolTo [
 	self should: [ sample applySymbol: #% to: sample ] raise: GplError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testFromEmbedLiteral [
 	"not close >"
 
@@ -66,7 +68,7 @@ GdsStringTest >> testFromEmbedLiteral [
 		raise: GplSyntaxError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testFromLiteral [
 	| result expResult |
 	expResult := GdsNull instance.
@@ -88,7 +90,7 @@ GdsStringTest >> testFromLiteral [
 		raise: GplSyntaxError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testFromLiteralExtension [
 	| result expResult msg |
 	msg := 'TODO: implement < > notation in string context'.
@@ -136,7 +138,7 @@ GdsStringTest >> testFromLiteralExtension [
 	self assert: result = expResult description: msg
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testFromLiteralExtension2 [
 	| result expResult msg |
 	msg := 'TODO: implement < > notation in string context'.
@@ -157,12 +159,12 @@ DEF'.
 	self assert: result = expResult description: msg
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testIsList [
 	self deny: (GdsString fromLiteral: '"ABC"') isList
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testLength [
 	"length is a list element size not a vector size"
 
@@ -171,7 +173,7 @@ GdsStringTest >> testLength [
 	self assert: (GdsString fromLiteral: '"ABC"') length = 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testMode [
 	| result expResult |
 	expResult := 4.
@@ -179,7 +181,7 @@ GdsStringTest >> testMode [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testRank [
 	| result expResult |
 	expResult := 1.
@@ -187,7 +189,7 @@ GdsStringTest >> testRank [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testShape [
 	| result expResult |
 	expResult := 3.
@@ -195,7 +197,7 @@ GdsStringTest >> testShape [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testSize [
 	| result expResult |
 	expResult := 1.
@@ -209,7 +211,7 @@ GdsStringTest >> testSize [
 	self assert: result = expResult
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdsStringTest >> testTypeString [
 	| result expResult |
 	expResult := 'CHAR'.

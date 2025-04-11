@@ -1,20 +1,22 @@
 Class {
-	#name : #GdsTestCase,
-	#superclass : #TestCase,
+	#name : 'GdsTestCase',
+	#superclass : 'TestCase',
 	#instVars : [
 		'model',
 		'evaluator'
 	],
-	#category : #'GdsFeel-CLI-Test'
+	#category : 'GdsFeel-CLI-Test',
+	#package : 'GdsFeel-CLI',
+	#tag : 'Test'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 GdsTestCase >> setUp [
 	super setUp.
 	evaluator := GplEvaluator new
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GdsTestCase >> tearDown [
 	evaluator := nil.
 	model := nil

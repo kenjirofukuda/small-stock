@@ -1,16 +1,18 @@
 Class {
-	#name : #GplMonadicOperatorNode,
-	#superclass : #GplOperatorNode,
-	#category : #'GdsFeel-CLI-AST'
+	#name : 'GplMonadicOperatorNode',
+	#superclass : 'GplOperatorNode',
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplMonadicOperatorNode >> initialize [
 	super initialize.
 	self at: #numArgs put: 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplMonadicOperatorNode >> printOn: aStream [
 	aStream nextPutAll: self opName.
 	aStream nextPutAll: ' '.

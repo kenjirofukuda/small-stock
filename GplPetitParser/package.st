@@ -1,1 +1,1 @@
-Package { #name : #GplPetitParser }
+Package { #name : 'GplPetitParser' }

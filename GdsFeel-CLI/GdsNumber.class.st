@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsNumber,
-	#superclass : #GdsDglType,
-	#category : #'GdsFeel-CLI-DGL'
+	#name : 'GdsNumber',
+	#superclass : 'GdsDglType',
+	#category : 'GdsFeel-CLI-DGL',
+	#package : 'GdsFeel-CLI',
+	#tag : 'DGL'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsNumber class >> fromSmalltalk: anObject [
 	| clazz |
 	clazz := self allSubclasses
@@ -14,7 +16,7 @@ GdsNumber class >> fromSmalltalk: anObject [
 	^ clazz fromSmalltalk: anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsNumber class >> isAcceptableSmalltalkObject: anObject [
 	^ self allSubclasses
 		anySatisfy: [ :clazz | clazz isAcceptableSmalltalkObject: anObject ]

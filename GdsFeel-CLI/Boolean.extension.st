@@ -1,6 +1,6 @@
-Extension { #name : #Boolean }
+Extension { #name : 'Boolean' }
 
-{ #category : #'*GdsFeel-CLI' }
+{ #category : '*GdsFeel-CLI' }
 Boolean >> asGdsValue [
 	^ GdsBoolean fromSmalltalkObject: self
 ]

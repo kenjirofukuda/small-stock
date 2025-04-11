@@ -1,10 +1,12 @@
 Class {
-	#name : #GdsParagraph,
-	#superclass : #Paragraph,
-	#category : #'GdsFeel-CLI-CommandShell'
+	#name : 'GdsParagraph',
+	#superclass : 'Paragraph',
+	#category : 'GdsFeel-CLI-CommandShell',
+	#package : 'GdsFeel-CLI',
+	#tag : 'CommandShell'
 }
 
-{ #category : #display }
+{ #category : 'display' }
 GdsParagraph >> displayOn: aCanvas using: displayScanner at: somePosition [
 	"Send all visible lines to the displayScanner for display"
 
@@ -23,7 +25,7 @@ GdsParagraph >> displayOn: aCanvas using: displayScanner at: somePosition [
 					leftInRun: leftInRun ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsParagraph >> displaySelectionInLine2: line on: aCanvas [
 	| leftX rightX caretColor |
 	selectionStart ifNil: [ ^ self ].	"No selection"
@@ -67,7 +69,7 @@ GdsParagraph >> displaySelectionInLine2: line on: aCanvas [
 				color: self selectionColor ]
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 GdsParagraph >> insertionPointColor [
 	"when focused out use frameRectangle then don't use transparent"
 

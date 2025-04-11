@@ -2,17 +2,19 @@
 A GplSubroutineGrammarTest is a test class for testing the behavior of GplSubroutineGrammar
 "
 Class {
-	#name : #GplSubroutineGrammarTest,
-	#superclass : #PPCompositeParserTest,
-	#category : #'GplPetitParser-Tests'
+	#name : 'GplSubroutineGrammarTest',
+	#superclass : 'PPCompositeParserTest',
+	#category : 'GplPetitParser-Tests',
+	#package : 'GplPetitParser',
+	#tag : 'Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplSubroutineGrammarTest >> parserClass [
 	^ GplSubroutineGrammar
 ]
 
-{ #category : #'tests-grammar-function' }
+{ #category : 'tests-grammar-function' }
 GplSubroutineGrammarTest >> testMonadicFunctionHeader [
 	self
 		parse: 'MONADIC FUNCTION FOO:=BAR PARAM'
@@ -48,7 +50,7 @@ FUNCTION FOO := BAR PARAM'
 		rule: #monadicFunctionHeader
 ]
 
-{ #category : #'tests-grammar-function' }
+{ #category : 'tests-grammar-function' }
 GplSubroutineGrammarTest >> testNiladicFunctionHeader [
 	self parse: 'NILADIC FUNCTION FOO:=BAR' rule: #niladicFunctionHeader.
 	self parse: 'NILADIC FUNCTION FOO:=BAR' rule: #niladicFunctionHeader.

@@ -1,15 +1,17 @@
 Class {
-	#name : #GplElsePartNode,
-	#superclass : #GplASTNode,
-	#category : #'GdsFeel-CLI-AST'
+	#name : 'GplElsePartNode',
+	#superclass : 'GplASTNode',
+	#category : 'GdsFeel-CLI-AST',
+	#package : 'GdsFeel-CLI',
+	#tag : 'AST'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GplElsePartNode >> blockCloseFragments [
 	^ #('ENDIF')
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GplElsePartNode >> tagPrefix [
 	^ 'ELSE'
 ]
