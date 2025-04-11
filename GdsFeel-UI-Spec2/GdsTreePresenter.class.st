@@ -15,8 +15,8 @@ Class {
 	#category : #'GdsFeel-UI-Spec2'
 }
 
-{ #category : #initialization }
-GdsTreePresenter class >> defaultSpec [
+{ #category : #layout }
+GdsTreePresenter class >> defaultLayout [
 
 	^ SpBoxLayout newVertical
 		  add: #menuBar height: self toolbarHeight;
@@ -38,8 +38,9 @@ GdsTreePresenter class >> defaultSpec [
 
 { #category : #examples }
 GdsTreePresenter class >> open [
+
 	<example>
-	self new openWithSpec
+	self new open
 ]
 
 { #category : #private }
