@@ -68,11 +68,7 @@ GdsTreePresenter >> debugMenu [
 				  name: 'inspect tree presenter';
 				  "icon: (self iconNamed: #open);"
 				  action: [ tree inspect ] ].
-			aGroup addItem: [ :anItem | 
-			  anItem
-				  name: 'open example tree';
-				  "icon: (self iconNamed: #open);"
-				  action: [ self registerExampleTree ] ] ]
+			 ]
 ]
 
 { #category : 'menu building' }
@@ -148,9 +144,9 @@ GdsTreePresenter >> initializeMenuBar [
 GdsTreePresenter >> initializePresenters [
 
 	super initializePresenters.
+	GdsFeel loadExampleZippedDatabaseToLocal.
 	self initializeMenuBar.
 	tree := self newTree.
-	"self registerExampleTree ."
 	structureSortBlock := [ :s1 :s2 | s1 name < s2 name ] asValueHolder.
 	structureSortBlock whenChangedDo: [ tree update ].
 	visibleElementList := self newMorph.
@@ -200,16 +196,6 @@ GdsTreePresenter >> openLibrary [
 		ifFalse: [
 			^ self inform: ('<1p> is not a GdsFeel file' expandMacrosWith: file) ].
 	Cursor wait showWhile: [ self registerLibraryFile: file ]
-]
-
-{ #category : 'ui building' }
-GdsTreePresenter >> registerExampleTree [
-	tree := self newTree.
-	tree roots: (Array with: SpPresenter).
-	tree display: [ :aClass | aClass name ].
-	tree children: [ :aClass | aClass subclasses ].
-	tree displayIcon: [ :aClass | self iconNamed: #system ].
-	self  update.
 ]
 
 { #category : 'ui building' }
