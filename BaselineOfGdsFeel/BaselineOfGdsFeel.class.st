@@ -96,7 +96,8 @@ BaselineOfGdsFeel >> baseline: spec [
 	spec
 		for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x' )
 		do: [ 
-			spec
+			spec baseline: 'KFImaging'
+			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo:MorphicModel' ].			spec
 				baseline: 'GlamourCore'
 				with: [ spec repository: 'github://moosetechnology/glamour/src' ].
 			spec
