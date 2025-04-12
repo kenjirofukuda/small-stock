@@ -1,1 +1,1 @@
-Package { #name : 'BaselineOfGdsFeel' }
+Package { #name : #BaselineOfGdsFeel }

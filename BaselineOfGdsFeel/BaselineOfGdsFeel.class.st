@@ -1,11 +1,10 @@
 Class {
-	#name : 'BaselineOfGdsFeel',
-	#superclass : 'BaselineOf',
-	#category : 'BaselineOfGdsFeel',
-	#package : 'BaselineOfGdsFeel'
+	#name : #BaselineOfGdsFeel,
+	#superclass : #BaselineOf,
+	#category : #BaselineOfGdsFeel
 }
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baseline: spec [
 
 	<baseline>
@@ -101,14 +100,14 @@ BaselineOfGdsFeel >> baseline: spec [
 			with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ).
 		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
-	spec for: #'pharo12.x' do: [
+	spec for: #(#'pharo10.x' #'pharo11.x'  #'pharo12.x' #'pharo13.x') do: [
 		spec
 			group: 'UI'
 			with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec2' 'GdsFeel-Magritte'
 				   'GdsFeel-UI-ElementAddition' ) ]
 ]
 
-{ #category : 'baseline' }
+{ #category : #baseline }
 BaselineOfGdsFeel >> baselineGuest: spec [
 
 	<baseline>
