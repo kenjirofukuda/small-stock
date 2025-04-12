@@ -9,7 +9,7 @@ BaselineOfGdsFeel >> baseline: spec [
 
 	<baseline>
 	self baselineGuest: spec.
-	spec for: #common do: [
+	spec for: #common do: [ 
 		spec
 			package: 'GdsFeel-Foundation'
 			with: [ spec requires: #( 'NeoJSON' 'NeoCSV' 'INIFile' ) ].
@@ -20,7 +20,7 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec package: 'GdsFeel-Foundation-Core'.
 		spec package: 'GdsFeel-Foundation-Tests'.
 		spec package: 'GdsFeel-CLI-Glamour'.
-		spec package: 'GdsFeel-Model-Basic' with: [
+		spec package: 'GdsFeel-Model-Basic' with: [ 
 			spec requires: #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
 				   'GdsFeel-Foundation-Property' 'GdsFeel-Foundation-Notification'
 				   'GdsFeel-Foundation-Tests' 'XMLParser' ) ].
@@ -37,7 +37,7 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec
 			baseline: 'KFImaging'
 			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo' ].
-		spec package: 'GdsFeel-UI' with: [
+		spec package: 'GdsFeel-UI' with: [ 
 			spec requires: #( 'KFImaging' 'NeoCSV' 'Model' )
 			"'CSV'" ].
 		spec
@@ -46,7 +46,7 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec
 			package: 'GdsFeel-UI-Athens'
 			with: [ spec requires: #( 'GdsFeel-UI' ) ].
-		spec baseline: 'CommandShell' with: [
+		spec baseline: 'CommandShell' with: [ 
 			spec
 				repository: 'github://dtlewis290/CommandShell-Tonel/src';
 				loads: #( 'CommandShell' ) ].
@@ -64,7 +64,7 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec
 			baseline: 'GlamourCore'
 			with: [ spec repository: 'github://moosetechnology/glamour/src' ].
-		spec baseline: 'Magritte' with: [
+		spec baseline: 'Magritte' with: [ 
 			spec
 				repository: 'github://magritte-metamodel/magritte/source';
 				loads: #( Core ) ].
@@ -76,9 +76,9 @@ BaselineOfGdsFeel >> baseline: spec [
 			with: [ spec requires: #( 'GdsFeel-Model-ElementAddition' ) ].
 		spec
 			package: 'GdsFeel-UI-Spec'
-			with: [
+			with: [ 
 			spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition' ) ].
-		spec package: 'GdsFeel-Magritte' with: [
+		spec package: 'GdsFeel-Magritte' with: [ 
 			spec requires:
 				#( 'GdsFeel-UI' 'Magritte' 'GdsFeel-Model-ElementAddition' ) ].
 		spec
@@ -100,11 +100,17 @@ BaselineOfGdsFeel >> baseline: spec [
 			with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ).
 		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
-	spec for: #(#'pharo10.x' #'pharo11.x'  #'pharo12.x' #'pharo13.x') do: [
-		spec
-			group: 'UI'
-			with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec2' 'GdsFeel-Magritte'
-				   'GdsFeel-UI-ElementAddition' ) ]
+	spec
+		for: #( #'pharo10.x' #'pharo11.x' #'pharo12.x' #'pharo13.x' )
+		do: [ 
+			spec
+				package: 'GdsFeel-UI-Spec2'
+				with: [ 
+				spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition' ) ].
+			spec
+				group: 'UI'
+				with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec2' 'GdsFeel-Magritte'
+					   'GdsFeel-UI-ElementAddition' ) ]
 ]
 
 { #category : #baseline }
