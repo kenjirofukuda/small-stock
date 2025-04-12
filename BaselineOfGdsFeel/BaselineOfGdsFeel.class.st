@@ -86,13 +86,11 @@ BaselineOfGdsFeel >> baseline: spec [
 				   'GdsFeel-Model-ElementAddition' 'GdsFeel-Model-Private'
 				   'GdsFeel-Model-Sandbox' 'GdsFeel-Model-Tests'
 				   'GdsFeel-Model-Viewing' );
-			group: 'UI'
-			with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-Magritte'
-				   'GdsFeel-UI-ElementAddition' );
 			group: 'Developer' with: #( 'GdsFeel-Developer' );
 			group: 'CLI'
-			with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ).
-		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ).
+			with: #( 'GdsFeel-CLI-Console').
+		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
+			   'GdsFeel-Magritte' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
 
 	spec
@@ -103,7 +101,11 @@ BaselineOfGdsFeel >> baseline: spec [
 				with: [ spec repository: 'github://moosetechnology/glamour/src' ].
 			spec
 				package: 'GdsFeel-CLI-Glamour'
-				with: [ spec requires: #( 'GdsFeel-CLI' 'GlamourCore' ) ] ].
+				with: [ spec requires: #( 'GdsFeel-CLI' 'GlamourCore' ) ].
+			spec
+				group: 'CLI'
+				with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ) ].
+
 	spec
 		for: #( #'pharo10.x' #'pharo11.x' #'pharo12.x' #'pharo13.x' )
 		do: [ 
