@@ -1,15 +1,17 @@
 Class {
-	#name : #BaselineOfGdsFeel,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfGdsFeel
+	#name : 'BaselineOfGdsFeel',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfGdsFeel',
+	#package : 'BaselineOfGdsFeel'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfGdsFeel >> baseline: spec [
 
 	<baseline>
 	self baselineGuest: spec.
-	spec for: #common do: [ 
+	self baselineMagritte: spec.
+	spec for: #common do: [
 		spec
 			package: 'GdsFeel-Foundation'
 			with: [ spec requires: #( 'NeoJSON' 'NeoCSV' 'INIFile' ) ].
@@ -20,7 +22,7 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec package: 'GdsFeel-Foundation-Core'.
 		spec package: 'GdsFeel-Foundation-Tests'.
 		spec package: 'GdsFeel-CLI-Glamour'.
-		spec package: 'GdsFeel-Model-Basic' with: [ 
+		spec package: 'GdsFeel-Model-Basic' with: [
 			spec requires: #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
 				   'GdsFeel-Foundation-Property' 'GdsFeel-Foundation-Notification'
 				   'GdsFeel-Foundation-Tests' 'XMLParser' ) ].
@@ -37,7 +39,7 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec
 			baseline: 'KFImaging'
 			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo' ].
-		spec package: 'GdsFeel-UI' with: [ 
+		spec package: 'GdsFeel-UI' with: [
 			spec requires: #( 'KFImaging' 'NeoCSV' 'Model' )
 			"'CSV'" ].
 		spec
@@ -46,7 +48,7 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec
 			package: 'GdsFeel-UI-Athens'
 			with: [ spec requires: #( 'GdsFeel-UI' ) ].
-		spec baseline: 'CommandShell' with: [ 
+		spec baseline: 'CommandShell' with: [
 			spec
 				repository: 'github://dtlewis290/CommandShell-Tonel/src';
 				loads: #( 'CommandShell' ) ].
@@ -61,18 +63,20 @@ BaselineOfGdsFeel >> baseline: spec [
 			package: 'GdsFeel-CLI-Console'
 			with: [ spec requires: #( 'GdsFeel-CLI-Commands'
 			   'KFConsole' ) ].
-		spec baseline: 'Magritte' with: [ 
-			spec
-				repository: 'github://magritte-metamodel/magritte/source';
-				loads: #( Core ) ].
+		spec
+			baseline: 'GlamourCore'
+			with: [ spec repository: 'github://moosetechnology/glamour/src' ].
+		spec
+			package: 'GdsFeel-CLI-Glamour'
+			with: [ spec requires: #( 'GdsFeel-CLI' 'GlamourCore' ) ].
 		spec
 			package: 'GdsFeel-UI-ElementAddition'
 			with: [ spec requires: #( 'GdsFeel-Model-ElementAddition' ) ].
 		spec
 			package: 'GdsFeel-UI-Spec'
-			with: [ 
+			with: [
 			spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition' ) ].
-		spec package: 'GdsFeel-Magritte' with: [ 
+		spec package: 'GdsFeel-Magritte' with: [
 			spec requires:
 				#( 'GdsFeel-UI' 'Magritte' 'GdsFeel-Model-ElementAddition' ) ].
 		spec
@@ -86,46 +90,26 @@ BaselineOfGdsFeel >> baseline: spec [
 				   'GdsFeel-Model-ElementAddition' 'GdsFeel-Model-Private'
 				   'GdsFeel-Model-Sandbox' 'GdsFeel-Model-Tests'
 				   'GdsFeel-Model-Viewing' );
+			group: 'UI'
+			with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-Magritte'
+				   'GdsFeel-UI-ElementAddition' );
 			group: 'Developer' with: #( 'GdsFeel-Developer' );
-			group: 'CLI' with: #( 'GdsFeel-CLI-Console' ).
-		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
-			   'GdsFeel-Magritte' 'GdsFeel-UI-Athens' ).
+			group: 'CLI'
+			with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ).
+		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
-
-	spec
-		for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x' )
-		do: [ 
-			spec baseline: 'KFImaging' with: [ 
-				spec repository:
-					'github://kenjirofukuda/imaging-pharo:MorphicModel' ].
-			spec
-				baseline: 'GlamourCore'
-				with: [ spec repository: 'github://moosetechnology/glamour/src' ].
-			spec
-				package: 'GdsFeel-CLI-Glamour'
-				with: [ spec requires: #( 'GdsFeel-CLI' 'GlamourCore' ) ].
-			spec
-				group: 'UI'
-				with: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
-					   'GdsFeel-Magritte' 'GdsFeel-UI-Athens' 'GdsFeel-UI-Spec').
-			spec
-				group: 'CLI'
-				with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ) ].
-
-	spec
-		for: #( #'pharo10.x' #'pharo11.x' #'pharo12.x' #'pharo13.x' )
-		do: [ 
-			spec
-				package: 'GdsFeel-UI-Spec2'
-				with: [ 
+	spec for: #'pharo12.x' do: [
+		spec
+			package: 'GdsFeel-UI-Spec2'
+			with: [ 
 				spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition' ) ].
-			spec
-				group: 'UI'
-				with: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
-					   'GdsFeel-Magritte' 'GdsFeel-UI-Athens' 'GdsFeel-UI-Spec2') ]
+		spec
+			group: 'UI'
+			with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec2' 'GdsFeel-Magritte'
+				   'GdsFeel-UI-ElementAddition' ) ]
 ]
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfGdsFeel >> baselineGuest: spec [
 	spec for: #common do: [
 		spec
@@ -142,4 +126,52 @@ BaselineOfGdsFeel >> baselineGuest: spec [
 			with: [
 			spec repository: 'github://pharo-contributions/XML-XMLParser/src' ] ].
 
+]
+
+{ #category : 'baselines' }
+BaselineOfGdsFeel >> baselineMagritte: spec [
+	"https://github.com/magritte-metamodel/magritte/releases"
+	spec for: #common do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte/source';
+				loads: #( Core ) 
+		].
+	].
+	spec for: #'pharo6.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte/source:3.5.2';
+				loads: #( Core ) 
+		].
+	].
+	spec for: #'pharo7.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte/source:3.5.3';
+				loads: #( Core ) 
+		].
+	].
+	spec for: #'pharo8.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte/source:3.6';
+				loads: #( Core ) 
+		].
+	].
+	spec for: #'pharo9.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte/source:3.7';
+				loads: #( Core ) 
+		].
+	].
+	spec for: #'pharo10.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte/source:3.8';
+				loads: #( Core ) 
+		].
+	].
+	
 ]
