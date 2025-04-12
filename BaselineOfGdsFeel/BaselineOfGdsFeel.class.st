@@ -87,8 +87,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				   'GdsFeel-Model-Sandbox' 'GdsFeel-Model-Tests'
 				   'GdsFeel-Model-Viewing' );
 			group: 'Developer' with: #( 'GdsFeel-Developer' );
-			group: 'CLI'
-			with: #( 'GdsFeel-CLI-Console').
+			group: 'CLI' with: #( 'GdsFeel-CLI-Console' ).
 		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
 			   'GdsFeel-Magritte' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
@@ -96,13 +95,19 @@ BaselineOfGdsFeel >> baseline: spec [
 	spec
 		for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x' )
 		do: [ 
-			spec baseline: 'KFImaging'
-			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo:MorphicModel' ].			spec
+			spec baseline: 'KFImaging' with: [ 
+				spec repository:
+					'github://kenjirofukuda/imaging-pharo:MorphicModel' ].
+			spec
 				baseline: 'GlamourCore'
 				with: [ spec repository: 'github://moosetechnology/glamour/src' ].
 			spec
 				package: 'GdsFeel-CLI-Glamour'
 				with: [ spec requires: #( 'GdsFeel-CLI' 'GlamourCore' ) ].
+			spec
+				group: 'UI'
+				with: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
+					   'GdsFeel-Magritte' 'GdsFeel-UI-Athens' 'GdsFeel-UI-Spec').
 			spec
 				group: 'CLI'
 				with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ) ].
@@ -116,8 +121,8 @@ BaselineOfGdsFeel >> baseline: spec [
 				spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition' ) ].
 			spec
 				group: 'UI'
-				with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec2' 'GdsFeel-Magritte'
-					   'GdsFeel-UI-ElementAddition' ) ]
+				with: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
+					   'GdsFeel-Magritte' 'GdsFeel-UI-Athens' 'GdsFeel-UI-Spec2') ]
 ]
 
 { #category : #baseline }
