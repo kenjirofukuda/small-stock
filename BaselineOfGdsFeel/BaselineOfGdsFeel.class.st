@@ -61,16 +61,10 @@ BaselineOfGdsFeel >> baseline: spec [
 			package: 'GdsFeel-CLI-Console'
 			with: [ spec requires: #( 'GdsFeel-CLI-Commands'
 			   'KFConsole' ) ].
-		spec
-			baseline: 'GlamourCore'
-			with: [ spec repository: 'github://moosetechnology/glamour/src' ].
 		spec baseline: 'Magritte' with: [ 
 			spec
 				repository: 'github://magritte-metamodel/magritte/source';
 				loads: #( Core ) ].
-		spec
-			package: 'GdsFeel-CLI-Glamour'
-			with: [ spec requires: #( 'GdsFeel-CLI' 'GlamourCore' ) ].
 		spec
 			package: 'GdsFeel-UI-ElementAddition'
 			with: [ spec requires: #( 'GdsFeel-Model-ElementAddition' ) ].
@@ -100,6 +94,16 @@ BaselineOfGdsFeel >> baseline: spec [
 			with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ).
 		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
+
+	spec
+		for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x' )
+		do: [ 
+			spec
+				baseline: 'GlamourCore'
+				with: [ spec repository: 'github://moosetechnology/glamour/src' ].
+			spec
+				package: 'GdsFeel-CLI-Glamour'
+				with: [ spec requires: #( 'GdsFeel-CLI' 'GlamourCore' ) ] ].
 	spec
 		for: #( #'pharo10.x' #'pharo11.x' #'pharo12.x' #'pharo13.x' )
 		do: [ 
