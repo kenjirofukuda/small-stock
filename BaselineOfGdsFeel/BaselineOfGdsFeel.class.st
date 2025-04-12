@@ -111,3 +111,24 @@ BaselineOfGdsFeel >> baseline: spec [
 			spec group: 'UI' with: #('GdsFeel-UI' 'GdsFeel-UI-Athens').
 			spec group: 'default' with: #('Model' 'UI') ]
 ]
+
+{ #category : 'baseline' }
+BaselineOfGdsFeel >> baselineGuest: spec [
+
+	<baseline>
+	spec for: #common do: [
+		spec
+			baseline: 'NeoJSON'
+			with: [ spec repository: 'github://svenvc/NeoJSON/repository' ].
+		spec
+			baseline: 'NeoCSV'
+			with: [ spec repository: 'github://svenvc/NeoCSV/repository' ].
+		spec
+			baseline: 'INIFile'
+			with: [ spec repository: 'github://astares/Pharo-INIFile:main/src' ].
+		spec
+			baseline: 'XMLParser'
+			with: [
+			spec repository: 'github://pharo-contributions/XML-XMLParser/src' ] ].
+
+]
