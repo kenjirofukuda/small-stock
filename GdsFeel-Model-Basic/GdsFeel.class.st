@@ -8,15 +8,16 @@ Instance Variables
 
 "
 Class {
-	#name : #GdsFeel,
-	#superclass : #Object,
+	#name : 'GdsFeel',
+	#superclass : 'Object',
 	#classVars : [
 		'TypedMap'
 	],
-	#category : #'GdsFeel-Model-Basic'
+	#category : 'GdsFeel-Model-Basic',
+	#package : 'GdsFeel-Model-Basic'
 }
 
-{ #category : #maintenance }
+{ #category : 'maintenance' }
 GdsFeel class >> clearDependents [
 	"GdsFeel clearDependents"
 	self relatedClasses do: [:clazz | 
@@ -24,29 +25,29 @@ GdsFeel class >> clearDependents [
 	Smalltalk garbageCollect.
 ]
 
-{ #category : #'debug-flags' }
+{ #category : 'debug-flags' }
 GdsFeel class >> debugConsoleOut [
 	^self typedMap booleanFor: #debugConsoleOut.
 ]
 
-{ #category : #'debug-flags' }
+{ #category : 'debug-flags' }
 GdsFeel class >> debugConsoleOut: aBoolean [
 	self typedMap booleanFor: #debugConsoleOut value: aBoolean.
 	
 ]
 
-{ #category : #'debug-flags' }
+{ #category : 'debug-flags' }
 GdsFeel class >> dependentEnabled [
 	^self typedMap booleanFor: #dependentEnabled default: true.
 ]
 
-{ #category : #'debug-flags' }
+{ #category : 'debug-flags' }
 GdsFeel class >> dependentEnabled: aBoolean [
 	self typedMap booleanFor: #dependentEnabled value: aBoolean.
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsFeel class >> directoryPath: aDirectoryPath nextNameFor: aBaseName extension: anExtension [
 	| parent pat version versionNumbers nameWithoutExtension |
 	parent := aDirectoryPath asFileReference.
@@ -60,7 +61,7 @@ GdsFeel class >> directoryPath: aDirectoryPath nextNameFor: aBaseName extension:
 	
 ]
 
-{ #category : #'objects from disk' }
+{ #category : 'objects from disk' }
 GdsFeel class >> fileOutXmlTopElement: aXMLElement toFile: aFileReference [ 
 	| doc |
 	"self halt."
@@ -72,18 +73,18 @@ GdsFeel class >> fileOutXmlTopElement: aXMLElement toFile: aFileReference [
 		  doc printOn: s].
 ]
 
-{ #category : #'debug-flags' }
+{ #category : 'debug-flags' }
 GdsFeel class >> fittingRatio [
 	^self typedMap numberFor: #fittingRatio default:  GdsViewport defaultFittingRatio.
 ]
 
-{ #category : #'debug-flags' }
+{ #category : 'debug-flags' }
 GdsFeel class >> fittingRatio: aFloat [
 	self assert: [ aFloat between: 0.5 and: 1.0 ] description: 'fittingRatio specify between 0.5 and 1.0'.
 	^ self typedMap numberFor: #fittingRatio value: aFloat
 ]
 
-{ #category : #debug }
+{ #category : 'debug' }
 GdsFeel class >> ifDebug: aBlock [
 	self debugConsoleOut ifFalse: [^self].
 	aBlock value.
@@ -91,7 +92,7 @@ GdsFeel class >> ifDebug: aBlock [
 	
 ]
 
-{ #category : #debug }
+{ #category : 'debug' }
 GdsFeel class >> ifDebugOn: aStreamBlock [
 	self ifDebug: [
 		Transcript cr; show: 
@@ -102,13 +103,13 @@ GdsFeel class >> ifDebugOn: aStreamBlock [
 	
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GdsFeel class >> initialize [
 	self dependentEnabled: false.
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsFeel class >> join: anArray using: joint [
 	"TODO: using KFStringUtils #join:using:"
 	| path |
@@ -119,7 +120,7 @@ GdsFeel class >> join: anArray using: joint [
 	^path allButLast:  joint size.
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 GdsFeel class >> loadExampleZippedDatabaseToLocal [
 
 	| srcFile destFolder destFile |
@@ -138,7 +139,7 @@ GdsFeel class >> loadExampleZippedDatabaseToLocal [
 	destFile
 ]
 
-{ #category : #maintenance }
+{ #category : 'maintenance' }
 GdsFeel class >> migrateConfigulationValues [
 	"self migrateConfigulationValues"
 	| lowerCapital |
@@ -157,33 +158,31 @@ GdsFeel class >> migrateConfigulationValues [
 				put: clazzVar copy ] ]
 ]
 
-{ #category : #documentation }
+{ #category : 'documentation' }
 GdsFeel class >> openReadMe [
 	"self openReadMe."
-	"| window |
-	window := SystemWindow allSubInstances 
-						detect: [:w | w label sameAs: self readMeTitle] ifNone: [nil].
-	window ifNotNil: [window owner ifNotNil: [^self]]."
-	(Workspace new contents: self readMeContents)
-		openLabel: self readMeTitle.
+
+	self environment at: #Workspace ifPresent: [ :clazz |
+		(clazz new contents: self readMeContents) openLabel:
+			self readMeTitle ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdsFeel class >> pathFromComponents: anArray [
 	^self join: anArray using: (DiskStore current delimiter asString).
 ]
 
-{ #category : #filesystem }
+{ #category : 'filesystem' }
 GdsFeel class >> projectDirectory [
 	^ './GdsFeel' asFileReference ensureCreateDirectory 
 ]
 
-{ #category : #documentation }
+{ #category : 'documentation' }
 GdsFeel class >> readMeContents [
 	^self readMeMaster
 ]
 
-{ #category : #documentation }
+{ #category : 'documentation' }
 GdsFeel class >> readMeMaster [
 	^'
 GdsInform reMakeGDSreaderSample .
@@ -200,13 +199,13 @@ GdsStation default library close.
 '
 ]
 
-{ #category : #documentation }
+{ #category : 'documentation' }
 GdsFeel class >> readMeTitle [
 	^'README - ', (((self category asString splitOn: '-') allButLast) joinUsing: '-')
 
 ]
 
-{ #category : #documentation }
+{ #category : 'documentation' }
 GdsFeel class >> readMeV000 [
 	^'
 kf 10/8/2009 10:25
@@ -215,7 +214,7 @@ kf 10/8/2009 10:25
 '
 ]
 
-{ #category : #documentation }
+{ #category : 'documentation' }
 GdsFeel class >> readMeV001 [
 	^'
 kf 10/28/2009 11:49
@@ -228,7 +227,7 @@ kf 10/28/2009 11:49
 '
 ]
 
-{ #category : #documentation }
+{ #category : 'documentation' }
 GdsFeel class >> readMeV002 [
 	^'
 V002
@@ -252,7 +251,7 @@ move GUI configulation methods to GdsFeelMorphic(GdsFeel-Morphic mcz Package).
 '
 ]
 
-{ #category : #documentation }
+{ #category : 'documentation' }
 GdsFeel class >> readMeV003 [
 	^'
 V003
@@ -265,13 +264,13 @@ ______
 '
 ]
 
-{ #category : #maintenance }
+{ #category : 'maintenance' }
 GdsFeel class >> rebuild [
 	"GdsFeel rebuild"
 	self relatedClasses do: [:clazz | clazz compileAll]
 ]
 
-{ #category : #maintenance }
+{ #category : 'maintenance' }
 GdsFeel class >> relatedClasses [
 	"GdsFeel rebuild"
 	^(Smalltalk allClasses select: [:clazz |
@@ -279,7 +278,7 @@ GdsFeel class >> relatedClasses [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsFeel class >> settingsOn: aBuilder [ 
 	<systemsettings>
 	(aBuilder group: #GdsFeel)
@@ -291,13 +290,13 @@ GdsFeel class >> settingsOn: aBuilder [
 				]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsFeel class >> typedMap [
 	TypedMap ifNil: [ TypedMap := TypedConfigulation new ].
 	^ TypedMap
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsFeel class >> versionNumberFromName: aName [
 	| items verString |
 	items := aName findTokens: '.'.
@@ -309,7 +308,7 @@ GdsFeel class >> versionNumberFromName: aName [
 	
 ]
 
-{ #category : #'objects from disk' }
+{ #category : 'objects from disk' }
 GdsFeel class >> xmlDocumentFile: aFileReference documentBlock: aBlock [
 	"self halt."
 	aFileReference readStreamDo: [ :s | | doc |
@@ -319,13 +318,13 @@ GdsFeel class >> xmlDocumentFile: aFileReference documentBlock: aBlock [
 
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 GdsFeel class >> zipArchive: aFile do: aArchiveBlock [
 	#ZipStore asClassIfPresent: [ ^ self zipArchiveModern: aFile do: aArchiveBlock ].
 	^ self zipArchiveClassic: aFile do: aArchiveBlock
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 GdsFeel class >> zipArchiveClassic: aFile do: aArchiveBlock [
 	| result |
 	result := nil.
@@ -340,7 +339,7 @@ GdsFeel class >> zipArchiveClassic: aFile do: aArchiveBlock [
 	^ result
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 GdsFeel class >> zipArchiveModern: aFile do: aArchiveBlock [
 	| result |
 	result := nil.
