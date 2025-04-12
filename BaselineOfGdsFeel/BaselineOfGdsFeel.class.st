@@ -109,8 +109,6 @@ BaselineOfGdsFeel >> baseline: spec [
 
 { #category : #baseline }
 BaselineOfGdsFeel >> baselineGuest: spec [
-
-	<baseline>
 	spec for: #common do: [
 		spec
 			baseline: 'NeoJSON'
