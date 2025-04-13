@@ -1,6 +1,6 @@
 Class {
-	#name : #GdsObjectProperty,
-	#superclass : #Object,
+	#name : 'GdsObjectProperty',
+	#superclass : 'Object',
 	#instVars : [
 		'propertyName',
 		'propertyOwner',
@@ -12,15 +12,16 @@ Class {
 		'lock',
 		'nilAllowed'
 	],
-	#category : #'GdsFeel-Foundation-Property'
+	#category : 'GdsFeel-Foundation-Property',
+	#package : 'GdsFeel-Foundation-Property'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsObjectProperty class >> named: aPropertyName owner: anObject [
 	^self named: aPropertyName type: self typeClass owner: anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsObjectProperty class >> named: aPropertyName type: aClass owner: anObject [
 	^self new 
 		propertyName: aPropertyName;
@@ -28,29 +29,29 @@ GdsObjectProperty class >> named: aPropertyName type: aClass owner: anObject [
 		propertyOwner: anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsObjectProperty class >> typeClass [
 	^Object
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GdsObjectProperty >> acceptWhen: anAcceptBooleanBlock [
 	acceptWhen := anAcceptBooleanBlock.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> announcer [
 	^announcer ifNil: [announcer := Announcer new]
 	
 ]
 
-{ #category : #check }
+{ #category : 'check' }
 GdsObjectProperty >> changedTest: anObject oldValue: oldValue [
 	^oldValue ~= anObject.
 	
 ]
 
-{ #category : #check }
+{ #category : 'check' }
 GdsObjectProperty >> checkAccept: anObject [
 	acceptWhen
 		ifNotNil: [ | blockResult |
@@ -60,13 +61,13 @@ GdsObjectProperty >> checkAccept: anObject [
 
 ]
 
-{ #category : #check }
+{ #category : 'check' }
 GdsObjectProperty >> checkType: anObject [
 	self checkType: anObject kindOf: propertyType
 
 ]
 
-{ #category : #check }
+{ #category : 'check' }
 GdsObjectProperty >> checkType: anObject kindOf: aPropertyClass [
 	(self nilAllowed and: [anObject isNil])
 		ifTrue: [ ^ self ].
@@ -77,12 +78,12 @@ GdsObjectProperty >> checkType: anObject kindOf: aPropertyClass [
 
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GdsObjectProperty >> error: aString [
 	GdsPropertyError new signal: aString.
 ]
 
-{ #category : #check }
+{ #category : 'check' }
 GdsObjectProperty >> fireValueChangedNew: newValue old: oldValue [
 	propertyValue := newValue.
 	self announcer announce: 
@@ -92,20 +93,20 @@ GdsObjectProperty >> fireValueChangedNew: newValue old: oldValue [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> getValue [
 	^propertyValue ifNil: [ propertyValue := initialValue.]
 	
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> initialValue: anObject [
 	initialValue := anObject.
 	
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GdsObjectProperty >> initialize [ 
 	super initialize.
 	propertyType := self class typeClass.
@@ -114,12 +115,12 @@ GdsObjectProperty >> initialize [
 	
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsObjectProperty >> labelStyleColon [
 	^self labelStyleColonUppercased: false.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsObjectProperty >> labelStyleColonUppercased: aBoolean [	
 	^String streamContents: [:s |
 		s nextPutAll: 
@@ -131,12 +132,12 @@ GdsObjectProperty >> labelStyleColonUppercased: aBoolean [
 		s nextPutAll: self getValue printString].
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsObjectProperty >> labelStyleParlen [
 	^self labelStyleParlenUppercased: false.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsObjectProperty >> labelStyleParlenUppercased: aBoolean [	
 	^String streamContents: [:s |
 		s nextPutAll: 
@@ -148,29 +149,29 @@ GdsObjectProperty >> labelStyleParlenUppercased: aBoolean [
 		s nextPut: $). ].
 ]
 
-{ #category : #check }
+{ #category : 'check' }
 GdsObjectProperty >> newValue: anObject [
 	^anObject 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> nilAllowed [
 	^ nilAllowed ifNil: [ nilAllowed := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> nilAllowed: aBoolean [
 	nilAllowed := aBoolean 
 ]
 
-{ #category : #check }
+{ #category : 'check' }
 GdsObjectProperty >> oldValue [
 	^propertyValue ifNil: [ propertyValue := initialValue ]
 	
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsObjectProperty >> printOn: aStream [
 	aStream nextPutAll: 'property: '.
 	aStream nextPutAll: self propertyName.
@@ -180,31 +181,31 @@ GdsObjectProperty >> printOn: aStream [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> propertyName [
 	^propertyName.
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> propertyName: aPropertyName [
 	propertyName := aPropertyName.
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> propertyOwner: aPropertyOwner [
 	propertyOwner := aPropertyOwner.
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> propertyType: aClass [
 	propertyType := aClass.
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsObjectProperty >> setValue: anObject [
 	| oldValue newValue |
 	lock ifTrue: [ ^ self ].
@@ -220,7 +221,7 @@ GdsObjectProperty >> setValue: anObject [
 	
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 GdsObjectProperty >> spy [
 	| spyWindow |
 	spyWindow := (AnnouncementSpy on: self announcer) build. 
@@ -228,7 +229,7 @@ GdsObjectProperty >> spy [
 	^spyWindow
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 GdsObjectProperty >> spyAutoCloseAfterSeconds: aNumber [
 	| spyWindow |
 	spyWindow := self spy.
@@ -236,23 +237,23 @@ GdsObjectProperty >> spyAutoCloseAfterSeconds: aNumber [
 	  spyWindow delete] fork.
 ]
 
-{ #category : #subscription }
+{ #category : 'subscription' }
 GdsObjectProperty >> unsubscribe: anObject [
 	self announcer unsubscribe: anObject.
 ]
 
-{ #category : #evaluting }
+{ #category : 'evaluting' }
 GdsObjectProperty >> value [
 	^self getValue.
 ]
 
-{ #category : #check }
+{ #category : 'check' }
 GdsObjectProperty >> valueAssign: newValue [
 	propertyValue := newValue.
 	
 ]
 
-{ #category : #announce }
+{ #category : 'announce' }
 GdsObjectProperty >> whenChangedDo: aBlock [
 	| block |
 	"from: NewValueHolder"	
@@ -266,15 +267,15 @@ GdsObjectProperty >> whenChangedDo: aBlock [
 	self announcer when: GdsPropertyChanged  do: block
 ]
 
-{ #category : #announce }
+{ #category : 'announce' }
 GdsObjectProperty >> whenChangedPropertyDo: aBlock [
+
 	| block |
-	
-	block := [:announcement :ann | 
-		aBlock 
-			cull: announcement property
-			cull: announcement 
-			cull: ann ].
-	
-	self announcer when: GdsPropertyChanged  do: block
+	block := [ :announcement :ann |
+	         aBlock
+		         cull: announcement property
+		         cull: announcement
+		         cull: ann ].
+
+	self announcer when: GdsPropertyChanged do: block for: self
 ]

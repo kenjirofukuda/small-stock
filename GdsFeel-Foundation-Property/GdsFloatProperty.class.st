@@ -1,27 +1,28 @@
 Class {
-	#name : #GdsFloatProperty,
-	#superclass : #GdsNumberProperty,
-	#category : #'GdsFeel-Foundation-Property'
+	#name : 'GdsFloatProperty',
+	#superclass : 'GdsNumberProperty',
+	#category : 'GdsFeel-Foundation-Property',
+	#package : 'GdsFeel-Foundation-Property'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsFloatProperty class >> typeClass [
 	^Float
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GdsFloatProperty >> initialValue: aNumber [
 	super initialValue: aNumber asFloat.
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GdsFloatProperty >> initialize [
 	super initialize.
 	initialValue := 0.0.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsFloatProperty >> setValue: aNumber [ 
 	| floatValue |
 	self checkType: aNumber kindOf: Number.

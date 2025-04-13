@@ -1,21 +1,22 @@
 Class {
-	#name : #GdsBooleanProperty,
-	#superclass : #GdsObjectProperty,
-	#category : #'GdsFeel-Foundation-Property'
+	#name : 'GdsBooleanProperty',
+	#superclass : 'GdsObjectProperty',
+	#category : 'GdsFeel-Foundation-Property',
+	#package : 'GdsFeel-Foundation-Property'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsBooleanProperty class >> typeClass [ 
 	^Boolean
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GdsBooleanProperty >> initialize [
 	super initialize.
 	initialValue := false.
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GdsBooleanProperty >> toggle [
 	self setValue: self getValue not.
 ]
