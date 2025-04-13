@@ -1,15 +1,17 @@
 Class {
-	#name : #BaselineOfGdsFeel,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfGdsFeel
+	#name : 'BaselineOfGdsFeel',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfGdsFeel',
+	#package : 'BaselineOfGdsFeel'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfGdsFeel >> baseline: spec [
 
 	<baseline>
 	self baselineGuest: spec.
 	self baselineMagritte: spec.
+	self baselineKFImaging: spec.
 	spec for: #common do: [
 		spec
 			package: 'GdsFeel-Foundation'
@@ -35,9 +37,6 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec package: 'GdsFeel-Model-Private'.
 		spec package: 'GdsFeel-Model-Viewing'.
 		spec package: 'GdsFeel-Model-Tests'.
-		spec
-			baseline: 'KFImaging'
-			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo' ].
 		spec package: 'GdsFeel-UI' with: [
 			spec requires: #( 'KFImaging' 'NeoCSV' 'Model' )
 			"'CSV'" ].
@@ -108,7 +107,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				   'GdsFeel-UI-ElementAddition' ) ]
 ]
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfGdsFeel >> baselineGuest: spec [
 	spec for: #common do: [
 		spec
@@ -127,48 +126,62 @@ BaselineOfGdsFeel >> baselineGuest: spec [
 
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
+BaselineOfGdsFeel >> baselineKFImaging: spec [
+
+	spec for: #common do: [
+		spec
+			baseline: 'KFImaging'
+			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo' ] ].
+	spec for: #(#'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x') do: [
+		spec
+			baseline: 'KFImaging'
+			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo:MorphicModel' ] ].
+
+]
+
+{ #category : 'baselines' }
 BaselineOfGdsFeel >> baselineMagritte: spec [
 	"https://github.com/magritte-metamodel/magritte/releases"
 	spec for: #common do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte/source';
+				repository: 'github://magritte-metamodel/magritte';
 				loads: #( Core ) 
 		].
 	].
 	spec for: #'pharo6.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte/source:3.5.2';
+				repository: 'github://magritte-metamodel/magritte:v3.5.2';
 				loads: #( Core ) 
 		].
 	].
 	spec for: #'pharo7.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte/source:3.5.3';
+				repository: 'github://magritte-metamodel/magritte:v3.5.3';
 				loads: #( Core ) 
 		].
 	].
 	spec for: #'pharo8.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte/source:3.6';
+				repository: 'github://magritte-metamodel/magritte:v3.6';
 				loads: #( Core ) 
 		].
 	].
 	spec for: #'pharo9.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte/source:3.7';
+				repository: 'github://magritte-metamodel/magritte:v3.7';
 				loads: #( Core ) 
 		].
 	].
 	spec for: #'pharo10.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte/source:3.8';
+				repository: 'github://magritte-metamodel/magritte:v3.8';
 				loads: #( Core ) 
 		].
 	].

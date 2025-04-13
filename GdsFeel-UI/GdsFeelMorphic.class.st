@@ -326,12 +326,10 @@ GdsFeelMorphic class >> locationCaptionFont [
 { #category : 'documentation' }
 GdsFeelMorphic class >> openReadMe [
 	"self openReadMe."
-	"| window |
-	window := SystemWindow allSubInstances 
-						detect: [:w | w label sameAs: self readMeTitle] ifNone: [nil].
-	window ifNotNil: [window owner ifNotNil: [^self]]."
-	(Workspace new contents: self readMeContents; yourself)
-		openLabel: self readMeTitle.
+
+	self environment at: #Workspace ifPresent: [ :clazz |
+		(clazz new contents: self readMeContents) openLabel:
+			self readMeTitle ]
 ]
 
 { #category : 'localize' }
