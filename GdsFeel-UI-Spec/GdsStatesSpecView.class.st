@@ -1,16 +1,15 @@
 Class {
-	#name : 'GdsStatesSpecView',
-	#superclass : 'ComposablePresenter',
+	#name : #GdsStatesSpecView,
+	#superclass : #ComposablePresenter,
 	#instVars : [
 		'listModel',
 		'viewMap',
 		'model'
 	],
-	#category : 'GdsFeel-UI-Spec',
-	#package : 'GdsFeel-UI-Spec'
+	#category : 'GdsFeel-UI-Spec'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsStatesSpecView class >> defaultSpec [
 	<spec: #default>
 	^ SpecLayout composed
@@ -20,12 +19,12 @@ GdsStatesSpecView class >> defaultSpec [
 		yourself
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsStatesSpecView class >> open [
 	self subclassResponsibility
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStatesSpecView >> initializeWidgets [
 	listModel := self newList.
 	listModel displayBlock: [ :element | self viewForItem: element ].
@@ -39,27 +38,27 @@ GdsStatesSpecView >> initializeWidgets [
 					 ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStatesSpecView >> kinds: aGdsKinds [
 	self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStatesSpecView >> listModel [
 	^ listModel
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStatesSpecView >> model [
 	^ model value
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStatesSpecView >> model: aGdsStatesModel [
 	model value: aGdsStatesModel
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsStatesSpecView >> viewForItem: aGdsKind [
 	self subclassResponsibility
 ]

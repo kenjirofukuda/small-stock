@@ -7,8 +7,8 @@ GdsTreeBrowser open.
 
 "
 Class {
-	#name : 'GdsTreeBrowser',
-	#superclass : 'ComposablePresenter',
+	#name : #GdsTreeBrowser,
+	#superclass : #ComposablePresenter,
 	#instVars : [
 		'tree',
 		'menu',
@@ -20,11 +20,10 @@ Class {
 		'layers',
 		'kinds'
 	],
-	#category : 'GdsFeel-UI-Spec',
-	#package : 'GdsFeel-UI-Spec'
+	#category : #'GdsFeel-UI-Spec'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : #utilities }
 GdsTreeBrowser class >> allDispose [
 	<script>
 	Cursor wait
@@ -37,7 +36,7 @@ GdsTreeBrowser class >> allDispose [
 	SmalltalkImage current informSpaceLeftAfterGarbageCollection
 ]
 
-{ #category : 'specs' }
+{ #category : #specs }
 GdsTreeBrowser class >> defaultSpec [
 	<spec: #default>
 	^ SpecLayout composed
@@ -73,7 +72,7 @@ GdsTreeBrowser class >> defaultSpec [
 		yourself
 ]
 
-{ #category : 'menu' }
+{ #category : #menu }
 GdsTreeBrowser class >> gdsMenuOn: aBuilder [ 
 	<worldMenu>
 	(aBuilder item: #'Tree Browser')
@@ -86,17 +85,18 @@ GdsTreeBrowser class >> gdsMenuOn: aBuilder [
 		yourself.		
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GdsTreeBrowser class >> open [
+	<example>
 	self new openWithSpec
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 GdsTreeBrowser class >> toolbarBorderWidth [
 	^ 4
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> activateElementInspectorInStructure: aGdsStructure [
 	aGdsStructure idSelection elements
 		ifNotEmpty: [ :elements | 
@@ -104,7 +104,7 @@ GdsTreeBrowser >> activateElementInspectorInStructure: aGdsStructure [
 				ifTrue: [ self activateElementProperty: elements first ] ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> activateElementProperty: aGdsElement [
 	aGdsElement
 		ifNotNil: [ 
@@ -119,7 +119,7 @@ GdsTreeBrowser >> activateElementProperty: aGdsElement [
 					inspectorMorph layoutChanged ] ]
 ]
 
-{ #category : 'action - front most structure' }
+{ #category : #'action - front most structure' }
 GdsTreeBrowser >> addReference [
 	|  reply |
 	self
@@ -139,12 +139,12 @@ GdsTreeBrowser >> addReference [
 						ifFalse: [ tool finish ] ] ]
 ]
 
-{ #category : 'action - selection independent' }
+{ #category : #'action - selection independent' }
 GdsTreeBrowser >> addSampleTab [
 	tabManager addTab: self sampleTab
 ]
 
-{ #category : 'action - tree' }
+{ #category : #'action - tree' }
 GdsTreeBrowser >> addStructure [
 	| strucName ok default |
 	strucName := nil.
@@ -171,20 +171,20 @@ GdsTreeBrowser >> addStructure [
 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> changeGrid [
 	self treeActivatedStructureEditorDo: [ :m |
 		m requestGridScale ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> changeGridScale [
 	self treeActivatedStructureEditorDo: [ :m |
 		m requestGridDisplayMultiply.
 		 ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> changeTabSelection [
 	self updateTitle.
 	self selectedTabDo: [  ] ifNil: [ self clearUISelection. ].
@@ -193,7 +193,7 @@ GdsTreeBrowser >> changeTabSelection [
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> childrenFor: anItem [
 	(anItem isKindOf: GdsLibrary)
 		ifTrue: [ ^ anItem topStructures
@@ -210,7 +210,7 @@ GdsTreeBrowser >> childrenFor: anItem [
 	^ #()
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> clearInspector [
 	inspectorMorph
 		scrollTarget:
@@ -219,26 +219,26 @@ GdsTreeBrowser >> clearInspector [
 				yourself)
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> clearUISelection [
 	visibleElementList items: #().
 	elementList items: #().
 	self clearInspector.
 ]
 
-{ #category : 'action - front most structure' }
+{ #category : #'action - front most structure' }
 GdsTreeBrowser >> clickTestTool [
 	self frontMostStructureEditorDo: [ :morph | morph currentToolClass: GdsClickTestTool ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> createAthensStructureView [
 	^ (self class environment at: #GdsSceneView ifAbsent: [  ])
 		ifNotNil: [ :clazz | clazz new ]
 		ifNil: [  ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> createBalloonView [
 	^ GdsStructureEditorMorph new
 		defaultToolClass: GdsSelectTool;
@@ -246,7 +246,7 @@ GdsTreeBrowser >> createBalloonView [
 		yourself
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> customMenu [
 	"Answer the menu to be presented when the yellow button is pressed while the shift key is down"
 	| menuSpec |
@@ -255,7 +255,7 @@ GdsTreeBrowser >> customMenu [
 	^ MenuModel new fromSpec: menuSpec.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> debugMenu [
 	^ MenuModel new
 		autoRefresh: true;
@@ -284,7 +284,7 @@ GdsTreeBrowser >> debugMenu [
 					]
 ]
 
-{ #category : 'menu building' }
+{ #category : #'menu building' }
 GdsTreeBrowser >> displayNameHandler: anItem [
 	"self halt."
 
@@ -302,12 +302,12 @@ GdsTreeBrowser >> displayNameHandler: anItem [
 		yourself
 ]
 
-{ #category : 'action - tree' }
+{ #category : #'action - tree' }
 GdsTreeBrowser >> duplicateStructure [
 	self treeSelectedStructureDo: [ :struct | struct duplicate ].
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> editMenu [
 	^ MenuModel new
 		autoRefresh: true;
@@ -331,12 +331,12 @@ GdsTreeBrowser >> editMenu [
 					]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreeBrowser >> elementList [
 	^ elementList
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> emptyMenu [
 	^ MenuModel new 
 		addGroup: [ :group | 
@@ -347,7 +347,7 @@ GdsTreeBrowser >> emptyMenu [
 						action: [ self inform: 'menu is empty' ] ] ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> environmentMenu [
 	^ MenuModel new
 		addGroup: [ :group | 
@@ -364,12 +364,7 @@ GdsTreeBrowser >> environmentMenu [
 					 ]
 ]
 
-{ #category : 'api' }
-GdsTreeBrowser >> extent [
-	^ (Display extent * 0.95) rounded.
-]
-
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> fileMenu [
 
 	^ MenuModel new addGroup: [ :group | 
@@ -385,19 +380,19 @@ GdsTreeBrowser >> fileMenu [
 					  action: [ self newLibrary ] ] ]
 ]
 
-{ #category : 'action - tree' }
+{ #category : #'action - tree' }
 GdsTreeBrowser >> fileOutDxf [
 	self treeSelectedStructureDo: [ :struct | struct fileOutDxfToDefault ].
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> frontMostStructureEditorDo: aMorphBlock [
 	self selectedTabDo: [ :morph | 
 			morph class = GdsStructureEditorMorph
 				ifTrue: [ aMorphBlock value: morph ] ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> handleActivatedStructureMorph: aGdsStructureEditorMorph [
 	aGdsStructureEditorMorph structure
 		ifNil: [ self clearUISelection ]
@@ -407,7 +402,7 @@ GdsTreeBrowser >> handleActivatedStructureMorph: aGdsStructureEditorMorph [
 			visibleElementList items: aGdsStructureEditorMorph visibleElements ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> handleDoubleClick [
 	self treeSelectedStructureDo: [ :structure | 
 		^ 	Cursor wait 
@@ -416,7 +411,7 @@ GdsTreeBrowser >> handleDoubleClick [
 	self inform: 'Empty Handler'
 ]
 
-{ #category : 'widget API' }
+{ #category : #'widget API' }
 GdsTreeBrowser >> iconFor: anItem [
 	| icon |
 	icon := (Smalltalk ui icons iconNamed: (self iconKeyFor: anItem)) copy.
@@ -427,7 +422,7 @@ GdsTreeBrowser >> iconFor: anItem [
 	^ icon
 ]
 
-{ #category : 'ui building' }
+{ #category : #'ui building' }
 GdsTreeBrowser >> iconKeyFor: anItem [
 	(anItem isKindOf: GdsLibrary)
 		ifTrue: [ 
@@ -437,7 +432,7 @@ GdsTreeBrowser >> iconKeyFor: anItem [
 	^ #smallObjectsIcon
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsTreeBrowser >> idExplode [
 	|    |
 	self
@@ -446,7 +441,7 @@ GdsTreeBrowser >> idExplode [
 			tree updateTree ].
 ]
 
-{ #category : 'action - front most structure' }
+{ #category : #'action - front most structure' }
 GdsTreeBrowser >> idStructure [
 	| strucName  reply |
 	self
@@ -466,10 +461,9 @@ GdsTreeBrowser >> idStructure [
 					 ]	]
 ]
 
-
 { #category : #initialization }
 GdsTreeBrowser >> initialExtent [
-	^ 800 @ 600
+	^ (GdsFeelMorphic actualScreenSize * 0.95) rounded
 ]
 
 { #category : #initialization }
@@ -477,7 +471,7 @@ GdsTreeBrowser >> initializeMenu [
 	menu := self instantiate: MenuModel
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> initializeMenuPresenter [
 	menu
 		addGroup: [ :group | 
@@ -515,7 +509,7 @@ GdsTreeBrowser >> initializeMenuPresenter [
 						subMenu: self customMenu ] ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> initializePresenter [
 	super initializePresenter.
 	GdsFeel loadExampleZippedDatabaseToLocal. 
@@ -530,7 +524,6 @@ GdsTreeBrowser >> initializePresenter [
 			listModel
 				whenSelectedItemChanged: [ :el | el ifNotNil: [ el structure idSelection id: el keyNumber ] ] ].
 	self whenWindowChanged: [ :w | w whenClosedDo: [ self onWindowClosed ] ].
-	self whenBuiltDo: [ :ann | ann model window inspect ].
 	GdsStation default announcer
 		when: GdsStructureDuplicated
 		do: [ :ann | 
@@ -538,7 +531,7 @@ GdsTreeBrowser >> initializePresenter [
 			self showAsNewTop ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> initializeWidgets [
 	"self instantiateModels: #(tree TreeModel menu MenuModel structure MorphicModel )"
 	"@see: createBalloonView."
@@ -561,7 +554,7 @@ GdsTreeBrowser >> initializeWidgets [
 	"inspectorMorph layoutFrame: (LayoutFrame fractions: (0 @ 0 corner: 1 @ 1) offsets: (0 @ 25 corner: 0 @ 0))."
 ]
 
-{ #category : 'menu building' }
+{ #category : #'menu building' }
 GdsTreeBrowser >> inspectionMenu: aMenu [
 	tree selectedItem ifNil: [ ^ self ].
 	aMenu
@@ -575,12 +568,12 @@ GdsTreeBrowser >> inspectionMenu: aMenu [
 						action: [ tree selectedItem content inspect ] ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreeBrowser >> inspectorView [
 	^ inspectorMorph asSpecAdapter
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> installToolOn: aMenuGroupModel specSelector: specSelector [
 	| userInfo |
 	(self perform: specSelector) do: [ :toolSpec |
@@ -601,17 +594,17 @@ GdsTreeBrowser >> installToolOn: aMenuGroupModel specSelector: specSelector [
 		 ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreeBrowser >> kinds [
 	^ kinds
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreeBrowser >> layers [
 	^ layers
 ]
 
-{ #category : 'menu building' }
+{ #category : #'menu building' }
 GdsTreeBrowser >> libraryMenuOnGroup: aGroup [
 	self
 		treeSelectedLibraryDo: [ :library | 
@@ -646,24 +639,24 @@ GdsTreeBrowser >> libraryMenuOnGroup: aGroup [
 								action: [ clazz new perform: #exportLibrary: with: library ] ] ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreeBrowser >> manager [
 	^ tabManager
 ]
 
-{ #category : 'action - front most structure' }
+{ #category : #'action - front most structure' }
 GdsTreeBrowser >> markElementKeys [
 	self
 		frontMostStructureEditorDo: [ :m | 
 			m markElementKeys ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreeBrowser >> menu [
 	^ menu
 ]
 
-{ #category : 'action - selection independent' }
+{ #category : #'action - selection independent' }
 GdsTreeBrowser >> newLibrary [
 	"Gds"
 
@@ -692,7 +685,7 @@ UNIT: {2}'
 initialized' format: {name}) ]
 ]
 
-{ #category : 'ui building' }
+{ #category : #'ui building' }
 GdsTreeBrowser >> newTabForLibrary: aGdsLibrary [
 	| balloonView athensView |
 	balloonView := self createBalloonView.
@@ -718,30 +711,30 @@ GdsTreeBrowser >> newTabForLibrary: aGdsLibrary [
 		yourself
 ]
 
-{ #category : 'debugging-use-only' }
+{ #category : #'debugging-use-only' }
 GdsTreeBrowser >> nodeOfStructure: aGdsStructure [
 	^ self nodes detect: [ :node | node item == aGdsStructure ] ifNone: [  ]
 ]
 
-{ #category : 'debugging-use-only' }
+{ #category : #'debugging-use-only' }
 GdsTreeBrowser >> nodeOfStructureNamed: aStructureName [
 	| lib |
 	lib := GdsStation default library.
 	^ self nodes detect: [ :node | (node item isKindOf: GdsStructure) and: [node item library == lib and: [ node name sameAs: aStructureName] ]] ifNone: [  ]
 ]
 
-{ #category : 'debugging-use-only' }
+{ #category : #'debugging-use-only' }
 GdsTreeBrowser >> nodes [
 	^ tree widget widget allNodeMorphs collect: [ :m | m complexContents ] thenReject: #isNil
 ]
 
-{ #category : 'ui building' }
+{ #category : #'ui building' }
 GdsTreeBrowser >> onWindowClosed [
 	self station structure:nil.
 	self station quit.
 ]
 
-{ #category : 'action - selection independent' }
+{ #category : #'action - selection independent' }
 GdsTreeBrowser >> openLibrary [
 
 	| file |
@@ -755,7 +748,7 @@ GdsTreeBrowser >> openLibrary [
 	Cursor wait showWhile: [ self registerLibraryFile: file ]
 ]
 
-{ #category : 'menu building' }
+{ #category : #'menu building' }
 GdsTreeBrowser >> parentStructureMenuOn: aGroup [
 	aGroup
 		addItem: [ :anItem | 
@@ -769,7 +762,7 @@ GdsTreeBrowser >> parentStructureMenuOn: aGroup [
 				action: [ self sortByName ] ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> pluginMenu [
 	| classes |
 	classes := GdsPlugin new enabledPluginClasses.
@@ -787,7 +780,7 @@ GdsTreeBrowser >> pluginMenu [
 								action: [ plugin entryPoint ] ] ] ]
 ]
 
-{ #category : 'action - front most structure' }
+{ #category : #'action - front most structure' }
 GdsTreeBrowser >> privateAddReferenceNamed2: aName point: aPoint [
 	|  |
 	self
@@ -798,7 +791,7 @@ GdsTreeBrowser >> privateAddReferenceNamed2: aName point: aPoint [
 			morph structure currentItem put. ]
 ]
 
-{ #category : 'action - front most structure' }
+{ #category : #'action - front most structure' }
 GdsTreeBrowser >> privateAddReferenceNamed: aName point: aPoint [
 	| el |
 	self
@@ -818,7 +811,7 @@ GdsTreeBrowser >> privateAddReferenceNamed: aName point: aPoint [
 			morph changed ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> privateClickReplyPoints: points tool: tool worldPoint: aWorldPoint [
 	|  p pointExpr values|	
 	points size >= 2
@@ -842,13 +835,13 @@ values := morph
 
 ]
 
-{ #category : 'action - selection independent' }
+{ #category : #'action - selection independent' }
 GdsTreeBrowser >> rebuildMenus [
 	self initializeMenu.
 	self initializeMenuPresenter.
 ]
 
-{ #category : 'ui building' }
+{ #category : #'ui building' }
 GdsTreeBrowser >> registerLibraryFile: aFileReference [
 
 	| lib |
@@ -868,7 +861,7 @@ GdsTreeBrowser >> registerLibraryFile: aFileReference [
 		self treeChangeSelection: item ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> requestStructureName [
 	| strucName ok default |
 	strucName := nil.
@@ -891,7 +884,7 @@ GdsTreeBrowser >> requestStructureName [
 
 ]
 
-{ #category : 'debugging-use-only' }
+{ #category : #'debugging-use-only' }
 GdsTreeBrowser >> revealStructure: aGdsStructure [
 	tree updateTree.
 	(self nodeOfStructure: aGdsStructure)
@@ -902,7 +895,7 @@ GdsTreeBrowser >> revealStructure: aGdsStructure [
 
 ]
 
-{ #category : 'ui building' }
+{ #category : #'ui building' }
 GdsTreeBrowser >> sampleTab [
 	^ self newTab
 		closeable: false;
@@ -915,12 +908,12 @@ GdsTreeBrowser >> sampleTab [
 		yourself
 ]
 
-{ #category : 'action - tree' }
+{ #category : #'action - tree' }
 GdsTreeBrowser >> saveStructure [
 	self treeSelectedStructureDo: [ :struct | struct forceSave ].
 ]
 
-{ #category : 'action - front most structure' }
+{ #category : #'action - front most structure' }
 GdsTreeBrowser >> selectByWindow [
 	self
 		frontMostStructureEditorDo: [ :morph | 
@@ -928,12 +921,12 @@ GdsTreeBrowser >> selectByWindow [
 			self inform: 'idAdd' ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> selectTab: aTabModel [
 	tabManager widget widget selectTabAt: (tabManager tabs indexOf: aTabModel).
 ]
 
-{ #category : 'action - front most structure' }
+{ #category : #'action - front most structure' }
 GdsTreeBrowser >> selectTool [
 	self
 		frontMostStructureEditorDo: [ :morph | 
@@ -941,12 +934,12 @@ GdsTreeBrowser >> selectTool [
 			self inform: 'Select Tool' ]
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 GdsTreeBrowser >> selectedTabDo: tabBlock [ 
 	self selectedTabDo: tabBlock ifNil: [ ]
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 GdsTreeBrowser >> selectedTabDo: tabBlock ifNil: emptyTabBlock [
 	tabManager selectedTab
 		ifNotNil: [ :tab | 
@@ -956,7 +949,7 @@ GdsTreeBrowser >> selectedTabDo: tabBlock ifNil: emptyTabBlock [
 		ifNil: emptyTabBlock
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreeBrowser >> shapeMenu [
 	^ MenuModel new
 		autoRefresh: true;
@@ -964,7 +957,7 @@ GdsTreeBrowser >> shapeMenu [
 			self installToolOn: group specSelector: #shapeToolSpecs ].
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> shapeToolSpecs [
 	^ { 
 	{ 'Point' . GdsDirectPointTool  }.
@@ -974,7 +967,7 @@ GdsTreeBrowser >> shapeToolSpecs [
 	 }
 ]
 
-{ #category : 'action - tree' }
+{ #category : #'action - tree' }
 GdsTreeBrowser >> showAsNewTop [
 
 	self treeSelectedStructureDo: [ :structure | 
@@ -1016,27 +1009,27 @@ GdsTreeBrowser >> showAsNewTop [
 			self selectTab: tab ] ]
 ]
 
-{ #category : 'action - selection independent' }
+{ #category : #'action - selection independent' }
 GdsTreeBrowser >> sortByArea [
 	self structureSortBlock: [ :s1 :s2 | s1 dataExtentForElements area > s2 dataExtentForElements area ]
 ]
 
-{ #category : 'action - selection independent' }
+{ #category : #'action - selection independent' }
 GdsTreeBrowser >> sortByName [
 	self structureSortBlock: [ :s1 :s2 | s1 name < s2 name ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreeBrowser >> station [ 
 	^ GdsStation default
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsTreeBrowser >> structureHasChild: aGdsStructure [
 	^ (aGdsStructure isKindOf: GdsStructure) and: [ aGdsStructure subStructures notEmpty ]
 ]
 
-{ #category : 'menu building' }
+{ #category : #'menu building' }
 GdsTreeBrowser >> structureMenuOnGroup: aGroup [
 	self
 		treeSelectedStructureDo: [ :struct | 
@@ -1076,34 +1069,34 @@ GdsTreeBrowser >> structureMenuOnGroup: aGroup [
 			struct subStructures ifNotEmpty: [ self parentStructureMenuOn: aGroup ] ]
 ]
 
-{ #category : 'api' }
+{ #category : #api }
 GdsTreeBrowser >> structureSortBlock [
 	^ structureSortBlock value
 ]
 
-{ #category : 'api' }
+{ #category : #api }
 GdsTreeBrowser >> structureSortBlock: aBlock [
 	structureSortBlock value: aBlock
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> tabForStructure: aGdsStructure [
 	^ tabManager tabs
 		detect: [ :tab | (tab contents valueOfProperty: #library ifAbsent: [  ]) = aGdsStructure library ]
 		ifNone: [  ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> tabNameForLibrary: aLibrary [
 	^ aLibrary name , ' - ' , aLibrary file parent fullName
 ]
 
-{ #category : 'api' }
+{ #category : #api }
 GdsTreeBrowser >> title [
 	^ self manager selectedTab ifNil: [ 'Gds Browser' ] ifNotNil: [ :tab | tab label ]
 ]
 
-{ #category : 'action - tree' }
+{ #category : #'action - tree' }
 GdsTreeBrowser >> toggleAthensBallloon [
 	self
 		treeSelectedStructureDo: [ :structure | 
@@ -1132,7 +1125,7 @@ GdsTreeBrowser >> toggleAthensBallloon [
 				self selectTab: tab." ] ]
 ]
 
-{ #category : 'action - tree' }
+{ #category : #'action - tree' }
 GdsTreeBrowser >> toggleVisibleStructure [
 	self
 		treeSelectedStructureDo: [ :structure | 
@@ -1143,7 +1136,7 @@ GdsTreeBrowser >> toggleVisibleStructure [
 			(self tabForStructure: structure) ifNotNil: [ :tab | tab contents redraw ] ]
 ]
 
-{ #category : 'menu building' }
+{ #category : #'menu building' }
 GdsTreeBrowser >> toolSpecs [
 	^ { 
 	{ 'Select' . GdsSelectTool }.
@@ -1151,12 +1144,12 @@ GdsTreeBrowser >> toolSpecs [
 	 }
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreeBrowser >> tree [
 	^ tree
 ]
 
-{ #category : 'action - tree' }
+{ #category : #'action - tree' }
 GdsTreeBrowser >> treeActivatedStructureEditorDo: aBlock [
 	self
 		treeSelectedStructureDo: [ :structure | 
@@ -1168,14 +1161,14 @@ GdsTreeBrowser >> treeActivatedStructureEditorDo: aBlock [
 						ifTrue: [ aBlock value: morph ] ] ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> treeChangeSelection: item [ 
 	item ifNil: [ ^ self ].
 	(item isKindOf: GdsLibrary) ifFalse: [ ^ self ].
 	self station library: item
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> treeSelectedContentsOfClass: aClass do: aContentsBlock [
 	":aGdsStructure [:aTreeNodeItem]"
 
@@ -1184,17 +1177,17 @@ GdsTreeBrowser >> treeSelectedContentsOfClass: aClass do: aContentsBlock [
 		ifTrue: [ aContentsBlock cull: tree selectedItem content cull: tree selectedItem ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> treeSelectedLibraryDo: aStructureBlock [ 
 	self treeSelectedContentsOfClass: GdsLibrary do: aStructureBlock 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreeBrowser >> treeSelectedStructureDo: aStructureBlock [ 
 	self treeSelectedContentsOfClass: GdsStructure do: aStructureBlock 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreeBrowser >> visibleElementList [
 	^ visibleElementList
 ]
