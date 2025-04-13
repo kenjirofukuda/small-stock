@@ -1,31 +1,30 @@
 Class {
-	#name : 'GdsStrictCompatibility',
-	#superclass : 'GdsCompatibility',
-	#category : 'GdsFeel-Model-Basic',
-	#package : 'GdsFeel-Model-Basic'
+	#name : #GdsStrictCompatibility,
+	#superclass : #GdsCompatibility,
+	#category : 'GdsFeel-Model-Basic'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStrictCompatibility >> elementColorAllowed [
 	^false
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 GdsStrictCompatibility >> layerNumberMax [
 	^63
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 GdsStrictCompatibility >> libNameMax [
 	^10
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStrictCompatibility >> multilingalNameAllowed [
 	^ false
 ]
 
-{ #category : 'category name' }
+{ #category : #'category name' }
 GdsStrictCompatibility >> supportedColorSymbols [
 	^#(blue cyan green magenta red white yellow).
 ]
