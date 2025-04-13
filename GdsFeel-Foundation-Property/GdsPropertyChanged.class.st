@@ -1,40 +1,41 @@
 Class {
-	#name : #GdsPropertyChanged,
-	#superclass : #Announcement,
+	#name : 'GdsPropertyChanged',
+	#superclass : 'Announcement',
 	#instVars : [
 		'oldValue',
 		'property',
 		'newValue'
 	],
-	#category : #'GdsFeel-Foundation-Property'
+	#category : 'GdsFeel-Foundation-Property',
+	#package : 'GdsFeel-Foundation-Property'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdsPropertyChanged class >> from: anObject1 to: anObject2 [
 	^self new oldValue: anObject1; newValue: anObject2. 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsPropertyChanged >> newValue [
 	^newValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsPropertyChanged >> newValue: anObject [
 	newValue := anObject.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsPropertyChanged >> oldValue [
 	^oldValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsPropertyChanged >> oldValue: anObject [
 	oldValue := anObject.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdsPropertyChanged >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPut: $(.
@@ -53,21 +54,21 @@ GdsPropertyChanged >> printOn: aStream [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsPropertyChanged >> property [
 	^property
 	
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsPropertyChanged >> property: aGdsPropertySlot [
 	property := aGdsPropertySlot.
 	
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdsPropertyChanged >> propertyName [
 	^self property propertyName
 	

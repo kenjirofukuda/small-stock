@@ -1,1 +1,1 @@
-Package { #name : #'GdsFeel-Foundation-Property' }
+Package { #name : 'GdsFeel-Foundation-Property' }

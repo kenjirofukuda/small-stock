@@ -36,11 +36,11 @@ GdsFeelMorphic class >> borderedSensorDisplay: aBoolean [
 	
 ]
 
-{ #category : #utility }
+{ #category : 'utilities' }
 GdsFeelMorphic class >> chooseFullFileName: labelString extensions: exts [
 
 	| file dirPath |
-	dirPath := GdsFeelMorphic lastVisitDirectory.
+	dirPath := self lastVisitDirectory.
 	dirPath ifNotNil: [ 
 		dirPath asFileReference exists ifFalse: [ dirPath := nil ] ].
 	file := UIManager default
@@ -48,12 +48,27 @@ GdsFeelMorphic class >> chooseFullFileName: labelString extensions: exts [
 		        extensions: exts
 		        path: dirPath.
 	file ifNil: [ ^ nil ].
-	GdsFeelMorphic lastVisitDirectory:
+	self lastVisitDirectory:
 		file asFileReference parent fullName.
 	^ file
 ]
 
-{ #category : #utility }
+{ #category : 'utilities' }
+GdsFeelMorphic class >> chooseFullFileName: labelString patterns: patterns [
+
+	| file dirPath |
+	dirPath := self lastVisitDirectory.
+	dirPath ifNotNil: [ 
+		dirPath asFileReference exists ifFalse: [ dirPath := nil ] ].
+	file := UIManager default
+		        chooseFullFileNameMatching: patterns label: labelString path: dirPath.
+	file ifNil: [ ^ nil ].
+	self lastVisitDirectory:
+		file asFileReference parent fullName.
+	^ file
+]
+
+{ #category : 'utilities' }
 GdsFeelMorphic class >> chooseUnit [
 	| index |
 	index := UIManager default chooseFrom: GdsLibrary unitStrings lines: #() title: 'Choose Unit:'.
@@ -534,7 +549,7 @@ GdsFeelMorphic class >> readRow: aCollection intoMap: aDictionary [
 
 ]
 
-{ #category : #utility }
+{ #category : 'utilities' }
 GdsFeelMorphic class >> requestLibraryName [
 	| libName ok default |
 	libName := nil.

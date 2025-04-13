@@ -1,1 +1,1 @@
-Package { #name : #'GdsFeel-Model-Basic' }
+Package { #name : 'GdsFeel-Model-Basic' }
