@@ -21,9 +21,9 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec package: 'GdsFeel-Foundation-Notification'.
 		spec package: 'GdsFeel-Foundation-Core'.
 		spec package: 'GdsFeel-Foundation-Tests'.
-		
+
 		self baselineFixZip: spec.
-		
+
 		spec package: 'GdsFeel-CLI-Glamour'.
 		spec package: 'GdsFeel-Model-Basic' with: [
 			spec requires: #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
@@ -101,7 +101,7 @@ BaselineOfGdsFeel >> baseline: spec [
 	spec for: #'pharo12.x' do: [
 		spec
 			package: 'GdsFeel-UI-Spec2'
-			with: [ 
+			with: [
 				spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition' ) ].
 		spec
 			group: 'UI'
@@ -111,7 +111,7 @@ BaselineOfGdsFeel >> baseline: spec [
 
 { #category : #baseline }
 BaselineOfGdsFeel >> baselineFixZip: spec [
-	spec for: #(#'pharo6.x' #'pharo7.x') 
+	spec for: #(#'pharo6.x' #'pharo7.x')
 		do: [
 			spec package: 'GdsFeel-Foundation-ZipP6P7' ]
 ]
@@ -156,43 +156,42 @@ BaselineOfGdsFeel >> baselineMagritte: spec [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte';
-				loads: #( Core ) 
+				loads: #( Core )
 		].
 	].
 	spec for: #'pharo6.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.5.2';
-				loads: #( Core ) 
+				loads: #( Core )
 		].
 	].
 	spec for: #'pharo7.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.5.3';
-				loads: #( Core ) 
+				loads: #( Core )
 		].
 	].
 	spec for: #'pharo8.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.6';
-				loads: #( Core ) 
+				loads: #( Core )
 		].
 	].
 	spec for: #'pharo9.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.7';
-				loads: #( Core ) 
+				loads: #( Core )
 		].
 	].
 	spec for: #'pharo10.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.8';
-				loads: #( Core ) 
+				loads: #( Core )
 		].
 	].
-	
 ]
