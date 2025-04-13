@@ -140,35 +140,35 @@ BaselineOfGdsFeel >> baselineMagritte: spec [
 	spec for: #'pharo6.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte:3.5.2';
+				repository: 'github://magritte-metamodel/magritte:v3.5.2';
 				loads: #( Core ) 
 		].
 	].
 	spec for: #'pharo7.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte:3.5.3';
+				repository: 'github://magritte-metamodel/magritte:v3.5.3';
 				loads: #( Core ) 
 		].
 	].
 	spec for: #'pharo8.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte:3.6';
+				repository: 'github://magritte-metamodel/magritte:v3.6';
 				loads: #( Core ) 
 		].
 	].
 	spec for: #'pharo9.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte:3.7';
+				repository: 'github://magritte-metamodel/magritte:v3.7';
 				loads: #( Core ) 
 		].
 	].
 	spec for: #'pharo10.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
-				repository: 'github://magritte-metamodel/magritte:3.8';
+				repository: 'github://magritte-metamodel/magritte:v3.8';
 				loads: #( Core ) 
 		].
 	].
