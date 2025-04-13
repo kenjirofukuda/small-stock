@@ -163,7 +163,7 @@ GdsFeel class >> openReadMe [
 	"self openReadMe."
 
 	self environment at: #Workspace ifPresent: [ :clazz |
-		(clazz new contents: self readMeContents) openLabel:
+		(clazz new contents: self readMeContents; yourself) openLabel:
 			self readMeTitle ]
 ]
 
