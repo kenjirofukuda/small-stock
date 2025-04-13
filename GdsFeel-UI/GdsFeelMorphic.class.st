@@ -14,6 +14,14 @@ Class {
 	#category : 'GdsFeel-UI-Morph'
 }
 
+{ #category : #utilities }
+GdsFeelMorphic class >> actualScreenSize [
+	"self actualScreenSize"
+	^ self environment at: #DisplayScreen 
+		ifPresent: [ :clazz | clazz actualScreenSize ]		
+		ifAbsent: [ self currentWorld actualScreenSize ]
+]
+
 { #category : #'debug-flags' }
 GdsFeelMorphic class >> backgroundColor [
 	^ self typedMap colorFor: #backgroundColor.
@@ -36,7 +44,7 @@ GdsFeelMorphic class >> borderedSensorDisplay: aBoolean [
 	
 ]
 
-{ #category : 'utilities' }
+{ #category : #utilities }
 GdsFeelMorphic class >> chooseFullFileName: labelString extensions: exts [
 
 	| file dirPath |
@@ -53,7 +61,7 @@ GdsFeelMorphic class >> chooseFullFileName: labelString extensions: exts [
 	^ file
 ]
 
-{ #category : 'utilities' }
+{ #category : #utilities }
 GdsFeelMorphic class >> chooseFullFileName: labelString patterns: patterns [
 
 	| file dirPath |
@@ -68,7 +76,7 @@ GdsFeelMorphic class >> chooseFullFileName: labelString patterns: patterns [
 	^ file
 ]
 
-{ #category : 'utilities' }
+{ #category : #utilities }
 GdsFeelMorphic class >> chooseUnit [
 	| index |
 	index := UIManager default chooseFrom: GdsLibrary unitStrings lines: #() title: 'Choose Unit:'.
@@ -549,7 +557,7 @@ GdsFeelMorphic class >> readRow: aCollection intoMap: aDictionary [
 
 ]
 
-{ #category : 'utilities' }
+{ #category : #utilities }
 GdsFeelMorphic class >> requestLibraryName [
 	| libName ok default |
 	libName := nil.
