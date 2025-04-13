@@ -1,46 +1,44 @@
 Class {
-	#name : 'GdsTracking',
-	#superclass : 'Object',
+	#name : #GdsTracking,
+	#superclass : #Object,
 	#instVars : [
 		'event',
 		'currentEvent',
 		'points'
 	],
-	#category : 'GdsFeel-UI-Morph',
-	#package : 'GdsFeel-UI',
-	#tag : 'Morph'
+	#category : 'GdsFeel-UI-Morph'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTracking >> currentEvent: aMouseMoveEvent [ 
 	currentEvent := aMouseMoveEvent.
 	points add: currentEvent cursorPoint copy.
 	self structureMorph fireFirstdrawing .
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTracking >> currentWorldPoint [
 	^ self viewport worldPointFromGlobal: currentEvent cursorPoint. 
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTracking >> event: aMouseButtonEvent [ 
 	event := aMouseButtonEvent.
 	points add: event cursorPoint copy.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTracking >> initialize [
 	points := OrderedCollection new.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTracking >> localPixelPoint [
 	^ self viewport morphicPointFromGlobal: event cursorPoint
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTracking >> noDragAction [
 	| menu |
 	menu := MenuModel new
@@ -50,7 +48,7 @@ GdsTracking >> noDragAction [
 	menu openWithSpecAt: event cursorPoint
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTracking >> offset [
 	| p1 p2|
 	p1 := self viewport worldPointFromGlobal: event cursorPoint. 
@@ -58,12 +56,12 @@ GdsTracking >> offset [
 	^ p2 - p1.	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTracking >> offsetPixelPoint [
 	^ (currentEvent cursorPoint - event cursorPoint)
 ]
 
-{ #category : 'menu' }
+{ #category : #menu }
 GdsTracking >> setupEditorMenu: aMenuGroupModel [
 	self structureMorph idNotEmpty
 		ifTrue: [ 
@@ -71,7 +69,7 @@ GdsTracking >> setupEditorMenu: aMenuGroupModel [
 
 ]
 
-{ #category : 'menu' }
+{ #category : #menu }
 GdsTracking >> setupIdSelectionMenu: aMenuGroupModel [
 	aMenuGroupModel
 		addItem: [ :item | 
@@ -101,7 +99,7 @@ GdsTracking >> setupIdSelectionMenu: aMenuGroupModel [
 				action: [ self structureMorph structure idSelection idDelete ] ]
 ]
 
-{ #category : 'menu' }
+{ #category : #menu }
 GdsTracking >> setupMenu: aMenuGroupModel [
 	self structureMorph class = GdsStructureEditorMorph 
 		ifTrue: [ self setupEditorMenu: aMenuGroupModel ].
@@ -118,24 +116,24 @@ GdsTracking >> setupMenu: aMenuGroupModel [
 				action: [ self viewport viewFit ] ].			
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTracking >> startWorldPoint [
 	^ self viewport worldPointFromGlobal: event cursorPoint. 
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTracking >> structureMorph [
 	^ event handler
 ]
 
-{ #category : 'event handler' }
+{ #category : #'event handler' }
 GdsTracking >> trackEnd [
 	points size = 1
 		ifTrue: [ self noDragAction ]
 ]
 
-{ #category : 'event handler' }
+{ #category : #'event handler' }
 GdsTracking >> viewMove [
 	| p1 p2 lp1 lp2 |
 	points size < 2 ifTrue: [ ^ self ].
@@ -146,13 +144,13 @@ GdsTracking >> viewMove [
 	self viewMoveFrom: p1 to: p2. 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTracking >> viewMoveFrom: aPoint1 to: aPoint2 [
 	self viewport viewCenter: (self viewport viewCenter - (aPoint2 - aPoint1)) .
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTracking >> viewport [
 	^ self structureMorph viewport
 

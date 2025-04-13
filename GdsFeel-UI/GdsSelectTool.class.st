@@ -1,12 +1,10 @@
 Class {
-	#name : 'GdsSelectTool',
-	#superclass : 'GdsNewTool',
-	#category : 'GdsFeel-UI-Tools',
-	#package : 'GdsFeel-UI',
-	#tag : 'Tools'
+	#name : #GdsSelectTool,
+	#superclass : #GdsNewTool,
+	#category : 'GdsFeel-UI-Tools'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsSelectTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [ 
 	self
 		drawRubberBandOn: aLocalCanvas
@@ -14,7 +12,7 @@ GdsSelectTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [
 		boundsBlock: [:bounds | morph drawOn: aLocalCanvas strokeBounds: bounds]
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsSelectTool >> rangeAction: aMouseButtonEvent [ 
 	| bounds idElements actionSelector |
 	actionSelector := shiftCount > 0
@@ -29,13 +27,13 @@ GdsSelectTool >> rangeAction: aMouseButtonEvent [
 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsSelectTool >> rubberBandEnabled [
 	moveCount ifNil: [ moveCount := 0 ].
 	^ moveCount > 0
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsSelectTool >> singleAction: anEvent [
 	| actionSelector  foundElement pixelDistance targetElements |
 	actionSelector := shiftCount > 0

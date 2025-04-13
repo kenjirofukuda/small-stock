@@ -1,6 +1,6 @@
 Class {
-	#name : 'GdsTreePresenter',
-	#superclass : 'SpPresenter',
+	#name : #GdsTreePresenter,
+	#superclass : #SpPresenter,
 	#instVars : [
 		'menuBar',
 		'tree',
@@ -12,11 +12,10 @@ Class {
 		'statusBar',
 		'structureSortBlock'
 	],
-	#category : 'GdsFeel-UI-Spec2',
-	#package : 'GdsFeel-UI-Spec2'
+	#category : 'GdsFeel-UI-Spec2'
 }
 
-{ #category : 'layout' }
+{ #category : #layout }
 GdsTreePresenter class >> defaultLayout [
 
 	^ SpBoxLayout newVertical
@@ -37,14 +36,35 @@ GdsTreePresenter class >> defaultLayout [
 		  yourself
 ]
 
-{ #category : 'examples' }
+{ #category : #layout }
+GdsTreePresenter class >> defaultSpec [
+
+	^ SpBoxLayout newVertical
+		  add: #menuBar height: self toolbarHeight;
+		  add: (SpBoxLayout newHorizontal
+				   add: #tree;
+				   add: (SpBoxLayout newVertical
+						    add: #visibleElementList;
+						    add: #inspectorView;
+						    yourself);
+				   add: #tabManager;
+				   add: (SpBoxLayout newVertical
+						    add: #layers;
+						    add: #kinds;
+						    yourself);
+				   yourself);
+		  add: #statusBar height: self toolbarHeight;
+		  yourself
+]
+
+{ #category : #examples }
 GdsTreePresenter class >> open [
 
 	<example>
-	self new open
+	self new openWithSpec
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsTreePresenter >> childrenFor: anItem [
 
 	(anItem isKindOf: GdsLibrary) 
@@ -59,7 +79,7 @@ GdsTreePresenter >> childrenFor: anItem [
 	^ #()
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreePresenter >> debugMenu [
 
 	^ self newMenu addGroup: [ :aGroup | 
@@ -71,7 +91,7 @@ GdsTreePresenter >> debugMenu [
 			 ]
 ]
 
-{ #category : 'menu building' }
+{ #category : #'menu building' }
 GdsTreePresenter >> displayNameHandler: anItem [
 
 	"self halt."
@@ -89,7 +109,7 @@ GdsTreePresenter >> displayNameHandler: anItem [
 		  yourself
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreePresenter >> fileMenu [
 
 	^ self newMenu addGroup: [ :aGroup | 
@@ -100,7 +120,7 @@ GdsTreePresenter >> fileMenu [
 				  action: [ self openLibrary ] ] ]
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GdsTreePresenter >> iconFor: anItem [
 
 	| icon |
@@ -114,7 +134,7 @@ GdsTreePresenter >> iconFor: anItem [
 	^ icon
 ]
 
-{ #category : 'ui building' }
+{ #category : #'ui building' }
 GdsTreePresenter >> iconKeyFor: anItem [
 
 	(anItem isKindOf: GdsLibrary) 
@@ -125,7 +145,7 @@ GdsTreePresenter >> iconKeyFor: anItem [
 	^ #smallObjectsIcon
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreePresenter >> initializeMenuBar [
 
 	menuBar := self newMenuBar.
@@ -140,7 +160,7 @@ GdsTreePresenter >> initializeMenuBar [
 				subMenu: self debugMenu ] ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreePresenter >> initializePresenters [
 
 	super initializePresenters.
@@ -175,7 +195,7 @@ GdsTreePresenter >> initializePresenters [
 			 yourself)
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsTreePresenter >> initializeWindow: aWindowPresenter [
 
 	super initializeWindow: aWindowPresenter.
@@ -184,7 +204,7 @@ GdsTreePresenter >> initializeWindow: aWindowPresenter [
 		initialExtent: 800 @ 600
 ]
 
-{ #category : 'action - selection independent' }
+{ #category : #'action - selection independent' }
 GdsTreePresenter >> openLibrary [
 
 	| file |
@@ -198,7 +218,7 @@ GdsTreePresenter >> openLibrary [
 	Cursor wait showWhile: [ self registerLibraryFile: file ]
 ]
 
-{ #category : 'ui building' }
+{ #category : #'ui building' }
 GdsTreePresenter >> registerLibraryFile: aFileReference [
 
 	| lib |
@@ -223,28 +243,28 @@ GdsTreePresenter >> registerLibraryFile: aFileReference [
 	"tree whenSelectedItemChanged: [ :item | self treeChangeSelection: item ]"
 ]
 
-{ #category : 'sorting' }
+{ #category : #sorting }
 GdsTreePresenter >> sortByArea [
 	self structureSortBlock: [ :s1 :s2 | s1 dataExtentForElements area > s2 dataExtentForElements area ]
 ]
 
-{ #category : 'sorting' }
+{ #category : #sorting }
 GdsTreePresenter >> sortByName [
 	self structureSortBlock: [ :s1 :s2 | s1 name < s2 name ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreePresenter >> station [ 
 	^ GdsStation default
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreePresenter >> structureSortBlock [
 	^ structureSortBlock value
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsTreePresenter >> structureSortBlock: aBlock [
 	structureSortBlock value: aBlock
 ]

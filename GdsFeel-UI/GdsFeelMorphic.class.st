@@ -5,34 +5,32 @@ TODO: use Settings Framework.
 
 "
 Class {
-	#name : 'GdsFeelMorphic',
-	#superclass : 'Object',
+	#name : #GdsFeelMorphic,
+	#superclass : #Object,
 	#classVars : [
 		'LocalizeMap',
 		'TypedMap'
 	],
-	#category : 'GdsFeel-UI-Morph',
-	#package : 'GdsFeel-UI',
-	#tag : 'Morph'
+	#category : 'GdsFeel-UI-Morph'
 }
 
-{ #category : 'debug-flags' }
+{ #category : #'debug-flags' }
 GdsFeelMorphic class >> backgroundColor [
 	^ self typedMap colorFor: #backgroundColor.
 ]
 
-{ #category : 'debug-flags' }
+{ #category : #'debug-flags' }
 GdsFeelMorphic class >> backgroundColor: aColor [
 	self typedMap colorFor: #backgroundColor value: aColor.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> borderedSensorDisplay [ 
 	^self typedMap booleanFor: #borderedSensorDisplay default: false.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> borderedSensorDisplay: aBoolean [ 
 	^self typedMap booleanFor: #borderedSensorDisplay value: aBoolean.
 	
@@ -79,31 +77,31 @@ GdsFeelMorphic class >> chooseUnit [
 	^ GdsLibrary unitStrings at: index
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> clickSoundEnabled [ 
 	^self typedMap booleanFor: #clickSoundEnabled default: false.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> clickSoundEnabled: aBoolean [
 	self typedMap booleanFor: #clickSoundEnabled value: aBoolean.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> colorRiseToolsGroup [
 	^self typedMap booleanFor: #colorRiseToolsGroup default: false.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> colorRiseToolsGroup: aBoolean [
 	self typedMap booleanFor: #colorRiseToolsGroup value: aBoolean.
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsFeelMorphic class >> controlCaptionFont [
 	| textStyle |
 	textStyle := TextStyle named: GdsFeelMorphic controlCaptionFontName  .
@@ -112,31 +110,31 @@ GdsFeelMorphic class >> controlCaptionFont [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> controlCaptionFontName [ 
 	^self typedMap stringFor: #controlCaptionFontName default: 'Accumon'.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> controlCaptionFontName: aString [ 
 	^self typedMap stringFor: #controlCaptionFontName value: aString asString.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> controlCaptionFontSize [ 
 	^self typedMap numberFor: #controlCaptionFontSize default: 9.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> controlCaptionFontSize: anInteger [ 
 	^self typedMap numberFor: #controlCaptionFontSize value: anInteger.
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsFeelMorphic class >> createGdsToolsIconForm [
 	"self createGdsToolsIconForm display"
 	^ (Form
@@ -146,7 +144,7 @@ GdsFeelMorphic class >> createGdsToolsIconForm [
 	offset: (0@0))
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsFeelMorphic class >> createViewingBaseForm [
 	"self createViewingBaseForm display"
 	^  (Form
@@ -172,66 +170,66 @@ GdsFeelMorphic class >> createViewingBaseForm [
 	offset: -5 @ -5)
 ]
 
-{ #category : 'debug-flags' }
+{ #category : #'debug-flags' }
 GdsFeelMorphic class >> debugFindElement [
 	^self typedMap booleanFor: #debugFindElement.
 ]
 
-{ #category : 'debug-flags' }
+{ #category : #'debug-flags' }
 GdsFeelMorphic class >> debugFindElement: aBoolean [
 	self typedMap booleanFor: #debugFindElement value: aBoolean.
 	
 ]
 
-{ #category : 'debug-flags' }
+{ #category : #'debug-flags' }
 GdsFeelMorphic class >> debugPathBoundary [
 	^self typedMap booleanFor: #debugPathBoundary.
 ]
 
-{ #category : 'debug-flags' }
+{ #category : #'debug-flags' }
 GdsFeelMorphic class >> debugPathBoundary: aBoolean [
 	self typedMap booleanFor: #debugPathBoundary value: aBoolean.
 	
 ]
 
-{ #category : 'debug-flags' }
+{ #category : #'debug-flags' }
 GdsFeelMorphic class >> debugStretchFeedback [
 	^self typedMap booleanFor: #debugStretchFeedback.
 ]
 
-{ #category : 'debug-flags' }
+{ #category : #'debug-flags' }
 GdsFeelMorphic class >> debugStretchFeedback: aBoolean [
 	self typedMap booleanFor: #debugStretchFeedback value: aBoolean.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> dragWithTools [
 	^ self typedMap 
 		booleanFor: #dragWithTools
 		default: false
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> dragWithTools: aBoolean [ 
 	self typedMap 
 		booleanFor: #dragWithTools
 		value: aBoolean
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> fittingRatio [
 	^GdsFeel fittingRatio.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> fittingRatio: aFloat [
 	^GdsFeel fittingRatio: aFloat.
 	
 ]
 
-{ #category : 'menu' }
+{ #category : #menu }
 GdsFeelMorphic class >> gdsMenuOn: aBuilder [ 
 	<worldMenu>
 	(aBuilder item: #GdsFeel)
@@ -241,39 +239,39 @@ GdsFeelMorphic class >> gdsMenuOn: aBuilder [
 	"aBuilder withSeparatorAfter."
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> goodiesEnabled [
 	^self typedMap booleanFor: #goodiesEnabled default: false.
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> goodiesEnabled: aBoolean [
 	"self goodiesEnabled: true."
 	self typedMap booleanFor: #goodiesEnabled value: aBoolean.
 	
 ]
 
-{ #category : 'initializing' }
+{ #category : #initializing }
 GdsFeelMorphic class >> initialize [
 	"self initialize"
 	self openReadMe.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> lastVisitDirectory [
 	^self typedMap stringFor: #lastVisitDirectory default: nil
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> lastVisitDirectory: aString [ 
 	^self typedMap stringFor: #lastVisitDirectory value: aString asString.
 	
 ]
 
-{ #category : 'localize' }
+{ #category : #localize }
 GdsFeelMorphic class >> loadLocalizeEnvirons [
 	| csvFile localizeMap parser converter |
 	LocalizeMap := nil.
@@ -297,24 +295,24 @@ GdsFeelMorphic class >> loadLocalizeEnvirons [
 
 ]
 
-{ #category : 'localize' }
+{ #category : #localize }
 GdsFeelMorphic class >> localizeCsvName [
 	^GdsFeelMorphic typedMap stringFor: #localizeCsvName 
 	
 ]
 
-{ #category : 'localize' }
+{ #category : #localize }
 GdsFeelMorphic class >> localizeCsvName: aCsvFilename [
 	self typedMap stringFor: #localizeCsvName value: aCsvFilename
 	
 ]
 
-{ #category : 'localize' }
+{ #category : #localize }
 GdsFeelMorphic class >> localizeMap [
 	^LocalizeMap
 ]
 
-{ #category : 'localize' }
+{ #category : #localize }
 GdsFeelMorphic class >> localizedCaption: aKey [
 	| map |
 	GdsFeelMorphic localizeMap ifNil: [^aKey].
@@ -322,7 +320,7 @@ GdsFeelMorphic class >> localizedCaption: aKey [
 	^map at: #captionName ifAbsent: [aKey].
 ]
 
-{ #category : 'localize' }
+{ #category : #localize }
 GdsFeelMorphic class >> localizedHelpText: aKey [
 	| map |
 	GdsFeelMorphic localizeMap ifNil: [^''].
@@ -330,7 +328,7 @@ GdsFeelMorphic class >> localizedHelpText: aKey [
 	^map at: #toolTipText ifAbsent: [''].	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsFeelMorphic class >> locationCaptionFont [
 	| textStyle |
 	textStyle := TextStyle named: self smallUIFontName.
@@ -338,7 +336,7 @@ GdsFeelMorphic class >> locationCaptionFont [
 	^textStyle fontOfPointSize: (Display height <= 600 ifTrue: [9] ifFalse: [12]).
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> openReadMe [
 	"self openReadMe."
 
@@ -347,7 +345,7 @@ GdsFeelMorphic class >> openReadMe [
 			self readMeTitle ]
 ]
 
-{ #category : 'localize' }
+{ #category : #localize }
 GdsFeelMorphic class >> readLine: aString intoMap: aDictionary [
 	| items |
 	aString ifEmpty: [^self].
@@ -358,13 +356,13 @@ GdsFeelMorphic class >> readLine: aString intoMap: aDictionary [
 
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> readMeContents [
 	^self readMeMaster.
  
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> readMeMaster [
 	^'
 	
@@ -377,7 +375,7 @@ Open GUI.
  
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> readMeMasterOld1 [
 	^'
 	
@@ -401,12 +399,12 @@ GdsFeelMorphic openReadMe.
  
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> readMeTitle [
 	^'README - ', (((self category asString splitOn: '-') allButLast) joinUsing: '-')
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> readMeV001 [
 	^'
 Evalute this:
@@ -422,7 +420,7 @@ fix: playSoundNamed: problem on Pharo.
  
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> readMeV002 [
 	^'
 Evalute this:
@@ -438,7 +436,7 @@ automatic layer color allocate.
  
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> readMeV003 [
 	^'
 Change button font example:
@@ -488,7 +486,7 @@ move from GdsFeel classmethods:
 
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> readMeV004 [
 	^'
 - add [REFL].
@@ -500,7 +498,7 @@ GdsFeelMorphic class >> readMeV004 [
 
 ]
 
-{ #category : 'documentation' }
+{ #category : #documentation }
 GdsFeelMorphic class >> readMeV005 [
 	^'	
 FIX:
@@ -538,7 +536,7 @@ tool palette layout:
 
 ]
 
-{ #category : 'localize' }
+{ #category : #localize }
 GdsFeelMorphic class >> readRow: aCollection intoMap: aDictionary [
 	|   map |
 	aCollection size < 2 ifTrue: [^self].
@@ -574,7 +572,7 @@ GdsFeelMorphic class >> requestLibraryName [
 	^ libName
 ]
 
-{ #category : 'settings' }
+{ #category : #settings }
 GdsFeelMorphic class >> settingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder group: #GdsFeelUI)
@@ -598,54 +596,54 @@ GdsFeelMorphic class >> settingsOn: aBuilder [
 				label: 'Background Color' ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> showsFloatingTools [
 	^self typedMap booleanFor: #showsFloatingTools.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> showsFloatingTools: aBoolean [
 	self typedMap booleanFor: #showsFloatingTools value: aBoolean.
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsFeelMorphic class >> smallUIFontName [
 	^'Accumon'.
 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsFeelMorphic class >> structureScreenClass [
 	^ GdsStructureEditorMorph
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsFeelMorphic class >> typedMap [
 	TypedMap ifNil: [ TypedMap := TypedConfigulation new ].
 	^ TypedMap
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsFeelMorphic class >> useCustomCursor [
 	^ self typedMap booleanFor: #useCustomCursor default: true.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> useCustomCursor: aBoolean [
 	self typedMap booleanFor: #useCustomCursor value: aBoolean.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> usingStatusBar [
 	^self typedMap booleanFor: #usingStatusBar default: true.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsFeelMorphic class >> usingStatusBar: aBoolean [
 	self typedMap booleanFor: #usingStatusBar value: aBoolean.
 	

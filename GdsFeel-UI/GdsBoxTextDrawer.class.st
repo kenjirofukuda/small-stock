@@ -1,27 +1,25 @@
 Class {
-	#name : 'GdsBoxTextDrawer',
-	#superclass : 'GdsPrimitiveDrawer',
-	#category : 'GdsFeel-UI-Drawer',
-	#package : 'GdsFeel-UI',
-	#tag : 'Drawer'
+	#name : #GdsBoxTextDrawer,
+	#superclass : #GdsPrimitiveDrawer,
+	#category : 'GdsFeel-UI-Drawer'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsBoxTextDrawer >> canDisplayOrigin [
 	^ self canDisplayKindForKey: 'TO'
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsBoxTextDrawer >> drawItemFeedbackOn: aCanvas [
 	self strokeOutlineOn: aCanvas.
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsBoxTextDrawer >> fillOutlineOn: aCanvas [
 	"No Fill"
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsBoxTextDrawer >> strokeOutlineOn: aCanvas [ 
 	| savedColor |
 	(self canDisplayKindForKey: 'TX') ifFalse: [ ^ self ].

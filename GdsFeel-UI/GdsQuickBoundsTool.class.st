@@ -1,17 +1,15 @@
 Class {
-	#name : 'GdsQuickBoundsTool',
-	#superclass : 'GdsQuickPointsTool',
-	#category : 'GdsFeel-UI-Tools',
-	#package : 'GdsFeel-UI',
-	#tag : 'Tools'
+	#name : #GdsQuickBoundsTool,
+	#superclass : #GdsQuickPointsTool,
+	#category : 'GdsFeel-UI-Tools'
 }
 
-{ #category : 'action' }
+{ #category : #action }
 GdsQuickBoundsTool >> acceptBoundsAction: aRectangle [
 	self subclassResponsibility
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsQuickBoundsTool >> acceptFromPoint: aPoint1 toPoint: aPoint2 [
 	| bounds |
 	bounds := Rectangle encompassing: {  aPoint1.  aPoint2  }.
@@ -20,7 +18,7 @@ GdsQuickBoundsTool >> acceptFromPoint: aPoint1 toPoint: aPoint2 [
 	morph redraw.
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsQuickBoundsTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [ 
 	self
 		drawRubberBandOn: aLocalCanvas
@@ -29,12 +27,12 @@ GdsQuickBoundsTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [
 	
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsQuickBoundsTool >> isAcceptableBounds: aRectangle [
 	^ aRectangle area ~= 0
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsQuickBoundsTool >> isAcceptableFromPoint: aPoint1 toPoint: aPoint2 [
 	| bounds |
 	bounds := Rectangle encompassing: {  aPoint1.  aPoint2  }.

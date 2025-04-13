@@ -1,6 +1,6 @@
-Extension { #name : 'MorphicUIManager' }
+Extension { #name : #MorphicUIManager }
 
-{ #category : '*GdsFeel-UI' }
+{ #category : #'*GdsFeel-UI' }
 MorphicUIManager >> chooseFullFileNameMatching: patterns label: labelString path: aDirectoryPath [
 
 	| modalMorph |

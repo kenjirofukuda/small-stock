@@ -1,12 +1,10 @@
 Class {
-	#name : 'GdsClickTestTool',
-	#superclass : 'GdsNewTool',
-	#category : 'GdsFeel-UI-Tools',
-	#package : 'GdsFeel-UI',
-	#tag : 'Tools'
+	#name : #GdsClickTestTool,
+	#superclass : #GdsNewTool,
+	#category : 'GdsFeel-UI-Tools'
 }
 
-{ #category : 'action' }
+{ #category : #action }
 GdsClickTestTool >> absentAction: foundElements [
 	| savedColors |
 	savedColors := foundElements collect: [ :e | e ownColor ].
@@ -23,12 +21,12 @@ GdsClickTestTool >> absentAction: foundElements [
 	foundElements doWithIndex: [ :e :i | e ownColor: (savedColors at: i) ] ] fork
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsClickTestTool >> canFinish [
 	^ userInfo notNil
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsClickTestTool >> drawFindRectOn: aLocalCanvas currentPoint: aPoint [ 
 	| vert1 vert2 updateBounds findBounds |
 	findBounds := self findRectOfCenter: aPoint.
@@ -40,17 +38,17 @@ GdsClickTestTool >> drawFindRectOn: aLocalCanvas currentPoint: aPoint [
 	morph invalidBounds: updateBounds.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsClickTestTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [ 
 	self drawFindRectOn: aLocalCanvas currentPoint: aPoint
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsClickTestTool >> mouseOver: anEvent [
 	self rangeMouseOver: anEvent
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsClickTestTool >> rangeAction: aMouseButtonEvent [
 	| bounds idElements actionSelector |
 	actionSelector := shiftCount > 0
@@ -67,12 +65,12 @@ GdsClickTestTool >> rangeAction: aMouseButtonEvent [
 	referencePoint := nil
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsClickTestTool >> rubberBandEnabled [
 	^ true
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsClickTestTool >> singleAction: anEvent [
 	| targetPoints |
 	targetPoints := self

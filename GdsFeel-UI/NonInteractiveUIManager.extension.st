@@ -1,6 +1,6 @@
-Extension { #name : 'NonInteractiveUIManager' }
+Extension { #name : #NonInteractiveUIManager }
 
-{ #category : '*GdsFeel-UI' }
+{ #category : #'*GdsFeel-UI' }
 NonInteractiveUIManager >> chooseFullFileNameMatching: patterns label: labelString path: aDirectoryPath [
 	"Let the user choose a file matching the given patterns"
 	^ self nonInteractiveWarning: (String streamContents: [ :s|

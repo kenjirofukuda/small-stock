@@ -41,8 +41,8 @@ userInfo
 
 "
 Class {
-	#name : 'GdsNullTool',
-	#superclass : 'Object',
+	#name : #GdsNullTool,
+	#superclass : #Object,
 	#instVars : [
 		'morph',
 		'event',
@@ -55,38 +55,36 @@ Class {
 		'stopCE',
 		'oldRubberBandBounds'
 	],
-	#category : 'GdsFeel-UI-Tools',
-	#package : 'GdsFeel-UI',
-	#tag : 'Tools'
+	#category : 'GdsFeel-UI-Tools'
 }
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> afterSecondAction [
 	self subclassResponsibility.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsNullTool >> autoFinishAfterPut [
 	^false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsNullTool >> canFinish [
 	^false
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsNullTool >> changeCursor [
 	morph changeCursorToCross.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> clickCount [
 	clickCount ifNil: [clickCount := 0].
 	^clickCount.
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> consoleOut [
 	| resultPoint |
 	resultPoint := self snapedWorldPoint2.
@@ -96,21 +94,21 @@ GdsNullTool >> consoleOut [
 		s nextPutAll: (self worldPoint) printString]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> currentItem [
 	^self structure currentItem.
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsNullTool >> drawFeedbackOn: aLocalCanvas [.
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsNullTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [ 
 	
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsNullTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint boundsBlock: aBoundsBlock [
 
 	| bounds |
@@ -133,7 +131,7 @@ GdsNullTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint boundsBlock: 
 	oldRubberBandBounds := bounds copy
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsNullTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint segmentBlock: aSegmentBlock [
 	self 
 		drawRubberBandOn:  aLocalCanvas 
@@ -144,12 +142,12 @@ GdsNullTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint segmentBlock:
 	
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> eachAction [
 	self subclassResponsibility.
 ]
 
-{ #category : 'action-pattern' }
+{ #category : #'action-pattern' }
 GdsNullTool >> elementDetectAction [
 	| found resultPoint | 
 	resultPoint := self snapedWorldPoint2.
@@ -158,12 +156,12 @@ GdsNullTool >> elementDetectAction [
 	
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> evenAction [
 	self subclassResponsibility.
 ]
 
-{ #category : 'action-pattern' }
+{ #category : #'action-pattern' }
 GdsNullTool >> evenOddAction [
 	self upCount.
 	self canFinish ifTrue: [^self finish].	
@@ -177,23 +175,23 @@ GdsNullTool >> evenOddAction [
 
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> eventAction [
 	self consoleOut.
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> eventActionAt: aWorldPoint element: aGdsElement [
 	self subclassResponsibility.	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> findNearestElementByPoint: resultPoint [
 	^morph findNearestElementByPoint: resultPoint.
 	
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> findPoints: aPoint ifAbsent: aBlock [
 	| foundElements crossPoints targetPoints vertexPoints box |
 	morph visibleElements ifEmpty: [ ^ #() ].
@@ -209,12 +207,12 @@ GdsNullTool >> findPoints: aPoint ifAbsent: aBlock [
 	^ targetPoints asArray
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsNullTool >> findRectOfCenter: aCenterPoint [
 	^ self findRectOfCenter: aCenterPoint halfSize: 6.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsNullTool >> findRectOfCenter: aCenterPoint  halfSize: aHalfSize [
 	| size |
 	size := aHalfSize / morph viewport absoluteScale asPoint.
@@ -222,19 +220,19 @@ GdsNullTool >> findRectOfCenter: aCenterPoint  halfSize: aHalfSize [
 
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> finish [
 	morph clearTool.
 	morph hideRubberbandLocationPanes.
 	
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> firstAction [
 	self subclassResponsibility.
 ]
 
-{ #category : 'action-pattern' }
+{ #category : #'action-pattern' }
 GdsNullTool >> firstAndSecondAction [
 	self upCount.
 	self canFinish ifTrue: [^self finish].	
@@ -244,29 +242,29 @@ GdsNullTool >> firstAndSecondAction [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> globalPoint [
 	^event cursorPoint.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> idSelection [
 	^self structure idSelection.
 ]
 
-{ #category : 'initialize-release' }
+{ #category : #'initialize-release' }
 GdsNullTool >> initialize [
 	super initialize.
 	clickCount := 0.
 	lastPoint := 0@0.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> localPoint [
 	^morph morphicPointFromGlobal:  self globalPoint.
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsNullTool >> markOffsetFeedbackOn: aLocalCanvas [
 	self clickCount = 0 ifTrue: [^self].
 	referencePoint  ifNotNil: [morph drawOn: aLocalCanvas markDiamondPointAt: referencePoint].
@@ -274,7 +272,7 @@ GdsNullTool >> markOffsetFeedbackOn: aLocalCanvas [
 		lastPoint ifNotNil: [morph drawOn: aLocalCanvas markDiamondPointAt: lastPoint].].
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsNullTool >> markUpdateBounds: aPoint [
 	| upBounds |
 	upBounds := Rectangle center: (morph viewport xy2hv: aPoint) extent: 10@10.
@@ -283,7 +281,7 @@ GdsNullTool >> markUpdateBounds: aPoint [
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsNullTool >> mouseDown: anEvent [
 	self setEvent: anEvent.
 	self eventAction. 
@@ -292,27 +290,27 @@ GdsNullTool >> mouseDown: anEvent [
 	
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsNullTool >> mouseMove: anEvent [
 	
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsNullTool >> mouseOver: anEvent [
 	
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsNullTool >> mouseUp: anEvent [
 	
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> oddAction [
 	self subclassResponsibility.
 ]
 
-{ #category : 'offset action' }
+{ #category : #'offset action' }
 GdsNullTool >> offsetAction: aBlock [
 	self prompt: self afterSecondMessage.
 	deltaPoint := self snapedWorldPoint2 - referencePoint.
@@ -322,7 +320,7 @@ GdsNullTool >> offsetAction: aBlock [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> prompt: aStringOrBlock [
 	(aStringOrBlock isKindOf: BlockClosure )
 		ifTrue: [
@@ -331,17 +329,17 @@ GdsNullTool >> prompt: aStringOrBlock [
 		ifFalse: [Transcript cr; show: aStringOrBlock].
 ]
 
-{ #category : 'prompt message' }
+{ #category : #'prompt message' }
 GdsNullTool >> referenceMessage [
 	^'Enter Reference Coordinate:'.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> relativeOffset [
 	^deltaPoint - lastDeltaPoint
 ]
 
-{ #category : 'action-pattern' }
+{ #category : #'action-pattern' }
 GdsNullTool >> repeatEachAction [
 	self upCount.
 	self canFinish ifTrue: [^self finish].	
@@ -350,12 +348,12 @@ GdsNullTool >> repeatEachAction [
 
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsNullTool >> rubberBandEnabled [
 	^false
 ]
 
-{ #category : 'offset action' }
+{ #category : #'offset action' }
 GdsNullTool >> saveReferencePoint [
 	referencePoint := self snapedWorldPoint2.
 	lastDeltaPoint := 0 @ 0.
@@ -364,29 +362,29 @@ GdsNullTool >> saveReferencePoint [
 			[ :ocationMorph | morph showLocationPane: ocationMorph at: referencePoint ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsNullTool >> setEvent: aEvent [
 	event := aEvent.
 	
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsNullTool >> setMorph: aMorph [
 	morph := aMorph.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> snapedWorldPoint [
 	^self snapedWorldPoint: self worldPoint.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> snapedWorldPoint2 [
 	^self snapedWorldPoint2: self worldPoint.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> snapedWorldPoint2: aWorldPoint [
 	| pointsStage1  |
 	pointsStage1 := self findPoints: aWorldPoint ifAbsent: [ ^ self snapedWorldPoint: aWorldPoint ].
@@ -397,48 +395,48 @@ GdsNullTool >> snapedWorldPoint2: aWorldPoint [
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> snapedWorldPoint: aWorldPoint [
 	^morph viewport snapedWorldPoint:  aWorldPoint.
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> stopCE [
 	self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> structure [
 	^morph structure
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsNullTool >> toolDidChange [
 
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsNullTool >> upCount [
 	clickCount := clickCount + 1.
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> userInfo [
 	^userInfo
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> userInfo: anObject [
 	userInfo := anObject.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsNullTool >> worldPoint [
 	^morph viewport worldPointFromGlobal:  self globalPoint.
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsNullTool >> worldPointFromGlobalEvent: anEvent [
 	^ morph viewport worldPointFromGlobal: anEvent cursorPoint.
 ]
