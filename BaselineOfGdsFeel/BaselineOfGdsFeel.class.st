@@ -1,11 +1,10 @@
 Class {
-	#name : 'BaselineOfGdsFeel',
-	#superclass : 'BaselineOf',
-	#category : 'BaselineOfGdsFeel',
-	#package : 'BaselineOfGdsFeel'
+	#name : #BaselineOfGdsFeel,
+	#superclass : #BaselineOf,
+	#category : #BaselineOfGdsFeel
 }
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baseline: spec [
 
 	<baseline>
@@ -22,6 +21,9 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec package: 'GdsFeel-Foundation-Notification'.
 		spec package: 'GdsFeel-Foundation-Core'.
 		spec package: 'GdsFeel-Foundation-Tests'.
+		
+		self baselineFixZip: spec.
+		
 		spec package: 'GdsFeel-CLI-Glamour'.
 		spec package: 'GdsFeel-Model-Basic' with: [
 			spec requires: #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
@@ -107,7 +109,14 @@ BaselineOfGdsFeel >> baseline: spec [
 				   'GdsFeel-UI-ElementAddition' ) ]
 ]
 
-{ #category : 'baseline' }
+{ #category : #baseline }
+BaselineOfGdsFeel >> baselineFixZip: spec [
+	spec for: #(#'pharo6.x' #'pharo7.x') 
+		do: [
+			spec package: 'GdsFeel-Foundation-ZipP6P7' ]
+]
+
+{ #category : #baseline }
 BaselineOfGdsFeel >> baselineGuest: spec [
 	spec for: #common do: [
 		spec
@@ -126,7 +135,7 @@ BaselineOfGdsFeel >> baselineGuest: spec [
 
 ]
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baselineKFImaging: spec [
 
 	spec for: #common do: [
@@ -140,7 +149,7 @@ BaselineOfGdsFeel >> baselineKFImaging: spec [
 
 ]
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baselineMagritte: spec [
 	"https://github.com/magritte-metamodel/magritte/releases"
 	spec for: #common do: [
