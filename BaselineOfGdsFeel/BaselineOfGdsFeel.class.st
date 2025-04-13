@@ -113,8 +113,12 @@ BaselineOfGdsFeel >> baselineFixZip: spec [
 	spec package: 'GdsFeel-Foundation-ZipP6P7'.
 	spec
 		for: #(#'pharo6.x' #'pharo7.x')
-		do: [ 
-			spec requires: #( 'GdsFeel-Foundation-ZipP6P7' ).
+		do: [
+			spec package: 'GdsFeel-Model-Basic' with: [
+			     spec requires: #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
+				   'GdsFeel-Foundation-Property' 'GdsFeel-Foundation-Notification'
+				   'GdsFeel-Foundation-Tests' 'GdsFeel-Foundation-ZipP6P7' 'XMLParser' ) ].
+
 			spec
 				group: 'Foundation'
 				with:
