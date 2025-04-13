@@ -1,17 +1,15 @@
 Class {
-	#name : 'GdsStructureReferenceDrawer',
-	#superclass : 'GdsReferenceDrawer',
-	#category : 'GdsFeel-UI-Drawer',
-	#package : 'GdsFeel-UI',
-	#tag : 'Drawer'
+	#name : #GdsStructureReferenceDrawer,
+	#superclass : #GdsReferenceDrawer,
+	#category : 'GdsFeel-UI-Drawer'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStructureReferenceDrawer >> canDisplayExtent [
 	^self canDisplayKindForKey: 'SE'
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStructureReferenceDrawer >> canDisplayOrigin [
 	^ self canDisplayKindForKey: 'SO'
 ]

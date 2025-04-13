@@ -1,6 +1,6 @@
-Extension { #name : 'GdsPath' }
+Extension { #name : #GdsPath }
 
-{ #category : '*GdsFeel-UI' }
+{ #category : #'*GdsFeel-UI' }
 GdsPath class >> drawerClass [
 	^GdsPathDrawer
 ]

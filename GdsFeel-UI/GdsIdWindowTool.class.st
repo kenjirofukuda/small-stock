@@ -1,17 +1,15 @@
 Class {
-	#name : 'GdsIdWindowTool',
-	#superclass : 'GdsAbstractIdTool',
-	#category : 'GdsFeel-UI-Tools',
-	#package : 'GdsFeel-UI',
-	#tag : 'Tools'
+	#name : #GdsIdWindowTool,
+	#superclass : #GdsAbstractIdTool,
+	#category : 'GdsFeel-UI-Tools'
 }
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsIdWindowTool >> drawFeedbackOn: aLocalCanvas [
 
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsIdWindowTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [ 
 	self
 		drawRubberBandOn: aLocalCanvas
@@ -19,7 +17,7 @@ GdsIdWindowTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [
 		boundsBlock: [:bounds | morph drawOn: aLocalCanvas strokeBounds: bounds]
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsIdWindowTool >> evenAction [
 	| bounds idElements |
 	"TimeProfiler spyOn: ["
@@ -35,29 +33,29 @@ GdsIdWindowTool >> evenAction [
 	referencePoint := nil.	"]"
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsIdWindowTool >> eventAction [
 	self evenOddAction.
 
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsIdWindowTool >> firstAction [
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsIdWindowTool >> idSelecter [
 	^userInfo
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsIdWindowTool >> oddAction [
 	self  saveReferencePoint.
 	
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsIdWindowTool >> rubberBandEnabled [
 	^true
 ]

@@ -33,8 +33,8 @@ offsetSeg
 
 "
 Class {
-	#name : 'GdsStretchTool',
-	#superclass : 'GdsNullTool',
+	#name : #GdsStretchTool,
+	#superclass : #GdsNullTool,
 	#instVars : [
 		'analisysResult',
 		'moveToSeg',
@@ -44,24 +44,22 @@ Class {
 		'nonEditUpdateBounds',
 		'lastUpdateBounds'
 	],
-	#category : 'GdsFeel-UI-Tools',
-	#package : 'GdsFeel-UI',
-	#tag : 'Tools'
+	#category : 'GdsFeel-UI-Tools'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStretchTool >> autoFinishAfterPut [
 	^true
 ]
 
-{ #category : 'prompt message' }
+{ #category : #'prompt message' }
 GdsStretchTool >> chooserMessage [
 	^self vertexStrechSupported 
 		ifTrue: ['Point Near Segment or Vertex:']
 		ifFalse: ['Point Near Segment:'].
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStretchTool >> drawFeedbackOn: aLocalCanvas [
 	| segInfo crossPoint seg |
 	analisysResult ifNil: [^self].
@@ -85,7 +83,7 @@ GdsStretchTool >> drawFeedbackOn: aLocalCanvas [
 
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStretchTool >> drawOn: aLocalCanvas segment: segment [
 	morph drawOn: aLocalCanvas  lineSegment: segment.
 	self drawSegmentEndPointByDiamondOn:  aLocalCanvas segment: segment.
@@ -93,21 +91,21 @@ GdsStretchTool >> drawOn: aLocalCanvas segment: segment [
 
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStretchTool >> drawSegmentEndPointByCircleOn: aLocalCanvas segment: seg [
 	morph drawOn: aLocalCanvas  centerCircleAt: seg start.
 	morph drawOn: aLocalCanvas  centerCircleAt: seg end.
 
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStretchTool >> drawSegmentEndPointByDiamondOn: aLocalCanvas segment: seg [
 	morph drawOn: aLocalCanvas  markDiamondPointAt:  seg start.
 	morph drawOn: aLocalCanvas  markDiamondPointAt: seg end.
 
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStretchTool >> drawVirtualCrossPointOn: aLocalCanvas [
 	crossPointToPreSeg ifNotNil: [
 		morph drawOn: aLocalCanvas markPointAt: crossPointToPreSeg].
@@ -116,7 +114,7 @@ GdsStretchTool >> drawVirtualCrossPointOn: aLocalCanvas [
 
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsStretchTool >> evenAction [
 	"TODO:  Move to segment or vertices"			
 	self moveToSegment.
@@ -125,24 +123,24 @@ GdsStretchTool >> evenAction [
 
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsStretchTool >> eventAction [
 	self evenOddAction.
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsStretchTool >> firstAction [
 	nonEditUpdateBounds := 
 		GeometryUtils 
 			lookupDataBounds: (self currentItem editElement dataOutlinePoints).
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsStretchTool >> itemSegmentAt: segIndex [
 	^self itemSegmentAt:  segIndex circurlerAllowed: false.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsStretchTool >> itemSegmentAt: segIndex circurlerAllowed: aBoolean [
 	| segs|
 	segs := GeometryUtils lineSegmentsFormPointArray:  self currentItem vertices. 
@@ -150,24 +148,24 @@ GdsStretchTool >> itemSegmentAt: segIndex circurlerAllowed: aBoolean [
 	^segs at: (GeometryUtils asCirculerIndex: segIndex segments: segs).
 ]
 
-{ #category : 'debugging-use-only' }
+{ #category : #'debugging-use-only' }
 GdsStretchTool >> markCrossPoint [
 	^false.
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsStretchTool >> moveTarget [
 	^#segment
 ]
 
-{ #category : 'prompt message' }
+{ #category : #'prompt message' }
 GdsStretchTool >> moveToMessage [
 	^self moveTarget == #vertex 
 		ifTrue: ['Point to Pull Vertex to:']
 		ifFalse: ['Point to Stretch Edge To:'].
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsStretchTool >> moveToSegment [
 	| segs fromDistanceMap segInfo seg toPoint preSeg postSeg toDistanceMap  circulerAllowed preSegIndex postSegIndex replaceVirtexPreIndex replaceVirtexPostIndex|
 	toPoint := self snapedWorldPoint2.
@@ -234,7 +232,7 @@ GdsStretchTool >> moveToSegment [
 	self updateInvalidArea.
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsStretchTool >> oddAction [
 	"TODO: Test Segment of vertex analisysresult"
 	analisysResult := 
@@ -250,12 +248,12 @@ GdsStretchTool >> oddAction [
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStretchTool >> toolDidChange [
 	self prompt: self chooserMessage 
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GdsStretchTool >> updateInvalidArea [	
 	| currentUpdateBounds |
 	currentUpdateBounds := GeometryUtils lookupDataBounds: (self currentItem vertices) .
@@ -266,7 +264,7 @@ GdsStretchTool >> updateInvalidArea [
 	lastUpdateBounds := currentUpdateBounds copy.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStretchTool >> vertexStrechSupported [
 	"Sorry: current implements only Segment stretch"
 	^false

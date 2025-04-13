@@ -1,17 +1,15 @@
 Class {
-	#name : 'GdsDirectBoxTextTool',
-	#superclass : 'GdsQuickBoundsTool',
-	#category : 'GdsFeel-UI-Tools',
-	#package : 'GdsFeel-UI',
-	#tag : 'Tools'
+	#name : #GdsDirectBoxTextTool,
+	#superclass : #GdsQuickBoundsTool,
+	#category : 'GdsFeel-UI-Tools'
 }
 
-{ #category : 'action' }
+{ #category : #action }
 GdsDirectBoxTextTool >> acceptBoundsAction: aRectangle [
 	self putBoxText:  aRectangle	
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsDirectBoxTextTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [ 
 	self
 		drawRubberBandOn: aLocalCanvas
@@ -24,7 +22,7 @@ GdsDirectBoxTextTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [
 				bounds: bounds]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsDirectBoxTextTool >> putBoxText: aRectangle [
 	self currentItem boxtext.
 	self currentItem ce: aRectangle origin.

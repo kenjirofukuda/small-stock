@@ -16,8 +16,8 @@ tool
 
 "
 Class {
-	#name : 'GdsStructureEditorMorph',
-	#superclass : 'GdsStructureViewMorph',
+	#name : #GdsStructureEditorMorph,
+	#superclass : #GdsStructureViewMorph,
 	#instVars : [
 		'tool',
 		'feedbackCanvas',
@@ -28,40 +28,38 @@ Class {
 		'previewMap',
 		'viewingCursorForm'
 	],
-	#category : 'GdsFeel-UI-Morph',
-	#package : 'GdsFeel-UI',
-	#tag : 'Morph'
+	#category : 'GdsFeel-UI-Morph'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph class >> topmost [
 	^ self allInstances last
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> allLocationPanes [
 	^{self locationPane . self deltaLocationPane . self referenceLocationPane }
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> blueButtonDown: anEvent [
 	self inform: anEvent asString.
 	super blueButtonDown: anEvent.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStructureEditorMorph >> canGridDraw [
 	^ (self fastDrawing not) and: [self viewport canGridDraw].
 	
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStructureEditorMorph >> canGriddedCursor [
 	^true.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> ceEnabled [
 	self structure ifNil: [^false].
 	self currentTool currentItem elementClass ifNil: [^false].
@@ -70,18 +68,18 @@ GdsStructureEditorMorph >> ceEnabled [
 	^ true"self getElementEnabled."
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> changeCursorToCross [
 	self cursorForm: Cursor crossHair asCursorForm.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> changeCursorToViewing [
 	self cursorForm: self viewingCursorForm.
 
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> chooseLayer [
 	| number |
 	number := self privateChooseLayer.
@@ -89,18 +87,18 @@ GdsStructureEditorMorph >> chooseLayer [
 	self structure currentItem layerNumber: number.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> chooseLayerEnabled [
 	self structure ifNil: [^false].
 	^self structure currentItem layerEnabled.
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> chooseLayerLabel [
 	^self makeLabel: 'LAYER' withValue: self structure currentItem layerNumber.
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> choosePathType [
 	| number |
 	number := self privateChoosePathType.
@@ -108,18 +106,18 @@ GdsStructureEditorMorph >> choosePathType [
 	self structure currentItem pathtype: number.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> choosePathTypeEnabled [
 	self structure ifNil: [^false].
 	^self structure currentItem pathTypeEnabled.
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> choosePathTypeLabel [
 	^self makeLabel: 'PATHTYPE' withValue: self structure currentItem pathtype.
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> chooseStructureName [
 	| sname  |
 	sname := self privateChooseStructureName.
@@ -127,19 +125,19 @@ GdsStructureEditorMorph >> chooseStructureName [
 	self structure currentItem structureName: sname.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> chooseStructureNameEnabled [
 	self structure ifNil: [ ^ false ].
 	self referenceEnabledStructureNames ifEmpty: [ ^ false ].
 	^ self structure currentItem isReferenceType
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> chooseStructureNameLabel [
 	^self makeLabel: 'SNAME' withValue: self structure currentItem structureName.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> clearMarker [
 	self setVisible: false forKey:  #mark.	
 	markerPoints := nil.
@@ -147,12 +145,12 @@ GdsStructureEditorMorph >> clearMarker [
 	self changed.
 ]
 
-{ #category : 'tools' }
+{ #category : #tools }
 GdsStructureEditorMorph >> clearTool [
 	tool := nil.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> color: aColor [
 	super color: aColor.
 	(self allLocationPanes reject: [:each | each isNil])
@@ -160,7 +158,7 @@ GdsStructureEditorMorph >> color: aColor [
 
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> colorForElement: aGdsElement [
 	(#(inItem inId) includes: aGdsElement state) 
 		ifTrue: [^ self visiblePickingColor].
@@ -169,7 +167,7 @@ GdsStructureEditorMorph >> colorForElement: aGdsElement [
 		
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> confirmWipe [
 	| reply |
 	reply := UIManager default confirm: 'Are you sure ?'.
@@ -177,13 +175,13 @@ GdsStructureEditorMorph >> confirmWipe [
 	self structure currentItem wipe.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> confirmWipeEnabled [
 	self structure ifNil: [^false].
 	^self structure currentItem wipeEnabled.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> createLocationPane [
 	| sm |
 	sm := self locationPaneClass contents: ''.
@@ -193,7 +191,7 @@ GdsStructureEditorMorph >> createLocationPane [
 	^sm
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> createSensorLayer [
 
 	| m sm |
@@ -222,13 +220,13 @@ GdsStructureEditorMorph >> createSensorLayer [
 	^ m
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> createViewingCursorForm [
 	^(CursorWithMask derivedFrom: GdsFeelMorphic createViewingBaseForm ) asCursorForm .
 	
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> createViewport [
 	| vp |
 	vp := super createViewport.
@@ -236,26 +234,26 @@ GdsStructureEditorMorph >> createViewport [
 	^vp
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> crossHandCursor [
 	^ self canGriddedCursor
 		ifTrue: [ Cursor blank ]
 		ifFalse: [ Cursor crossHair ]
 ]
 
-{ #category : 'tools' }
+{ #category : #tools }
 GdsStructureEditorMorph >> currentTool [
 	tool ifNil: [
 		self currentToolClass: self defaultToolClass].
 	^tool.
 ]
 
-{ #category : 'tools' }
+{ #category : #tools }
 GdsStructureEditorMorph >> currentToolClass: aToolClass [
 	self currentToolClass: aToolClass userInfo: nil.
 ]
 
-{ #category : 'tools' }
+{ #category : #tools }
 GdsStructureEditorMorph >> currentToolClass: aToolClass userInfo: aObject [
 	tool := aToolClass new setMorph: self.
 	tool userInfo: aObject.
@@ -263,39 +261,39 @@ GdsStructureEditorMorph >> currentToolClass: aToolClass userInfo: aObject [
 	tool changeCursor.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> cursorForm [
 	^self mouseLayer valueOfProperty: #cursorForm ifAbsent: [Cursor crossHair asCursorForm.].
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> cursorForm: aForm [
 	self mouseLayer setProperty: #cursorForm toValue: aForm.
 	
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GdsStructureEditorMorph >> defaultToolClass [
 	^ defaultToolClass ifNil: [ defaultToolClass := GdsNullTool ] 
 ]
 
-{ #category : 'tools' }
+{ #category : #tools }
 GdsStructureEditorMorph >> defaultToolClass: aToolClass [
 	defaultToolClass := aToolClass.
 ]
 
-{ #category : 'rubberband' }
+{ #category : #rubberband }
 GdsStructureEditorMorph >> deltaLocationPane [
  	^self mouseLayer valueOfProperty: #deltaLocationPane ifAbsent: nil
  
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> drawContentsOn: aCanvas [	
 	"Dummy"	
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawElementKeysOn: aLocalCanvas [
 	self 
 		penColor: self visibleMarkerColor
@@ -306,7 +304,7 @@ GdsStructureEditorMorph >> drawElementKeysOn: aLocalCanvas [
 	
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> drawGridOn: aCanvas [
 	| xSteps ySteps |
 	self canGridDraw
@@ -325,7 +323,7 @@ GdsStructureEditorMorph >> drawGridOn: aCanvas [
 	
 ]
 
-{ #category : 'drawing-pluggable-block' }
+{ #category : #'drawing-pluggable-block' }
 GdsStructureEditorMorph >> drawGridOn: localCanvas layerMorph: morph [ 
 	| gridOff |
 	self viewport ifNil: [^self].
@@ -340,7 +338,7 @@ GdsStructureEditorMorph >> drawGridOn: localCanvas layerMorph: morph [
 	localCanvas paintImage: gridOff form at: 0@0.
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawIdFeedbackOn: aLocalCanvas [
 	self 
 		penColor: self visiblePickingColor
@@ -357,7 +355,7 @@ GdsStructureEditorMorph >> drawIdFeedbackOn: aLocalCanvas [
 	
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawItemFeedbackOn: aLocalCanvas [
 	self 
 		penColor: self visiblePickingColor
@@ -375,19 +373,19 @@ GdsStructureEditorMorph >> drawItemFeedbackOn: aLocalCanvas [
 	
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawItemLineSegmentsOn: aLocalCanvas [
 	self drawItemLineSegmentsOn: aLocalCanvas width: 1
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawItemLineSegmentsOn: aLocalCanvas width: aWidth [
 	self model currentItem vertices
 	 ifNotEmpty: [: points |
 		self drawOn: aLocalCanvas polyLineVertices: points  width: aWidth]
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawItemReferencesOn: aLocalCanvas [
 	self model currentItem vertices
 		ifNotEmpty: [ :points |
@@ -398,12 +396,12 @@ GdsStructureEditorMorph >> drawItemReferencesOn: aLocalCanvas [
 	
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawItemVertexNumbersOn: aLocalCanvas [
 	self drawItemVertexNumbersOn: aLocalCanvas zeroBased: false
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawItemVertexNumbersOn: aLocalCanvas zeroBased: aBoolean [
 	| index points |
 	index := aBoolean ifTrue: [0] ifFalse: [1].
@@ -420,7 +418,7 @@ GdsStructureEditorMorph >> drawItemVertexNumbersOn: aLocalCanvas zeroBased: aBoo
 	
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawItemVerticesOn: aLocalCanvas [
 	self model currentItem vertices
 		ifNotEmpty: [ :points |
@@ -432,7 +430,7 @@ GdsStructureEditorMorph >> drawItemVerticesOn: aLocalCanvas [
 	
 ]
 
-{ #category : 'drawing-feedback' }
+{ #category : #'drawing-feedback' }
 GdsStructureEditorMorph >> drawMarksOn: aLocalCanvas [
 	self 
 		penColor: self visibleMarkerColor
@@ -443,7 +441,7 @@ GdsStructureEditorMorph >> drawMarksOn: aLocalCanvas [
 				markDiamondPointAt: each ]]
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> drawOffOn: aCanvas [ 
 	| newFillImage |
 	super drawOffOn: aCanvas.
@@ -459,7 +457,7 @@ GdsStructureEditorMorph >> drawOffOn: aCanvas [
 				rule: Form paint]
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> drawOn: aCanvas [
 	| drawingBlock |
 	self viewport ifNil: [^super drawOn: aCanvas].
@@ -474,7 +472,7 @@ GdsStructureEditorMorph >> drawOn: aCanvas [
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> enterArea: anEvent [
 	self startStepping.
 	GdsFeelMorphic useCustomCursor
@@ -483,35 +481,35 @@ GdsStructureEditorMorph >> enterArea: anEvent [
 			self activeHand showTemporaryCursor: self crossHandCursor ]
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> everyEnabled [
 	^ true
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> exploreItem [
 	self structure currentItem explore.
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> exportPictureBaseName [
 	self structure ifNil: [^nil].
 	^self structure name.
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> fileOutPicture [
 	self exportPictureBaseName
 		ifNotNil: [
 			self fileOutPictureBaseNamed: self exportPictureBaseName]
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> fileOutPictureBaseNamed: aBaseName [
 	self fileOutPictureBaseNamed: aBaseName intoDirectory: GdsFeel projectDirectory.
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> fileOutPictureBaseNamed: aBaseName intoDirectory: aDirectory [
 	| fName  |
 	fName := GdsFeel 
@@ -519,13 +517,13 @@ GdsStructureEditorMorph >> fileOutPictureBaseNamed: aBaseName intoDirectory: aDi
 	PNGReadWriter putForm: self imageForm onFileNamed: (aDirectory / fName).
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> fileOutPictureEnabled [
 	^self exportPictureBaseName isNil not
 
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> fileOutPreview [
 	self structure ifNil: [^nil].
 	(self structure previewFile isFile)
@@ -538,37 +536,37 @@ GdsStructureEditorMorph >> fileOutPreview [
 	(canvas form  magnifyBy: 0.25)  asMorph openInWorld."
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> getElementEnabled [
 	self structure ifNil: [^false].
 	^self structure currentItem getEnabled.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> globalPoint [ 
 	^ InputEventSensor default cursorPoint.
 	"Don't use: self activeHand cursorPoint"
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> gridColor [
 	^self visibleGridColor.
 	
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> gridLayer [
 	^(self layerForKey: #grid)
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> handleMouseDown: event [
 	"event traceCr."
 	^ super handleMouseDown: event
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> handleMouseOver: anEvent [
 	"System level event handling."
 	
@@ -578,7 +576,7 @@ GdsStructureEditorMorph >> handleMouseOver: anEvent [
 		self mouseOver: anEvent]
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> hideDrawingLayerDuring: aBlock [
 	|  visibleStateMap   |
 	"save layer state"
@@ -599,7 +597,7 @@ GdsStructureEditorMorph >> hideDrawingLayerDuring: aBlock [
 	(canvas form  magnifyBy: 0.25)  asMorph openInWorld."
 ]
 
-{ #category : 'rubberband' }
+{ #category : #rubberband }
 GdsStructureEditorMorph >> hideLocationPane: aMorph [
 	aMorph ifNil: [ ^ self ].
 	aMorph contents: ''.
@@ -607,47 +605,47 @@ GdsStructureEditorMorph >> hideLocationPane: aMorph [
 
 ]
 
-{ #category : 'rubberband' }
+{ #category : #rubberband }
 GdsStructureEditorMorph >> hideRubberbandLocationPanes [
 	{self deltaLocationPane . self referenceLocationPane }
 		do: [:each | self hideLocationPane: each].
 
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStructureEditorMorph >> holdsElement [
 	self structure ifNil: [^false].
 	^self structure currentItem holdsElement.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> holdsPrimitive [
 	^self holdsElement and: [self holdsReference not].
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStructureEditorMorph >> holdsReference [
 	^self holdsElement and: [self structure currentItem elementClass isReference]
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> idClearEnabled [
 	^self idNotEmpty
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> idDeleteEnabled [
 	^self idNotEmpty
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStructureEditorMorph >> idNotEmpty [
 	self structure ifNil: [^ false].
 	self structure idSelection ifNil: [^ false] .	
 	^self structure idSelection notEmpty.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initialize [
 	super initialize.
 	self initializeLayers.
@@ -657,13 +655,13 @@ GdsStructureEditorMorph >> initialize [
 	self announcer when: MorphGotFocus do: [ self enterArea: nil ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeContainerChooserLayer [
 	self initializeLibraryChooserLayer.
 	self initializeStructureChooserLayer. 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeContentsLayer [
 	| layer |
 	layer := self layerForKey: #contents.
@@ -672,7 +670,7 @@ GdsStructureEditorMorph >> initializeContentsLayer [
 			ifFalse: [self drawContentsOn: localCanvas]]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeGridLayer [
 	| layer |
 	layer :=self layerForKey: #grid.
@@ -680,7 +678,7 @@ GdsStructureEditorMorph >> initializeGridLayer [
 		self drawGridOn:  localCanvas layerMorph: morph]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeIdLayer [
 	| layer |
 	layer := self layerForKey: #id.
@@ -689,7 +687,7 @@ GdsStructureEditorMorph >> initializeIdLayer [
 			ifFalse: [self drawIdFeedbackOn: localCanvas]]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeItemLayer [
 	| layer |
 	layer := self layerForKey: #item.
@@ -698,7 +696,7 @@ GdsStructureEditorMorph >> initializeItemLayer [
 			ifFalse: [self drawItemFeedbackOn: localCanvas]]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeLayers [
 
 	self initializeGridLayer.
@@ -709,7 +707,7 @@ GdsStructureEditorMorph >> initializeLayers [
 	self initializeContainerChooserLayer
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeLibraryChooserLayer [
 	| layer |
 	layer :=self layerForKey: #libraryChooser.
@@ -720,7 +718,7 @@ GdsStructureEditorMorph >> initializeLibraryChooserLayer [
 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeMarkLayer [
 	| layer |
 	layer := self layerForKey: #mark.
@@ -732,7 +730,7 @@ GdsStructureEditorMorph >> initializeMarkLayer [
 				self drawMarksOn: localCanvas]]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeSensorLayer [
 	| m |
 	m := self createSensorLayer .
@@ -747,7 +745,7 @@ GdsStructureEditorMorph >> initializeSensorLayer [
 	
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> initializeStructureChooserLayer [
 	| layer |
 	layer :=self layerForKey: #structureChooser.
@@ -757,7 +755,7 @@ GdsStructureEditorMorph >> initializeStructureChooserLayer [
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> isSimulateBlueButtonPressed: anEvent [
 	anEvent yellowButtonPressed 
 		ifFalse: [ ^ false ].
@@ -767,7 +765,7 @@ GdsStructureEditorMorph >> isSimulateBlueButtonPressed: anEvent [
 	
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> itemDeleteVertexEnabled [
 	self structure ifNil: [^false].
 	self holdsReference
@@ -777,33 +775,33 @@ GdsStructureEditorMorph >> itemDeleteVertexEnabled [
 	^self structure currentItem isEmpty not.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> itemMoveEnabled [
 	^self holdsElement.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> itemMovePointEnabled [
 	^self holdsPrimitive.
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> itemReverse [
 	self structure currentItem reverseVertices.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> itemReverseEnabled [
 	self structure ifNil: [ ^ false ].
 	^ self structure currentItem itemReverseEnabled
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> itemStretchEnabled [
 	^self holdsPrimitive.
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> keyStroke: anEvent [
 	GdsFeel ifDebugOn: [ :s | 
 		s nextPutAll: anEvent asString].
@@ -812,20 +810,20 @@ GdsStructureEditorMorph >> keyStroke: anEvent [
 	(self viewFitHandled: anEvent) ifTrue: [self fireFirstdrawing . ^self].		
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> leaveArea: anEvent [
 	self activeHand showTemporaryCursor: nil.
 	Cursor normal show.
 	self stopStepping
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> locationPane [
  	^self mouseLayer valueOfProperty: #locationPane ifAbsent: nil
  
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> locationPaneClass [
 	GdsFeelMorphic borderedSensorDisplay
 		ifTrue: [^ Smalltalk at: #BorderedStringMorph ifAbsent: [StringMorph]].
@@ -833,7 +831,7 @@ GdsStructureEditorMorph >> locationPaneClass [
 
 ]
 
-{ #category : 'utility' }
+{ #category : #utility }
 GdsStructureEditorMorph >> makeLabel: aLabel withValue: aValueOrBlock [
 	| optionalLabel |
 	optionalLabel := aValueOrBlock value asString.
@@ -846,7 +844,7 @@ GdsStructureEditorMorph >> makeLabel: aLabel withValue: aValueOrBlock [
 			stream nextPutAll: ')']]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> mark: aPoint [
 	markerPoints ifNil: [markerPoints := OrderedCollection new.].
 	(markerPoints includes: aPoint)
@@ -856,14 +854,14 @@ GdsStructureEditorMorph >> mark: aPoint [
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsStructureEditorMorph >> markElementKeys [
 	self setVisible: true forKey: #mark.
 	self showsElementKey: true.
 	self invalidRect: self bounds
 ]
 
-{ #category : 'utility' }
+{ #category : #utility }
 GdsStructureEditorMorph >> markPoints: aPoints [
 	aPoints ifEmpty: [^self].
 	self setVisible: true forKey:  #mark.
@@ -872,13 +870,13 @@ GdsStructureEditorMorph >> markPoints: aPoints [
 	self invalidRect: self bounds.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> markerPoints [
 	markerPoints ifNil: [markerPoints := OrderedCollection new.].
 	^markerPoints asArray.
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> mouseDown: anEvent [
 	(self isNavigarionClick: anEvent)
 		ifTrue: [ ^ super mouseDown: anEvent ].		 
@@ -886,7 +884,7 @@ GdsStructureEditorMorph >> mouseDown: anEvent [
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> mouseEnter: anEvent [
 	super mouseEnter: anEvent.
 	self handleEventsBySelf 
@@ -898,12 +896,12 @@ GdsStructureEditorMorph >> mouseEnter: anEvent [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> mouseLayer [
 	^(self layerForKey: #mouse)
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> mouseLeave: anEvent [
 	super mouseLeave: anEvent.
 	self handleEventsBySelf 
@@ -912,27 +910,27 @@ GdsStructureEditorMorph >> mouseLeave: anEvent [
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> mouseMove: anEvent [
 	self trackingObject ifNil: [ self currentTool mouseMove: anEvent ].
 	super mouseMove: anEvent.
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> mouseOver: anEvent [
 	"self trackingObject ifNil: [" self currentTool mouseOver: anEvent " ]."
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> mouseUp: anEvent [
 	self trackingObject ifNil: [ self currentTool mouseUp: anEvent ].
 	super mouseUp: anEvent.
 
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> openAsAthens [
 	(Smalltalk at: #GdsAthensStructureDrawer ifAbsent: [ nil ])
 		ifNotNil: [ :clazz |  | view |
@@ -941,7 +939,7 @@ GdsStructureEditorMorph >> openAsAthens [
 			]
 ]
 
-{ #category : 'utility' }
+{ #category : #utility }
 GdsStructureEditorMorph >> privateByteStringInput: aMessage defaults: aDefault [
 	|  reply  ok |
 	ok := false.
@@ -954,7 +952,7 @@ GdsStructureEditorMorph >> privateByteStringInput: aMessage defaults: aDefault [
 	^reply asByteString.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsStructureEditorMorph >> privateChooseLayer [
 	| numbers layerLabels chooseIndex |
 	numbers := GdsCompatibility default layerNumberRange asArray.
@@ -966,7 +964,7 @@ GdsStructureEditorMorph >> privateChooseLayer [
 	
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsStructureEditorMorph >> privateChoosePathType [
 	| numbers layerLabels chooseIndex |
 	numbers := #(0 2).
@@ -978,7 +976,7 @@ GdsStructureEditorMorph >> privateChoosePathType [
 	
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsStructureEditorMorph >> privateChooseStructureName [
 	| snames chooseIndex |
 	snames := self referenceEnabledStructureNames.
@@ -988,7 +986,7 @@ GdsStructureEditorMorph >> privateChooseStructureName [
 		ifFalse: [ snames at: chooseIndex ]
 ]
 
-{ #category : 'utility' }
+{ #category : #utility }
 GdsStructureEditorMorph >> privateExpInput: aMessage defaults: aDefault [
 	|  reply separatedItems values |
 	reply := UIManager default request: aMessage initialAnswer: aDefault.
@@ -1000,7 +998,7 @@ GdsStructureEditorMorph >> privateExpInput: aMessage defaults: aDefault [
 	^values asArray.
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> privateFileOutPreview [
 	| previewFile canvas vp |
 	self
@@ -1022,7 +1020,7 @@ GdsStructureEditorMorph >> privateFileOutPreview [
 			PNGReadWriter putForm: canvas form onFileNamed: previewFile]
 ]
 
-{ #category : 'utility' }
+{ #category : #utility }
 GdsStructureEditorMorph >> privateStringInput: aMessage defaults: aDefault [
 	|  reply  ok |
 	ok := false.
@@ -1035,13 +1033,13 @@ GdsStructureEditorMorph >> privateStringInput: aMessage defaults: aDefault [
 	^reply asByteString.
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> profileEnabled [
 	^self valueOfProperty: #profileEnabled ifAbsent: [false]
 
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> profileName [
 	^GdsFeel 
 		directoryPath: './' asFileReference fullName 
@@ -1049,23 +1047,23 @@ GdsStructureEditorMorph >> profileName [
 		extension: 'log'
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> profileOff [
 	self setProperty: #profileEnabled toValue: false.
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> profileOn [
 	self setProperty: #profileEnabled toValue: true.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> referenceLocationPane [
  	^self mouseLayer valueOfProperty: #referenceLocationPane ifAbsent: nil
  
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> release [
 	tool := nil.
 	feedbackCanvas := nil.
@@ -1077,30 +1075,30 @@ GdsStructureEditorMorph >> release [
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GdsStructureEditorMorph >> removeCachedCanvas [
 	super  removeCachedCanvas.
 	self removeGridCanvas.
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> removeFeedbackCanvas [
 	feedbackCanvas := nil.
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> removeGridCanvas [
 	self gridLayer setProperty: #gridOff toValue: nil. 
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> removeOffCanvas [
 	super removeOffCanvas.
 	feedbackCanvas := nil.
 
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> requestAngle [
 	| angleExpr values |
 	angleExpr := self structure currentItem angle asString.
@@ -1109,18 +1107,18 @@ GdsStructureEditorMorph >> requestAngle [
 	self structure currentItem angle: values first.	
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> requestAngleEnabled [
 	self structure ifNil: [^false].
 	^self structure currentItem isReferenceType.
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> requestAngleLabel [
 	^self makeLabel: 'ANGLE' withValue: self structure currentItem angle.
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> requestArrayShape [
 	|  ashapeExpr values |
 	self structure currentItem ashapeInstalled ifFalse: [^self].
@@ -1142,7 +1140,7 @@ GdsStructureEditorMorph >> requestArrayShape [
 	self  structure currentItem ashape values: values.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> requestArrayShapeEnabled [
 	self structure ifNil: [^false].
 	self structure currentItem ashapeInstalled ifFalse: [^false].
@@ -1150,14 +1148,14 @@ GdsStructureEditorMorph >> requestArrayShapeEnabled [
 
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> requestArrayShapeLabel [
 	|ashape |
 	ashape := self structure currentItem ashape.
 	^self makeLabel: 'ASHAPE' withValue: ('{1}x{2}' format: {ashape columnCount . ashape rowCount}). 
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> requestEnterText [
 	|reply default|
 	default := self structure currentItem text.
@@ -1166,7 +1164,7 @@ GdsStructureEditorMorph >> requestEnterText [
 	 self structure currentItem text: reply.
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> requestGridDisplayMultiply [
 	|  scaleExpr values |
 	scaleExpr := self  viewport grid displayMultiply asString.
@@ -1179,12 +1177,12 @@ GdsStructureEditorMorph >> requestGridDisplayMultiply [
 	self  viewport grid displayMultiply: values first.
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> requestGridDisplayMultiplyLabel [
 	^self makeLabel: 'GRID' withValue: self  viewport grid displayMultiply asString .
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> requestGridScale [
 	|  scaleExpr values |
 	scaleExpr := self  viewport grid asRequestString.
@@ -1197,17 +1195,17 @@ GdsStructureEditorMorph >> requestGridScale [
 	self  viewport grid values: values.
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> requestGridScaleEnabled [
 	^true
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> requestGridScaleLabel [
 	^self makeLabel: 'GSCALE' withValue: self  viewport grid asRequestString .
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> requestMag [
 	| magExpr values |
 	magExpr := self structure currentItem mag asString.
@@ -1216,18 +1214,18 @@ GdsStructureEditorMorph >> requestMag [
 	self structure currentItem mag: values first abs.	
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> requestMagEnabled [
 	self structure ifNil: [^false].
 	^self structure currentItem isReferenceType.
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> requestMagLabel [
 	^self makeLabel: 'MAG' withValue: self structure currentItem mag.
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> requestWidth [
 	| widthExpr values |
 	widthExpr := self structure currentItem width asString.
@@ -1236,18 +1234,18 @@ GdsStructureEditorMorph >> requestWidth [
 	self structure currentItem width: values first abs.	
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> requestWidthEnabled [
 	self structure ifNil: [^false].
 	^self structure currentItem widthEnabled.
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> requestWidthLabel [
 	^self makeLabel: 'WIDTH' withValue: self structure currentItem width.
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> rubberbandPoint: aPoint [ 
 	feedbackCanvas ifNil: 
 		[ feedbackCanvas := FormCanvas 
@@ -1265,7 +1263,7 @@ GdsStructureEditorMorph >> rubberbandPoint: aPoint [
 	lastPoint := aPoint copy
 ]
 
-{ #category : 'documentation-support' }
+{ #category : #'documentation-support' }
 GdsStructureEditorMorph >> runProfile [
 	self profileOn.
 	self removeCachedCanvas.
@@ -1273,7 +1271,7 @@ GdsStructureEditorMorph >> runProfile [
 	
 ]
 
-{ #category : 'drawing-pluggable-block' }
+{ #category : #'drawing-pluggable-block' }
 GdsStructureEditorMorph >> sensorDrawOn: localCanvas layerMorph: morph [ 
 	| p hvPoint cursorForm |
 	self viewport ifNil: [^ self].
@@ -1298,7 +1296,7 @@ GdsStructureEditorMorph >> sensorDrawOn: localCanvas layerMorph: morph [
 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> setVisibleBorder:  aStringMorph [
 	aStringMorph color: self visibleLocationColor.
 	(GdsFeelMorphic borderedSensorDisplay)
@@ -1310,7 +1308,7 @@ GdsStructureEditorMorph >> setVisibleBorder:  aStringMorph [
 	
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> setupChooserLayout: aMorph [
 	aMorph changeTableLayout.
 	aMorph minCellSize: 45@20.
@@ -1324,7 +1322,7 @@ GdsStructureEditorMorph >> setupChooserLayout: aMorph [
 
 ]
 
-{ #category : 'container chooser' }
+{ #category : #'container chooser' }
 GdsStructureEditorMorph >> setupLibraryChooser: aGdsStation [
 	(self layerForKey: #libraryChooser)
 		ifNotNil: [:chooserMorph |
@@ -1341,7 +1339,7 @@ GdsStructureEditorMorph >> setupLibraryChooser: aGdsStation [
 	self setVisible: true forKey: #libraryChooser.
 ]
 
-{ #category : 'container chooser' }
+{ #category : #'container chooser' }
 GdsStructureEditorMorph >> setupStructureChooser: aGdsStation [
 	aGdsStation ifNil: [ ^self ].
 	aGdsStation library ifNil: [^self].
@@ -1375,13 +1373,13 @@ GdsStructureEditorMorph >> setupStructureChooser: aGdsStation [
 	self setVisible: true forKey: #structureChooser.
 ]
 
-{ #category : 'rubberband' }
+{ #category : #rubberband }
 GdsStructureEditorMorph >> showLocationPane: aMorph at: aWorldPoint [ 
 	self showLocationPane: aMorph at: aWorldPoint contents: nil.
 
 ]
 
-{ #category : 'rubberband' }
+{ #category : #rubberband }
 GdsStructureEditorMorph >> showLocationPane: aMorph at: aWorldPoint contents: anObject [
 	| loc text |
 	self viewport ifNil: [ ^ self ].
@@ -1400,18 +1398,18 @@ GdsStructureEditorMorph >> showLocationPane: aMorph at: aWorldPoint contents: an
 		ifFalse: [ aMorph visible: true ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsStructureEditorMorph >> showsElementKey [
 	showsElementKey ifNil: [showsElementKey := false].
 	^showsElementKey
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> showsElementKey: aBoolean [
 	showsElementKey := aBoolean.
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> step [
 	| wp2 globalPoint |
 	self viewport ifNil: [ ^ self ].
@@ -1439,7 +1437,7 @@ GdsStructureEditorMorph >> step [
 			self rubberbandPoint: wp2 ]
 ]
 
-{ #category : 'rubberband' }
+{ #category : #rubberband }
 GdsStructureEditorMorph >> stepSensorLayerMorph: aMorph [
 	| oldP p globalPoint |
 	self viewport ifNil: [ ^ self ].
@@ -1460,7 +1458,7 @@ GdsStructureEditorMorph >> stepSensorLayerMorph: aMorph [
 	aMorph invalidRect: (self updateBoundsFromPoint1: oldP point2: p)
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> stepTime [
 	"| max |
 	max := 100000.
@@ -1469,7 +1467,7 @@ GdsStructureEditorMorph >> stepTime [
 	^200.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsStructureEditorMorph >> structureDidBind [
 	viewport := self createViewport.			
 	lastSessionsGrid ifNotNil: [viewport grid: lastSessionsGrid].
@@ -1488,7 +1486,7 @@ GdsStructureEditorMorph >> structureDidBind [
 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsStructureEditorMorph >> structureDidChanged [
 	super structureDidChanged.
 	self clearTool.
@@ -1497,7 +1495,7 @@ GdsStructureEditorMorph >> structureDidChanged [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsStructureEditorMorph >> structureDidUnbind [
 	self viewport
 		ifNotNil: [ 
@@ -1517,7 +1515,7 @@ GdsStructureEditorMorph >> structureDidUnbind [
 	self structure announcer unsubscribe: self
 ]
 
-{ #category : 'appearance' }
+{ #category : #appearance }
 GdsStructureEditorMorph >> toggleBackgroundColor [
 	self color: (self visiblePenColor = Color black
 		ifTrue:[Color black]
@@ -1525,42 +1523,42 @@ GdsStructureEditorMorph >> toggleBackgroundColor [
 	self gridLayer invalidRect: self gridLayer bounds.
 ]
 
-{ #category : 'appearance' }
+{ #category : #appearance }
 GdsStructureEditorMorph >> toggleBackgroundColorEnabled [
 	^true
 ]
 
-{ #category : 'command-handler' }
+{ #category : #'command-handler' }
 GdsStructureEditorMorph >> toggleReflect [
 	self structure currentItem toggleReflect
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> toggleReflectEnabled [
 	self structure ifNil: [^false].
 	^self structure currentItem isReferenceType.
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GdsStructureEditorMorph >> toggleReflectLabel [
 	^self 
 		makeLabel: 'REFL' 
 		withValue: (self structure currentItem isReflected ifTrue: ['Y'] ifFalse: ['N']).
 ]
 
-{ #category : 'drawing' }
+{ #category : #drawing }
 GdsStructureEditorMorph >> toolFeedbackEnabled [
 	^(self currentTool isNil not and: 
 		[(self structure currentItem holdsElement) or: 
 		[self structure currentItem vertices isEmpty not] ])
 ]
 
-{ #category : 'testing-enabled' }
+{ #category : #'testing-enabled' }
 GdsStructureEditorMorph >> unIdEnabled [
 	^self idNotEmpty
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GdsStructureEditorMorph >> update: anObject [
 	GdsFeel ifDebugOn: [:s |
 		s nextPutAll:  self class printString.
@@ -1592,7 +1590,7 @@ GdsStructureEditorMorph >> update: anObject [
 	^super update: anObject.
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> viewFitHandled: anEvent [
 	| kc doFit |
 	kc := anEvent keyCharacter.
@@ -1604,7 +1602,7 @@ GdsStructureEditorMorph >> viewFitHandled: anEvent [
 	^true.		
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> viewMoveHandled: anEvent [
 	| kc fractionPoint |
 	kc := anEvent keyCharacter.
@@ -1620,7 +1618,7 @@ GdsStructureEditorMorph >> viewMoveHandled: anEvent [
 
 ]
 
-{ #category : 'event handling' }
+{ #category : #'event handling' }
 GdsStructureEditorMorph >> viewZoomHandled: anEvent [
 	| kc zoomFactor |
 	kc := anEvent keyCharacter.
@@ -1633,7 +1631,7 @@ GdsStructureEditorMorph >> viewZoomHandled: anEvent [
 	^true.		
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsStructureEditorMorph >> viewingCursorForm [
 	viewingCursorForm ifNil: [viewingCursorForm := self createViewingCursorForm ].
 	^viewingCursorForm.

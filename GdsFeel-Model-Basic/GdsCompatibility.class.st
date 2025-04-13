@@ -5,17 +5,16 @@ Instance Variables
 
 "
 Class {
-	#name : 'GdsCompatibility',
-	#superclass : 'Object',
+	#name : #GdsCompatibility,
+	#superclass : #Object,
 	#classVars : [
 		'CompatibilityClass',
 		'DefaultCompatibility'
 	],
-	#category : 'GdsFeel-Model-Basic',
-	#package : 'GdsFeel-Model-Basic'
+	#category : 'GdsFeel-Model-Basic'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsCompatibility class >> activeClass [
 	GdsCompatibility allSubclasses do: [:class |
 		class isActive ifTrue: [^ class]].
@@ -23,7 +22,7 @@ GdsCompatibility class >> activeClass [
 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsCompatibility class >> checker [
 	| clazz |
 	clazz := Smalltalk at: #DosFileDirectory ifAbsent: [  ].
@@ -36,50 +35,50 @@ GdsCompatibility class >> checker [
 
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 GdsCompatibility class >> create [
 	CompatibilityClass ifNil: [self setActiveClass].
 	^CompatibilityClass new.
 
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GdsCompatibility class >> default [
 	DefaultCompatibility ifNil: [DefaultCompatibility := self create.].
 	^DefaultCompatibility.
 
 ]
 
-{ #category : 'class initialization' }
+{ #category : #'class initialization' }
 GdsCompatibility class >> initialize [
 	"self initialize"
 	Smalltalk addToStartUpList: self.	
 
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsCompatibility class >> isActive [
 	^false
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsCompatibility class >> setActiveClass [
 	CompatibilityClass := self activeClass.
 
 ]
 
-{ #category : 'system startup' }
+{ #category : #'system startup' }
 GdsCompatibility class >> startUp [
 	self setActiveClass.
 	
 ]
 
-{ #category : 'convert' }
+{ #category : #convert }
 GdsCompatibility >> checker [
 	^self class checker.
 ]
 
-{ #category : 'convert' }
+{ #category : #convert }
 GdsCompatibility >> coerceStructureName: aString [
 	| partial |
 	partial := aString copyReplaceAll: ' ' with: '_' .
@@ -87,18 +86,18 @@ GdsCompatibility >> coerceStructureName: aString [
 	^self checker checkName: partial fixErrors: true.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsCompatibility >> elementColorAllowed [
 	^true
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsCompatibility >> isValidLibraryName: aString [ 
 	^ (self isValidStorageName: aString) and: 
 	[aString matchesRegex: '[A-Z][A-Z0-9$_]+'].
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsCompatibility >> isValidStorageName: aString [
 	(aString includes: Character space)
 		ifTrue: [ ^ false ].
@@ -110,63 +109,63 @@ GdsCompatibility >> isValidStorageName: aString [
 	^ true
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsCompatibility >> isValidStructureName: aString [ 
 	^self isValidStorageName: aString
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 GdsCompatibility >> itemNumberMax [
 	^9
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 GdsCompatibility >> itemNumberMin [
 	^0
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 GdsCompatibility >> itemNumberRange [
 	^Interval from: self itemNumberMin to: self itemNumberMax. 
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 GdsCompatibility >> layerNumberMax [
 	^255.
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 GdsCompatibility >> layerNumberMin [
 	^0.
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 GdsCompatibility >> layerNumberRange [
 	^Interval from: self layerNumberMin to: self layerNumberMax. 
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 GdsCompatibility >> libNameMax [
 	^-1
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsCompatibility >> limitedColorSpace [
 	^ self supportedColorSymbols isNotEmpty
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsCompatibility >> limitedColors [
 	^ self supportedColorSymbols collect: [ :colorSymbol | Color perform: colorSymbol].
 
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsCompatibility >> multilingalNameAllowed [
 	^ true
 ]
 
-{ #category : 'category name' }
+{ #category : #'category name' }
 GdsCompatibility >> supportedColorSymbols [
 	^#() copy.
 ]
