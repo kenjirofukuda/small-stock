@@ -96,7 +96,7 @@ BaselineOfGdsFeel >> baseline: spec [
 			with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ).
 		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
-	self baselineFixZip: self.
+	self baselineFixZip: spec.
 	spec for: #'pharo12.x' do: [
 		spec
 			package: 'GdsFeel-UI-Spec2'
@@ -113,7 +113,9 @@ BaselineOfGdsFeel >> baselineFixZip: spec [
 	spec package: 'GdsFeel-Foundation-ZipP6P7'.
 	spec
 		for: #(#'pharo6.x' #'pharo7.x')
-		do: [ spec
+		do: [ 
+			spec requires: #( 'GdsFeel-Foundation-ZipP6P7' ).
+			spec
 				group: 'Foundation'
 				with:
 					#('GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
