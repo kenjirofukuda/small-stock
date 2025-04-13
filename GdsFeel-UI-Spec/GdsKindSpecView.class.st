@@ -1,11 +1,10 @@
 Class {
-	#name : 'GdsKindSpecView',
-	#superclass : 'GdsStateSpecView',
-	#category : 'GdsFeel-UI-Spec',
-	#package : 'GdsFeel-UI-Spec'
+	#name : #GdsKindSpecView,
+	#superclass : #GdsStateSpecView,
+	#category : 'GdsFeel-UI-Spec'
 }
 
-{ #category : 'specs' }
+{ #category : #specs }
 GdsKindSpecView class >> defaultSpec [
 	<spec: #default>
 	^ SpecLayout composed
@@ -17,7 +16,7 @@ GdsKindSpecView class >> defaultSpec [
 		yourself
 ]
 
-{ #category : 'specs' }
+{ #category : #specs }
 GdsKindSpecView class >> example [
 	| kind |
 	kind := GdsKind new initWithKey: 'PT' description: 'Point'. 
@@ -25,24 +24,24 @@ GdsKindSpecView class >> example [
 	kind explore.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsKindSpecView >> activateNewState: newState [
 	labelModel label: newState keyString.
 	super activateNewState: newState.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsKindSpecView >> initializeWidgets [
 	super initializeWidgets.
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsKindSpecView >> kind [
 	^ self model
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsKindSpecView >> kind: aGdsKind [
 	self model: aGdsKind
 ]

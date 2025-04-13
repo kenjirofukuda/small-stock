@@ -1,15 +1,14 @@
 Class {
-	#name : 'GdsLayerSpecView',
-	#superclass : 'GdsStateSpecView',
+	#name : #GdsLayerSpecView,
+	#superclass : #GdsStateSpecView,
 	#instVars : [
 		'colorChooserMorph',
 		'layerNumberModel'
 	],
-	#category : 'GdsFeel-UI-Spec',
-	#package : 'GdsFeel-UI-Spec'
+	#category : 'GdsFeel-UI-Spec'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsLayerSpecView class >> defaultSpec [
 	<spec: #default>
 	^ SpecLayout composed
@@ -23,7 +22,7 @@ GdsLayerSpecView class >> defaultSpec [
 		yourself
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsLayerSpecView class >> example [
 	| layer |
 	layer := GdsLayer new name: 'Hage'; layerNumber: 1; color: Color blue; yourself. 
@@ -31,7 +30,7 @@ GdsLayerSpecView class >> example [
 	"layer explore."
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsLayerSpecView >> activateNewState: newState [
 	layerNumberModel label: (newState layerNumber asString padLeftTo: 2).
 	
@@ -44,13 +43,13 @@ GdsLayerSpecView >> activateNewState: newState [
 	colorChooserMorph changed.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsLayerSpecView >> color [
 	self layer ifNil: [^ self missingColor].
 	^ self layer color
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsLayerSpecView >> color: aColor [
 	| newColor |
 	self layer ifNil: [^ self].
@@ -61,12 +60,12 @@ GdsLayerSpecView >> color: aColor [
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsLayerSpecView >> colorChooser [
 	^ colorChooserMorph asSpecAdapter.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GdsLayerSpecView >> initializeWidgets [
 	| swatch |
 	super initializeWidgets.
@@ -92,27 +91,27 @@ GdsLayerSpecView >> initializeWidgets [
 	colorChooserMorph addMorphCentered: swatch .
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsLayerSpecView >> layer [
 	^ self model
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsLayerSpecView >> layer: aGdsLayer [
 	self model: aGdsLayer.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GdsLayerSpecView >> layerNumberModel [
 	^ layerNumberModel
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GdsLayerSpecView >> missingColor [
 	^ Color lightGray.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GdsLayerSpecView >> perfectWhiteAllowed [
 	^ false
 ]
