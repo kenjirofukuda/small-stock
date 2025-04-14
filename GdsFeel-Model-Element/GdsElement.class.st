@@ -23,11 +23,10 @@ statusNumber
 "
 Class {
 	#name : #GdsElement,
-	#superclass : #Model,
+	#superclass : #GdsModel,
 	#traits : 'TGdsExchange + TGdsPropertiesOwner',
 	#classTraits : 'TGdsExchange classTrait + TGdsPropertiesOwner classTrait',
 	#instVars : [
-		'properties',
 		'vertices',
 		'dataBounds',
 		'keyNumber',
@@ -418,6 +417,11 @@ GdsElement >> hasPathType [
 { #category : #testing }
 GdsElement >> hasWidth [
 	^self class hasWidth.
+]
+
+{ #category : #testing }
+GdsElement >> isElement [
+	^ true
 ]
 
 { #category : #testing }

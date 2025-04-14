@@ -19,6 +19,26 @@ GdsModel >> announcer [
 	^ super announcer
 ]
 
+{ #category : #testing }
+GdsModel >> isElement [
+	^ false
+]
+
+{ #category : #testing }
+GdsModel >> isLibrary [
+	^ false
+]
+
+{ #category : #testing }
+GdsModel >> isStation [
+	^ false
+]
+
+{ #category : #testing }
+GdsModel >> isStructure [
+	^ false
+]
+
 { #category : #private }
 GdsModel >> properties [
 	^ properties ifNil: [ properties := IdentityDictionary new ]

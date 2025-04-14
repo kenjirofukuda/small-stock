@@ -355,6 +355,11 @@ GdsStation >> isAutoCloseLibrary [
 	^ autoCloseLibrary ifNil: [ autoCloseLibrary := true ]
 ]
 
+{ #category : #testing }
+GdsStation >> isStation [
+	^ true
+]
+
 { #category : #accessing }
 GdsStation >> items [
 	^items

@@ -613,6 +613,11 @@ GdsLibrary >> initializeCache [
 ]
 
 { #category : #testing }
+GdsLibrary >> isLibrary [
+	^ true
+]
+
+{ #category : #testing }
 GdsLibrary >> isOpen [
 	^self extracted
 ]
