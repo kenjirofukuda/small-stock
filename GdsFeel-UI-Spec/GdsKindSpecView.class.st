@@ -18,10 +18,13 @@ GdsKindSpecView class >> defaultSpec [
 
 { #category : #specs }
 GdsKindSpecView class >> example [
+
 	| kind |
-	kind := GdsKind new initWithKey: 'PT' description: 'Point'. 
-	self new kind: kind; openWithSpec.
-	kind explore.
+	kind := GdsKind new initWithKey: 'PT' description: 'Point'.
+	self new
+		kind: kind;
+		openWithSpec.
+	kind inspect
 ]
 
 { #category : #initialization }

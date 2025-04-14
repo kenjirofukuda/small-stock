@@ -18,7 +18,8 @@ Class {
 		'inspectorMorph',
 		'tabManager',
 		'layers',
-		'kinds'
+		'kinds',
+		'delegate'
 	],
 	#category : #'GdsFeel-UI-Spec'
 }
@@ -148,7 +149,7 @@ GdsTreeBrowser >> addSampleTab [
 GdsTreeBrowser >> addStructure [
 	| strucName ok default |
 	strucName := nil.
-	self station 
+	delegate station 
 		newStructureNamed:  [
 		ok := false.
 		default := ''.
@@ -373,7 +374,7 @@ GdsTreeBrowser >> fileMenu [
 				  item
 					  name: 'Open Ziped DB...';
 					  icon: (self iconNamed: #open);
-					  action: [ self openLibrary ] ];
+					  action: [ delegate openLibrary ] ];
 			  addItem: [ :item | 
 				  item
 					  name: 'New Library...';
@@ -515,7 +516,6 @@ GdsTreeBrowser >> initializePresenter [
 	GdsFeel loadExampleZippedDatabaseToLocal. 
 	tabManager whenTabSelected: [ self changeTabSelection ].
 	self initializeMenuPresenter.
-	structureSortBlock whenChangedDo: [ tree updateTree ].
 	tree autoDeselection: false.
 	{elementList.
 	visibleElementList}
@@ -523,7 +523,7 @@ GdsTreeBrowser >> initializePresenter [
 			listModel autoDeselect: false.
 			listModel
 				whenSelectedItemChanged: [ :el | el ifNotNil: [ el structure idSelection id: el keyNumber ] ] ].
-	self whenWindowChanged: [ :w | w whenClosedDo: [ self onWindowClosed ] ].
+	self whenWindowChanged: [ :w | w whenClosedDo: [ delegate onWindowClosed ] ].
 	GdsStation default announcer
 		when: GdsStructureDuplicated
 		do: [ :ann | 
@@ -535,11 +535,11 @@ GdsTreeBrowser >> initializePresenter [
 GdsTreeBrowser >> initializeWidgets [
 	"self instantiateModels: #(tree TreeModel menu MenuModel structure MorphicModel )"
 	"@see: createBalloonView."
-	self station autoCloseLibrary: false.
+	delegate := GdsTreeBrowserCommon new specImpl: self.
+	delegate station autoCloseLibrary: false.
 	self initializeMenu.
 	tree := self newTree.
 	tabManager := self newTabManager.
-	structureSortBlock := [ :s1 :s2 | s1 name < s2 name ] asValueHolder.
 	elementList := self newList.
 	visibleElementList := self newList.	
 	inspectorMorph := GeneralScrollPane new
@@ -675,7 +675,7 @@ UNIT: {2}'
 	reply ifNil: [ ^ self ].
 	reply
 		ifFalse: [ ^ self ].
-	lib := self station initlibNamed: name unitString: unit.
+	lib := delegate station initlibNamed: name unitString: unit.
 	lib
 		ifNil: [ self inform: 'initialize failed' ]
 		ifNotNil: [ 
@@ -728,38 +728,18 @@ GdsTreeBrowser >> nodes [
 	^ tree widget widget allNodeMorphs collect: [ :m | m complexContents ] thenReject: #isNil
 ]
 
-{ #category : #'ui building' }
-GdsTreeBrowser >> onWindowClosed [
-	self station structure:nil.
-	self station quit.
-]
-
-{ #category : #'action - selection independent' }
-GdsTreeBrowser >> openLibrary [
-
-	| file |
-	file := GdsFeelMorphic
-		        chooseFullFileName: 'Choose GdsFeel Library File .DB'
-		        patterns: #( '*.db' ).
-	file ifNil: [ ^ self inform: 'Library open Canceld' ].
-	file := file asFileReference.
-	(GdsLibrary isLibraryFile: file) ifFalse: [
-		^ self inform: ('<1p> is not a GdsFeel file' expandMacrosWith: file) ].
-	Cursor wait showWhile: [ self registerLibraryFile: file ]
-]
-
 { #category : #'menu building' }
 GdsTreeBrowser >> parentStructureMenuOn: aGroup [
 	aGroup
 		addItem: [ :anItem | 
 			anItem
 				name: 'Sort By Area';
-				action: [ self sortByArea ] ].
+				action: [ delegate sortByArea ] ].
 	aGroup
 		addItem: [ :anItem | 
 			anItem
 				name: 'Sort By Name';
-				action: [ self sortByName ] ]
+				action: [ delegate sortByName ] ]
 ]
 
 { #category : #initialization }
@@ -846,13 +826,13 @@ GdsTreeBrowser >> registerLibraryFile: aFileReference [
 
 	| lib |
 	lib := GdsLibrary fromFile: aFileReference.
-	self station openLibrary: lib.
+	delegate station openLibrary: lib.
 	tree roots
 		ifEmpty: [ tree roots: (Array with: lib) ]
 		ifNotEmpty: [ tree roots: tree roots , (Array with: lib) ].
 	tabManager addTab: (self newTabForLibrary: lib).
 	tree childrenBlock: [ :item | 
-		(self childrenFor: item) sort: self structureSortBlock ].
+		(self childrenFor: item) sort: delegate structureSortBlock ].
 	tree displayBlock: [ :item | self displayNameHandler: item ].
 	tree iconBlock: [ :item | self iconFor: item ].
 	tree doubleClick: [ self handleDoubleClick ].
@@ -877,7 +857,7 @@ GdsTreeBrowser >> requestStructureName [
 						strucName := nil.
 						ok := true.]
 					ifFalse: [
-						(self station library hasStructureName: strucName)
+						(delegate station library hasStructureName: strucName)
 							ifTrue: [default := strucName]
 							ifFalse: [ok := true]].].
 	^ strucName.
@@ -977,7 +957,7 @@ GdsTreeBrowser >> showAsNewTop [
 			(morph isKindOf: GdsStructureViewMorph) ifFalse: [ 
 				^ self inform: 'Can''t running show as new top on Athens' ].
 			morph clearAllProxyMorphs.
-			self station structure: structure.
+			delegate station structure: structure.
 			kinds kinds: structure kinds.
 			structure kinds announcer
 				when: GdsKindsChanged
@@ -1007,21 +987,6 @@ GdsTreeBrowser >> showAsNewTop [
 			self handleActivatedStructureMorph: morph.
 			World defer: [ self selectTool ].
 			self selectTab: tab ] ]
-]
-
-{ #category : #'action - selection independent' }
-GdsTreeBrowser >> sortByArea [
-	self structureSortBlock: [ :s1 :s2 | s1 dataExtentForElements area > s2 dataExtentForElements area ]
-]
-
-{ #category : #'action - selection independent' }
-GdsTreeBrowser >> sortByName [
-	self structureSortBlock: [ :s1 :s2 | s1 name < s2 name ]
-]
-
-{ #category : #accessing }
-GdsTreeBrowser >> station [ 
-	^ GdsStation default
 ]
 
 { #category : #testing }
@@ -1067,16 +1032,6 @@ GdsTreeBrowser >> structureMenuOnGroup: aGroup [
 						name: 'Export as DXF';
 						action: [ self fileOutDxf ] ].
 			struct subStructures ifNotEmpty: [ self parentStructureMenuOn: aGroup ] ]
-]
-
-{ #category : #api }
-GdsTreeBrowser >> structureSortBlock [
-	^ structureSortBlock value
-]
-
-{ #category : #api }
-GdsTreeBrowser >> structureSortBlock: aBlock [
-	structureSortBlock value: aBlock
 ]
 
 { #category : #private }
@@ -1165,7 +1120,7 @@ GdsTreeBrowser >> treeActivatedStructureEditorDo: aBlock [
 GdsTreeBrowser >> treeChangeSelection: item [ 
 	item ifNil: [ ^ self ].
 	(item isKindOf: GdsLibrary) ifFalse: [ ^ self ].
-	self station library: item
+	delegate station library: item
 ]
 
 { #category : #private }
@@ -1185,6 +1140,11 @@ GdsTreeBrowser >> treeSelectedLibraryDo: aStructureBlock [
 { #category : #private }
 GdsTreeBrowser >> treeSelectedStructureDo: aStructureBlock [ 
 	self treeSelectedContentsOfClass: GdsStructure do: aStructureBlock 
+]
+
+{ #category : #accessing }
+GdsTreeBrowser >> updateTree [
+	tree updateTree
 ]
 
 { #category : #accessing }
