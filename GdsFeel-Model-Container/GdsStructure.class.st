@@ -590,6 +590,11 @@ GdsStructure >> isOpen [
 ]
 
 { #category : #testing }
+GdsStructure >> isStructure [
+	^ true
+]
+
+{ #category : #testing }
 GdsStructure >> isTransient [
 	^ library isTransient
 ]
