@@ -10,9 +10,10 @@ Class {
 		'layers',
 		'kinds',
 		'statusBar',
-		'structureSortBlock'
+		'structureSortBlock',
+		'delegate'
 	],
-	#category : 'GdsFeel-UI-Spec2'
+	#category : #'GdsFeel-UI-Spec2'
 }
 
 { #category : #layout }
@@ -117,7 +118,7 @@ GdsTreePresenter >> fileMenu [
 			  anItem
 				  name: 'Open Ziped DB...';
 				  icon: (self iconNamed: #open);
-				  action: [ self openLibrary ] ] ]
+				  action: [ delegate openLibrary ] ] ]
 ]
 
 { #category : #defaults }
@@ -164,6 +165,7 @@ GdsTreePresenter >> initializeMenuBar [
 GdsTreePresenter >> initializePresenters [
 
 	super initializePresenters.
+	delegate := GdsTreeBrowserCommon new specImpl: self.
 	GdsFeel loadExampleZippedDatabaseToLocal.
 	self initializeMenuBar.
 	tree := self newTree.
@@ -204,26 +206,12 @@ GdsTreePresenter >> initializeWindow: aWindowPresenter [
 		initialExtent: 800 @ 600
 ]
 
-{ #category : #'action - selection independent' }
-GdsTreePresenter >> openLibrary [
-
-	| file |
-	file := GdsFeelMorphic
-		        chooseFullFileName: 'Choose GdsFeel Library File .DB'
-		        patterns: #( '*.db' ).
-	file ifNil: [ ^ self inform: 'Library open Canceld' ].
-	file := file asFileReference.
-	(GdsLibrary isLibraryFile: file) ifFalse: [
-		^ self inform: ('<1p> is not a GdsFeel file' expandMacrosWith: file) ].
-	Cursor wait showWhile: [ self registerLibraryFile: file ]
-]
-
 { #category : #'ui building' }
 GdsTreePresenter >> registerLibraryFile: aFileReference [
 
 	| lib |
 	lib := GdsLibrary fromFile: aFileReference.
-	self station openLibrary: lib.
+	delegate station openLibrary: lib.
 
 	"tree := self newTree."
 	tree roots
@@ -231,7 +219,7 @@ GdsTreePresenter >> registerLibraryFile: aFileReference [
 		ifNotEmpty: [ tree roots: tree roots , (Array with: lib) ].
 
 	"tabManager addTab: (self newTabForLibrary: lib)."
-	self sortByName.
+	delegate sortByName.
 	tree children: [ :item | 
 		(self childrenFor: item) sort: self structureSortBlock ].
 	tree display: [ :item | item name "self displayNameHandler: item" ].
@@ -243,21 +231,6 @@ GdsTreePresenter >> registerLibraryFile: aFileReference [
 	"tree whenSelectedItemChanged: [ :item | self treeChangeSelection: item ]"
 ]
 
-{ #category : #sorting }
-GdsTreePresenter >> sortByArea [
-	self structureSortBlock: [ :s1 :s2 | s1 dataExtentForElements area > s2 dataExtentForElements area ]
-]
-
-{ #category : #sorting }
-GdsTreePresenter >> sortByName [
-	self structureSortBlock: [ :s1 :s2 | s1 name < s2 name ]
-]
-
-{ #category : #accessing }
-GdsTreePresenter >> station [ 
-	^ GdsStation default
-]
-
 { #category : #accessing }
 GdsTreePresenter >> structureSortBlock [
 	^ structureSortBlock value
@@ -267,4 +240,14 @@ GdsTreePresenter >> structureSortBlock [
 { #category : #accessing }
 GdsTreePresenter >> structureSortBlock: aBlock [
 	structureSortBlock value: aBlock
+]
+
+{ #category : #accesing }
+GdsTreePresenter >> tree [
+	^ tree
+]
+
+{ #category : #accesing }
+GdsTreePresenter >> updateTree [ 
+	tree update
 ]
