@@ -108,26 +108,44 @@ BaselineOfGdsFeel >> baseline: spec [
 				   'GdsFeel-UI-ElementAddition' ) ]
 ]
 
-{ #category : #baseline }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baselineFixZip: spec [
-	spec package: 'GdsFeel-Foundation-ZipP6P7'.
-	spec
-		for: #(#'pharo6.x' #'pharo7.x')
-		do: [
-			spec package: 'GdsFeel-Model-Basic' with: [
-			     spec requires: #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
-				   'GdsFeel-Foundation-Property' 'GdsFeel-Foundation-Notification'
-				   'GdsFeel-Foundation-Tests' 'GdsFeel-Foundation-ZipP6P7' 'XMLParser' ) ].
 
-			spec
-				group: 'Foundation'
-				with:
-					#('GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
-					 'GdsFeel-Foundation-Notification' 'GdsFeel-Foundation-Property'
-					 'GdsFeel-Foundation-ZipP6P7') ]
+	| basicDepends basicGroup |
+	basicDepends := #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
+	                   'GdsFeel-Foundation-Property'
+	                   'GdsFeel-Foundation-Notification'
+	                   'GdsFeel-Foundation-Tests'
+	                   'XMLParser' ).
+	basicGroup := #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
+	                 'GdsFeel-Foundation-Notification'
+	                 'GdsFeel-Foundation-Property' ).
+	
+	spec package: 'GdsFeel-Foundation-ZipP6P7'.
+	spec for: #( #'pharo6.x' #'pharo7.x' ) do: [ 
+		spec
+			package: 'GdsFeel-Model-Basic'
+			with: [ 
+			spec requires: basicDepends , #( 'GdsFeel-Foundation-ZipP6P7' ) ].
+
+		spec
+			group: 'Foundation'
+			with: basicGroup , #( 'GdsFeel-Foundation-ZipP6P7' ) ].
+		
+	spec package: 'GdsFeel-Foundation-ZipP8P9'.
+	spec for: #( #'pharo8.x' #'pharo9.x' ) do: [ 
+		spec
+			package: 'GdsFeel-Model-Basic'
+			with: [ 
+			spec requires: basicDepends , #( 'GdsFeel-Foundation-ZipP8P9' ) ].
+
+		spec
+			group: 'Foundation'
+			with: basicGroup , #( 'GdsFeel-Foundation-ZipP8P9' ) ].		
+
 ]
 
-{ #category : #baseline }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baselineGuest: spec [
 	spec for: #common do: [
 		spec
