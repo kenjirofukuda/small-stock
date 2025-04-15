@@ -661,9 +661,15 @@ GdsTreeBrowser >> nodeOfStructure: aGdsStructure [
 
 { #category : #'debugging-use-only' }
 GdsTreeBrowser >> nodeOfStructureNamed: aStructureName [
+
 	| lib |
 	lib := GdsStation default library.
-	^ self nodes detect: [ :node | (node item isKindOf: GdsStructure) and: [node item library == lib and: [ node name sameAs: aStructureName] ]] ifNone: [  ]
+	^ self nodes
+		  detect: [ :node | 
+			  node item isStructure and: [ 
+				  node item library == lib and: [ 
+					  node name sameAs: aStructureName ] ] ]
+		  ifNone: [  ]
 ]
 
 { #category : #'debugging-use-only' }
