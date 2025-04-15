@@ -12,7 +12,6 @@ Class {
 	#instVars : [
 		'tree',
 		'menu',
-		'structureSortBlock',
 		'elementList',
 		'visibleElementList',
 		'inspectorMorph',
@@ -163,7 +162,7 @@ GdsTreeBrowser >> addStructure [
 						strucName := nil.
 						ok := true.]
 					ifFalse: [
-						(self station library hasStructureName: strucName)
+						(delegate station library hasStructureName: strucName)
 							ifTrue: [default := strucName]
 							ifFalse: [ok := true]].].
 		strucName]
@@ -192,23 +191,6 @@ GdsTreeBrowser >> changeTabSelection [
 	self frontMostStructureEditorDo: [ :morph | 
 		self handleActivatedStructureMorph: morph ] 
 
-]
-
-{ #category : #private }
-GdsTreeBrowser >> childrenFor: anItem [
-	(anItem isKindOf: GdsLibrary)
-		ifTrue: [ ^ anItem topStructures
-				ifNotEmpty: [ :structures | 
-					structures
-						,
-							(anItem structures
-								select: [ :s | 
-									s indirectReferencedStructureNames isEmpty
-										and: [ (structures includes: s) not ] ]) ]
-				ifEmpty: [ anItem structures ] ].
-	(anItem isKindOf: GdsStructure)
-		ifTrue: [ ^ anItem subStructures ].
-	^ #()
 ]
 
 { #category : #private }
@@ -283,24 +265,6 @@ GdsTreeBrowser >> debugMenu [
 						name: 'Explode selection';
 						action: [ self idExplode  ] ] .
 					]
-]
-
-{ #category : #'menu building' }
-GdsTreeBrowser >> displayNameHandler: anItem [
-	"self halt."
-
-	(anItem isKindOf: GdsLibrary)
-		ifTrue: [ ^ anItem name ].
-	^ TextMorph new
-		contents:
-				(anItem name asText
-						addAttribute:
-								((anItem valueOfProperty: #visible ifAbsent: [ true ])
-										ifFalse: [ TextEmphasis struckOut ]
-										ifTrue: [ TextEmphasis normal ]);
-						yourself);
-		lock;
-		yourself
 ]
 
 { #category : #'action - tree' }
@@ -412,27 +376,6 @@ GdsTreeBrowser >> handleDoubleClick [
 	self inform: 'Empty Handler'
 ]
 
-{ #category : #'widget API' }
-GdsTreeBrowser >> iconFor: anItem [
-	| icon |
-	icon := (Smalltalk ui icons iconNamed: (self iconKeyFor: anItem)) copy.
-	(anItem isKindOf: GdsStructure)
-		ifTrue: [ 
-			(anItem valueOfProperty: #visible ifAbsent: [ true ])
-				ifFalse: [ icon := (icon asFormOfDepth: 32) dimmed: 0.5 ] ].
-	^ icon
-]
-
-{ #category : #'ui building' }
-GdsTreeBrowser >> iconKeyFor: anItem [
-	(anItem isKindOf: GdsLibrary)
-		ifTrue: [ 
-			(Smalltalk ui icons respondsTo: #mongoDatabaseIcon)
-				ifTrue: [ ^ #mongoDatabaseIcon ].
-			^ #databaseIcon ].
-	^ #smallObjectsIcon
-]
-
 { #category : #'as yet unclassified' }
 GdsTreeBrowser >> idExplode [
 	|    |
@@ -464,7 +407,7 @@ GdsTreeBrowser >> idStructure [
 
 { #category : #initialization }
 GdsTreeBrowser >> initialExtent [
-	^ (GdsFeelMorphic actualScreenSize * 0.95) rounded
+	^ delegate preferedExtent
 ]
 
 { #category : #initialization }
@@ -706,7 +649,7 @@ GdsTreeBrowser >> newTabForLibrary: aGdsLibrary [
 	^ self newTab
 		closeable: false;
 		label: (self tabNameForLibrary: aGdsLibrary);
-		icon: (self iconFor: aGdsLibrary);
+		icon: (delegate iconFor: aGdsLibrary);
 		contents: balloonView;
 		yourself
 ]
@@ -832,9 +775,9 @@ GdsTreeBrowser >> registerLibraryFile: aFileReference [
 		ifNotEmpty: [ tree roots: tree roots , (Array with: lib) ].
 	tabManager addTab: (self newTabForLibrary: lib).
 	tree childrenBlock: [ :item | 
-		(self childrenFor: item) sort: delegate structureSortBlock ].
-	tree displayBlock: [ :item | self displayNameHandler: item ].
-	tree iconBlock: [ :item | self iconFor: item ].
+		(delegate childrenFor: item) sort: delegate structureSortBlock ].
+	tree displayBlock: [ :item | delegate displayNameHandler: item ].
+	tree iconBlock: [ :item | delegate iconFor: item ].
 	tree doubleClick: [ self handleDoubleClick ].
 	tree menu: [ :m | self inspectionMenu: m ].
 	tree whenSelectedItemChanged: [ :item | 
@@ -987,11 +930,6 @@ GdsTreeBrowser >> showAsNewTop [
 			self handleActivatedStructureMorph: morph.
 			World defer: [ self selectTool ].
 			self selectTab: tab ] ]
-]
-
-{ #category : #testing }
-GdsTreeBrowser >> structureHasChild: aGdsStructure [
-	^ (aGdsStructure isKindOf: GdsStructure) and: [ aGdsStructure subStructures notEmpty ]
 ]
 
 { #category : #'menu building' }
