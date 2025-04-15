@@ -10,7 +10,6 @@ Class {
 		'layers',
 		'kinds',
 		'statusBar',
-		'structureSortBlock',
 		'delegate'
 	],
 	#category : #'GdsFeel-UI-Spec2'
@@ -65,21 +64,6 @@ GdsTreePresenter class >> open [
 	self new open
 ]
 
-{ #category : #private }
-GdsTreePresenter >> childrenFor: anItem [
-
-	(anItem isKindOf: GdsLibrary) 
-		ifTrue: [ 
-			^ anItem topStructures
-			  	ifNotEmpty: [ :structures | 
-				  	structures , (anItem structures select: [ :s | 
-					 	s indirectReferencedStructureNames isEmpty and: [ 
-						   (structures includes: s) not ] ]) ]
-			  ifEmpty: [ anItem structures ] ].
-	(anItem isKindOf: GdsStructure) ifTrue: [ ^ anItem subStructures ].
-	^ #()
-]
-
 { #category : #initialization }
 GdsTreePresenter >> debugMenu [
 
@@ -92,24 +76,6 @@ GdsTreePresenter >> debugMenu [
 			 ]
 ]
 
-{ #category : #'menu building' }
-GdsTreePresenter >> displayNameHandler: anItem [
-
-	"self halt."
-
-	(anItem isKindOf: GdsLibrary) 
-		ifTrue: [ ^ anItem name ].
-	^ TextMorph new
-		  contents: (anItem name asText
-				   addAttribute:
-					   ((anItem valueOfProperty: #visible ifAbsent: [ true ])
-						    ifFalse: [ TextEmphasis struckOut ]
-						    ifTrue: [ TextEmphasis normal ]);
-				   yourself);
-		  lock;
-		  yourself
-]
-
 { #category : #initialization }
 GdsTreePresenter >> fileMenu [
 
@@ -119,31 +85,6 @@ GdsTreePresenter >> fileMenu [
 				  name: 'Open Ziped DB...';
 				  icon: (self iconNamed: #open);
 				  action: [ delegate openLibrary ] ] ]
-]
-
-{ #category : #defaults }
-GdsTreePresenter >> iconFor: anItem [
-
-	| icon |
-	icon := (Smalltalk ui icons iconNamed: (self iconKeyFor: anItem))
-		        copy.
-	(anItem isKindOf: GdsStructure) 
-		ifTrue: [ 
-			(anItem valueOfProperty: #visible ifAbsent: [ true ]) 
-				ifFalse: [ 
-					icon := (icon asFormOfDepth: 32) dimmed: 0.5 ] ].
-	^ icon
-]
-
-{ #category : #'ui building' }
-GdsTreePresenter >> iconKeyFor: anItem [
-
-	(anItem isKindOf: GdsLibrary) 
-		ifTrue: [ 
-			(Smalltalk ui icons respondsTo: #mongoDatabaseIcon) ifTrue: [ 
-				^ #mongoDatabaseIcon ].
-		^ #databaseIcon ].
-	^ #smallObjectsIcon
 ]
 
 { #category : #initialization }
@@ -169,8 +110,6 @@ GdsTreePresenter >> initializePresenters [
 	GdsFeel loadExampleZippedDatabaseToLocal.
 	self initializeMenuBar.
 	tree := self newTree.
-	structureSortBlock := [ :s1 :s2 | s1 name < s2 name ] asValueHolder.
-	structureSortBlock whenChangedDo: [ tree update ].
 	visibleElementList := self newMorph.
 	visibleElementList morph: (BorderedMorph new
 			 color: Color red;
@@ -203,7 +142,7 @@ GdsTreePresenter >> initializeWindow: aWindowPresenter [
 	super initializeWindow: aWindowPresenter.
 	aWindowPresenter
 		title: 'GDS';
-		initialExtent: 800 @ 600
+		initialExtent: delegate preferedExtent.
 ]
 
 { #category : #'ui building' }
@@ -221,25 +160,14 @@ GdsTreePresenter >> registerLibraryFile: aFileReference [
 	"tabManager addTab: (self newTabForLibrary: lib)."
 	delegate sortByName.
 	tree children: [ :item | 
-		(self childrenFor: item) sort: self structureSortBlock ].
-	tree display: [ :item | item name "self displayNameHandler: item" ].
-	tree displayIcon: [ :item | self iconFor: item ].
+		(delegate childrenFor: item) sort: delegate structureSortBlock ].
+	tree display: [ :item | delegate displayNameHandler: item ].
+	tree displayIcon: [ :item | delegate iconFor: item ].
 	"tree displayIcon: [ :item | self iconNamed: #system ]."
 	self update
 	"tree doubleClick: [ self handleDoubleClick ]."
 	"tree menu: [ :m | self inspectionMenu: m ]."
 	"tree whenSelectedItemChanged: [ :item | self treeChangeSelection: item ]"
-]
-
-{ #category : #accessing }
-GdsTreePresenter >> structureSortBlock [
-	^ structureSortBlock value
-	
-]
-
-{ #category : #accessing }
-GdsTreePresenter >> structureSortBlock: aBlock [
-	structureSortBlock value: aBlock
 ]
 
 { #category : #accesing }
