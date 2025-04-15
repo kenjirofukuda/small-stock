@@ -23,6 +23,21 @@ GdsTreeBrowserCommon >> childrenFor: anItem [
 	^ #()
 ]
 
+{ #category : #initialization }
+GdsTreeBrowserCommon >> createAthensStructureView [
+	^ (self class environment at: #GdsSceneView ifAbsent: [  ])
+		ifNotNil: [ :clazz | clazz new ]
+		ifNil: [  ]
+]
+
+{ #category : #initialization }
+GdsTreeBrowserCommon >> createBalloonView [
+	^ GdsStructureEditorMorph new
+		defaultToolClass: GdsSelectTool;
+		currentToolClass: GdsSelectTool;
+		yourself
+]
+
 { #category : #'menu building' }
 GdsTreeBrowserCommon >> displayNameHandler: anItem [
 
@@ -138,4 +153,14 @@ GdsTreeBrowserCommon >> structureSortBlock [
 { #category : #api }
 GdsTreeBrowserCommon >> structureSortBlock: aBlock [
 	structureSortBlock value: aBlock
+]
+
+{ #category : #private }
+GdsTreeBrowserCommon >> treeSelectedLibraryDo: aStructureBlock [ 
+	specImpl treeSelectedContentsOfClass: GdsLibrary do: aStructureBlock 
+]
+
+{ #category : #private }
+GdsTreeBrowserCommon >> treeSelectedStructureDo: aStructureBlock [ 
+	specImpl treeSelectedContentsOfClass: GdsStructure do: aStructureBlock 
 ]

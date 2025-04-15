@@ -215,21 +215,6 @@ GdsTreeBrowser >> clickTestTool [
 ]
 
 { #category : #initialization }
-GdsTreeBrowser >> createAthensStructureView [
-	^ (self class environment at: #GdsSceneView ifAbsent: [  ])
-		ifNotNil: [ :clazz | clazz new ]
-		ifNil: [  ]
-]
-
-{ #category : #initialization }
-GdsTreeBrowser >> createBalloonView [
-	^ GdsStructureEditorMorph new
-		defaultToolClass: GdsSelectTool;
-		currentToolClass: GdsSelectTool;
-		yourself
-]
-
-{ #category : #initialization }
 GdsTreeBrowser >> customMenu [
 	"Answer the menu to be presented when the yellow button is pressed while the shift key is down"
 	| menuSpec |
@@ -269,7 +254,7 @@ GdsTreeBrowser >> debugMenu [
 
 { #category : #'action - tree' }
 GdsTreeBrowser >> duplicateStructure [
-	self treeSelectedStructureDo: [ :struct | struct duplicate ].
+	delegate treeSelectedStructureDo: [ :struct | struct duplicate ].
 ]
 
 { #category : #initialization }
@@ -347,7 +332,7 @@ GdsTreeBrowser >> fileMenu [
 
 { #category : #'action - tree' }
 GdsTreeBrowser >> fileOutDxf [
-	self treeSelectedStructureDo: [ :struct | struct fileOutDxfToDefault ].
+	delegate treeSelectedStructureDo: [ :struct | struct fileOutDxfToDefault ].
 ]
 
 { #category : #private }
@@ -369,7 +354,7 @@ GdsTreeBrowser >> handleActivatedStructureMorph: aGdsStructureEditorMorph [
 
 { #category : #private }
 GdsTreeBrowser >> handleDoubleClick [
-	self treeSelectedStructureDo: [ :structure | 
+	delegate treeSelectedStructureDo: [ :structure | 
 		^ 	Cursor wait 
 				showWhile: [.
 					self showAsNewTop] ].
@@ -549,7 +534,7 @@ GdsTreeBrowser >> layers [
 
 { #category : #'menu building' }
 GdsTreeBrowser >> libraryMenuOnGroup: aGroup [
-	self
+	delegate
 		treeSelectedLibraryDo: [ :library | 
 			aGroup
 				addItem: [ :anItem | 
@@ -631,14 +616,14 @@ initialized' format: {name}) ]
 { #category : #'ui building' }
 GdsTreeBrowser >> newTabForLibrary: aGdsLibrary [
 	| balloonView athensView |
-	balloonView := self createBalloonView.
+	balloonView := delegate createBalloonView.
 	self window announcer when: WindowResizing do: [:ann | balloonView inspectFastdrawing: ann].
 	balloonView 
 		bindKeyCombination: Character escape 
 		toAction: [ 
 			balloonView structure ifNotNil: [ :s | s idSelection idClear] ].
 
-	athensView := self createAthensStructureView.
+	athensView := delegate createAthensStructureView.
 	athensView
 		ifNotNil: [
 			athensView setProperty: #library toValue: aGdsLibrary.
@@ -839,7 +824,7 @@ GdsTreeBrowser >> sampleTab [
 
 { #category : #'action - tree' }
 GdsTreeBrowser >> saveStructure [
-	self treeSelectedStructureDo: [ :struct | struct forceSave ].
+	delegate treeSelectedStructureDo: [ :struct | struct forceSave ].
 ]
 
 { #category : #'action - front most structure' }
@@ -899,7 +884,7 @@ GdsTreeBrowser >> shapeToolSpecs [
 { #category : #'action - tree' }
 GdsTreeBrowser >> showAsNewTop [
 
-	self treeSelectedStructureDo: [ :structure | 
+	delegate treeSelectedStructureDo: [ :structure | 
 		(self tabForStructure: structure) ifNotNil: [ :tab | 
 			| morph |
 			morph := tab contents.
@@ -940,7 +925,7 @@ GdsTreeBrowser >> showAsNewTop [
 
 { #category : #'menu building' }
 GdsTreeBrowser >> structureMenuOnGroup: aGroup [
-	self
+	delegate
 		treeSelectedStructureDo: [ :struct | 
 			aGroup
 				addItem: [ :anItem | 
@@ -997,7 +982,7 @@ GdsTreeBrowser >> title [
 
 { #category : #'action - tree' }
 GdsTreeBrowser >> toggleAthensBallloon [
-	self
+	delegate
 		treeSelectedStructureDo: [ :structure | 
 			(self tabForStructure: structure)
 				ifNotNil: [ :tab | 
@@ -1026,7 +1011,7 @@ GdsTreeBrowser >> toggleAthensBallloon [
 
 { #category : #'action - tree' }
 GdsTreeBrowser >> toggleVisibleStructure [
-	self
+	delegate
 		treeSelectedStructureDo: [ :structure | 
 			| visibleState |
 			visibleState := structure valueOfProperty: #visible ifAbsentPut: [ true ].
@@ -1050,7 +1035,7 @@ GdsTreeBrowser >> tree [
 
 { #category : #'action - tree' }
 GdsTreeBrowser >> treeActivatedStructureEditorDo: aBlock [
-	self
+	delegate
 		treeSelectedStructureDo: [ :structure | 
 			(self tabForStructure: structure)
 				ifNotNil: [ :tab | 
@@ -1074,16 +1059,6 @@ GdsTreeBrowser >> treeSelectedContentsOfClass: aClass do: aContentsBlock [
 	tree selectedItem ifNil: [ ^ self ].
 	(tree selectedItem content isKindOf: aClass)
 		ifTrue: [ aContentsBlock cull: tree selectedItem content cull: tree selectedItem ]
-]
-
-{ #category : #private }
-GdsTreeBrowser >> treeSelectedLibraryDo: aStructureBlock [ 
-	self treeSelectedContentsOfClass: GdsLibrary do: aStructureBlock 
-]
-
-{ #category : #private }
-GdsTreeBrowser >> treeSelectedStructureDo: aStructureBlock [ 
-	self treeSelectedContentsOfClass: GdsStructure do: aStructureBlock 
 ]
 
 { #category : #accessing }

@@ -10,7 +10,8 @@ Class {
 		'layers',
 		'kinds',
 		'statusBar',
-		'delegate'
+		'delegate',
+		'structureView'
 	],
 	#category : #'GdsFeel-UI-Spec2'
 }
@@ -18,19 +19,23 @@ Class {
 { #category : #layout }
 GdsTreePresenter class >> defaultLayout [
 
+	| infoWidth |
+	infoWidth := 160.
 	^ SpBoxLayout newVertical
 		  add: #menuBar height: self toolbarHeight;
 		  add: (SpBoxLayout newHorizontal
-				   add: #tree;
+				   add: #tree width: infoWidth;
 				   add: (SpBoxLayout newVertical
 						    add: #visibleElementList;
 						    add: #inspectorView;
-						    yourself);
-				   add: #tabManager;
+						    yourself)
+				   width: infoWidth;
+				   add: #structureView;
 				   add: (SpBoxLayout newVertical
 						    add: #layers;
 						    add: #kinds;
-						    yourself);
+						    yourself)
+				   width: infoWidth;
 				   yourself);
 		  add: #statusBar height: self toolbarHeight;
 		  yourself
@@ -39,22 +44,7 @@ GdsTreePresenter class >> defaultLayout [
 { #category : #layout }
 GdsTreePresenter class >> defaultSpec [
 
-	^ SpBoxLayout newVertical
-		  add: #menuBar height: self toolbarHeight;
-		  add: (SpBoxLayout newHorizontal
-				   add: #tree;
-				   add: (SpBoxLayout newVertical
-						    add: #visibleElementList;
-						    add: #inspectorView;
-						    yourself);
-				   add: #tabManager;
-				   add: (SpBoxLayout newVertical
-						    add: #layers;
-						    add: #kinds;
-						    yourself);
-				   yourself);
-		  add: #statusBar height: self toolbarHeight;
-		  yourself
+	^ self defaultLayout
 ]
 
 { #category : #examples }
@@ -118,9 +108,11 @@ GdsTreePresenter >> initializePresenters [
 	inspectorView morph: (BorderedMorph new
 			 color: Color green;
 			 yourself).
+	structureView := self newMorph.
+	structureView morph: delegate createBalloonView.			
 	tabManager := self newMorph.
 	tabManager morph: (BorderedMorph new
-			 color: Color cyan;
+			 color: Color blue;
 			 yourself).
 	layers := self newMorph.
 	layers morph: (BorderedMorph new
@@ -159,6 +151,8 @@ GdsTreePresenter >> registerLibraryFile: aFileReference [
 
 	"tabManager addTab: (self newTabForLibrary: lib)."
 	delegate sortByName.
+	tree activateOnDoubleClick.
+	tree whenActivatedDo: [ :aSelectionMode | self showAsNewTop ].
 	tree children: [ :item | 
 		(delegate childrenFor: item) sort: delegate structureSortBlock ].
 	tree display: [ :item | delegate displayNameHandler: item ].
@@ -170,9 +164,30 @@ GdsTreePresenter >> registerLibraryFile: aFileReference [
 	"tree whenSelectedItemChanged: [ :item | self treeChangeSelection: item ]"
 ]
 
+{ #category : #'action - tree' }
+GdsTreePresenter >> showAsNewTop [
+
+	delegate treeSelectedStructureDo: [ :structure | 
+		| morph |
+		morph := structureView morph.
+		(morph isKindOf: GdsStructureViewMorph) ifFalse: [ 
+			^ self inform: 'Can''t running show as new top on Athens' ].
+		morph clearAllProxyMorphs.
+		delegate station structure: structure.
+		morph
+			structure: structure;
+			viewFit ]
+]
+
 { #category : #accesing }
 GdsTreePresenter >> tree [
 	^ tree
+]
+
+{ #category : #private }
+GdsTreePresenter >> treeSelectedContentsOfClass: aClass do: aContentsBlock [
+	tree selectedItem ifNotNil: [ :item | 
+		(item isKindOf: aClass) ifTrue: [ aContentsBlock value: item ] ]
 ]
 
 { #category : #accesing }
