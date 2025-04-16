@@ -98,7 +98,15 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
 	self baselineFixZip: spec.
-	spec for: #(  #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x' ) do: [ 
+
+  spec for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x') do: [
+		spec package: 'GdsFeel-Magritte-P6P7P8'.
+		spec package: 'GdsFeel-Magritte' with: [
+			spec requires:
+				#( 'GdsFeel-UI' 'Magritte' 'GdsFeel-Model-ElementAddition' 'GdsFeel-Magritte-P6P7P8') ].
+	].
+
+  spec for: #(  #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x' ) do: [ 
 		spec package: 'GdsFeel-UI-Spec' with: [ 
 			spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
 				   'GdsFeel-UI-SpecCommon' ) ].
@@ -106,6 +114,7 @@ BaselineOfGdsFeel >> baseline: spec [
 			group: 'UI'
 			with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-Magritte'
 				   'GdsFeel-UI-ElementAddition' ) ].
+           
 	spec for: #(  #'pharo9.x' #'pharo10.x' #'pharo11.x' #'pharo12.x' ) do: [ 
 		spec package: 'GdsFeel-UI-Spec2' with: [ 
 			spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
@@ -193,42 +202,42 @@ BaselineOfGdsFeel >> baselineMagritte: spec [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte';
-				loads: #( Core )
+				loads: #( Core 'Magritte-Morph' )
 		].
 	].
 	spec for: #'pharo6.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.5.2';
-				loads: #( Core )
+				loads: #( Core  'Magritte-Morph' )
 		].
 	].
 	spec for: #'pharo7.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.5.3';
-				loads: #( Core )
+				loads: #( Core  'Magritte-Morph' )
 		].
 	].
 	spec for: #'pharo8.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.6';
-				loads: #( Core )
+				loads: #( Core  'Magritte-Morph' )
 		].
 	].
 	spec for: #'pharo9.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.7';
-				loads: #( Core )
+				loads: #( Core  'Magritte-Morph' )
 		].
 	].
 	spec for: #'pharo10.x' do: [
 		spec baseline: 'Magritte' with: [
 			spec
 				repository: 'github://magritte-metamodel/magritte:v3.8';
-				loads: #( Core )
+				loads: #( Core  'Magritte-Morph' )
 		].
-	].
+	]
 ]
