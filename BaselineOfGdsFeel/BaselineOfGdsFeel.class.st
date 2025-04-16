@@ -1,11 +1,10 @@
 Class {
-	#name : 'BaselineOfGdsFeel',
-	#superclass : 'BaselineOf',
-	#category : 'BaselineOfGdsFeel',
-	#package : 'BaselineOfGdsFeel'
+	#name : #BaselineOfGdsFeel,
+	#superclass : #BaselineOf,
+	#category : 'BaselineOfGdsFeel'
 }
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baseline: spec [
 
 	<baseline>
@@ -125,7 +124,7 @@ BaselineOfGdsFeel >> baseline: spec [
 				   'GdsFeel-UI-ElementAddition' ) ].
 ]
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baselineFixZip: spec [
 
 	| basicDepends basicGroup |
@@ -162,7 +161,7 @@ BaselineOfGdsFeel >> baselineFixZip: spec [
 
 ]
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baselineGuest: spec [
 	spec for: #common do: [
 		spec
@@ -181,7 +180,7 @@ BaselineOfGdsFeel >> baselineGuest: spec [
 
 ]
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baselineKFImaging: spec [
 
 	spec for: #common do: [
@@ -195,7 +194,7 @@ BaselineOfGdsFeel >> baselineKFImaging: spec [
 
 ]
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfGdsFeel >> baselineMagritte: spec [
 	"https://github.com/magritte-metamodel/magritte/releases"
 	spec for: #common do: [
