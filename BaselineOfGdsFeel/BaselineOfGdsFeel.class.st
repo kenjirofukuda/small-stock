@@ -1,7 +1,7 @@
 Class {
 	#name : #BaselineOfGdsFeel,
 	#superclass : #BaselineOf,
-	#category : #BaselineOfGdsFeel
+	#category : 'BaselineOfGdsFeel'
 }
 
 { #category : #baselines }
@@ -89,28 +89,39 @@ BaselineOfGdsFeel >> baseline: spec [
 				   'GdsFeel-Model-Sandbox' 'GdsFeel-Model-Tests'
 				   'GdsFeel-Model-Viewing' );
 			group: 'UI'
-			with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-Magritte'
+			with: #( 'GdsFeel-UI' 'GdsFeel-Magritte'
 				   'GdsFeel-UI-ElementAddition' );
 			group: 'Developer' with: #( 'GdsFeel-Developer' );
 			group: 'CLI'
-			with: #( 'GdsFeel-CLI-Console' 'GdsFeel-UI-Spec-CLI' ).
+			with: #( 'GdsFeel-CLI-Console' ).
 		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
 	self baselineFixZip: spec.
-	spec for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x') do: [
+
+  spec for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x') do: [
 		spec package: 'GdsFeel-Magritte-P6P7P8'.
 		spec package: 'GdsFeel-Magritte' with: [
 			spec requires:
 				#( 'GdsFeel-UI' 'Magritte' 'GdsFeel-Model-ElementAddition' 'GdsFeel-Magritte-P6P7P8') ].
 	].
-	spec for: #( #'pharo10.x' #'pharo11.x' #'pharo12.x' ) do: [ 
+
+  spec for: #(  #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x' ) do: [ 
+		spec package: 'GdsFeel-UI-Spec' with: [ 
+			spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
+				   'GdsFeel-UI-SpecCommon' ) ].
+		spec
+			group: 'UI'
+			with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec' 'GdsFeel-Magritte'
+				   'GdsFeel-UI-ElementAddition' ) ].
+           
+	spec for: #(  #'pharo9.x' #'pharo10.x' #'pharo11.x' #'pharo12.x' ) do: [ 
 		spec package: 'GdsFeel-UI-Spec2' with: [ 
 			spec requires: #( 'GdsFeel-UI' 'GdsFeel-UI-ElementAddition'
 				   'GdsFeel-UI-SpecCommon' ) ].
 		spec
 			group: 'UI'
 			with: #( 'GdsFeel-UI' 'GdsFeel-UI-Spec2' 'GdsFeel-Magritte'
-				   'GdsFeel-UI-ElementAddition' ) ]
+				   'GdsFeel-UI-ElementAddition' ) ].
 ]
 
 { #category : #baselines }
