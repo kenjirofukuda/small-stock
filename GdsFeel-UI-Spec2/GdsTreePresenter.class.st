@@ -51,7 +51,7 @@ GdsTreePresenter class >> defaultSpec [
 GdsTreePresenter class >> open [
 
 	<example>
-	self new openWithSpec
+	self new open
 ]
 
 { #category : #initialization }
