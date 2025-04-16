@@ -1,6 +1,6 @@
 Class {
 	#name : #GdsStateMorph,
-	#superclass : #ModelMorph,
+	#superclass : #MophicModel,
 	#instVars : [
 		'labelMorph'
 	],
