@@ -98,7 +98,7 @@ BaselineOfGdsFeel >> baseline: spec [
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
 	self baselineFixZip: spec.
 
-  spec for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x') do: [
+  spec for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x' ) do: [
 		spec package: 'GdsFeel-Magritte-P6P7P8'.
 		spec package: 'GdsFeel-Magritte' with: [
 			spec requires:
