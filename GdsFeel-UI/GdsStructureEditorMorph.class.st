@@ -833,17 +833,18 @@ GdsStructureEditorMorph >> locationPaneClass [
 
 ]
 
-{ #category : #utility }
+{ #category : #utilities }
 GdsStructureEditorMorph >> makeLabel: aLabel withValue: aValueOrBlock [
+
 	| optionalLabel |
 	optionalLabel := aValueOrBlock value asString.
-	optionalLabel ifEmpty: [^aLabel localizedGdsCaption].
-	^String streamContents: [:stream |
-		stream nextPutAll: aLabel localizedGdsCaption.
-		self structure ifNotNil: [
-			stream nextPutAll: ' ('.
-			stream nextPutAll: optionalLabel.
-			stream nextPutAll: ')']]
+	optionalLabel ifEmpty: [ ^ aLabel localizedGdsCaption ].
+	^ String streamContents: [ :stream | 
+		  stream nextPutAll: aLabel localizedGdsCaption.
+		  self structure ifNotNil: [ 
+			  stream nextPutAll: ' ('.
+			  stream nextPutAll: optionalLabel.
+			  stream nextPutAll: ')' ] ]
 ]
 
 { #category : #accessing }
@@ -863,13 +864,14 @@ GdsStructureEditorMorph >> markElementKeys [
 	self invalidRect: self bounds
 ]
 
-{ #category : #utility }
+{ #category : #utilities }
 GdsStructureEditorMorph >> markPoints: aPoints [
-	aPoints ifEmpty: [^self].
-	self setVisible: true forKey:  #mark.
-	aPoints do: [:each |
-		self mark: each.].
-	self invalidRect: self bounds.
+
+	aPoints 
+		ifNotEmpty: [ 
+			self setVisible: true forKey: #mark.
+			aPoints do: [ :each | self mark: each ].
+			self invalidRect: self bounds ]
 ]
 
 { #category : #accessing }
@@ -941,17 +943,17 @@ GdsStructureEditorMorph >> openAsAthens [
 			]
 ]
 
-{ #category : #utility }
+{ #category : #utilities }
 GdsStructureEditorMorph >> privateByteStringInput: aMessage defaults: aDefault [
-	|  reply  ok |
+
+	| reply ok |
 	ok := false.
 	reply := ''.
-	[ok]
-		whileFalse: 
-			[reply := UIManager default request: aMessage initialAnswer: aDefault.
-			reply isEmptyOrNil ifTrue: [^''].
-			ok := reply isByteString].
-	^reply asByteString.
+	[ ok ] whileFalse: [ 
+		reply := UIManager default request: aMessage initialAnswer: aDefault.
+		reply isEmptyOrNil ifTrue: [ ^ '' ].
+		ok := reply isByteString ].
+	^ reply asByteString
 ]
 
 { #category : #private }
@@ -988,16 +990,17 @@ GdsStructureEditorMorph >> privateChooseStructureName [
 		ifFalse: [ snames at: chooseIndex ]
 ]
 
-{ #category : #utility }
+{ #category : #utilities }
 GdsStructureEditorMorph >> privateExpInput: aMessage defaults: aDefault [
-	|  reply separatedItems values |
+
+	| reply separatedItems values |
 	reply := UIManager default request: aMessage initialAnswer: aDefault.
-	reply ifNil: [^Array new].
-	reply ifEmpty: [^Array new].
+	reply ifNil: [ ^ Array new ].
+	reply ifEmpty: [ ^ Array new ].
 	separatedItems := reply findTokens: ' '.
-	separatedItems ifEmpty: [^Array new].
-	values :=  separatedItems  collect: [:each | Float readFrom: each ].
-	^values asArray.
+	separatedItems ifEmpty: [ ^ Array new ].
+	values := separatedItems collect: [ :each | Float readFrom: each ].
+	^ values asArray
 ]
 
 { #category : #'documentation-support' }
@@ -1022,17 +1025,17 @@ GdsStructureEditorMorph >> privateFileOutPreview [
 			PNGReadWriter putForm: canvas form onFileNamed: previewFile]
 ]
 
-{ #category : #utility }
+{ #category : #utilities }
 GdsStructureEditorMorph >> privateStringInput: aMessage defaults: aDefault [
-	|  reply  ok |
+
+	| reply ok |
 	ok := false.
 	reply := ''.
-	[ok]
-		whileFalse: 
-			[reply := UIManager default request: aMessage initialAnswer: aDefault.
-			reply isEmptyOrNil ifTrue: [^''].
-			ok := reply isString].
-	^reply asByteString.
+	[ ok ] whileFalse: [ 
+		reply := UIManager default request: aMessage initialAnswer: aDefault.
+		reply isEmptyOrNil ifTrue: [ ^ '' ].
+		ok := reply isString ].
+	^ reply asByteString
 ]
 
 { #category : #drawing }
