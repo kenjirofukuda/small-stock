@@ -28,7 +28,7 @@ Class {
 		'previewMap',
 		'viewingCursorForm'
 	],
-	#category : 'GdsFeel-UI-Morph'
+	#category : #'GdsFeel-UI-Morph'
 }
 
 { #category : #accessing }
@@ -56,7 +56,7 @@ GdsStructureEditorMorph >> canGridDraw [
 
 { #category : #testing }
 GdsStructureEditorMorph >> canGriddedCursor [
-	^true.
+	^ false.
 ]
 
 { #category : #'testing-enabled' }
@@ -474,11 +474,13 @@ GdsStructureEditorMorph >> drawOn: aCanvas [
 
 { #category : #'event handling' }
 GdsStructureEditorMorph >> enterArea: anEvent [
+
 	self startStepping.
-	GdsFeelMorphic useCustomCursor
-		ifTrue: [ 
-			self mouseLayer startStepping.
-			self activeHand showTemporaryCursor: self crossHandCursor ]
+	GdsFeelMorphic useCustomCursor ifTrue: [ 
+		self mouseLayer startStepping.
+		"'crosHandCursor: from #enterArea' traceCr."
+
+		self setCursorTo: self crossHandCursor]
 ]
 
 { #category : #'testing-enabled' }
@@ -543,9 +545,9 @@ GdsStructureEditorMorph >> getElementEnabled [
 ]
 
 { #category : #accessing }
-GdsStructureEditorMorph >> globalPoint [ 
-	^ InputEventSensor default cursorPoint.
-	"Don't use: self activeHand cursorPoint"
+GdsStructureEditorMorph >> globalPoint [
+
+	^ self activeHand position
 ]
 
 { #category : #drawing }
@@ -741,7 +743,7 @@ GdsStructureEditorMorph >> initializeSensorLayer [
 	m setStepBlock: [:morph |
 		self stepSensorLayerMorph: morph].
 
-	m stepTime: 10.
+	m stepTime: self stepTime.
 	
 ]
 
@@ -1296,6 +1298,14 @@ GdsStructureEditorMorph >> sensorDrawOn: localCanvas layerMorph: morph [
 
 ]
 
+{ #category : #utilities }
+GdsStructureEditorMorph >> setCursorTo: aCursor [
+
+	self activeHand
+		showTemporaryCursor: aCursor
+		hotSpotOffset: aCursor offset
+]
+
 { #category : #initialization }
 GdsStructureEditorMorph >> setVisibleBorder:  aStringMorph [
 	aStringMorph color: self visibleLocationColor.
@@ -1418,13 +1428,18 @@ GdsStructureEditorMorph >> step [
 	self handleEventsBySelf
 		ifTrue: [ 
 			(self bounds containsPoint: globalPoint)
+				"ifFalse: [ 
+					'out of bounds' traceCr.
+					{ self bounds . globalPoint . Time now} traceCr. ]"
 				ifTrue: [ 
 					self activeHand keyboardFocus == self
 						ifFalse: [ 
 							self activeHand newKeyboardFocus: self ].
 					GdsFeelMorphic useCustomCursor
 						ifTrue: [ 
-							self activeHand showTemporaryCursor: self crossHandCursor ] ] ].
+							"'crosHandCursor: from #step' traceCr."
+							"{ self bounds . globalPoint . Time now} traceCr."
+							self setCursorTo: self crossHandCursor ] ] ].
 	Sensor redButtonPressed
 		ifTrue: [ ^ self ].
 	wp2 := self viewport
@@ -1464,7 +1479,7 @@ GdsStructureEditorMorph >> stepTime [
 	max := 100000.
 	viewport ifNil: [^max].
 	offCanvas ifNil:[^max]."
-	^200.
+	^ 10.
 ]
 
 { #category : #'as yet unclassified' }
