@@ -62,8 +62,9 @@ GdsLibraryTest >> testExtractDirectory [
 
 { #category : #tests }
 GdsLibraryTest >> testExtractedStructureNames [
-	self sampleLibrary ensureOpenDuring: [
-		self sampleLibrary extractedStructureNames explore].	
+
+	self sampleLibrary ensureOpenDuring: [ 
+		self sampleLibrary extractedStructureNames inspect ]
 ]
 
 { #category : #'tests-accessing' }
@@ -95,13 +96,15 @@ GdsLibraryTest >> testName [
 
 { #category : #tests }
 GdsLibraryTest >> testStructureNames [
-	self sampleLibrary structureNames explore.
+
+	self sampleLibrary structureNames inspect
 ]
 
 { #category : #tests }
 GdsLibraryTest >> testStructures [
-	self assert: (self sampleLibrary structures isCollection).
-	self sampleLibrary structures explore.
+
+	self assert: self sampleLibrary structures isCollection.
+	self sampleLibrary structures inspect
 ]
 
 { #category : #tests }
