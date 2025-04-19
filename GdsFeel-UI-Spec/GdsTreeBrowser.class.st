@@ -23,19 +23,6 @@ Class {
 	#category : #'GdsFeel-UI-Spec'
 }
 
-{ #category : #utilities }
-GdsTreeBrowser class >> allDispose [
-	<script>
-	Cursor wait
-		showWhile: [ 
-			GdsStation quit.
-			GdsStation initialize.
-			GdsLibrary allInstancesDo: [ :l | l allDispose ].
-			GdsStructure allInstancesDo: [ :l | l allDispose ].
-			10 timesRepeat: [ Smalltalk garbageCollect ] ].
-	SmalltalkImage current informSpaceLeftAfterGarbageCollection
-]
-
 { #category : #specs }
 GdsTreeBrowser class >> defaultSpec [
 	<spec: #default>
@@ -70,19 +57,6 @@ GdsTreeBrowser class >> defaultSpec [
 						origin: (1 - infoWidth) @ 0
 						corner: 1 @ 1 ] ];
 		yourself
-]
-
-{ #category : #menu }
-GdsTreeBrowser class >> gdsMenuOn: aBuilder [ 
-	<worldMenu>
-	(aBuilder item: #'Tree Browser')
-		action: [ self new openWithSpec ];
-		parent: #GdsFeel;
-		yourself.
-	(aBuilder item: #'All Dispose')
-		action: [ self allDispose ];
-		parent: #GdsFeel;
-		yourself.		
 ]
 
 { #category : #'instance creation' }
@@ -503,23 +477,18 @@ GdsTreeBrowser >> inspectorView [
 
 { #category : #private }
 GdsTreeBrowser >> installToolOn: aMenuGroupModel specSelector: specSelector [
+
 	| userInfo |
-	(self perform: specSelector) do: [ :toolSpec |
-		toolSpec isCollection 
-			ifTrue: [ 
-				userInfo := nil.
-				toolSpec size >=2
-					ifTrue: [ 
-						toolSpec size >= 3 ifTrue: [ userInfo := toolSpec third ].
-						aMenuGroupModel addItem: [ :item |
-							item name: toolSpec first.
-							item action: [ 
-								self treeActivatedStructureEditorDo: [ :m |
-									m currentToolClass: toolSpec second userInfo: userInfo ]
-								 ] ]
-						 ]
-				 ]
-		 ]
+	(self perform: specSelector) do: [ :toolSpec | 
+		toolSpec isCollection ifTrue: [ 
+			userInfo := nil.
+			toolSpec size >= 2 ifTrue: [ 
+				toolSpec size >= 3 ifTrue: [ userInfo := toolSpec third ].
+				aMenuGroupModel addItem: [ :item | 
+					item name: toolSpec first.
+					item action: [ 
+						self treeActivatedStructureEditorDo: [ :m | 
+							m currentToolClass: toolSpec second userInfo: userInfo ] ] ] ] ] ]
 ]
 
 { #category : #accessing }
