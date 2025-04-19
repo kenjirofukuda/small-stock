@@ -51,7 +51,11 @@ GdsTreePresenter class >> defaultSpec [
 GdsTreePresenter class >> open [
 
 	<example>
-	self new open
+	| newInstance |
+	newInstance := self new.
+	newInstance perform: ((newInstance respondsTo: #open)
+			 ifTrue: [ #opem ]
+			 ifFalse: [ #openWithSpec ])
 ]
 
 { #category : #private }
