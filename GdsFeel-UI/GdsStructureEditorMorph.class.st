@@ -1443,7 +1443,7 @@ GdsStructureEditorMorph >> step [
 							"'crosHandCursor: from #step' traceCr."
 							"{ self bounds . globalPoint . Time now} traceCr."
 							self setCursorTo: self crossHandCursor ] ] ].
-	Sensor redButtonPressed
+	World currentHand lastEvent redButtonPressed
 		ifTrue: [ ^ self ].
 	wp2 := self viewport
 		worldPointFromGlobal: globalPoint.
