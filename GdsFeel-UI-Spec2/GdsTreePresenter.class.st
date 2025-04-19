@@ -54,7 +54,7 @@ GdsTreePresenter class >> open [
 	| newInstance |
 	newInstance := self new.
 	newInstance perform: ((newInstance respondsTo: #open)
-			 ifTrue: [ #opem ]
+			 ifTrue: [ #open ]
 			 ifFalse: [ #openWithSpec ])
 ]
 
