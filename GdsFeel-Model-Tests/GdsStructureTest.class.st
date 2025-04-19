@@ -39,7 +39,8 @@ GdsStructureTest >> testDuplicate [
 
 { #category : #'tests-accessing' }
 GdsStructureTest >> testElements [
-	self sampleStructure elements explore.
+
+	self sampleStructure elements inspect
 ]
 
 { #category : #tests }
