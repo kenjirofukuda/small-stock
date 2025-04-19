@@ -1088,11 +1088,11 @@ GdsStructure >> storageFile [
 
 { #category : #private }
 GdsStructure >> strictMemberMatcher: memberName [
-	| m|
-	m :=  ('(', self name , '\.(\d+)\.(gdsfeelbeta)') asRegex .
-	(m matches: memberName)
-		ifTrue: [ ^m ].
-	^nil. 
+
+	| m |
+	m := ('(' , self name , '\.(\d+)\.(gdsfeelbeta)') asRegex.
+	(m matches: memberName) ifTrue: [ ^ m ].
+	^ nil
 ]
 
 { #category : #'accessing - analisys' }

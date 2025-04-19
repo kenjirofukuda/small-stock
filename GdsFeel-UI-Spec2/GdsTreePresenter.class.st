@@ -193,10 +193,13 @@ GdsTreePresenter >> showAsNewTop [
 			^ self inform: 'Can''t running show as new top on Athens' ].
 		morph clearAllProxyMorphs.
 		delegate station structure: structure.
-		self handleActivatedStructureMorph: morph.		
+		self handleActivatedStructureMorph: morph.
 		morph
 			structure: structure;
-			viewFit ]
+			viewFit.
+		morph viewport announcer when: #viewTransformChanged do: [ 
+			visibleElementList items: morph visibleElements.
+			morph clearAllProxyMorphs ] ]
 ]
 
 { #category : #accesing }
