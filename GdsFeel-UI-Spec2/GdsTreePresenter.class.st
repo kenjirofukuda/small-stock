@@ -54,6 +54,13 @@ GdsTreePresenter class >> open [
 	self new open
 ]
 
+{ #category : #private }
+GdsTreePresenter >> clearUISelection [
+	visibleElementList items: #().
+	"elementList items: #()."
+	"self clearInspector."
+]
+
 { #category : #initialization }
 GdsTreePresenter >> debugMenu [
 
@@ -75,6 +82,16 @@ GdsTreePresenter >> fileMenu [
 				  name: 'Open Ziped DB...';
 				  icon: (self iconNamed: #open);
 				  action: [ delegate openLibrary ] ] ]
+]
+
+{ #category : #private }
+GdsTreePresenter >> handleActivatedStructureMorph: aGdsStructureEditorMorph [
+	aGdsStructureEditorMorph structure
+		ifNil: [ self clearUISelection ]
+		ifNotNil: [ :s | 
+			"elementList items: s elements."
+			"self activateElementInspectorInStructure: s."
+			visibleElementList items: aGdsStructureEditorMorph visibleElements ]
 ]
 
 { #category : #initialization }
@@ -100,10 +117,8 @@ GdsTreePresenter >> initializePresenters [
 	GdsFeel loadExampleZippedDatabaseToLocal.
 	self initializeMenuBar.
 	tree := self newTree.
-	visibleElementList := self newMorph.
-	visibleElementList morph: (BorderedMorph new
-			 color: Color red;
-			 yourself).
+	visibleElementList := self newList.
+
 	inspectorView := self newMorph.
 	inspectorView morph: (BorderedMorph new
 			 color: Color green;
@@ -174,6 +189,7 @@ GdsTreePresenter >> showAsNewTop [
 			^ self inform: 'Can''t running show as new top on Athens' ].
 		morph clearAllProxyMorphs.
 		delegate station structure: structure.
+		self handleActivatedStructureMorph: morph.		
 		morph
 			structure: structure;
 			viewFit ]
