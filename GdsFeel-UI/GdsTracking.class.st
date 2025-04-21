@@ -6,7 +6,7 @@ Class {
 		'currentEvent',
 		'points'
 	],
-	#category : 'GdsFeel-UI-Morph'
+	#category : #'GdsFeel-UI-Morph'
 }
 
 { #category : #accessing }
@@ -20,6 +20,11 @@ GdsTracking >> currentEvent: aMouseMoveEvent [
 GdsTracking >> currentWorldPoint [
 	^ self viewport worldPointFromGlobal: currentEvent cursorPoint. 
 
+]
+
+{ #category : #accessing }
+GdsTracking >> event [
+	^ event
 ]
 
 { #category : #accessing }
@@ -40,12 +45,9 @@ GdsTracking >> localPixelPoint [
 
 { #category : #private }
 GdsTracking >> noDragAction [
-	| menu |
-	menu := MenuModel new
-		addGroup: [ :group | 
-			self setupMenu: group ].
-	Cursor normal show.
-	menu openWithSpecAt: event cursorPoint
+
+	self structureMorph contextMenu
+		ifNotNil: [ :menuBlock | menuBlock value: self ]
 ]
 
 { #category : #accessing }
@@ -61,7 +63,7 @@ GdsTracking >> offsetPixelPoint [
 	^ (currentEvent cursorPoint - event cursorPoint)
 ]
 
-{ #category : #menu }
+{ #category : #'menu - deprecated' }
 GdsTracking >> setupEditorMenu: aMenuGroupModel [
 	self structureMorph idNotEmpty
 		ifTrue: [ 
@@ -69,7 +71,7 @@ GdsTracking >> setupEditorMenu: aMenuGroupModel [
 
 ]
 
-{ #category : #menu }
+{ #category : #'menu - deprecated' }
 GdsTracking >> setupIdSelectionMenu: aMenuGroupModel [
 	aMenuGroupModel
 		addItem: [ :item | 
@@ -99,7 +101,7 @@ GdsTracking >> setupIdSelectionMenu: aMenuGroupModel [
 				action: [ self structureMorph structure idSelection idDelete ] ]
 ]
 
-{ #category : #menu }
+{ #category : #'menu - deprecated' }
 GdsTracking >> setupMenu: aMenuGroupModel [
 	self structureMorph class = GdsStructureEditorMorph 
 		ifTrue: [ self setupEditorMenu: aMenuGroupModel ].
