@@ -550,7 +550,8 @@ GdsLibrary >> extract [
 
 { #category : #'accessing - resource' }
 GdsLibrary >> extractDirectory [
-	^(self file parent / '.editlibs' / file basename) asFileReference. 
+
+	^ (self file parent / '.editlibs' / file basename) asFileReference
 ]
 
 { #category : #testing }
@@ -814,38 +815,43 @@ GdsLibrary >> lookupUsingLayerNumbers [
 
 { #category : #'objects from disk' }
 GdsLibrary >> makeArchive [
-	self makeArchiveOld
+
+	(Archive includesSelector: #addTree:relativeTo:match:)
+		ifTrue: [ self makeArchiveNew ]
+		ifFalse: [ self makeArchiveOld ]
 ]
 
 { #category : #'objects from disk' }
 GdsLibrary >> makeArchiveNew [
-	| archive   |
-	(file exists)
-		ifTrue: [file delete].
+
+	| archive subDir |
+	file exists ifTrue: [ file delete ].
 	archive := ZipArchive new.
-	self extractDirectory directories 
-		do: [ :dir | 
-			archive addDirectory:  dir as:  dir basename ].
-	self extractDirectory files 
-		do: [ :f | 
-			archive addFile: f as:  f basename ].
-	[archive writeToFile: file] 
-		on: Error do: [:ex | self inform: ex description].		
-	archive close.	
+	subDir := self extractDirectory.
+	archive
+		perform: #addTree:relativeTo:match:
+		withArguments:
+		(Array with: subDir with: subDir parent with: [ :e | true ]).
+	[ archive writeToFile: file ]
+		on: Error
+		do: [ :ex | self inform: ex description ].
+	archive close
 ]
 
 { #category : #'objects from disk' }
 GdsLibrary >> makeArchiveOld [
-	| archive  trimSize |
-	(file exists)
-		ifTrue: [file delete].
+
+	| archive trimSize |
+	file exists ifTrue: [ file delete ].
 	archive := ZipArchive new.
 	trimSize := self extractDirectory fullName size.
-	archive 
-		addTree: self extractDirectory removingFirstCharacters: trimSize .		
-	[archive writeToFile: file] 
-		on: Error do: [:ex | self inform: ex description].		
-	archive close.	
+	archive
+		perform: #addTree:removingFirstCharacters:
+		withArguments: (Array with: self extractDirectory with: trimSize).
+	[ archive writeToFile: file ]
+		on: Error
+		do: [ :ex | self inform: ex description ].
+	archive close
 ]
 
 { #category : #'objects from disk' }
