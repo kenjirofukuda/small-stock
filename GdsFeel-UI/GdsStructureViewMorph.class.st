@@ -40,9 +40,10 @@ Class {
 		'ttContext',
 		'autoFitOnResize',
 		'state',
-		'defaultToolClass'
+		'defaultToolClass',
+		'contextMenu'
 	],
-	#category : 'GdsFeel-UI-Morph'
+	#category : #'GdsFeel-UI-Morph'
 }
 
 { #category : #'as yet unclassified' }
@@ -120,6 +121,19 @@ GdsStructureViewMorph >> color: aColor [
 	super color: aColor.
 	self removeCachedCanvas.
 	self invalidRect: self bounds.
+]
+
+{ #category : #accessing }
+GdsStructureViewMorph >> contextMenu [
+
+	^ contextMenu
+]
+
+{ #category : #accessing }
+GdsStructureViewMorph >> contextMenu: aGdsTrackingValueBlock [
+	"EXAMPLE:
+		self contextMenu: [ :tracking | tracking event cursorPoint. ... ]"
+	contextMenu := aGdsTrackingValueBlock
 ]
 
 { #category : #viewport }
@@ -899,7 +913,7 @@ GdsStructureViewMorph >> pushViewport: aGdsViewport [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #drawing }
 GdsStructureViewMorph >> redraw [
 	self removeOffCanvas.
 	self changed
@@ -1051,7 +1065,7 @@ GdsStructureViewMorph >> structure [
 	^self model.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GdsStructureViewMorph >> structure: aGdsStructure [
 	self model: aGdsStructure
 ]

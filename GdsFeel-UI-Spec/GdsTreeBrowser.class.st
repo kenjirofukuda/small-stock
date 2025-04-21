@@ -188,18 +188,83 @@ GdsTreeBrowser >> clickTestTool [
 	self frontMostStructureEditorDo: [ :morph | morph currentToolClass: GdsClickTestTool ]
 ]
 
+{ #category : #'menu building' }
+GdsTreeBrowser >> contextMenuActionWithTracking: aGdsTracking [
+
+	| contextMenu |
+	contextMenu := MenuPresenter new addGroup: [ :group | 
+		aGdsTracking structureMorph class = GdsStructureEditorMorph 
+			ifTrue: [ 
+				aGdsTracking structureMorph idNotEmpty
+					ifTrue: [ 
+						self
+					   	contextMenuForIdSelection: group
+					   	tracking: aGdsTracking ] ].
+		      self
+			   	contextMenuForCommon: group
+					tracking: aGdsTracking ].
+	Cursor normal show.
+	contextMenu openWithSpecAt: aGdsTracking event cursorPoint
+]
+
+{ #category : #'menu building' }
+GdsTreeBrowser >> contextMenuForCommon: group tracking: aGdsTracking [
+		               group addItem: [ :item | 
+			               item
+				               name: 'Clear markers';
+				               action: [ aGdsTracking structureMorph clearMarker ] ].
+		               group addItem: [ :item | 
+			               item
+				               name: 'Fit';
+				               shortcut: $f command;
+				               action: [ 
+					               aGdsTracking structureMorph viewport viewFit ] ]
+]
+
+{ #category : #'menu building' }
+GdsTreeBrowser >> contextMenuForIdSelection: group tracking: aGdsTracking [
+
+	group addItem: [ :item | 
+		item
+			name: 'Fit selection' translated;
+			action: [ 
+				aGdsTracking structureMorph viewport viewBounds:
+						aGdsTracking event handler structure dataExtentForIdElements ] ].
+	group addItem: [ :item | 
+		item
+			name: 'Clear selection' translated;
+			action: [ 
+				aGdsTracking structureMorph structure idSelection idClear ] ].
+	group addItem: [ :item | 
+		item
+			name: 'Inspect selection' translated;
+			action: [ 
+				| elements |
+				elements := aGdsTracking structureMorph structure idSelection
+					            elements.
+				(elements size = 1
+					 ifTrue: [ elements first ]
+					 ifFalse: [ elements ]) inspect ] ].
+	group addItem: [ :item | item name: '-' ].
+	group addItem: [ :item | 
+		item
+			name: 'Delete' translated;
+			action: [ 
+				aGdsTracking structureMorph structure idSelection idDelete ] ]
+]
+
 { #category : #initialization }
 GdsTreeBrowser >> customMenu [
 	"Answer the menu to be presented when the yellow button is pressed while the shift key is down"
 	| menuSpec |
 	menuSpec := (PragmaMenuBuilder pragmaKeyword: 'gdsStructureEditorMenu' model: self) menuSpec.
 	menuSpec items ifEmpty: [ ^ self emptyMenu  ].
-	^ MenuModel new fromSpec: menuSpec.
+	^ MenuPresenter new fromSpec: menuSpec.
 ]
 
 { #category : #initialization }
 GdsTreeBrowser >> debugMenu [
-	^ MenuModel new
+	^ MenuPresenter new
 		autoRefresh: true;
 		addGroup: [ :group | 
 			self installToolOn: group specSelector: #toolSpecs.
@@ -233,7 +298,7 @@ GdsTreeBrowser >> duplicateStructure [
 
 { #category : #initialization }
 GdsTreeBrowser >> editMenu [
-	^ MenuModel new
+	^ MenuPresenter new
 		autoRefresh: true;
 		addGroup: [ :group | 
 			self installToolOn: group specSelector: #toolSpecs.
@@ -262,7 +327,7 @@ GdsTreeBrowser >> elementList [
 
 { #category : #initialization }
 GdsTreeBrowser >> emptyMenu [
-	^ MenuModel new 
+	^ MenuPresenter new 
 		addGroup: [ :group | 
 			group
 				addItem: [ :item | 
@@ -273,7 +338,7 @@ GdsTreeBrowser >> emptyMenu [
 
 { #category : #initialization }
 GdsTreeBrowser >> environmentMenu [
-	^ MenuModel new
+	^ MenuPresenter new
 		addGroup: [ :group | 
 			group
 				addItem: [ :item | 
@@ -291,7 +356,7 @@ GdsTreeBrowser >> environmentMenu [
 { #category : #initialization }
 GdsTreeBrowser >> fileMenu [
 
-	^ MenuModel new addGroup: [ :group | 
+	^ MenuPresenter new addGroup: [ :group | 
 		  group
 			  addItem: [ :item | 
 				  item
@@ -335,7 +400,7 @@ GdsTreeBrowser >> handleDoubleClick [
 	self inform: 'Empty Handler'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'action - selection independent' }
 GdsTreeBrowser >> idExplode [
 	|    |
 	self
@@ -371,7 +436,7 @@ GdsTreeBrowser >> initialExtent [
 
 { #category : #initialization }
 GdsTreeBrowser >> initializeMenu [
-	menu := self instantiate: MenuModel
+	menu := self instantiate: MenuPresenter
 ]
 
 { #category : #initialization }
@@ -591,7 +656,7 @@ GdsTreeBrowser >> newTabForLibrary: aGdsLibrary [
 		bindKeyCombination: Character escape 
 		toAction: [ 
 			balloonView structure ifNotNil: [ :s | s idSelection idClear] ].
-
+	balloonView contextMenu: [ :tracker | self contextMenuActionWithTracking: tracker ].
 	athensView := delegate createAthensStructureView.
 	athensView
 		ifNotNil: [
@@ -650,7 +715,7 @@ GdsTreeBrowser >> pluginMenu [
 	| classes |
 	classes := GdsPlugin new enabledPluginClasses.
 	classes ifEmpty: [ ^ self emptyMenu ].
-	^ MenuModel new
+	^ MenuPresenter new
 		addGroup: [ :group | 
 			classes
 				do: [ :clazz | 
@@ -834,7 +899,7 @@ GdsTreeBrowser >> selectedTabDo: tabBlock ifNil: emptyTabBlock [
 
 { #category : #initialization }
 GdsTreeBrowser >> shapeMenu [
-	^ MenuModel new
+	^ MenuPresenter new
 		autoRefresh: true;
 		addGroup: [ :group | 
 			self installToolOn: group specSelector: #shapeToolSpecs ].
