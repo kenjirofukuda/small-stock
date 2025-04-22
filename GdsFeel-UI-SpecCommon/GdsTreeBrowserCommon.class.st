@@ -143,8 +143,9 @@ GdsTreeBrowserCommon >> initialize [
 
 { #category : #'ui building' }
 GdsTreeBrowserCommon >> onWindowClosed [
-	self station structure:nil.
-	self station quit.
+
+	self station structure: nil.
+	self station quit
 ]
 
 { #category : #'action - selection independent' }

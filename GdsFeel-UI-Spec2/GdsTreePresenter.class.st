@@ -90,11 +90,11 @@ GdsTreePresenter >> fileMenu [
 
 { #category : #private }
 GdsTreePresenter >> handleActivatedStructureMorph: aGdsStructureEditorMorph [
+
 	aGdsStructureEditorMorph structure
 		ifNil: [ self clearUISelection ]
-		ifNotNil: [ :s | 
-			"elementList items: s elements."
-			"self activateElementInspectorInStructure: s."
+		ifNotNil: [ :s |
+			"elementList items: s elements." "self activateElementInspectorInStructure: s." 
 			visibleElementList items: aGdsStructureEditorMorph visibleElements ]
 ]
 
@@ -193,13 +193,13 @@ GdsTreePresenter >> showAsNewTop [
 			^ self inform: 'Can''t running show as new top on Athens' ].
 		morph clearAllProxyMorphs.
 		delegate station structure: structure.
-		self handleActivatedStructureMorph: morph.
 		morph
 			structure: structure;
 			viewFit.
 		morph viewport announcer when: #viewTransformChanged do: [ 
 			visibleElementList items: morph visibleElements.
-			morph clearAllProxyMorphs ] ]
+			morph clearAllProxyMorphs ].
+		self handleActivatedStructureMorph: morph ]
 ]
 
 { #category : #accesing }
