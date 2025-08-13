@@ -67,7 +67,7 @@ GdsFeelMorphic class >> chooseFullFileName: labelString patterns: patterns [
 	| file dirPath |
 	dirPath := self lastVisitDirectory.
 	dirPath ifNotNil: [ 
-		dirPath asFileReference exists ifFalse: [ dirPath := nil ] ].
+		dirPath asFileReference exists ifFalse: [ dirPath := FileSystem workingDirectory ] ].
 	file := UIManager default
 		        chooseFullFileNameMatching: patterns label: labelString path: dirPath.
 	file ifNil: [ ^ nil ].
