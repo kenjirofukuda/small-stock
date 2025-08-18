@@ -6,8 +6,8 @@ Class {
 
 { #category : #'as yet unclassified' }
 DxfVersion class >> specJson [
-	"(NeoJSONReader fromString: self specJson) explore."
-	"(NeoJSONWriter toStringPretty: (NeoJSONReader fromString: self specJson)) explore."
+	"(NeoJSONReader fromString: self specJson) inspect."
+	"(NeoJSONWriter toStringPretty: (NeoJSONReader fromString: self specJson)) inspect."
 	^'{
 	"AC1006": { "codeInJapanese": "Shift_JIS", "ReleaseStrings": ["GX-III"] },
 	"AC1009": { "codeInJapanese": "Shift_JIS", "ReleaseStrings": ["GX-5", "Release12J"]  },

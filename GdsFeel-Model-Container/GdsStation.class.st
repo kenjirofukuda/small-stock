@@ -209,7 +209,7 @@ GdsStation >> ensureSandbox [
 
 { #category : #private }
 GdsStation >> fileMap [
-	"self default fileMap explore."
+	"self default fileMap inspect."
 	fileMap
 		ifNil: [ 
 			fileMap := Dictionary new.
@@ -385,7 +385,7 @@ GdsStation >> labelStringAfter [
 
 { #category : #accessing }
 GdsStation >> libraries [
-	"self default libraries explore."
+	"self default libraries inspect."
 	^self nameMap values.
 
 ]
@@ -403,7 +403,7 @@ GdsStation >> library: aGdsLibrary [
 
 { #category : #accessing }
 GdsStation >> libraryNames [
-	"self default libraryNames explore."
+	"self default libraryNames inspect."
 	^self nameMap keys sort.
 
 ]
@@ -415,7 +415,7 @@ GdsStation >> libraryProperty [
 
 { #category : #private }
 GdsStation >> nameMap [
-	"self default nameMap explore."
+	"self default nameMap inspect."
 
 	nameMap ifNil: [ nameMap := Dictionary new ].
 	self fileMap

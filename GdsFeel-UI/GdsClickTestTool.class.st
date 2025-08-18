@@ -1,7 +1,7 @@
 Class {
 	#name : #GdsClickTestTool,
 	#superclass : #GdsNewTool,
-	#category : 'GdsFeel-UI-Tools'
+	#category : #'GdsFeel-UI-Tools'
 }
 
 { #category : #action }
@@ -16,7 +16,7 @@ GdsClickTestTool >> absentAction: foundElements [
 				->
 					(DistanceContext
 						fromPoint: worldPoints last
-						lineSegment: (LineSegment from: e vertices first to: e vertices second)) ]) explore.
+						lineSegment: (LineSegment from: e vertices first to: e vertices second)) ]) inspect.
 	[ (Delay forSeconds: 7) wait.
 	foundElements doWithIndex: [ :e :i | e ownColor: (savedColors at: i) ] ] fork
 ]
@@ -75,7 +75,7 @@ GdsClickTestTool >> singleAction: anEvent [
 	| targetPoints |
 	targetPoints := self
 		findPoints: worldPoints last
-		ifAbsent: [ :a :b :c | "{a . b . c } explore" ].
+		ifAbsent: [ :a :b :c | "{a . b . c } inspect" ].
 	userInfo
 		ifNotNil: [ userInfo isBlock
 				ifTrue: [ userInfo cull: targetPoints cull: self cull: worldPoints last copy ] ].

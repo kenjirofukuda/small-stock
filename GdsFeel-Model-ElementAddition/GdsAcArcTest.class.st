@@ -9,7 +9,7 @@ Class {
 
 { #category : #'tests-accessing' }
 GdsAcArcTest >> testDefaultInstance [
-	GdsAcArc basicNew initialize explore.
+	GdsAcArc basicNew initialize inspect.
 ]
 
 { #category : #'tests-accessing' }

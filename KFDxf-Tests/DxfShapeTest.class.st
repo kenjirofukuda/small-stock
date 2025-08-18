@@ -37,7 +37,7 @@ DxfShapeTest class >> qcadExamplesDirectory [
 
 { #category : #'as yet unclassified' }
 DxfShapeTest class >> qcadExamplesDxfFiles [
-	"self qcadExamplesDxfFiles explore."
+	"self qcadExamplesDxfFiles inspect."
 	self qcadExamplesDirectory 
 		ifNotNil: [ :dir | ^ dir filesMatching: '*.dxf'  ].
 	^ #()
