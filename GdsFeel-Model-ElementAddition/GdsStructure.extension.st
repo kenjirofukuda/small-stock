@@ -6033,7 +6033,7 @@ GdsStructure >> dxfShapesForExport [
 		collect: [ :el | 
 			| shape |
 			shape := el asDxfShape.
-			shape setCode: 5 data: (el keyNumber + 2000) printStringHex.
+			shape ifNotNil: [ shape setCode: 5 data: (el keyNumber + 2000) printStringHex ].
 			shape ]
 		thenSelect: [ :shape | shape notNil ]
 ]
