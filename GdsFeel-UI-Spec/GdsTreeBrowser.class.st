@@ -531,7 +531,7 @@ GdsTreeBrowser >> inspectionMenu: aMenu [
 			aGroup
 				addItem: [ :anItem | 
 					anItem
-						name: 'Explore';
+						name: 'Inspect';
 						action: [ tree selectedItem content inspect ] ] ]
 ]
 

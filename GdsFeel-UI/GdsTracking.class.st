@@ -87,7 +87,7 @@ GdsTracking >> setupIdSelectionMenu: aMenuGroupModel [
 	aMenuGroupModel
 		addItem: [ :item | 
 			item
-				name: 'Explore selection' translated;
+				name: 'Inspect selection' translated;
 				action: [ | elements |
 					elements := self structureMorph structure idSelection elements.
 					(elements size = 1

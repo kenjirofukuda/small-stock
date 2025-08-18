@@ -42,7 +42,7 @@ Class {
 
 { #category : #private }
 GdsElement class >> allCreatableClasses [
-	"self allCreatableClasses explore."
+	"self allCreatableClasses inspect."
 	^GdsElement allSubclasses reject: [:clazz | clazz type = #none]
 ]
 

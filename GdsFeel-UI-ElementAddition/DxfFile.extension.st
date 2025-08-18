@@ -1,13 +1,6 @@
 Extension { #name : #DxfFile }
 
 { #category : #'*GdsFeel-UI-ElementAddition' }
-DxfFile class >> exploreFromUser [
-	<script>
-	self fromUser explore.
-	
-]
-
-{ #category : #'*GdsFeel-UI-ElementAddition' }
 DxfFile class >> fromUser [
 	<script>
 	| file  |
@@ -17,5 +10,12 @@ DxfFile class >> fromUser [
 	file ifNil: [^ nil].
 	^ DxfFile new file: file; yourself.
 	
+	
+]
+
+{ #category : #'*GdsFeel-UI-ElementAddition' }
+DxfFile class >> inspectFromUser [
+	<script>
+	self fromUser inspect.
 	
 ]

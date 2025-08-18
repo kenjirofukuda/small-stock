@@ -488,11 +488,6 @@ GdsStructureEditorMorph >> everyEnabled [
 	^ true
 ]
 
-{ #category : #'command-handler' }
-GdsStructureEditorMorph >> exploreItem [
-	self structure currentItem explore.
-]
-
 { #category : #'documentation-support' }
 GdsStructureEditorMorph >> exportPictureBaseName [
 	self structure ifNil: [^nil].
@@ -755,6 +750,11 @@ GdsStructureEditorMorph >> initializeStructureChooserLayer [
 	self setupChooserLayout: layer.
 	layer visible: false.
 
+]
+
+{ #category : #'command-handler' }
+GdsStructureEditorMorph >> inspectItem [
+	self structure currentItem inspect.
 ]
 
 { #category : #'event handling' }

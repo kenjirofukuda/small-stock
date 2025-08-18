@@ -45,7 +45,7 @@ GdsStructureTest >> testElements [
 
 { #category : #tests }
 GdsStructureTest >> testFoo [
-	(XMLDOMParser parse:  (self sampleStructure latestContents)) explore.
+	(XMLDOMParser parse:  (self sampleStructure latestContents)) inspect.
 
 ]
 
@@ -114,7 +114,7 @@ GdsStructureTest >> testLibrary [
 
 { #category : #tests }
 GdsStructureTest >> testMemberFiles [
-	"self sampleStructure memberFiles explore"
+	"self sampleStructure memberFiles inspect"
 
 	self
 		assert:

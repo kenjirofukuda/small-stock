@@ -1,7 +1,7 @@
 Class {
 	#name : #GdsDeleteVertexTool,
 	#superclass : #GdsMovePointTool,
-	#category : 'GdsFeel-UI-Tools'
+	#category : #'GdsFeel-UI-Tools'
 }
 
 { #category : #'as yet unclassified' }
@@ -18,7 +18,7 @@ GdsDeleteVertexTool >> drawFeedbackOn: aLocalCanvas [
 GdsDeleteVertexTool >> eachAction [
 	analisysResult := GeometryUtils 
 		analisysSegmentsAt: (self snapedWorldPoint2) pointArray: self currentItem vertices.
-	"analisysResult explore."
+	"analisysResult inspect."
 	replaceVertexIndex := self lookupReplaceVertexIndex. 
 	self currentItem removeVertexAt: replaceVertexIndex.
 ]

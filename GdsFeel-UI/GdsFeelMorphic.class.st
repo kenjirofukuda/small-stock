@@ -592,8 +592,8 @@ GdsFeelMorphic class >> settingsOn: aBuilder [
 				description: 'optional tools enabled'.
 			(aBuilder setting: #debugFindElement)
 				target: self;
-				label: 'Explore Find Infomation in GET''s ';
-				description: 'explore find element information by GET command'.
+				label: 'Inspect Find Infomation in GET''s ';
+				description: 'inspect find element information by GET command'.
 			(aBuilder setting: #useCustomCursor)
 				target: self;
 				label: 'Use custom cursor';

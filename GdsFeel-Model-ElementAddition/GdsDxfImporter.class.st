@@ -119,7 +119,7 @@ GdsDxfImporter >> entryPoint [
 	dxf ifNil: [ ^ self inform: 'DXF import canceled '  ].
 	dxf shapes ifEmpty: [ ^ self inform: ' shpae not found ' ].	
 	self import: dxf.
-	self structure explore.
+	self structure inspect.
 	
 				
 ]

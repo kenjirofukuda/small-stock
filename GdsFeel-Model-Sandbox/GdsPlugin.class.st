@@ -6,13 +6,13 @@ Class {
 
 { #category : #'as yet unclassified' }
 GdsPlugin >> enabledPluginClasses [
-	"GdsPlugin new enabledPluginClasses explore."
+	"GdsPlugin new enabledPluginClasses inspect."
 	^ self pluginClasses select: [ :clazz | (clazz respondsTo: #enabled) and: [ clazz enabled ]]
 ]
 
 { #category : #'as yet unclassified' }
 GdsPlugin >> pluginClasses [
-	"self new pluginClasses explore."
+	"self new pluginClasses inspect."
 
 	| pragmas  |
 	pragmas := (PragmaCollector

@@ -147,7 +147,7 @@ GdsLibrary class >> extractedNames [
 
 { #category : #'as yet unclassified' }
 GdsLibrary class >> findFiles [
-	"self findFiles explore."
+	"self findFiles inspect."
 	^self findFilesOn: GdsFeel projectDirectory
 
 ]
@@ -204,7 +204,7 @@ GdsLibrary class >> initializeName: aString databaseUnits: anInteger unitString:
 { #category : #'as yet unclassified' }
 GdsLibrary class >> instanceCheck [
 	<script>
-	self  allInstances explore.
+	self  allInstances inspect.
 ]
 
 { #category : #testing }

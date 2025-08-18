@@ -1327,12 +1327,6 @@ DxfLayer class >> colorStringMapJson [
 }'
 ]
 
-{ #category : #'development support' }
-DxfLayer class >> exploreColorMap [
-	<script>
-	self lookupColorMap explore.
-]
-
 { #category : #'class initialization' }
 DxfLayer class >> initialize [
 	"self initialize"
@@ -1345,6 +1339,12 @@ DxfLayer class >> initializeColorIndexMap [
 	(NeoJSONReader fromString: self colorStringMapJson)
 		keysAndValuesDo: [ :key :value | 
 			ColorIndexMap at: key asInteger put: (Color colorFrom: value) ]
+]
+
+{ #category : #'development support' }
+DxfLayer class >> inspectColorMap [
+	<script>
+	self lookupColorMap inspect.
 ]
 
 { #category : #'development support' }

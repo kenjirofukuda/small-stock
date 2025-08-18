@@ -54,7 +54,7 @@ GdsNotificationCenter class >> example [
 		selector: #printString 
 		name: 'NSWindowSizeWillChangeNotification' object: nil.
 
-	nc explore
+	nc inspect
 ]
 
 { #category : #adding }

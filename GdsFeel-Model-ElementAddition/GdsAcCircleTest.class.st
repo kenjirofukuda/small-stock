@@ -9,7 +9,7 @@ Class {
 
 { #category : #'tests-accessing' }
 GdsAcCircleTest >> testDefaultInstance [
-	GdsAcCircle basicNew initialize explore.
+	GdsAcCircle basicNew initialize inspect.
 ]
 
 { #category : #'tests-accessing' }

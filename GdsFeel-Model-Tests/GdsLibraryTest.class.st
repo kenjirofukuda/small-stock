@@ -80,7 +80,7 @@ GdsLibraryTest >> testInitializeName [
 	self makeSampleNamed: 'fuck1'.
 	self assert: lib libName equals: 'FUCK1'
 
-	"libMap explore."
+	"libMap inspect."
 ]
 
 { #category : #'tests-private' }

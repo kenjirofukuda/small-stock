@@ -13,5 +13,5 @@ GdsAcPointTest >> testCenterPoint [
 
 { #category : #'tests-accessing' }
 GdsAcPointTest >> testDefaultInstance [
-	GdsAcPoint basicNew initialize explore.
+	GdsAcPoint basicNew initialize inspect.
 ]

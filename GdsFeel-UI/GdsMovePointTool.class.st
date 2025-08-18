@@ -24,7 +24,7 @@ Class {
 		'replaceVertexIndex',
 		'moveToPoint'
 	],
-	#category : 'GdsFeel-UI-Tools'
+	#category : #'GdsFeel-UI-Tools'
 }
 
 { #category : #action }
@@ -85,7 +85,7 @@ GdsMovePointTool >> eventAction [
 GdsMovePointTool >> firstAction [
 	analisysResult := GeometryUtils 
 		analisysSegmentsAt: (self snapedWorldPoint2) pointArray: self currentItem vertices.
-	"analisysResult explore."
+	"analisysResult inspect."
 	replaceVertexIndex := self lookupReplaceVertexIndex. 
 	(self currentItem holdsElement)
 		ifTrue: [referencePoint := self currentItem vertices at: replaceVertexIndex]
