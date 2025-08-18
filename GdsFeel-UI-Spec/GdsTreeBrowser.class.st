@@ -61,8 +61,10 @@ GdsTreeBrowser class >> defaultSpec [
 
 { #category : #'instance creation' }
 GdsTreeBrowser class >> open [
+
 	<example>
-	self new openWithSpec
+	self new openWithSpec.
+	UIManager default defer: [ MenubarMorph reset ]
 ]
 
 { #category : #constants }
@@ -209,16 +211,16 @@ GdsTreeBrowser >> contextMenuActionWithTracking: aGdsTracking [
 
 { #category : #'menu building' }
 GdsTreeBrowser >> contextMenuForCommon: group tracking: aGdsTracking [
-		               group addItem: [ :item | 
-			               item
-				               name: 'Clear markers';
-				               action: [ aGdsTracking structureMorph clearMarker ] ].
-		               group addItem: [ :item | 
-			               item
-				               name: 'Fit';
-				               shortcut: $f command;
-				               action: [ 
-					               aGdsTracking structureMorph viewport viewFit ] ]
+
+	group addItem: [ :item | 
+		item
+			name: 'Clear markers';
+			action: [ aGdsTracking structureMorph clearMarker ] ].
+	group addItem: [ :item | 
+		item
+			name: 'Fit';
+			shortcut: $f command;
+			action: [ aGdsTracking structureMorph viewport viewFit ] ]
 ]
 
 { #category : #'menu building' }
