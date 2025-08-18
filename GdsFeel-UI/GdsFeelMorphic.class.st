@@ -116,12 +116,12 @@ GdsFeelMorphic class >> contentsForOpenGui [
 		  s cr.
 		  s nextPutAll: 'Open GUI'.
 		  s cr.
-		  self class environment at: #ComposablePresenter ifAbsent: [ 
+		  self class environment at: #ComposablePresenter ifPresent: [ 
 			  s nextPutAll: '[World menu][GdsFeel][Tree Browser (Spec 1)].'.
 			  s cr ].
 		  self class environment
-			  at: #SpComposablePresenter
-			  ifAbsent: [ 
+			  at: #SpPresenter
+			  ifPresent: [ 
 			  s nextPutAll: '[World menu][GdsFeel][Tree Browser (Spec 2)].' ].
 		  s cr ]
 ]
