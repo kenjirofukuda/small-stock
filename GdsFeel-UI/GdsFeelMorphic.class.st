@@ -11,7 +11,7 @@ Class {
 		'LocalizeMap',
 		'TypedMap'
 	],
-	#category : 'GdsFeel-UI-Morph'
+	#category : #'GdsFeel-UI-Morph'
 }
 
 { #category : #utilities }
