@@ -109,6 +109,23 @@ GdsFeelMorphic class >> colorRiseToolsGroup: aBoolean [
 	
 ]
 
+{ #category : #documentation }
+GdsFeelMorphic class >> contentsForOpenGui [
+
+	^ String streamContents: [ :s | 
+		  s cr.
+		  s nextPutAll: 'Open GUI'.
+		  s cr.
+		  self class environment at: #ComposablePresenter ifPresent: [ 
+			  s nextPutAll: '[World menu][GdsFeel][Tree Browser (Spec 1)].'.
+			  s cr ].
+		  self class environment
+			  at: #SpPresenter
+			  ifPresent: [ 
+			  s nextPutAll: '[World menu][GdsFeel][Tree Browser (Spec 2)].' ].
+		  s cr ]
+]
+
 { #category : #'as yet unclassified' }
 GdsFeelMorphic class >> controlCaptionFont [
 	| textStyle |
@@ -372,15 +389,8 @@ GdsFeelMorphic class >> readMeContents [
 
 { #category : #documentation }
 GdsFeelMorphic class >> readMeMaster [
-	^'
-	
-"
-Open GUI.
 
-[World menu][GdsFeel][Tree Browser]. 
-
-'
- 
+	^ self contentsForOpenGui
 ]
 
 { #category : #documentation }

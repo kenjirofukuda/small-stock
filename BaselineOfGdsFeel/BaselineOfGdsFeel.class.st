@@ -1,7 +1,7 @@
 Class {
 	#name : #BaselineOfGdsFeel,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfGdsFeel'
+	#category : #BaselineOfGdsFeel
 }
 
 { #category : #baselines }
@@ -12,6 +12,8 @@ BaselineOfGdsFeel >> baseline: spec [
 	self baselineMagritte: spec.
 	self baselineKFImaging: spec.
 	spec for: #common do: [ 
+		
+		spec postLoadDoIt: #fixMenubarBuilding.
 		spec
 			package: 'GdsFeel-Foundation'
 			with: [ spec requires: #( 'NeoJSON' 'NeoCSV' 'INIFile' ) ].
@@ -239,4 +241,17 @@ BaselineOfGdsFeel >> baselineMagritte: spec [
 				loads: #( Core  'Magritte-Morph' )
 		].
 	]
+]
+
+{ #category : #'post loading' }
+BaselineOfGdsFeel >> fixMenubarBuilding [
+
+	Transcript
+		cr;
+		show: 'fire Menubar rebuidding.'.
+	UIManager default defer: [ 
+		MenubarMorph reset.
+		Transcript
+			cr;
+			show: 'done Menubar rebuidding.' ]
 ]
