@@ -50,14 +50,15 @@ GdsFeelMorphic class >> chooseFullFileName: labelString extensions: exts [
 	| file dirPath |
 	dirPath := self lastVisitDirectory.
 	dirPath ifNotNil: [ 
-		dirPath asFileReference exists ifFalse: [ dirPath := nil ] ].
+		dirPath asFileReference exists 
+			ifFalse: [ 
+				dirPath := FileSystem workingDirectory ] ].
 	file := UIManager default
 		        chooseExistingFileReference: 'Choose GDS database file'
 		        extensions: exts
 		        path: dirPath.
 	file ifNil: [ ^ nil ].
-	self lastVisitDirectory:
-		file asFileReference parent fullName.
+	self lastVisitDirectory: file asFileReference parent fullName.
 	^ file
 ]
 
@@ -67,7 +68,9 @@ GdsFeelMorphic class >> chooseFullFileName: labelString patterns: patterns [
 	| file dirPath |
 	dirPath := self lastVisitDirectory.
 	dirPath ifNotNil: [ 
-		dirPath asFileReference exists ifFalse: [ dirPath := nil ] ].
+		dirPath asFileReference exists 
+			ifFalse: [ 
+				dirPath := FileSystem workingDirectory ] ].
 	file := UIManager default
 		        chooseFullFileNameMatching: patterns label: labelString path: dirPath.
 	file ifNil: [ ^ nil ].
@@ -286,8 +289,11 @@ GdsFeelMorphic class >> initialize [
 
 { #category : #accessing }
 GdsFeelMorphic class >> lastVisitDirectory [
-	^self typedMap stringFor: #lastVisitDirectory default: nil
-	
+
+	^ self typedMap
+		  stringFor: #lastVisitDirectory
+		  default:
+		  (Path workingDirectory / 'GdsFeel') asFileReference fullName
 ]
 
 { #category : #accessing }

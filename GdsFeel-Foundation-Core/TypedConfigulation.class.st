@@ -94,11 +94,12 @@ TypedConfigulation >> stringFor: aSymbol [
 
 { #category : #'as yet unclassified' }
 TypedConfigulation >> stringFor: aSymbol default: aValue [
+
 	| aVal |
-	stringMap ifNil: [stringMap := Dictionary new].
-	aVal := stringMap at: aSymbol ifAbsentPut: [aValue].
-	aVal ifNil: [^''].
-	^aVal asString.
+	stringMap ifNil: [ stringMap := Dictionary new ].
+	aVal := stringMap at: aSymbol ifAbsentPut: [ aValue ].
+	aVal ifNil: [ aVal := stringMap at: aSymbol put: aValue ].
+	^ aVal asString
 ]
 
 { #category : #'as yet unclassified' }
