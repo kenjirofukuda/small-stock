@@ -1,3 +1,9 @@
+"
+Instance Variables
+	category:		<String>
+	logStream:	<WriteStream>
+
+"
 Class {
 	#name : #GdsLog,
 	#superclass : #Object,
@@ -8,32 +14,35 @@ Class {
 	#category : #'GdsFeel-Model-StreamFormat'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 GdsLog >> beginLog [
+
 	logStream := WriteStream on: ''
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GdsLog >> category [
+
 	^ category
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GdsLog >> category: aCategory [
+
 	category := aCategory
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 GdsLog >> endLog [
+
 	logStream ifNil: [ ^ self ].
-	logStream position = 0
-		ifTrue: [ ^ self ].
-	(Workspace new contents: logStream contents)
-		openLabel: self category asString
+	logStream position = 0 ifTrue: [ ^ self ].
+	UIManager default edit: logStream contents label: self category asString.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 GdsLog >> println: anObject [
+
 	logStream cr.
 	logStream nextPutAll: anObject asString
 ]
