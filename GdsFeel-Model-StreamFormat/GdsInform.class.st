@@ -49,7 +49,7 @@ GdsInform class >> makeGDSreaderSample [
 { #category : #examples }
 GdsInform class >> makeGDSreaderSampleFromPath: aPath [
 	| reader inst |
-	reader := GdsStreamFormatReader instanceOfPath: aPath.
+	reader := GdsStreamFormatReader fromStreamFormatPath: aPath.
 	reader ifNil: [ ^ self ].
 	inst := GdsInform new reader: reader.
 	Cursor wait showWhile: [ inst run ]
@@ -69,12 +69,14 @@ GdsInform class >> reMakeGDSreaderSample [
 GdsInform class >> sampleStreamFormatFile [
 
 	| dir saveFile |
-	dir := (GdsFeel projectDirectory / 'GDSreader') ensureCreateDirectory.
+	dir := (GdsFeel projectDirectory / GDSreader_0_3_2 projectName) ensureCreateDirectory.
 	saveFile := dir / 'bghier.gds'.
-	saveFile isFile ifFalse: [ 
-		'https://github.com/makoto-fujiwara/GDSreader/raw/master/test.gds'
-			asUrl saveContentsToFile: saveFile ].
+	saveFile isFile 
+		ifFalse: [ 
+			GDSreader_0_3_2 sampleFileBinaryURL 
+				asUrl saveContentsToFile: saveFile ].
 	^ saveFile
+	
 ]
 
 { #category : #private }
