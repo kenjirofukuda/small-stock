@@ -304,7 +304,7 @@ GdsElement >> basicDistance: aPoint [
 					(disCon end).
 					(disCon cross)} min.
 					col add: distP ] ].
-	col ifEmpty: [ ^ aPoint dist: self xy ].
+	col ifEmpty: [ ^ aPoint distanceTo: self xy ].
 	^ col min
 ]
 
@@ -364,6 +364,16 @@ GdsElement >> directionsPacked [
 
 { #category : #'accessing-points' }
 GdsElement >> dist: aPoint [ 
+	self
+		deprecated: 'Use #distanceTo: instead.'
+		on: '9 February 2021'
+		in: #Pharo9
+		transformWith: '`@receiver dist: `@arg' -> '`@receiver distanceTo: `@arg'.
+	^ self distanceTo: aPoint
+]
+
+{ #category : #'accessing-points' }
+GdsElement >> distanceTo: aPoint [ 
 	^ self basicDistance: aPoint
 ]
 

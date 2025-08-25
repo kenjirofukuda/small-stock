@@ -1,11 +1,10 @@
 Class {
-	#name : 'GeometryUtilsTest',
-	#superclass : 'TestCase',
-	#category : 'GeometryUtils',
-	#package : 'GeometryUtils'
+	#name : #GeometryUtilsTest,
+	#superclass : #TestCase,
+	#category : 'GeometryUtils'
 }
 
-{ #category : 'tests' }
+{ #category : #tests }
 GeometryUtilsTest >> testMinusBounds [
 	"minusBounds allways negative rectangle"
 	self assert: GeometryUtils minusBounds origin > GeometryUtils minusBounds corner.

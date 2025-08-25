@@ -42,7 +42,18 @@ GdsAcPoint >> centerPoint: aPoint [
 
 { #category : #'as yet unclassified' }
 GdsAcPoint >> dist: aPoint [
-	^ self centerPoint dist: aPoint
+	self
+		deprecated: 'Use #distanceTo: instead.'
+		on: '9 February 2021'
+		in: #Pharo9
+		transformWith: '`@receiver dist: `@arg' -> '`@receiver distanceTo: `@arg'.
+	^ self distanceTo: aPoint
+]
+
+{ #category : #'as yet unclassified' }
+GdsAcPoint >> distanceTo: aPoint [
+
+	^ self centerPoint distanceTo: aPoint
 ]
 
 { #category : #initialize }

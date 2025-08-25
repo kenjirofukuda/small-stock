@@ -1,7 +1,7 @@
 Class {
 	#name : #GdsSelectTool,
 	#superclass : #GdsNewTool,
-	#category : 'GdsFeel-UI-Tools'
+	#category : #'GdsFeel-UI-Tools'
 }
 
 { #category : #'as yet unclassified' }
@@ -45,7 +45,7 @@ GdsSelectTool >> singleAction: anEvent [
 		findNearestElementByPoint: worldPoints last
 		elements: targetElements.
 	foundElement ifNil: [ ^ self inform: 'no element'].
-	pixelDistance := morph viewport pixelSize: (foundElement dist: worldPoints last).
+	pixelDistance := morph viewport pixelSize: (foundElement distanceTo: worldPoints last).
 	pixelDistance > 10 ifTrue: [ ^ self inform: 'no element+', pixelDistance asString ].
 	morph structure idSelection perform: actionSelector with: foundElement keyNumber.
 

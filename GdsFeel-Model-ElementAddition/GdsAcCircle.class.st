@@ -60,6 +60,16 @@ GdsAcCircle >> dataOutlinePointsStepAngle: stepAngle [
 
 { #category : #'as yet unclassified' }
 GdsAcCircle >> dist: aPoint [ 
+	self
+		deprecated: 'Use #distanceTo: instead.'
+		on: '9 February 2021'
+		in: #Pharo9
+		transformWith: '`@receiver dist: `@arg' -> '`@receiver distanceTo: `@arg'.
+	^ self distanceTo: aPoint
+]
+
+{ #category : #'as yet unclassified' }
+GdsAcCircle >> distanceTo: aPoint [ 
 	^ self basicDistance: aPoint
 ]
 
