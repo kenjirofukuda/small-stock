@@ -13,7 +13,7 @@ Class {
 		'break',
 		'result'
 	],
-	#category : #'GdsFeel-Model-StreamFormat'
+	#category : #'GdsFeel-StreamFormat'
 }
 
 { #category : #accessing }

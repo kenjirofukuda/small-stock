@@ -29,7 +29,7 @@ Class {
 		'stdout',
 		'library'
 	],
-	#category : #'GdsFeel-Model-StreamFormat'
+	#category : #'GdsFeel-StreamFormat'
 }
 
 { #category : #examples }

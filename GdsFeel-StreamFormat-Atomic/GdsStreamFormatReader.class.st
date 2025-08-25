@@ -18,42 +18,8 @@ Class {
 	#classVars : [
 		'TypeCodeMap'
 	],
-	#category : #'GdsFeel-Model-StreamFormat'
+	#category : #'GdsFeel-StreamFormat-Atomic'
 }
-
-{ #category : #'user interface' }
-GdsStreamFormatReader class >> chooseSampleFile [
-
-	"self chooseSampleFile"
-
-	| file |
-	file := GdsFeelMorphic
-		        chooseFullFileName: 'Choose sampleFile'
-		        extensions: #( 'sf' 'gds' 'gdsii' ).
-	file ifNil: [ ^ nil ].
-	^ file
-]
-
-{ #category : #example }
-GdsStreamFormatReader class >> example [
-
-	"self example"
-
-	| inst |
-	inst := self exampleInstance.
-	^ inst allRecords
-]
-
-{ #category : #example }
-GdsStreamFormatReader class >> exampleInstance [
-
-	"self exampleInstance"
-
-	| file |
-	file := self chooseSampleFile.
-	file ifNil: [ ^ nil ].
-	^ self fromStreamFormatPath: file
-]
 
 { #category : #'instance creation' }
 GdsStreamFormatReader class >> fromStreamFormatPath: aString [

@@ -11,11 +11,6 @@ Point >> asArray [
 ]
 
 { #category : #'*GdsFeel-Foundation' }
-Point >> asUserFromDBU: aDatabaseUnit [
-	^ (x asUserFromDBU: aDatabaseUnit) @ (y asUserFromDBU: aDatabaseUnit)
-]
-
-{ #category : #'*GdsFeel-Foundation' }
 Point >> fixNegativeZero [
 	^ self x fixNegativeZero @ self y fixNegativeZero
 ]

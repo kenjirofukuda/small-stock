@@ -1,5 +1,5 @@
 "
-A GdsStreamRecord is xxxxxxxxx.
+A GdsStreamRecord is inner class of GdsStreamFormatReader.
 
 Instance Variables
 	bytes:		<ByteArray>
@@ -24,7 +24,7 @@ Class {
 		'type',
 		'dataBytes'
 	],
-	#category : #'GdsFeel-Model-StreamFormat'
+	#category : #'GdsFeel-StreamFormat-Atomic'
 }
 
 { #category : #'data format' }

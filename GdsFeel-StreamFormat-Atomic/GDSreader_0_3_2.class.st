@@ -11,7 +11,7 @@ of github repository
 Class {
 	#name : #'GDSreader_0_3_2',
 	#superclass : #Object,
-	#category : #'GdsFeel-Model-StreamFormat'
+	#category : #'GdsFeel-StreamFormat-Atomic'
 }
 
 { #category : #'internet resource' }

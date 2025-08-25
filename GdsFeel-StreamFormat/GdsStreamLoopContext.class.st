@@ -17,7 +17,7 @@ Class {
 		'typeOrder',
 		'inform'
 	],
-	#category : #'GdsFeel-Model-StreamFormat'
+	#category : #'GdsFeel-StreamFormat'
 }
 
 { #category : #validations }

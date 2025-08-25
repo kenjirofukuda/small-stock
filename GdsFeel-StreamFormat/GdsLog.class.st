@@ -11,7 +11,7 @@ Class {
 		'logStream',
 		'category'
 	],
-	#category : #'GdsFeel-Model-StreamFormat'
+	#category : #'GdsFeel-StreamFormat'
 }
 
 { #category : #logging }

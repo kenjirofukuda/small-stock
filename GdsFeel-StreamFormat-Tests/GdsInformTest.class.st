@@ -1,7 +1,7 @@
 Class {
 	#name : #GdsInformTest,
 	#superclass : #TestCase,
-	#category : #'GdsFeel-Model-StreamFormat-Tests'
+	#category : #'GdsFeel-StreamFormat-Tests'
 }
 
 { #category : #tests }
