@@ -13,7 +13,9 @@ BaselineOfGdsFeel >> baseline: spec [
 	self baselineKFImaging: spec.
 	spec for: #common do: [ 
 		
-		spec postLoadDoIt: #fixMenubarBuilding.
+		spec for: #menubar do: [ 
+			spec postLoadDoIt: #fixMenubarBuilding ].
+		
 		spec
 			package: 'GdsFeel-Foundation'
 			with: [ spec requires: #( 'NeoJSON' 'NeoCSV' 'INIFile' ) ].
@@ -241,6 +243,16 @@ BaselineOfGdsFeel >> baselineMagritte: spec [
 				loads: #( Core  'Magritte-Morph' )
 		].
 	]
+]
+
+{ #category : #accessing }
+BaselineOfGdsFeel >> customProjectAttributes [
+	"Edit to return a collection of any custom attributes e.g. for conditional loading: Array with: #'Condition1' with: #'Condition2.
+	For more information see: http://code.google.com/p/metacello/wiki/CustomProjectAttributes "
+
+	(Smalltalk globals includesKey: #MenubarMorph)
+		ifTrue: [ ^ #(menubar) ]
+		ifFalse: [ ^ #() ]
 ]
 
 { #category : #'post loading' }
