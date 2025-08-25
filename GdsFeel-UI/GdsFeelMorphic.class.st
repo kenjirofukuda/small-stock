@@ -371,9 +371,7 @@ GdsFeelMorphic class >> locationCaptionFont [
 GdsFeelMorphic class >> openReadMe [
 	"self openReadMe."
 
-	self environment at: #Workspace ifPresent: [ :clazz |
-		(clazz new contents: self readMeContents; yourself) openLabel:
-			self readMeTitle ]
+	UIManager default edit: self readMeContents label: self readMeTitle
 ]
 
 { #category : #localize }
