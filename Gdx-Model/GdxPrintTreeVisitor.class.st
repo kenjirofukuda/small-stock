@@ -2,7 +2,6 @@ Class {
 	#name : #GdxPrintTreeVisitor,
 	#superclass : #GdxVisitor,
 	#instVars : [
-		'depth',
 		'debugStream',
 		'nameBag'
 	],
