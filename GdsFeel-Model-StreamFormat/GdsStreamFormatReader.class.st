@@ -46,7 +46,16 @@ GdsStreamFormatReader class >> exampleInstance [
 	| file |
 	file := self chooseSampleFile.
 	file ifNil: [ ^ nil ].
-	^ self instanceOfPath: file
+	^ self fromStreamFormatPath: file
+]
+
+{ #category : #'instance creation' }
+GdsStreamFormatReader class >> fromStreamFormatPath: aString [
+	"self exampleInstance"
+
+	| inst |
+	inst := self new stream: (File openForReadFileNamed: aString fullName).
+	^ inst
 ]
 
 { #category : #initialization }
@@ -54,15 +63,6 @@ GdsStreamFormatReader class >> initialize [
 	"self initialize"
 	TypeCodeMap := self lookupTypeCodeMap.
 	
-]
-
-{ #category : #private }
-GdsStreamFormatReader class >> instanceOfPath: aString [
-	"self exampleInstance"
-
-	| inst |
-	inst := self new stream: (File openForReadFileNamed: aString fullName).
-	^ inst
 ]
 
 { #category : #private }
@@ -75,7 +75,7 @@ GdsStreamFormatReader class >> lookupTypeCodeMap [
 
 { #category : #accessing }
 GdsStreamFormatReader class >> spec [
-^{
+	^ {
 #(16r00 HEADER) . 
 #(16r01 BGNLIB) . 
 #(16r02 LIBNAME) . 
@@ -137,15 +137,16 @@ GdsStreamFormatReader class >> spec [
 #(16r3A SRFNAME) . 
 #(16r3B LIBSECUR)  
 }
+
 ]
 
 { #category : #initialization }
 GdsStreamFormatReader class >> typeForCode: aByte [
-	^TypeCodeMap at: aByte ifAbsent: [#UNKOWN]
-	
+
+	^ TypeCodeMap at: aByte ifAbsent: [ #UNKOWN ]
 ]
 
-{ #category : #api }
+{ #category : #accessing }
 GdsStreamFormatReader >> allRecords [
 	^ Array
 		streamContents: [ :s | self allRecordsDo: [ :each | s nextPut: each ] ]
@@ -165,10 +166,10 @@ GdsStreamFormatReader >> nextByteArray [
 	| restSize bytes recordSize |
 	recordSize := self recordSize.
 	recordSize < 0
-		ifTrue: [ ^ nil ].
+		ifTrue: [ ^ #() ].
 	restSize := recordSize - 2.
-	recordSize <= 0
-		ifTrue: [ ^ nil ].
+	restSize <= 0
+		ifTrue: [ ^ #() ].
 	bytes := (stream next: restSize) asByteArray.
 	^ bytes
 ]
@@ -179,12 +180,11 @@ GdsStreamFormatReader >> nextRecord [
 
 	| bytes |
 	bytes := self nextByteArray.
-	bytes ifNil: [ ^ nil ].
 	bytes ifEmpty: [ ^ nil ].
 	^ GdsStreamRecord new bytes: bytes
 ]
 
-{ #category : #api }
+{ #category : #accessing }
 GdsStreamFormatReader >> recordSize [
 	| buff |
 	stream atEnd
@@ -193,7 +193,7 @@ GdsStreamFormatReader >> recordSize [
 	^ buff unsignedShortAt: 1 bigEndian: true
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 GdsStreamFormatReader >> reset [
 	"stream reset."
 	self assert: [ stream position = 0 ]
