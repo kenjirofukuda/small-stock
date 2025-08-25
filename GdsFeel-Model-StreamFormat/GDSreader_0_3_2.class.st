@@ -16,6 +16,7 @@ Class {
 
 { #category : #'internet resource' }
 GDSreader_0_3_2 class >> binaryPackageURL [
+
 	^ 'https://ftp.netbsd.org/pub/pkgsrc/distfiles/GDSreader.0.3.2.tar.gz'
 ]
 
@@ -27,6 +28,7 @@ GDSreader_0_3_2 class >> fileSize [
 
 { #category : #'internet resource' }
 GDSreader_0_3_2 class >> githubRepositoryURL [
+
 	^ 'https://github.com/makoto-fujiwara/GDSreader'
 ]
 
@@ -38,6 +40,7 @@ GDSreader_0_3_2 class >> md5sum [
 
 { #category : #accessing }
 GDSreader_0_3_2 class >> projectName [
+
 	^ 'GDSreader.0.3.2'
 ]
 
