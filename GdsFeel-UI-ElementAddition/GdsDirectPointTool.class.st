@@ -4,7 +4,7 @@ Class {
 	#category : #'GdsFeel-UI-ElementAddition'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 GdsDirectPointTool >> eventAction [
 	| ce |
 	ce := self snapedWorldPoint2.
