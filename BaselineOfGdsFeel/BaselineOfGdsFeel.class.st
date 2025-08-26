@@ -8,6 +8,8 @@ Class {
 BaselineOfGdsFeel >> baseline: spec [
 
 	<baseline>
+	self baselineFileMan: spec.
+	self baselineStreamFormat: spec.
 	self baselineGuest: spec.
 	self baselineMagritte: spec.
 	self baselineKFImaging: spec.
@@ -129,6 +131,34 @@ BaselineOfGdsFeel >> baseline: spec [
 ]
 
 { #category : #baselines }
+BaselineOfGdsFeel >> baselineFileMan: spec [
+	"https://github.com/magritte-metamodel/magritte/releases"
+	spec for: #common do: [
+		spec baseline: 'FileMan' with: [
+			spec
+				repository: 'github://mumez/FileMan';
+				loads: #(Core)
+		].
+	].
+
+	spec for: #'pharo6.x', #'pharo7.x', #'pharo8.x' do: [
+		spec baseline: 'FileMan' with: [
+			spec
+				repository: 'github://kenjirofukuda/FileMan:StillFileStream';
+				loads: #(Core)
+		].
+	].
+
+	spec for: #'pharo9.x', #'pharo10.x', #'pharo11.x', #'pharo12.x', #'pharo13.x', #'pharo14.x' do: [
+		spec baseline: 'FileMan' with: [
+			spec
+				repository: 'github://kenjirofukuda/FileMan:NoFileStream';
+				loads: #(Core)
+		].
+	].
+]
+
+{ #category : #baselines }
 BaselineOfGdsFeel >> baselineFixZip: spec [
 
 	| basicDepends basicGroup |
@@ -245,14 +275,37 @@ BaselineOfGdsFeel >> baselineMagritte: spec [
 	]
 ]
 
+{ #category : #baselines }
+BaselineOfGdsFeel >> baselineStreamFormat: spec [
+
+	spec for: #common do: [ 
+		spec
+			package: 'GdsFeel-StreamFormat'
+			with: [ spec requires: #( 'FileMan' ) ].
+
+		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
+		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo'.
+		spec package: 'GdsFeel-StreamFormat-Atomic-UI-Pharo'.
+		spec package: 'GdsFeel-StreamFormat'.
+
+		spec package: 'GdsFeel-StreamFormat-Atomic-Tests'.
+		spec package: 'GdsFeel-StreamFormat-Tests' ]
+]
+
 { #category : #accessing }
 BaselineOfGdsFeel >> customProjectAttributes [
 	"Edit to return a collection of any custom attributes e.g. for conditional loading: Array with: #'Condition1' with: #'Condition2.
 	For more information see: http://code.google.com/p/metacello/wiki/CustomProjectAttributes "
 
+	| attributes |
+	attributes := OrderedCollection new.
 	(Smalltalk globals includesKey: #MenubarMorph)
-		ifTrue: [ ^ #(menubar) ]
-		ifFalse: [ ^ #() ]
+		ifTrue: [ attributes add: #menubar ].
+	(Smalltalk globals includesKey: #FileStream)
+		ifTrue: [ attributes add: #fileStream ].
+	^ attributes asArray.
+	
+
 ]
 
 { #category : #'post loading' }
