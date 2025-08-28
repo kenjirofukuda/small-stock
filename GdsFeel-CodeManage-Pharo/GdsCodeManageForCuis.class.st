@@ -1,3 +1,6 @@
+"
+code manage for Cuis
+"
 Class {
 	#name : #GdsCodeManageForCuis,
 	#superclass : #GdsCodeManage,
