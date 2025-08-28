@@ -13,7 +13,8 @@ Class {
 	#name : #GdsStreamFormatReader,
 	#superclass : #Object,
 	#instVars : [
-		'stream'
+		'stream',
+		'streamFormatPath'
 	],
 	#classVars : [
 		'TypeCodeMap'
@@ -112,7 +113,6 @@ GdsStreamFormatReader class >> typeForCode: aByte [
 
 { #category : #accessing }
 GdsStreamFormatReader >> allRecords [
-
 	^ Array streamContents: [ :s | 
 		  self allRecordsDo: [ :each | s nextPut: each ] ]
 ]
@@ -124,8 +124,23 @@ GdsStreamFormatReader >> allRecordsDo: aBlock [
 	self reset.
 	record := nil.
 	[ 
+	[ 
 	record := self nextRecord.
-	record isNil ] whileFalse: [ aBlock value: record ]
+	record isNil ] whileFalse: [ aBlock value: record ] ] ensure: [ 
+		self close ]
+]
+
+{ #category : #api }
+GdsStreamFormatReader >> close [
+
+	stream ifNotNil: [ stream closed ifFalse: [ stream close ] ].
+	stream := nil
+]
+
+{ #category : #'initialization - private' }
+GdsStreamFormatReader >> ensureReadStream [
+	^ stream ifNil: [ stream := self openForReadFileNamed: self streamFormatPath ].
+	
 ]
 
 { #category : #api }
@@ -155,6 +170,7 @@ GdsStreamFormatReader >> nextRecord [
 GdsStreamFormatReader >> recordSize [
 
 	| buff |
+	self ensureReadStream.
 	stream atEnd ifTrue: [ ^ -1 ].
 	buff := (stream next: 2) asByteArray.
 	^ buff unsignedShortAt: 1 bigEndian: true
@@ -164,14 +180,25 @@ GdsStreamFormatReader >> recordSize [
 GdsStreamFormatReader >> reset [
 
 	"stream reset."
-
+	stream ifNotNil: [ stream closed ifFalse: [ stream close ] ].
+	stream := self ensureReadStream.
 	self assert: [ stream position = 0 ]
+]
+
+{ #category : #'initialization - private' }
+GdsStreamFormatReader >> setStreamFormatPath: aFullPathToGdsII [
+	streamFormatPath := aFullPathToGdsII
 ]
 
 { #category : #accessing }
 GdsStreamFormatReader >> stream: aStream [
 
 	stream := aStream
+]
+
+{ #category : #'initialization - private' }
+GdsStreamFormatReader >> streamFormatPath [
+	^ streamFormatPath
 ]
 
 { #category : #api }

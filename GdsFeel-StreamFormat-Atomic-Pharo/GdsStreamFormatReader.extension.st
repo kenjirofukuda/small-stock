@@ -3,10 +3,13 @@ Extension { #name : #GdsStreamFormatReader }
 { #category : #'*GdsFeel-StreamFormat-Atomic-Pharo' }
 GdsStreamFormatReader class >> fromStreamFormatPath: aString [
 
-	"self exampleInstance"
+	^ self new setStreamFormatPath: aString
+]
 
-	| inst |
-	inst := self new stream:
-		        (File openForReadFileNamed: aString).
-	^ inst
+{ #category : #'*GdsFeel-StreamFormat-Atomic-Pharo' }
+GdsStreamFormatReader >> openForReadFileNamed: aString [
+
+	^ (File openForReadFileNamed: aString)
+
+	
 ]

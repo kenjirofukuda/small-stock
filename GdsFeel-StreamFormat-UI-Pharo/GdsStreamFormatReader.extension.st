@@ -1,27 +1,16 @@
 Extension { #name : #GdsStreamFormatReader }
 
 { #category : #'*GdsFeel-StreamFormat-UI-Pharo' }
-GdsStreamFormatReader class >> chooseSampleFile [
-
-	"self chooseSampleFile"
-
-	| file |
-	file := GdsFeelMorphic
-		        chooseFullFileName: 'Choose GDS File'
-		        patterns: #( '*.sf' '*.gds' '*.gdsii'  ).
-	file ifNil: [ ^ '' ].
-	^ file
-]
-
-{ #category : #'*GdsFeel-StreamFormat-UI-Pharo' }
 GdsStreamFormatReader class >> chooseSampleFileName [
 
 	"self chooseSampleFileName"
 
 	| fileName |
-	fileName := GdsFeelMorphic
-		        chooseFullFileName: 'Choose GDS File'
-		        patterns: #( '*.sf' '*.gds' '*.gdsii'  ).
+	fileName := UIManager default
+		        chooseFullFileNameMatching: #( '*.sf' '*.gds' '*.gdsii' )
+		        label: 'Choose GDS File'
+		        path: FileSystem workingDirectory.
+	fileName ifNil: [ ^ '' ].
 	^ fileName
 ]
 
@@ -30,9 +19,9 @@ GdsStreamFormatReader class >> exampleAllRecordsFormUser [
 
 	"self exampleAllRecordsFormUser"
 
-	| inst |
-	inst := self exampleInstanceFromUser.
-	^ inst allRecords
+	self exampleInstanceFromUser 
+		ifNotNil: [ :inst | ^ inst allRecords ].
+	^ #()
 ]
 
 { #category : #'*GdsFeel-StreamFormat-UI-Pharo' }
