@@ -48,8 +48,8 @@ GDSreader_0_3_2Test >> testMD5sum [
 	
 	self assert: fileEntry exists.
 	
-	hash := MD5 hashStream: fileEntry readStream.
-	self assert: hash hex equals: GDSreader_0_3_2 md5sum.
+	hash := (MD5 hashStream: fileEntry readStream) hex.
+	self assert: hash equals: GDSreader_0_3_2 md5sum.
 	
 ]
 
