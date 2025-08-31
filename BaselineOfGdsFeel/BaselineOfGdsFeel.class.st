@@ -279,14 +279,21 @@ BaselineOfGdsFeel >> baselineMagritte: spec [
 BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 
 	spec for: #common do: [ 
-		spec
-			package: 'GdsFeel-StreamFormat-Atomic'
-			with: [ spec requires: #( 'FileMan' ) ].
-
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-UI-Pharo']
+		spec package: 'GdsFeel-StreamFormat-Atomic-UI-Pharo'.
+		spec
+			package: 'GdsFeel-StreamFormat-Atomic'
+			with: [ spec requires: #( 
+				'FileMan'
+				'GdsFeel-StreamFormat-Atomic-Any'
+				'GdsFeel-StreamFormat-Atomic-Any-Tests'
+				'GdsFeel-StreamFormat-Atomic-Pharo'
+ 				'GdsFeel-StreamFormat-Atomic-UI-Pharo'
+			) ].
+
+]
 ]
 
 { #category : #accessing }
@@ -296,7 +303,8 @@ BaselineOfGdsFeel >> customProjectAttributes [
 
 	| attributes |
 	attributes := OrderedCollection new.
-	(Smalltalk globals includesKey: #MenubarMorph)
+	(Smalltalk isHeadless not 
+			and: [Smalltalk globals includesKey: #MenubarMorph])
 		ifTrue: [ attributes add: #menubar ].
 	(Smalltalk globals includesKey: #FileStream)
 		ifTrue: [ attributes add: #fileStream ].
