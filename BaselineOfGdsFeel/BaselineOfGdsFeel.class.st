@@ -137,7 +137,7 @@ BaselineOfGdsFeel >> baselineFileMan: spec [
 		spec baseline: 'FileMan' with: [
 			spec
 				repository: 'github://kenjirofukuda/FileMan:NoFileStream';
-				loads: #(Core)
+				loads: #(Core Adapter)
 		].
 	].
 
@@ -145,7 +145,7 @@ BaselineOfGdsFeel >> baselineFileMan: spec [
 		spec baseline: 'FileMan' with: [
 			spec
 				repository: 'github://kenjirofukuda/FileMan:StillFileStream';
-				loads: #(Core)
+				loads: #(Core Adapter)
 		].
 	].
 
@@ -153,7 +153,7 @@ BaselineOfGdsFeel >> baselineFileMan: spec [
 		spec baseline: 'FileMan' with: [
 			spec
 				repository: 'github://kenjirofukuda/FileMan:NoFileStream';
-				loads: #(Core)
+				loads: #(Core Adapter)
 		].
 	].
 ]
