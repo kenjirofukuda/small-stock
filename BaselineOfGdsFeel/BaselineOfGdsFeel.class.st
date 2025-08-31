@@ -133,14 +133,6 @@ BaselineOfGdsFeel >> baseline: spec [
 { #category : #baselines }
 BaselineOfGdsFeel >> baselineFileMan: spec [
 	"https://github.com/magritte-metamodel/magritte/releases"
-	spec for: #common do: [
-		spec baseline: 'FileMan' with: [
-			spec
-				repository: 'github://kenjirofukuda/FileMan:NoFileStream';
-				loads: #(Core Adapter)
-		].
-	].
-
 	spec for: #'pharo6.x', #'pharo7.x', #'pharo8.x' do: [
 		spec baseline: 'FileMan' with: [
 			spec
