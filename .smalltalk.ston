@@ -1,0 +1,16 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'GdsFeel',
+      #directory : '',
+      #load : [ 'GdsFeel-StreamFormat-Atomic-Any-Tests' ],
+      #onWarningLog : true,
+      #platforms : [ #pharo ]
+    }
+  ],
+  #testing : {
+    #include : {
+      #classes : [ #GDSreader_0_3_2Test, #GdsStreamFormatReaderTest  ]
+    }
+  }
+}
