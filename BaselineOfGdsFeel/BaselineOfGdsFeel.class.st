@@ -135,10 +135,7 @@ BaselineOfGdsFeel >> baselineFileMan: spec [
 	"https://github.com/magritte-metamodel/magritte/releases"
 	spec for: #common do: [
 		spec baseline: 'FileMan' with: [
-			spec
-				repository: 'github://kenjirofukuda/FileMan/repository';
-				loads: #(Core Adapter)
-		].
+		]		
 	].
 
 
