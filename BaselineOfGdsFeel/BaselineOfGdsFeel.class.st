@@ -282,7 +282,6 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-UI-Pharo'.
 		spec
 			package: 'GdsFeel-StreamFormat-Atomic'
 			with: [ spec requires: #( 
@@ -290,7 +289,6 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 				'GdsFeel-StreamFormat-Atomic-Any'
 				'GdsFeel-StreamFormat-Atomic-Any-Tests'
 				'GdsFeel-StreamFormat-Atomic-Pharo'
- 				'GdsFeel-StreamFormat-Atomic-UI-Pharo'
 			) ].
 
 ]
