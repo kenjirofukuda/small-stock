@@ -136,7 +136,7 @@ BaselineOfGdsFeel >> baselineFileMan: spec [
 	spec for: #common do: [
 		spec baseline: 'FileMan' with: [
 			spec
-				repository: 'github://mumez/FileMan';
+				repository: 'github://kenjirofukuda/FileMan:NoFileStream';
 				loads: #(Core)
 		].
 	].
