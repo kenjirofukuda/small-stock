@@ -6,7 +6,7 @@ GDSreader_0_3_2 class >> directoryEntry [
 	"self directoryEntry"
 
 	^ ('./' asDirectoryEntry / 'GdsFeel' / self projectName)
-		  fullPrintString asDirectoryEntry ensureCreateDirectory
+		  fullPrintString asDirectoryEntry assureExistence.
 ]
 
 { #category : #'*GdsFeel-StreamFormat-Atomic-FileMan' }
