@@ -284,10 +284,9 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 			with: [ spec requires: #( 'FileMan' ) ].
 
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
+		spec package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-UI-Pharo'.
-
-		spec package: 'GdsFeel-StreamFormat-Atomic-Tests'. ]
+		spec package: 'GdsFeel-StreamFormat-Atomic-UI-Pharo']
 ]
 
 { #category : #accessing }
