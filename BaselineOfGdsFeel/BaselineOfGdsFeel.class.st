@@ -9,7 +9,7 @@ BaselineOfGdsFeel >> baseline: spec [
 
 	<baseline>
 	self baselineFileMan: spec.
-	self baselineStreamFormat: spec.
+	self baselineStreamFormatAtomic: spec.
 	self baselineGuest: spec.
 	self baselineMagritte: spec.
 	self baselineKFImaging: spec.
@@ -276,20 +276,18 @@ BaselineOfGdsFeel >> baselineMagritte: spec [
 ]
 
 { #category : #baselines }
-BaselineOfGdsFeel >> baselineStreamFormat: spec [
+BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 
 	spec for: #common do: [ 
 		spec
-			package: 'GdsFeel-StreamFormat'
+			package: 'GdsFeel-StreamFormat-Atomic'
 			with: [ spec requires: #( 'FileMan' ) ].
 
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-UI-Pharo'.
-		spec package: 'GdsFeel-StreamFormat'.
 
-		spec package: 'GdsFeel-StreamFormat-Atomic-Tests'.
-		spec package: 'GdsFeel-StreamFormat-Tests' ]
+		spec package: 'GdsFeel-StreamFormat-Atomic-Tests'. ]
 ]
 
 { #category : #accessing }
