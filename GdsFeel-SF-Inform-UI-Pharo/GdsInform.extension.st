@@ -25,13 +25,19 @@ GdsInform class >> makeGDSreaderSampleFromPath: aPath [
 	reader ifNil: [ ^ self ].
 	inform := GdsInform new.	
 	inform reader: reader.
-	inform libraryClass: GdsLibrary.
-	inform structureClass: GdsStructure.
-	inform elementClass: GdsElement.
-	
+	false 
+		ifTrue: [ 
+			inform libraryClass: GdsLibrary.
+			inform structureClass: GdsStructure.
+			inform elementClass: GdsElement ]
+		ifFalse: [ 
+			inform libraryClass: GdoLibrary.
+			inform structureClass: GdoStructure.
+			inform elementClass: GdoElement ].
 	Cursor wait showWhile: [ 
 		inform run.
-		inform saveLibrary ]
+		inform inspect.
+		false ifTrue: [inform saveLibrary] ]
 ]
 
 { #category : #'*GdsFeel-SF-Inform-UI-Pharo' }

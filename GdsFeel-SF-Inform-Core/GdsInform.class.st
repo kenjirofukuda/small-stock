@@ -110,6 +110,8 @@ GdsInform >> readAREF: aGdsStructure [
 	clazz := self elementClassForType: #aref.
 	clazz ifNil: [ ^ { false. nil } ].
 	element := clazz basicNew initialize.
+	clazz == elementClass
+		ifTrue: [ element type: #aref ]. 
 	loopContext := GdsStreamLoopContext new.
 	loopContext setInform: self.
 	loopContext structure: aGdsStructure.
@@ -130,6 +132,8 @@ GdsInform >> readBOUNDARY: aGdsStructure [
 	clazz := self elementClassForType: #boundary.
 	clazz ifNil: [ ^ { false. nil } ].
 	element := clazz basicNew initialize.
+	clazz == elementClass
+		ifTrue: [ element type: #boundary ]. 
 	loopContext := GdsStreamLoopContext new.
 	loopContext setInform: self.
 	loopContext structure: aGdsStructure.
@@ -186,6 +190,8 @@ GdsInform >> readPATH: aGdsStructure [
 	clazz := self elementClassForType: #path.
 	clazz ifNil: [ ^ { false. nil } ].
 	element := clazz basicNew initialize.
+	clazz == elementClass
+		ifTrue: [ element type: #path ]. 	
 	loopContext := GdsStreamLoopContext new.
 	loopContext setInform: self.
 	loopContext structure: aGdsStructure.
@@ -234,6 +240,8 @@ GdsInform >> readSREF: aGdsStructure [
 	clazz := self elementClassForType: #sref.
 	clazz ifNil: [ ^ { false. nil } ].
 	element := clazz basicNew initialize.
+	clazz == elementClass
+		ifTrue: [ element type: #sref ]. 	
 	loopContext := GdsStreamLoopContext new.
 	loopContext setInform: self.
 	loopContext structure: aGdsStructure.
