@@ -20,6 +20,12 @@ GdsCodeManage class >> default [
 	^ Default ifNil: [ Default := self new ]
 ]
 
+{ #category : #examples }
+GdsCodeManage class >> fileOutTargets [
+	<example>
+	self default fileOutTargets
+]
+
 { #category : #'see class side' }
 GdsCodeManage class >> for: aClass [
 	^ self default for: aClass
@@ -52,7 +58,6 @@ GdsCodeManage >> canLegacyPrinter [
 
 { #category : #testing }
 GdsCodeManage >> fileOutTargets [
-	<example>
 	"self default fileOutTargets"
 
 	self legacyPrinterActivateDuring: [ 
