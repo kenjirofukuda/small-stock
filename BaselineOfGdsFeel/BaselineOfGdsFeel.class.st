@@ -298,7 +298,25 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 				'GdsFeel-StreamFormat-Atomic-Pharo-Tests'
 			) ].
 		spec group: 'Atomic' with: #('GdsFeel-StreamFormat-Atomic-Any-Tests').
+	].
+
+	spec for: #squeak do: [ 
+		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
+		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak'.
+		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak-Tests'.
+		spec package: 'GdsFeel-StreamFormat-Atomic-FileMan'.
+		spec
+			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
+			with: [ spec requires: #( 
+				'FileMan'
+				'GdsFeel-StreamFormat-Atomic-Any'
+				'GdsFeel-StreamFormat-Atomic-Squeak'
+				'GdsFeel-StreamFormat-Atomic-FileMan'
+				'GdsFeel-StreamFormat-Atomic-Squeak-Tests'
+			) ].
+		spec group: 'Atomic' with: #('GdsFeel-StreamFormat-Atomic-Any-Tests').
 	]
+
 ]
 
 { #category : #accessing }

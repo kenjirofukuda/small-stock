@@ -15,5 +15,5 @@ GdsInformTest >> testSampleStreamFormatFile [
 	self assert: file parent basename equals: GDSreader_0_3_2 projectName.
 	self
 		assert: (MD5 hashStream: file binaryReadStream) hex
-		equals: GDSreader_0_3_2 testGdsMD5sum
+		equals: GDSreader_0_3_2 md5sum
 ]
