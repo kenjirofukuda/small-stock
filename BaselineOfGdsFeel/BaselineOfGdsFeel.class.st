@@ -283,9 +283,14 @@ BaselineOfGdsFeel >> baselineMagritte: spec [
 { #category : #baselines }
 BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 
+	spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
+	spec package: 'GdsFeel-StreamFormat-Atomic-FileMan'.
+	spec package: 'GdsFeel-StreamFormat-Atomic-Squeak'.
+	spec package: 'GdsFeel-StreamFormat-Atomic-Squeak-Tests'.
+	spec package: 'GdsFeel-StreamFormat-Atomic-pharo'.
+	spec package: 'GdsFeel-StreamFormat-Atomic-pharo-Tests'.
+	
 	spec for: #common do: [ 
-		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-FileMan'.
 		spec
 			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
 			with: [ spec requires: #( 
@@ -297,8 +302,6 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 	].
 
 	spec for: #squeak do: [ 
-		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak-Tests'.
 		spec
 			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
 			with: [ spec requires: #( 
@@ -309,8 +312,6 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 	].
 
 	spec for: #pharo do: [ 
-		spec package: 'GdsFeel-StreamFormat-Atomic-pharo'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-pharo-Tests'.
 		spec
 			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
 			with: [ spec requires: #( 
