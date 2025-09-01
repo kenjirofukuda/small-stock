@@ -102,6 +102,10 @@ BaselineOfGdsFeel >> baseline: spec [
 			with: #( 'GdsFeel-CLI-Console' ).
 		spec group: 'UI' with: #( 'GdsFeel-UI' 'GdsFeel-UI-Athens' ).
 		spec group: 'default' with: #( 'Model' 'UI' ) ].
+	
+	spec for: #squeak do: [
+		spec group: 'default' with: #( 'Atomic' ) ].
+	
 	self baselineFixZip: spec.
 
   spec for: #( #'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x' ) do: [
@@ -281,19 +285,40 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 
 	spec for: #common do: [ 
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo-Tests'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-FileMan'.
 		spec
 			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
 			with: [ spec requires: #( 
 				'FileMan'
 				'GdsFeel-StreamFormat-Atomic-Any'
-				'GdsFeel-StreamFormat-Atomic-Pharo'
 				'GdsFeel-StreamFormat-Atomic-FileMan'
-				'GdsFeel-StreamFormat-Atomic-Pharo-Tests'
 			) ].
-]
+		spec group: 'Atomic' with: #('GdsFeel-StreamFormat-Atomic-Any-Tests').
+	].
+
+	spec for: #squeak do: [ 
+		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak'.
+		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak-Tests'.
+		spec
+			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
+			with: [ spec requires: #( 
+				'FileMan'
+				'GdsFeel-StreamFormat-Atomic-Squeak'
+				'GdsFeel-StreamFormat-Atomic-Squeak-Tests'
+			) ].
+	].
+
+	spec for: #pharo do: [ 
+		spec package: 'GdsFeel-StreamFormat-Atomic-pharo'.
+		spec package: 'GdsFeel-StreamFormat-Atomic-pharo-Tests'.
+		spec
+			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
+			with: [ spec requires: #( 
+				'FileMan'
+				'GdsFeel-StreamFormat-Atomic-pharo'
+				'GdsFeel-StreamFormat-Atomic-pharo-Tests'
+			) ].
+	].
 ]
 
 { #category : #accessing }
