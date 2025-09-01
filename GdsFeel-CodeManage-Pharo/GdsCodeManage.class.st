@@ -44,15 +44,15 @@ GdsCodeManage class >> workspace [
 '.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 GdsCodeManage >> canLegacyPrinter [
 	^ beLegacyPrinter
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 GdsCodeManage >> fileOutTargets [
-
+	<example>
 	"self default fileOutTargets"
 
 	self legacyPrinterActivateDuring: [ 
@@ -72,14 +72,14 @@ GdsCodeManage >> initialize [
 	beLegacyPrinter := false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 GdsCodeManage >> legacyPrinterActivateDuring: aBlock [
 
 	beLegacyPrinter := true.
 	[ aBlock value ] ensure: [ beLegacyPrinter := false ]
 ]
 
-{ #category : #'see class side' }
+{ #category : #initialization }
 GdsCodeManage >> printer: aClassDefinitionPrinter [
 
 	^ beLegacyPrinter
@@ -91,7 +91,7 @@ GdsCodeManage >> printer: aClassDefinitionPrinter [
 GdsCodeManage >> seeClassSide [
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 GdsCodeManage >> targetPackageNames [
 	"GdsCodeManage default targetPackageNames"
 	| col |

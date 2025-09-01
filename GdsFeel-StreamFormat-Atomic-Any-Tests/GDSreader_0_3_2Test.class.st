@@ -41,19 +41,6 @@ GDSreader_0_3_2Test >> testFileSize [
 ]
 
 { #category : #'class tests' }
-GDSreader_0_3_2Test >> testMD5sum [
-
-	| fileEntry hash |
-	fileEntry := GDSreader_0_3_2 ensureCreateTestGdsFile.
-	
-	self assert: fileEntry exists.
-	
-	hash := (MD5 hashStream: fileEntry readStream) hex.
-	self assert: hash equals: GDSreader_0_3_2 md5sum.
-	
-]
-
-{ #category : #'class tests' }
 GDSreader_0_3_2Test >> testNumberOfRecords [
 
 	self inform: 'Leave it to GdsStreamFormatReaderTest>>testTestAllRecords'
