@@ -291,7 +291,7 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 				'GdsFeel-StreamFormat-Atomic-Any'
 				'GdsFeel-StreamFormat-Atomic-Pharo'
 				'GdsFeel-StreamFormat-Atomic-FileMan'
-				'GdsFeel-StreamFormat-Atomic-Pharo-Tests'.
+				'GdsFeel-StreamFormat-Atomic-Pharo-Tests'
 			) ].
 ]
 ]

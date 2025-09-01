@@ -22,6 +22,12 @@ Class {
 	#category : #'GdsFeel-StreamFormat-Atomic-Any'
 }
 
+{ #category : #'instance creation' }
+GdsStreamFormatReader class >> fromStreamFormatPath: aString [
+
+	^ self new setStreamFormatPath: aString
+]
+
 { #category : #'data format' }
 GdsStreamFormatReader class >> headerSpec [
 
