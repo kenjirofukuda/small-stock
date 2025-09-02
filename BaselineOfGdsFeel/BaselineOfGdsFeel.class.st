@@ -8,11 +8,178 @@ Class {
 BaselineOfGdsFeel >> baseline: spec [
 
 	<baseline>
+	self baselineAtomic: spec.
+
+]
+
+{ #category : #baselines }
+BaselineOfGdsFeel >> baselineAtomic: spec [
+
+	<baseline>
+	self baselineGeometryUtils: spec.
 	self baselineFileMan: spec.
 	self baselineStreamFormatAtomic: spec.
-	self baselineGuest: spec.
-	self baselineMagritte: spec.
-	self baselineKFImaging: spec.
+
+]
+
+{ #category : #baselines }
+BaselineOfGdsFeel >> baselineFileMan: spec [
+	"https://github.com/magritte-metamodel/magritte/releases"
+	spec for: #common do: [
+		spec baseline: 'FileMan' with: [
+			spec
+				repository: 'github://kenjirofukuda/FileMan/repository';
+				loads: #(Core Adapter)
+		].
+	].
+
+
+	spec for: #(#'pharo6.x' #'pharo7.x' #'pharo8.x') do: [
+		spec baseline: 'FileMan' with: [
+			spec
+				repository: 'github://kenjirofukuda/FileMan:StillFileStream/repository';
+				loads: #(Core Adapter)
+		].
+	].
+
+	spec for: #(#'pharo9.x' #'pharo10.x' #'pharo11.x' #'pharo12.x' #'pharo13.x' #'pharo14.x') do: [
+		spec baseline: 'FileMan' with: [
+			spec
+				repository: 'github://kenjirofukuda/FileMan:NoFileStream/repository';
+				loads: #(Core Adapter)
+		].
+	].
+]
+
+{ #category : #baselines }
+BaselineOfGdsFeel >> baselineFixZip: spec [
+
+	| basicDepends basicGroup |
+	basicDepends := #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
+	                   'GdsFeel-Foundation-Property'
+	                   'GdsFeel-Foundation-Notification'
+	                   'GdsFeel-Foundation-Tests'
+	                   'XMLParser' ).
+	basicGroup := #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
+	                 'GdsFeel-Foundation-Notification'
+	                 'GdsFeel-Foundation-Property' ).
+	
+	spec package: 'GdsFeel-Foundation-ZipP6P7'.
+	spec for: #( #'pharo6.x' #'pharo7.x' ) do: [ 
+		spec
+			package: 'GdsFeel-Model-Basic'
+			with: [ 
+			spec requires: basicDepends , #( 'GdsFeel-Foundation-ZipP6P7' ) ].
+
+		spec
+			group: 'Foundation'
+			with: basicGroup , #( 'GdsFeel-Foundation-ZipP6P7' ) ].
+		
+	spec package: 'GdsFeel-Foundation-ZipP8P9'.
+	spec for: #( #'pharo8.x' #'pharo9.x' ) do: [ 
+		spec
+			package: 'GdsFeel-Model-Basic'
+			with: [ 
+			spec requires: basicDepends , #( 'GdsFeel-Foundation-ZipP8P9' ) ].
+
+		spec
+			group: 'Foundation'
+			with: basicGroup , #( 'GdsFeel-Foundation-ZipP8P9' ) ].		
+
+]
+
+{ #category : #baselines }
+BaselineOfGdsFeel >> baselineGeometryUtils: spec [
+
+	spec for: #common do: [
+		spec
+			baseline: 'GeometryUtils'
+			with: [ spec repository: 'github://kenjirofukuda/geom-pharo' ] ].
+
+]
+
+{ #category : #baselines }
+BaselineOfGdsFeel >> baselineGuest: spec [
+	spec for: #common do: [
+		spec
+			baseline: 'NeoJSON'
+			with: [ spec repository: 'github://svenvc/NeoJSON/repository' ].
+		spec
+			baseline: 'NeoCSV'
+			with: [ spec repository: 'github://svenvc/NeoCSV/repository' ].
+		spec
+			baseline: 'INIFile'
+			with: [ spec repository: 'github://astares/Pharo-INIFile:main/src' ].
+		spec
+			baseline: 'XMLParser'
+			with: [
+			spec repository: 'github://pharo-contributions/XML-XMLParser/src' ] ].
+
+]
+
+{ #category : #baselines }
+BaselineOfGdsFeel >> baselineKFImaging: spec [
+
+	spec for: #common do: [
+		spec
+			baseline: 'KFImaging'
+			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo' ] ].
+	spec for: #(#'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x') do: [
+		spec
+			baseline: 'KFImaging'
+			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo:MorphicModel' ] ].
+
+]
+
+{ #category : #baselines }
+BaselineOfGdsFeel >> baselineMagritte: spec [
+	"https://github.com/magritte-metamodel/magritte/releases"
+	spec for: #common do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte';
+				loads: #( Core 'Magritte-Morph' )
+		].
+	].
+	spec for: #'pharo6.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte:v3.5.2';
+				loads: #( Core  'Magritte-Morph' )
+		].
+	].
+	spec for: #'pharo7.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte:v3.5.3';
+				loads: #( Core  'Magritte-Morph' )
+		].
+	].
+	spec for: #'pharo8.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte:v3.6';
+				loads: #( Core  'Magritte-Morph' )
+		].
+	].
+	spec for: #'pharo9.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte:v3.7';
+				loads: #( Core  'Magritte-Morph' )
+		].
+	].
+	spec for: #'pharo10.x' do: [
+		spec baseline: 'Magritte' with: [
+			spec
+				repository: 'github://magritte-metamodel/magritte:v3.8';
+				loads: #( Core  'Magritte-Morph' )
+		].
+	]
+]
+
+{ #category : #baselines }
+BaselineOfGdsFeel >> baselineOldBody: spec [
 	spec for: #common do: [ 
 		
 		spec for: #menubar do: [ 
@@ -135,155 +302,10 @@ BaselineOfGdsFeel >> baseline: spec [
 ]
 
 { #category : #baselines }
-BaselineOfGdsFeel >> baselineFileMan: spec [
-	"https://github.com/magritte-metamodel/magritte/releases"
-	spec for: #common do: [
-		spec baseline: 'FileMan' with: [
-			spec
-				repository: 'github://kenjirofukuda/FileMan/repository';
-				loads: #(Core Adapter)
-		].
-	].
-
-
-	spec for: #(#'pharo6.x' #'pharo7.x' #'pharo8.x') do: [
-		spec baseline: 'FileMan' with: [
-			spec
-				repository: 'github://kenjirofukuda/FileMan:StillFileStream/repository';
-				loads: #(Core Adapter)
-		].
-	].
-
-	spec for: #(#'pharo9.x' #'pharo10.x' #'pharo11.x' #'pharo12.x' #'pharo13.x' #'pharo14.x') do: [
-		spec baseline: 'FileMan' with: [
-			spec
-				repository: 'github://kenjirofukuda/FileMan:NoFileStream/repository';
-				loads: #(Core Adapter)
-		].
-	].
-]
-
-{ #category : #baselines }
-BaselineOfGdsFeel >> baselineFixZip: spec [
-
-	| basicDepends basicGroup |
-	basicDepends := #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
-	                   'GdsFeel-Foundation-Property'
-	                   'GdsFeel-Foundation-Notification'
-	                   'GdsFeel-Foundation-Tests'
-	                   'XMLParser' ).
-	basicGroup := #( 'GdsFeel-Foundation' 'GdsFeel-Foundation-Core'
-	                 'GdsFeel-Foundation-Notification'
-	                 'GdsFeel-Foundation-Property' ).
-	
-	spec package: 'GdsFeel-Foundation-ZipP6P7'.
-	spec for: #( #'pharo6.x' #'pharo7.x' ) do: [ 
-		spec
-			package: 'GdsFeel-Model-Basic'
-			with: [ 
-			spec requires: basicDepends , #( 'GdsFeel-Foundation-ZipP6P7' ) ].
-
-		spec
-			group: 'Foundation'
-			with: basicGroup , #( 'GdsFeel-Foundation-ZipP6P7' ) ].
-		
-	spec package: 'GdsFeel-Foundation-ZipP8P9'.
-	spec for: #( #'pharo8.x' #'pharo9.x' ) do: [ 
-		spec
-			package: 'GdsFeel-Model-Basic'
-			with: [ 
-			spec requires: basicDepends , #( 'GdsFeel-Foundation-ZipP8P9' ) ].
-
-		spec
-			group: 'Foundation'
-			with: basicGroup , #( 'GdsFeel-Foundation-ZipP8P9' ) ].		
-
-]
-
-{ #category : #baselines }
-BaselineOfGdsFeel >> baselineGuest: spec [
-	spec for: #common do: [
-		spec
-			baseline: 'NeoJSON'
-			with: [ spec repository: 'github://svenvc/NeoJSON/repository' ].
-		spec
-			baseline: 'NeoCSV'
-			with: [ spec repository: 'github://svenvc/NeoCSV/repository' ].
-		spec
-			baseline: 'INIFile'
-			with: [ spec repository: 'github://astares/Pharo-INIFile:main/src' ].
-		spec
-			baseline: 'XMLParser'
-			with: [
-			spec repository: 'github://pharo-contributions/XML-XMLParser/src' ] ].
-
-]
-
-{ #category : #baselines }
-BaselineOfGdsFeel >> baselineKFImaging: spec [
-
-	spec for: #common do: [
-		spec
-			baseline: 'KFImaging'
-			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo' ] ].
-	spec for: #(#'pharo6.x' #'pharo7.x' #'pharo8.x' #'pharo9.x') do: [
-		spec
-			baseline: 'KFImaging'
-			with: [ spec repository: 'github://kenjirofukuda/imaging-pharo:MorphicModel' ] ].
-
-]
-
-{ #category : #baselines }
-BaselineOfGdsFeel >> baselineMagritte: spec [
-	"https://github.com/magritte-metamodel/magritte/releases"
-	spec for: #common do: [
-		spec baseline: 'Magritte' with: [
-			spec
-				repository: 'github://magritte-metamodel/magritte';
-				loads: #( Core 'Magritte-Morph' )
-		].
-	].
-	spec for: #'pharo6.x' do: [
-		spec baseline: 'Magritte' with: [
-			spec
-				repository: 'github://magritte-metamodel/magritte:v3.5.2';
-				loads: #( Core  'Magritte-Morph' )
-		].
-	].
-	spec for: #'pharo7.x' do: [
-		spec baseline: 'Magritte' with: [
-			spec
-				repository: 'github://magritte-metamodel/magritte:v3.5.3';
-				loads: #( Core  'Magritte-Morph' )
-		].
-	].
-	spec for: #'pharo8.x' do: [
-		spec baseline: 'Magritte' with: [
-			spec
-				repository: 'github://magritte-metamodel/magritte:v3.6';
-				loads: #( Core  'Magritte-Morph' )
-		].
-	].
-	spec for: #'pharo9.x' do: [
-		spec baseline: 'Magritte' with: [
-			spec
-				repository: 'github://magritte-metamodel/magritte:v3.7';
-				loads: #( Core  'Magritte-Morph' )
-		].
-	].
-	spec for: #'pharo10.x' do: [
-		spec baseline: 'Magritte' with: [
-			spec
-				repository: 'github://magritte-metamodel/magritte:v3.8';
-				loads: #( Core  'Magritte-Morph' )
-		].
-	]
-]
-
-{ #category : #baselines }
 BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 
 	spec for: #common do: [ 
+		spec package: 'GdsFeel-Model-Atomic'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo-Tests'.
@@ -291,7 +313,9 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 		spec
 			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
 			with: [ spec requires: #( 
+				'GeometryUtils'
 				'FileMan'
+				'GdsFeel-Model-Atomic'
 				'GdsFeel-StreamFormat-Atomic-Any'
 				'GdsFeel-StreamFormat-Atomic-Pharo'
 				'GdsFeel-StreamFormat-Atomic-FileMan'
@@ -308,7 +332,9 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 		spec
 			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
 			with: [ spec requires: #( 
+				'GeometryUtils'
 				'FileMan'
+				'GdsFeel-Model-Atomic'
 				'GdsFeel-StreamFormat-Atomic-Any'
 				'GdsFeel-StreamFormat-Atomic-Squeak'
 				'GdsFeel-StreamFormat-Atomic-FileMan'
@@ -321,19 +347,20 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 
 { #category : #accessing }
 BaselineOfGdsFeel >> customProjectAttributes [
+
 	"Edit to return a collection of any custom attributes e.g. for conditional loading: Array with: #'Condition1' with: #'Condition2.
 	For more information see: http://code.google.com/p/metacello/wiki/CustomProjectAttributes "
 
 	| attributes |
 	attributes := OrderedCollection new.
-	(Smalltalk isHeadless not 
-			and: [Smalltalk globals includesKey: #MenubarMorph])
-		ifTrue: [ attributes add: #menubar ].
-	(Smalltalk globals includesKey: #FileStream)
-		ifTrue: [ attributes add: #fileStream ].
-	^ attributes asArray.
-	
-
+	(Smalltalk isHeadless not and: [ 
+		 Smalltalk globals includesKey: #MenubarMorph ]) 
+			ifTrue: [ 
+				attributes add: #menubar ].
+	(Smalltalk globals includesKey: #FileStream) 
+		ifTrue: [ 
+			attributes add: #fileStream ].
+	^ attributes asArray
 ]
 
 { #category : #'post loading' }
