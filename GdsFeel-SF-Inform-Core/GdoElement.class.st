@@ -72,13 +72,13 @@ GdoElement >> initialize [
 	super initialize.
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - path' }
 GdoElement >> layerNumber [
 
 	^ layerNumber
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - path' }
 GdoElement >> layerNumber: anInteger [ 
 	layerNumber := anInteger
 ]
