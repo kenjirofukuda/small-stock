@@ -12,10 +12,7 @@ Class {
 		'layers',
 		'elements',
 		'library',
-		'idContext',
-		'item',
-		'referencedStructures',
-		'savedName'
+		'referencedStructures'
 	],
 	#category : #'GdsFeel-Model-Atomic'
 }
@@ -527,9 +524,7 @@ GdaStructure >> postCopy [
 
 	super postCopy.
 	elements := elements collect: [ :e | e copy ].
-	layers := layers copy.
-	savedName := nil
-	"self initializeEditContext"
+	layers := layers copy
 ]
 
 { #category : #printing }
@@ -584,8 +579,6 @@ GdaStructure >> referencedStructures [
 { #category : #initialization }
 GdaStructure >> release [
 
-	idContext := nil.
-	item := nil.
 	timeCreated := nil.
 	timeModified := nil.
 	"colElements ifNotNil: [ colElements do: [:each | each release]].

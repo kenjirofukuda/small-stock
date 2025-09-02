@@ -10,30 +10,12 @@ Class {
 		'lastModified',
 		'lastAccessed',
 		'layers',
-		'file',
 		'nameToStructureMap',
 		'uuid',
 		'fileEntry'
 	],
-	#classVars : [
-		'LibraryLocationInsideVM'
-	],
 	#category : #'GdsFeel-Model-Atomic'
 }
-
-{ #category : #accessing }
-GdaLibrary class >> baseName: aString [
-
-	^ ((aString endsWith: self extension)
-		   ifTrue: [ aString allButLast: self extension size ]
-		   ifFalse: [ aString ]) asUppercase
-]
-
-{ #category : #accessing }
-GdaLibrary class >> baseNames [
-
-	^ self names collect: [ :each | self baseName: each ]
-]
 
 { #category : #check }
 GdaLibrary class >> checkDatabaseUnit: aNumber [
@@ -45,9 +27,9 @@ GdaLibrary class >> checkDatabaseUnit: aNumber [
 GdaLibrary class >> checkLibName: aString [
 
 	| libnameSizeRange checkName |
-	checkName := self baseName: aString.
+	checkName := "self baseName: " aString.
 	self libNameMax > 0 ifTrue: [ 
-		libnameSizeRange := 1 to: self libNameMax libNameMax.
+		libnameSizeRange := 1 to: self libNameMax.
 		(libnameSizeRange includes: checkName size) ifFalse: [ 
 			^ self error:
 				  ('LIBRARYNAME SIZE UNDER {1} ' format: { libnameSizeRange max }) ] ].
@@ -96,7 +78,7 @@ GdaLibrary class >> instanceCheck [
 GdaLibrary class >> isValidLibraryName: aString [
 
 	^ (self isValidStorageName: aString) and: [ 
-		  aString matchesRegex: '[A-Z][A-Z0-9$_]+' ]
+		  aString matchesRegex: '[A-Za-z][A-Za-z0-9$_]+' ]
 ]
 
 { #category : #compatibility }
@@ -306,9 +288,7 @@ GdaLibrary >> lastModified: aDateAndTime [
 { #category : #'accessing - basic' }
 GdaLibrary >> libName [
 
-	libname ifNotNil: [ ^ libname ].
-	file ifNotNil: [ ^ self class baseName: file base ].
-	^ ''
+	^ libname
 ]
 
 { #category : #'accessing - basic' }
@@ -316,7 +296,7 @@ GdaLibrary >> libName: aString [
 
 	libname ifNotNil: [ ^ self error: 'LIBRARY NAME ASSIGNED ONCE' ].
 	self class checkLibName: aString.
-	libname := self class baseName: aString
+	libname := "self class baseName:" aString
 ]
 
 { #category : #private }
@@ -352,8 +332,7 @@ GdaLibrary >> meterUnit: aFloat [
 { #category : #accessing }
 GdaLibrary >> name [
 
-	file ifNil: [ ^ '!!!ERROR!!!' ].
-	^ file basenameWithoutExtension asUppercase
+	^ libname
 ]
 
 { #category : #initialization }
@@ -429,7 +408,7 @@ GdaLibrary >> privateName: aLibName databaseUnit: aInteger unitString: aUnitStri
 GdaLibrary >> release [
 
 	nameToStructureMap ifNotNil: [ 
-		nameToStructureMap values do: [ :each | each release ] ].
+		nameToStructureMap valuesDo: [ :each | each release ] ].
 	nameToStructureMap := nil.
 	station := nil.
 	super release

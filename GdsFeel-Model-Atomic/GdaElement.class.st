@@ -175,7 +175,7 @@ GdaElement class >> typeString [
 	^ self type asString asUppercase
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> absoluteAngle: aTheta [
 
 	| theta |
@@ -196,7 +196,7 @@ GdaElement >> analisys: aPoint [
 	^ result
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> basicDistance: aPoint [
 
 	| col distP |
@@ -229,7 +229,7 @@ GdaElement >> closeChar [
 	^ $)
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> collectFor: aSegemntMessage [
 
 	^ self lineSegments collect: [ :seg | seg perform: aSegemntMessage ]
@@ -250,26 +250,26 @@ GdaElement >> damaged [
 	^ self vertexCount < self requiredVertexCount
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> dataBounds [
 
 	dataBounds ifNil: [ dataBounds := self lookupDataBounds ].
 	^ dataBounds
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> dataOutlinePoints [
 
 	^ self vertices
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> directions [
 
 	^ self collectFor: #direction
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> directionsPacked [
 
 	^ (self directions
@@ -286,7 +286,7 @@ GdaElement >> directionsPacked [
 						   yourself ] ]) asArray
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> distanceTo: aPoint [
 
 	^ self basicDistance: aPoint
@@ -298,7 +298,7 @@ GdaElement >> explodable [
 	^ false
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> findBounds [
 
 	| basicBounds maxSide |
@@ -315,17 +315,6 @@ GdaElement >> findBounds [
 GdaElement >> fixGeometryError [
 
 	
-]
-
-{ #category : #initialization }
-GdaElement >> fromItemContext: aGdsItemContext [
-
-	vertices := nil.
-	self vertices: (self
-			 validateVertices: aGdsItemContext vertices
-			 editorContext: aGdsItemContext).
-	self ownColor: aGdsItemContext ownColor.
-	self statusNumber: aGdsItemContext number
 ]
 
 { #category : #testing }
@@ -394,14 +383,14 @@ GdaElement >> keyNumberFilled [
 	^ keyNumber isNil not
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> lineSegments [
 
 	^ Array streamContents: [ :s | 
 		  self lineSegmentsDo: [ :seg | s nextPut: seg ] ]
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> lineSegmentsDo: aLineSegmentBlock [
 
 	GeometryUtils
@@ -409,19 +398,19 @@ GdaElement >> lineSegmentsDo: aLineSegmentBlock [
 		lineSegmentsDo: aLineSegmentBlock
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> lookupDataBounds [
 
 	^ GeometryUtils lookupDataBounds: self dataOutlinePoints
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> moveRelative: aPoint [
 
 	self moveRelative: aPoint from: self
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> moveRelative: aPoint from: aOtherElement [
 
 	| translatedPoints |
@@ -438,13 +427,13 @@ GdaElement >> openChar [
 	^ $(
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> originX [
 
 	^ self xy x
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> originY [
 
 	^ self xy y
@@ -524,7 +513,7 @@ GdaElement >> requiredVertexCount [
 	^ self class requiredVertexCount
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> setXy: aPoint [
 
 	self vertices: (Array with: aPoint)
@@ -572,13 +561,13 @@ GdaElement >> structure: aGdsStructure [
 	structure := aGdsStructure
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> thetas [
 
 	^ self lineSegments collect: [ :seg | seg direction theta ]
 ]
 
-{ #category : #'accessing-points' }
+{ #category : #'accessing - points' }
 GdaElement >> thetasPacked [
 
 	| prevSeg |
@@ -613,12 +602,6 @@ GdaElement >> validateVertices: aPointArray [
 			'required vertex count is ' , self requiredVertexCount printString
 			, 'but: ' , aPointArray size printString ].
 	^ aPointArray
-]
-
-{ #category : #validation }
-GdaElement >> validateVertices: aPointArray editorContext: aGdsEditorContext [
-
-	^ self validateVertices: aPointArray
 ]
 
 { #category : #'accessing - basic' }

@@ -53,7 +53,7 @@ GdaPath >> copyWireContext [
 	wire := wire copy
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - points' }
 GdaPath >> dataOutlinePoints [
 
 	^ wire boundaryPoints
@@ -120,12 +120,6 @@ GdaPath >> pathtype: aInteger [
 GdaPath >> removeGeometryCache [
 
 	wire removeGeometryCache
-]
-
-{ #category : #validation }
-GdaPath >> validateVertices: aPointArray editorContext: aGdsEditorContext [
-
-	^ self validateVertices: aPointArray
 ]
 
 { #category : #'accessing - basic' }

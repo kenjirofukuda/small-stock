@@ -56,7 +56,7 @@ GdaBoxText >> contents: aByteString [
 	contents := aByteString
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - points' }
 GdaBoxText >> dataOutlinePoints [
 
 	"self dataBounds"

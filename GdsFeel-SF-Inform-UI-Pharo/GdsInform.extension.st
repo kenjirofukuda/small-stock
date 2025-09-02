@@ -31,9 +31,9 @@ GdsInform class >> makeGDSreaderSampleFromPath: aPath [
 			inform structureClass: GdsStructure.
 			inform elementClass: GdsElement ]
 		ifFalse: [ 
-			inform libraryClass: GdoLibrary.
-			inform structureClass: GdoStructure.
-			inform elementClass: GdoElement ].
+			inform libraryClass: GdaLibrary.
+			inform structureClass: GdaStructure.
+			inform elementClass: GdaElement ].
 	Cursor wait showWhile: [ 
 		inform run.
 		inform inspect.

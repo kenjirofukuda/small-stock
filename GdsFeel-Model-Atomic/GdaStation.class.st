@@ -3,8 +3,7 @@ Class {
 	#superclass : #GdaModel,
 	#instVars : [
 		'library',
-		'structure',
-		'items'
+		'structure'
 	],
 	#classVars : [
 		'Default'
@@ -15,7 +14,7 @@ Class {
 { #category : #'instance creation' }
 GdaStation class >> default [
 
-	^ Default ifNil: [ Default := GdaStation basicNew initialize ]
+	^ Default ifNil: [ Default := self basicNew initialize ]
 ]
 
 { #category : #examples }
