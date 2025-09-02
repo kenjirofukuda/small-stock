@@ -43,11 +43,10 @@ GdsCodeManage class >> printer: aClassDifinitionPrinter [
 
 { #category : #'registry access' }
 GdsCodeManage class >> workspace [
-'
-
-
-
-'.
+"
+[PharoPackageFormatter formatPackageNamed: 'GdsFeel-Model-Atomic' ] 
+	on: Error do: [:ex | ('Error: ', ex asString) traceCr.].
+"
 ]
 
 { #category : #testing }
