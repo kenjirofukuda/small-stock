@@ -12,7 +12,10 @@ GDSreader_0_3_2 class >> directoryEntry [
 { #category : #'*GdsFeel-StreamFormat-Atomic-FileMan' }
 GDSreader_0_3_2 class >> sampleFileEntry [
 
-	"self testFileEntry"
-
-	^ self directoryEntry / 'test.gds'
+	"self sampleFileEntry"
+	| dirEnt |
+	dirEnt := self directoryEntry.
+	^ (dirEnt respondsTo: #//)
+		ifTrue: [dirEnt // self sampleBaseName]	  "only Cuis"
+		ifFalse: [dirEnt / self sampleBaseName]  "Squeak, Pharo"
 ]

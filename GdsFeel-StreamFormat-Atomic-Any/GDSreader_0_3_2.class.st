@@ -62,6 +62,12 @@ GDSreader_0_3_2 class >> projectName [
 	^ 'GDSreader.0.3.2'
 ]
 
+{ #category : #accessing }
+GDSreader_0_3_2 class >> sampleBaseName [
+
+	^ 'test.gds'
+]
+
 { #category : #'internet resource' }
 GDSreader_0_3_2 class >> sampleFileBinaryURL [
 
