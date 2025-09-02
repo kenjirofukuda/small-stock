@@ -87,8 +87,7 @@ GdaStation >> garbageCollect [
 { #category : #initialization }
 GdaStation >> initialize [
 
-	super initialize.
-	
+	super initialize
 ]
 
 { #category : #'instance creation' }
@@ -159,6 +158,7 @@ GdaStation >> library: aGdsLibrary [
 GdaStation >> release [
 
 	"self announcer unsubscribe: self."
+
 	structure := nil.
 	library := nil.
 	super release

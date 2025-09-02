@@ -27,7 +27,7 @@ GdaLibrary class >> checkDatabaseUnit: aNumber [
 GdaLibrary class >> checkLibName: aString [
 
 	| libnameSizeRange checkName |
-	checkName := "self baseName: " aString.
+	checkName := aString. "self baseName: "
 	self libNameMax > 0 ifTrue: [ 
 		libnameSizeRange := 1 to: self libNameMax.
 		(libnameSizeRange includes: checkName size) ifFalse: [ 
@@ -296,7 +296,7 @@ GdaLibrary >> libName: aString [
 
 	libname ifNotNil: [ ^ self error: 'LIBRARY NAME ASSIGNED ONCE' ].
 	self class checkLibName: aString.
-	libname := "self class baseName:" aString
+	libname := aString "self class baseName:"
 ]
 
 { #category : #private }

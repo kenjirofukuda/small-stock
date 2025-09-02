@@ -613,10 +613,8 @@ GdaStructure >> removeElements: aGdsElementCollection [
 	"announcement := GdsElementRemoved new elements: aGdsElementCollection."
 	elements := elements copyWithoutAll: aGdsElementCollection.
 	dataExtentForElements := nil.
-	dirtyElements ifNotNil: [ 
+	dirtyElements ifNotNil: [ "self announcer announce: announcement" "self setDirty: true." 
 		dirtyElements removeAllFoundIn: aGdsElementCollection ]
-	"self announcer announce: announcement"
-	"self setDirty: true."
 ]
 
 { #category : #accessing }

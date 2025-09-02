@@ -58,13 +58,18 @@ GdsCodeManage >> canLegacyPrinter [
 
 { #category : #testing }
 GdsCodeManage >> fileOutTargets [
+
 	"self default fileOutTargets"
 
 	self legacyPrinterActivateDuring: [ 
 		self targetPackageNames do: [ :pkgSymbol | 
 			| pkg |
 			pkg := RPackageOrganizer default packageNamed: pkgSymbol.
-			pkg fileOut ] ]
+			pkg fileOut ].
+		self targetClassNames do: [ :classSymbol | 
+			| clazz |
+			clazz := Smalltalk at: classSymbol.
+			clazz fileOut ] ]
 ]
 
 { #category : #'instance creation' }
@@ -94,6 +99,20 @@ GdsCodeManage >> printer: aClassDefinitionPrinter [
 
 { #category : #'see class side' }
 GdsCodeManage >> seeClassSide [
+]
+
+{ #category : #testing }
+GdsCodeManage >> targetClassNames [
+
+	"GdsCodeManage default targetPackageNames"
+
+	| col |
+	col := OrderedCollection new.
+	col add: #LineSegment.
+	col add: #Bezier2Segment.
+	col add: #Bezier3Segment.
+
+	^ col
 ]
 
 { #category : #testing }
