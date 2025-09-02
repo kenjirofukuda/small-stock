@@ -307,6 +307,7 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 	spec for: #common do: [ 
 		spec package: 'GdsFeel-Model-Atomic'.
 		spec package: 'GdsFeel-SF-Inform-Core'.
+		spec package: 'GdsFeel-SF-Inform-Pharo'.
 		spec package: 'GdsFeel-SF-Inform-UI-Pharo'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo'.
@@ -319,6 +320,7 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 				'FileMan'
 				'GdsFeel-Model-Atomic'
 				'GdsFeel-SF-Inform-Core'
+				'GdsFeel-SF-Inform-Pharo'
 				'GdsFeel-SF-Inform-UI-Pharo'
 				'GdsFeel-StreamFormat-Atomic-Any'
 				'GdsFeel-StreamFormat-Atomic-Pharo'
@@ -330,6 +332,8 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 
 	spec for: #squeak do: [ 
 		spec package: 'GdsFeel-SF-Inform-Core'.
+		spec package: 'GdsFeel-SF-Inform-Squeak'.
+		spec package: 'GdsFeel-SF-Inform-UI-Squeak'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak'.
 		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak-Tests'.
@@ -341,6 +345,8 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 				'FileMan'
 				'GdsFeel-Model-Atomic'
 				'GdsFeel-SF-Inform-Core'
+				'GdsFeel-SF-Inform-Squeak'
+				'GdsFeel-SF-Inform-UI-Squeak'
 				'GdsFeel-StreamFormat-Atomic-Any'
 				'GdsFeel-StreamFormat-Atomic-Squeak'
 				'GdsFeel-StreamFormat-Atomic-FileMan'
