@@ -81,13 +81,6 @@ GdaStructureReference >> refStructure [
 	^ refStructure
 ]
 
-{ #category : #accessing }
-GdaStructureReference >> repeatTransforms [
-
-	^ self relativeTransforms collect: [ :each | 
-		  self transform copy composedWithLocal: each ]
-]
-
 { #category : #'accessing - basic' }
 GdaStructureReference >> structureName [
 

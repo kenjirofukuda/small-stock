@@ -72,6 +72,13 @@ GdaArrayedStructureReference >> relativeTransforms [
 	^ ashape relativeTransforms
 ]
 
+{ #category : #accessing }
+GdaArrayedStructureReference >> repeatTransforms [
+
+	^ self relativeTransforms collect: [ :each | 
+		  self transform copy composedWithLocal: each ]
+]
+
 { #category : #'accessing - basic' }
 GdaArrayedStructureReference >> rowCount [
 
