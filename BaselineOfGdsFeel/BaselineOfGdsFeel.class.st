@@ -319,7 +319,7 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 				'FileMan'
 				'GdsFeel-Model-Atomic'
 				'GdsFeel-SF-Inform-Core'
-				'GdsFeel-SF-Inform-UI-Pharo'.
+				'GdsFeel-SF-Inform-UI-Pharo'
 				'GdsFeel-StreamFormat-Atomic-Any'
 				'GdsFeel-StreamFormat-Atomic-Pharo'
 				'GdsFeel-StreamFormat-Atomic-FileMan'
