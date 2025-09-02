@@ -318,7 +318,7 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 				'GeometryUtils'
 				'FileMan'
 				'GdsFeel-Model-Atomic'
-				'GdsFeel-SF-Inform-Core'.
+				'GdsFeel-SF-Inform-Core'
 				'GdsFeel-SF-Inform-UI-Pharo'.
 				'GdsFeel-StreamFormat-Atomic-Any'
 				'GdsFeel-StreamFormat-Atomic-Pharo'
@@ -340,7 +340,7 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 				'GeometryUtils'
 				'FileMan'
 				'GdsFeel-Model-Atomic'
-				'GdsFeel-SF-Inform-Core'.
+				'GdsFeel-SF-Inform-Core'
 				'GdsFeel-StreamFormat-Atomic-Any'
 				'GdsFeel-StreamFormat-Atomic-Squeak'
 				'GdsFeel-StreamFormat-Atomic-FileMan'
