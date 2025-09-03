@@ -21,6 +21,23 @@ GdsCodeManage class >> default [
 ]
 
 { #category : #examples }
+GdsCodeManage class >> deleteEmptySources: aFileReference [
+	aFileReference isDirectory
+		ifTrue: [ 
+			(aFileReference filesMatching: '*.st')
+				do: [ :each | self deleteIfEmpty: each ] ]
+]
+
+{ #category : #examples }
+GdsCodeManage class >> deleteIfEmpty: aFileReference [
+
+	(aFileReference isFile and: [ aFileReference size = 0 ]) 
+		ifTrue: [ 
+			aFileReference ensureDelete ].
+	^ aFileReference
+]
+
+{ #category : #examples }
 GdsCodeManage class >> fileOutTargets [
 	<example>
 	self default fileOutTargets
@@ -34,6 +51,49 @@ GdsCodeManage class >> for: aClass [
 { #category : #'registry access' }
 GdsCodeManage class >> initialize [
 	Default := nil.
+]
+
+{ #category : #examples }
+GdsCodeManage class >> postReadyForCuis [
+
+	<example>
+	| sources squeakFolder cuisFolder |
+	squeakFolder := './ForSqueak' asFileReference ensureCreateDirectory.
+	cuisFolder := './ForCuis' asFileReference ensureCreateDirectory.
+	sources := (squeakFolder filesMatching: '*.st') reject: [ :each | 
+		           each size = 0 ].
+	(squeakFolder filesMatching: '*.st') do: [ :each | 
+		| dest |
+		dest := cuisFolder / each basename.
+		dest ensureDelete.
+		dest writeStreamDo: [ :ws | 
+			each readStreamDo: [ :rs | 
+				[ rs atEnd ] whileFalse: [ 
+					| line |
+					line := rs nextLine trimRight.
+					ws nextPutAll: line.
+					ws nextPut: Character lf ] ] ].
+		self deleteIfEmpty: dest. ].
+		self deleteEmptySources: cuisFolder.
+]
+
+{ #category : #examples }
+GdsCodeManage class >> postReadyForSqueak [
+
+	<example>
+	| fileOuts squeakFolder |
+	fileOuts := './' asFileReference filesMatching: '*.st'.
+	squeakFolder := './ForSqueak' asFileReference ensureCreateDirectory.
+	fileOuts do: [ :each | 
+		| dest |
+		dest := squeakFolder / each basename.
+		self deleteIfEmpty: each.
+		each isFile
+			ifTrue: [
+				dest ensureDelete.
+				each moveTo: dest ].
+		self deleteIfEmpty: dest ].
+	self deleteEmptySources: squeakFolder.
 ]
 
 { #category : #'see class side' }
@@ -68,7 +128,8 @@ GdsCodeManage >> fileOutTargets [
 		self targetClassNames do: [ :classSymbol | 
 			| clazz |
 			clazz := Smalltalk at: classSymbol.
-			clazz fileOut ] ]
+			clazz fileOut ] ].
+	self class deleteEmptySources: './' asFileReference.
 ]
 
 { #category : #'instance creation' }
