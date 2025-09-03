@@ -172,6 +172,7 @@ GdsCodeManage >> targetClassNames [
 	col add: #Bezier2Segment.
 	col add: #Bezier3Segment.
 
+	col add: #GdsInform.
 	^ col
 ]
 
@@ -183,5 +184,8 @@ GdsCodeManage >> targetPackageNames [
 	col addAll:
 		(RPackageOrganizer default packageNames select: [ :pkg | 
 			 pkg beginsWithAnyOf: #( 'GdsFeel-StreamFormat-Atomic' ) ]).
+	col addAll:
+		(RPackageOrganizer default packageNames select: [ :pkg | 
+			 pkg beginsWithAnyOf: #( 'GdsFeel-SF' ) ]).		
 	^ col
 ]
