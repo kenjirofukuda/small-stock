@@ -35,11 +35,50 @@ Class {
 	#category : #'GdsFeel-SF-Inform-Core-GdsFeel-SF-Inform-Core'
 }
 
+{ #category : #'instance creation' }
+GdsInform class >> sampleAtomicInstance [
+	| reader inform |
+	inform := self new.	
+	reader := GdsStreamFormatReader 
+		fromStreamFormatPath: (GDSreader_0_3_2 ensureCreateTestGdsFile fullPrintString).
+	reader ifNil: [ ^ inform ].
+	inform reader: reader.
+	inform beAtomic.
+	^ inform	
+]
+
+{ #category : #'instance creation' }
+GdsInform class >> sampleInstance [
+	^ self sampleAtomicInstance 
+]
+
+{ #category : #'instance creation' }
+GdsInform class >> sampleReleaseInstance [
+
+	^ self sampleInstance
+		  beRelease;
+		  yourself
+]
+
 { #category : #private }
 GdsInform >> abort: aString [
 
 	self stderr: aString.
 	self error: aString
+]
+
+{ #category : #configuration }
+GdsInform >> beAtomic [
+	self libraryClass: GdaLibrary.
+	self structureClass: GdaStructure.
+	self elementClass: GdaElement.
+]
+
+{ #category : #configuration }
+GdsInform >> beRelease [
+	self libraryClass: GdsLibrary.
+	self structureClass: GdsStructure.
+	self elementClass: GdsElement.
 ]
 
 { #category : #private }
