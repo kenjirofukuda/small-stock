@@ -1,0 +1,4 @@
+compatibility
+libNameMax
+
+	^ 10

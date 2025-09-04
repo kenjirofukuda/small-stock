@@ -1,0 +1,4 @@
+accessing
+requiredVertexCount
+
+	^ 1

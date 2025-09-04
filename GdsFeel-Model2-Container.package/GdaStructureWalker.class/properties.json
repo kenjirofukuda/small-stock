@@ -1,0 +1,14 @@
+{
+	"category" : "GdsFeel-Model2-Container",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"depth" ],
+	"name" : "GdaStructureWalker",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

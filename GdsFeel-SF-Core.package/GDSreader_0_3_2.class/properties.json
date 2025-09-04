@@ -1,0 +1,14 @@
+{
+	"category" : "GdsFeel-SF-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "kenjirofukuda 8/25/2025 15:08",
+	"instvars" : [
+		 ],
+	"name" : "GDSreader_0_3_2",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

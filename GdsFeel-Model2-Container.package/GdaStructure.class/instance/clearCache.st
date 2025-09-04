@@ -1,0 +1,4 @@
+private
+clearCache
+
+	referencedStructures := nil

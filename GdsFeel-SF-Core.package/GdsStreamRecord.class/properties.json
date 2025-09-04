@@ -1,0 +1,16 @@
+{
+	"category" : "GdsFeel-SF-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "kenjirofukuda 8/26/2025 06:46",
+	"instvars" : [
+		"bytes",
+		"type",
+		"dataBytes" ],
+	"name" : "GdsStreamRecord",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -1,0 +1,25 @@
+{
+	"class" : {
+		"default" : "kenjirofukuda 9/2/2025 14:46",
+		"exampleSandBox" : "kenjirofukuda 9/2/2025 13:54",
+		"initialize" : "kenjirofukuda 9/2/2025 13:39",
+		"libraryDidChangeNotification" : "kenjirofukuda 9/2/2025 13:39",
+		"new" : "kenjirofukuda 9/2/2025 13:39",
+		"openDefault" : "kenjirofukuda 9/2/2025 13:39",
+		"quit" : "kenjirofukuda 9/2/2025 13:39",
+		"structureDidChangeNotification" : "kenjirofukuda 9/2/2025 13:39" },
+	"instance" : {
+		"garbageCollect" : "kenjirofukuda 9/2/2025 13:44",
+		"initialize" : "kenjirofukuda 9/2/2025 13:44",
+		"initlibNamed:" : "kenjirofukuda 9/2/2025 13:39",
+		"initlibNamed:databaseUnits:unitString:" : "kenjirofukuda 9/2/2025 13:45",
+		"initlibNamed:unitString:" : "kenjirofukuda 9/2/2025 13:39",
+		"isStation" : "kenjirofukuda 9/2/2025 13:39",
+		"labelString" : "kenjirofukuda 9/2/2025 13:39",
+		"labelStringAfter" : "kenjirofukuda 9/2/2025 13:39",
+		"library" : "kenjirofukuda 9/2/2025 13:39",
+		"library:" : "kenjirofukuda 9/2/2025 13:39",
+		"release" : "kenjirofukuda 9/2/2025 13:51",
+		"structure" : "kenjirofukuda 9/2/2025 13:40",
+		"structure:" : "kenjirofukuda 9/2/2025 13:40",
+		"uniqueSandboxLibraryName" : "kenjirofukuda 9/2/2025 13:39" } }

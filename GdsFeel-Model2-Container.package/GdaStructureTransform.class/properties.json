@@ -1,0 +1,20 @@
+{
+	"category" : "GdsFeel-Model2-Container",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"offset",
+		"mag",
+		"angle",
+		"reflected",
+		"absAngle",
+		"absMag",
+		"matrix" ],
+	"name" : "GdaStructureTransform",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

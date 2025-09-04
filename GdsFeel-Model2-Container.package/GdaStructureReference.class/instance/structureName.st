@@ -1,0 +1,4 @@
+accessing - basic
+structureName
+
+	^ sname

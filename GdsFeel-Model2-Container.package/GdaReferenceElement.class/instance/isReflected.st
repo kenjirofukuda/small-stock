@@ -1,0 +1,4 @@
+testing
+isReflected
+
+	^ strans isReflected

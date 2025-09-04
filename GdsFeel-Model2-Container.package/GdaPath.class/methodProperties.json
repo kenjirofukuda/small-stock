@@ -1,0 +1,23 @@
+{
+	"class" : {
+		"hasPathType" : "kenjirofukuda 9/2/2025 10:54",
+		"hasWidth" : "kenjirofukuda 9/2/2025 10:54",
+		"isGdsOriginalClass" : "kenjirofukuda 9/2/2025 10:54",
+		"requiredVertexCount" : "kenjirofukuda 9/2/2025 10:54",
+		"type" : "kenjirofukuda 9/2/2025 10:54" },
+	"instance" : {
+		"copy" : "kenjirofukuda 9/2/2025 10:54",
+		"copyWireContext" : "kenjirofukuda 9/2/2025 10:54",
+		"dataOutlinePoints" : "kenjirofukuda 9/2/2025 14:45",
+		"firstSegment" : "kenjirofukuda 9/2/2025 10:54",
+		"halfWidth" : "kenjirofukuda 9/2/2025 10:54",
+		"initialize" : "kenjirofukuda 9/2/2025 11:04",
+		"isSingle" : "kenjirofukuda 9/2/2025 10:54",
+		"isSingleHorizontal" : "kenjirofukuda 9/2/2025 10:54",
+		"isSingleVertical" : "kenjirofukuda 9/2/2025 10:54",
+		"outlineSegmentsOf:offsetRadians:r:" : "kenjirofukuda 9/2/2025 10:54",
+		"pathtype" : "kenjirofukuda 9/2/2025 10:54",
+		"pathtype:" : "kenjirofukuda 9/2/2025 10:58",
+		"removeGeometryCache" : "kenjirofukuda 9/2/2025 10:54",
+		"width" : "kenjirofukuda 9/2/2025 10:54",
+		"width:" : "kenjirofukuda 9/2/2025 10:58" } }

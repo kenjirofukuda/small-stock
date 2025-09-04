@@ -1,0 +1,4 @@
+accessing
+vertices
+
+	^ element vertices

@@ -1,0 +1,18 @@
+{
+	"category" : "GdsFeel-SF-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "kenjirofukuda 8/25/2025 19:33",
+	"instvars" : [
+		"element",
+		"structure",
+		"countMap",
+		"typeOrder",
+		"inform" ],
+	"name" : "GdsStreamLoopContext",
+	"pools" : [
+		 ],
+	"super" : "GdsLoopContext",
+	"type" : "normal" }

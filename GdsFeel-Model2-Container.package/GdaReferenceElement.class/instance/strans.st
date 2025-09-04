@@ -1,0 +1,4 @@
+accessing
+strans
+
+	^ strans

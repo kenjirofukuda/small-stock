@@ -1,0 +1,15 @@
+{
+	"category" : "GdsFeel-SF-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "kenjirofukuda 8/25/2025 19:11",
+	"instvars" : [
+		"logStream",
+		"category" ],
+	"name" : "GdsLog",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

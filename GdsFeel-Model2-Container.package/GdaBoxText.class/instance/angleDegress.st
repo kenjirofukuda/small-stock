@@ -1,0 +1,4 @@
+accessing
+angleDegress
+
+	^ self angle

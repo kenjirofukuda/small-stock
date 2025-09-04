@@ -1,0 +1,4 @@
+accessing
+sampleBaseName
+
+	^ 'test.gds'

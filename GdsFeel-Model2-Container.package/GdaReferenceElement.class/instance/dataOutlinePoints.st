@@ -1,0 +1,4 @@
+accessing
+dataOutlinePoints
+
+	^ self lookupExtentPoints

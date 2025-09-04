@@ -1,0 +1,4 @@
+testing
+hasLayer
+
+	^ true

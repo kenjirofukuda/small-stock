@@ -1,0 +1,4 @@
+testing
+hasDataType
+
+	^ false

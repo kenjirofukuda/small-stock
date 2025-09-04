@@ -1,0 +1,4 @@
+accessing - basic
+pathtype
+
+	^ pathtype

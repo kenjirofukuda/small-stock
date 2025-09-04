@@ -1,0 +1,14 @@
+{
+	"category" : "GdsFeel-Model2-Container",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"ashape" ],
+	"name" : "GdaArrayedStructureReference",
+	"pools" : [
+		 ],
+	"super" : "GdaStructureReference",
+	"type" : "normal" }

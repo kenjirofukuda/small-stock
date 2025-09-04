@@ -1,0 +1,4 @@
+testing
+hasPathType
+
+	^ false

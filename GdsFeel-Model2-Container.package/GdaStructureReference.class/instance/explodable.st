@@ -1,0 +1,4 @@
+testing
+explodable
+
+	^ true

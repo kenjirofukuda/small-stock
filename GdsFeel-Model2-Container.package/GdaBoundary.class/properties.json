@@ -1,0 +1,14 @@
+{
+	"category" : "GdsFeel-Model2-Container",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "GdaBoundary",
+	"pools" : [
+		 ],
+	"super" : "GdaPrimitiveElement",
+	"type" : "normal" }

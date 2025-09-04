@@ -1,0 +1,14 @@
+{
+	"category" : "GdsFeel-Model2-Container",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"wire" ],
+	"name" : "GdaPath",
+	"pools" : [
+		 ],
+	"super" : "GdaPrimitiveElement",
+	"type" : "normal" }

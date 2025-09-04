@@ -1,0 +1,4 @@
+private
+revertDirty
+
+	self popDirtyReservedArea

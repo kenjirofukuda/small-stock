@@ -1,0 +1,4 @@
+testing
+isOpen
+
+	^ library isOpen

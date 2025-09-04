@@ -1,0 +1,4 @@
+testing
+isLibrary
+
+	^ true

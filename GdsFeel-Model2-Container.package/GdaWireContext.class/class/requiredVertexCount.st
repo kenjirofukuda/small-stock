@@ -1,0 +1,4 @@
+validation
+requiredVertexCount
+
+	^ 2

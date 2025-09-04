@@ -1,0 +1,25 @@
+{
+	"class" : {
+		"hasWidth" : "kenjirofukuda 9/2/2025 10:58",
+		"requiredVertexCount" : "kenjirofukuda 9/2/2025 10:58",
+		"type" : "kenjirofukuda 9/2/2025 10:58" },
+	"instance" : {
+		"boundaryPoints" : "kenjirofukuda 9/2/2025 10:58",
+		"consoleStringOn:" : "kenjirofukuda 9/2/2025 10:58",
+		"dataOutlinePoints" : "kenjirofukuda 9/2/2025 10:58",
+		"degressOfPathType" : "kenjirofukuda 9/2/2025 10:58",
+		"element:" : "kenjirofukuda 9/2/2025 10:58",
+		"halfWidth" : "kenjirofukuda 9/2/2025 10:58",
+		"initialize" : "kenjirofukuda 9/2/2025 10:58",
+		"lineSegmentsDo:" : "kenjirofukuda 9/2/2025 10:58",
+		"lookupBoundaryPoints" : "kenjirofukuda 9/2/2025 10:58",
+		"offsetRadiansAndRadiusDo:" : "kenjirofukuda 9/2/2025 10:58",
+		"outlinePointsOf:" : "kenjirofukuda 9/2/2025 10:58",
+		"outlineSegmentsOf:" : "kenjirofukuda 9/2/2025 10:58",
+		"outlineSegmentsOf:offsetRadians:r:" : "kenjirofukuda 9/2/2025 10:58",
+		"pathtype" : "kenjirofukuda 9/2/2025 10:58",
+		"pathtype:" : "kenjirofukuda 9/2/2025 11:01",
+		"removeGeometryCache" : "kenjirofukuda 9/2/2025 10:58",
+		"vertices" : "kenjirofukuda 9/2/2025 10:58",
+		"width" : "kenjirofukuda 9/2/2025 10:58",
+		"width:" : "kenjirofukuda 9/2/2025 11:01" } }

@@ -1,0 +1,4 @@
+accessing - basic
+contents
+
+	^ contents

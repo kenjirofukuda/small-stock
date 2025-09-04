@@ -1,0 +1,4 @@
+compatibility
+multilingalNameAllowed
+
+	^ false

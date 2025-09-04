@@ -1,0 +1,20 @@
+{
+	"category" : "GdsFeel-SF-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"reader",
+		"stderr",
+		"stdout",
+		"library",
+		"libraryClass",
+		"structureClass",
+		"elementClass" ],
+	"name" : "GdsInform",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "GdsFeel-SF-UI-Squeak",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "GdsSqueakUI",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

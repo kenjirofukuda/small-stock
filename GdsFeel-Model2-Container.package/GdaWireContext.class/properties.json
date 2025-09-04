@@ -1,0 +1,18 @@
+{
+	"category" : "GdsFeel-Model2-Container",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"width",
+		"outlineSegMap",
+		"boundaryPoints",
+		"pathtype",
+		"element" ],
+	"name" : "GdaWireContext",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

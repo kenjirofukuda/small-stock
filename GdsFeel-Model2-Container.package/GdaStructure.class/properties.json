@@ -1,0 +1,24 @@
+{
+	"category" : "GdsFeel-Model2-Container",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"name",
+		"dataExtentForElements",
+		"timeModified",
+		"timeCreated",
+		"dirtyReservedArea",
+		"dirtyElements",
+		"maxKeyNumber",
+		"layers",
+		"elements",
+		"library",
+		"referencedStructures" ],
+	"name" : "GdaStructure",
+	"pools" : [
+		 ],
+	"super" : "GdaModel",
+	"type" : "normal" }

@@ -1,0 +1,15 @@
+{
+	"category" : "GdsFeel-Model2-Container",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"Default" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"library",
+		"structure" ],
+	"name" : "GdaStation",
+	"pools" : [
+		 ],
+	"super" : "GdaModel",
+	"type" : "normal" }

@@ -1,0 +1,15 @@
+{
+	"category" : "GdsFeel-Model2-Container",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"sname",
+		"refStructure" ],
+	"name" : "GdaStructureReference",
+	"pools" : [
+		 ],
+	"super" : "GdaReferenceElement",
+	"type" : "normal" }
