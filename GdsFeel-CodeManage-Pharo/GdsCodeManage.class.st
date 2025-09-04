@@ -53,6 +53,39 @@ GdsCodeManage class >> initialize [
 	Default := nil.
 ]
 
+{ #category : #utilities }
+GdsCodeManage class >> openBaselineTemplate [
+
+	<script>
+	| names contents |
+	names := self default targetPackageNames.
+	contents := String streamContents: [ :s | 
+		            names do: [ :each | 
+			            s nextPutAll:
+				            ('spec package: ''{1}''.' format: (Array with: each)).
+			            s cr ].
+		            s cr.
+		            s nextPutAll: 'spec requires: #('.
+		            s cr.
+		            names do: [ :each | 
+			            s nextPutAll: each printString.
+			            s cr ].
+		            s nextPutAll: ')'.		            s cr.
+ ].
+
+	UIManager default edit: contents label: 'to insert baseline:'
+]
+
+{ #category : #utilities }
+GdsCodeManage class >> openPackageNames [
+	<script>
+	UIManager default
+		edit: 
+			((self default targetPackageNames)
+				joinUsing: String cr)  
+		label: 'Target Packages'.
+]
+
 { #category : #examples }
 GdsCodeManage class >> postReadyForCuis [
 
@@ -182,7 +215,13 @@ GdsCodeManage >> targetClassNames [
 
 { #category : #testing }
 GdsCodeManage >> targetPackageNames [
-	"GdsCodeManage default targetPackageNames"
+	"
+	UIManager default
+		edit: 
+			((GdsCodeManage default targetPackageNames)
+				joinUsing: String cr)  
+		label: 'Target Packages'.
+	"
 	| col |
 	col := OrderedCollection new.
 	col addAll:
