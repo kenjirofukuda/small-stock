@@ -27,18 +27,31 @@ GdsChunkFile >> file: anObject [
 { #category : #removing }
 GdsChunkFile >> removeGuestExtensions [
 
-	| chunkStream packageName col |
+	| chunkStream packageName col rejectclass |
 	packageName := self file basenameWithoutExtension: 'st'.
 	chunkStream := ChunkReadStream on: self file readStream.
+	rejectclass := nil.
 	col := OrderedCollection new.
 	[ chunkStream atEnd ] whileFalse: [ 
-		| chunk chunkIsTarget |
+		| chunk tokens chunkIsTarget |
 		chunkIsTarget := true.
 		chunk := chunkStream next.
-		(chunk includesSubstring: 'methodsFor:') 
+		tokens := chunk parseLiterals.
+		(tokens size >= 3 and: [tokens second = #'subclass:'])
+			ifTrue: [ | clazz superclass | 
+				clazz := tokens third.
+				superclass := tokens first.
+				(superclass = #'PackageManifest')
+					ifTrue: [ 
+						rejectclass := clazz.
+						"chunkIsTarget := false" ]
+					ifFalse: [
+						rejectclass := nil.].
+			].				
+		
+		("rejectclass isNil and: ["(chunk includesSubstring: 'methodsFor:') "]")
 			ifTrue: [ 
-				| tokens tokenStream categoryName |
-				tokens := chunk parseLiterals.
+				|  tokenStream categoryName |
 				tokenStream := tokens readStream.
 				tokenStream upTo: 'methodsFor:'.
 				categoryName := tokenStream next.
