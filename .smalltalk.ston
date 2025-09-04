@@ -3,9 +3,9 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'GdsFeel',
       #directory : '',
-      #load : [ 'GdsFeel-StreamFormat-Atomic-Any-Tests' ],
+      #load : [ 'GdsFeel-SF-Tests' ],
       #onWarningLog : true,
-      #platforms : [ #pharo ]
+      #platforms : [ #pharo, #squeak ]
     }
   ],
   #testing : {
