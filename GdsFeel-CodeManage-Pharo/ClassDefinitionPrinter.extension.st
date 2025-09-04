@@ -7,11 +7,13 @@ ClassDefinitionPrinter class >> for: aClass [
 	We only print slots with the fluid class definition."
 	
 	| instance |
-	instance := 
-		(aClass needsSlotClassDefinition 
-			or: [ self showFluidClassDefinition ])
-				ifTrue: [ self fluid ]
-				ifFalse: [ self oldPharo ].
+	instance := self fluid.
+	(self respondsTo: #showFluidClassDefinition)
+		ifTrue: [
+			(aClass needsSlotClassDefinition 
+				or: [ self perform: #showFluidClassDefinition ])
+					ifTrue: [ self fluid ]
+					ifFalse: [ self oldPharo ]].
 	Smalltalk 
 		at: #GdsCodeManage 
 		ifPresent: [ :clazz | 

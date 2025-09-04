@@ -122,14 +122,11 @@ GdsCodeManage >> fileOutTargets [
 
 	self legacyPrinterActivateDuring: [ 
 		self targetPackageNames do: [ :pkgSymbol | 
-			| pkg |
-			pkg := RPackageOrganizer default packageNamed: pkgSymbol.
-			pkg fileOut ].
+			(self packageOrganizerClass default packageNamed: pkgSymbol) 
+				ifNotNil: [ :pkg | pkg fileOut ] ].
 		self targetClassNames do: [ :classSymbol | 
-			| clazz |
-			clazz := Smalltalk at: classSymbol.
-			clazz fileOut ] ].
-	self class deleteEmptySources: './' asFileReference.
+			Smalltalk at: classSymbol ifPresent: [ :clazz | clazz fileOut ] ] ].
+	self class deleteEmptySources: './' asFileReference
 ]
 
 { #category : #'instance creation' }
@@ -147,6 +144,13 @@ GdsCodeManage >> legacyPrinterActivateDuring: aBlock [
 
 	beLegacyPrinter := true.
 	[ aBlock value ] ensure: [ beLegacyPrinter := false ]
+]
+
+{ #category : #accessing }
+GdsCodeManage >> packageOrganizerClass [
+	Smalltalk at: #RPackageOrganizer ifPresent: [ :clazz | ^ clazz ].
+	Smalltalk at: #PackageOrganizer ifPresent: [ :clazz | ^ clazz ].	
+	^ nil
 ]
 
 { #category : #initialization }
@@ -182,10 +186,13 @@ GdsCodeManage >> targetPackageNames [
 	| col |
 	col := OrderedCollection new.
 	col addAll:
-		(RPackageOrganizer default packageNames select: [ :pkg | 
-			 pkg beginsWithAnyOf: #( 'GdsFeel-StreamFormat-Atomic' ) ]).
+		(self packageOrganizerClass default packageNames select: [ :pkg | 
+			 pkg beginsWithAnyOf: #( 'GdsFeel-CodeManage' ) ]).
 	col addAll:
-		(RPackageOrganizer default packageNames select: [ :pkg | 
+		(self packageOrganizerClass default packageNames select: [ :pkg | 
+			 pkg beginsWithAnyOf: #( 'GdsFeel-Model2' ) ]).
+	col addAll:
+		(self packageOrganizerClass default packageNames select: [ :pkg | 
 			 pkg beginsWithAnyOf: #( 'GdsFeel-SF' ) ]).		
 	^ col
 ]
