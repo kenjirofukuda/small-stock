@@ -43,11 +43,6 @@ GdsCodeManage class >> fileOutTargets [
 	self default fileOutTargets
 ]
 
-{ #category : #'see class side' }
-GdsCodeManage class >> for: aClass [
-	^ self default for: aClass
-]
-
 { #category : #'registry access' }
 GdsCodeManage class >> initialize [
 	Default := nil.
@@ -160,11 +155,6 @@ GdsCodeManage >> fileOutTargets [
 		self targetClassNames do: [ :classSymbol | 
 			Smalltalk at: classSymbol ifPresent: [ :clazz | clazz fileOut ] ] ].
 	self class deleteEmptySources: './' asFileReference
-]
-
-{ #category : #'instance creation' }
-GdsCodeManage >> for: aClass [
-
 ]
 
 { #category : #initialization }
