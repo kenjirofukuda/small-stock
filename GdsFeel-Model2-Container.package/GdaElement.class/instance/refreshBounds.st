@@ -1,4 +1,0 @@
-private
-refreshBounds
-
-	dataBounds := nil

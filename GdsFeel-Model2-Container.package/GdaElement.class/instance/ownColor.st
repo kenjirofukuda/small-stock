@@ -1,4 +1,0 @@
-accessing - appearance
-ownColor
-
-	^ ownColor

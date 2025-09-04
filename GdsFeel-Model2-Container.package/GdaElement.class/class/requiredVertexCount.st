@@ -1,4 +1,0 @@
-accessing
-requiredVertexCount
-
-	^ 1

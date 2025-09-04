@@ -1,4 +1,0 @@
-other
-lineSegmentsDo: aLineSegmentBlock
-
-	element lineSegmentsDo: aLineSegmentBlock

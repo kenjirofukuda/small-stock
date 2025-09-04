@@ -1,4 +1,0 @@
-accessing
-structureClass
-	
-	^ structureClass 

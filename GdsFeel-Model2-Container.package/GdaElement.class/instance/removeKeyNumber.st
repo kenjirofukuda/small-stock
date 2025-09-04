@@ -1,4 +1,0 @@
-private
-removeKeyNumber
-
-	keyNumber := nil

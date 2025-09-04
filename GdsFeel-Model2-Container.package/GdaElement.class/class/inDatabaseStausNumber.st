@@ -1,4 +1,0 @@
-constants
-inDatabaseStausNumber
-
-	^ -2

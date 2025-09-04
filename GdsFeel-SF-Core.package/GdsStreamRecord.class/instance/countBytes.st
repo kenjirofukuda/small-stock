@@ -1,4 +1,0 @@
-accessing
-countBytes
-
-	^ bytes size

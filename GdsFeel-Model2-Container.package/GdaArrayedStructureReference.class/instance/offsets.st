@@ -1,4 +1,0 @@
-accessing
-offsets
-
-	^ ashape offsets

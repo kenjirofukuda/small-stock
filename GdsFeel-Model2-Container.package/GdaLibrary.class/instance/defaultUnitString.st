@@ -1,4 +1,0 @@
-defaults
-defaultUnitString
-
-	^ 'MICRON'

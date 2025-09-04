@@ -1,4 +1,0 @@
-relation
-structure
-
-	^ structure

@@ -1,4 +1,0 @@
-accessing - basic
-layerNumber
-
-	^ layerNumber

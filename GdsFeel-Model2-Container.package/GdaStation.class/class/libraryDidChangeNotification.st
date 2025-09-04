@@ -1,4 +1,0 @@
-notification-constants
-libraryDidChangeNotification
-
-	^ 'GdsStationLibraryDidChangeNotification'

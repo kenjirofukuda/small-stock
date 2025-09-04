@@ -1,4 +1,0 @@
-accessing
-dataOutlinePoints
-
-	^ self boundaryPoints

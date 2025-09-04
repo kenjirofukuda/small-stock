@@ -1,3 +1,0 @@
-initialization - private
-streamFormatPath
-	^ streamFormatPath

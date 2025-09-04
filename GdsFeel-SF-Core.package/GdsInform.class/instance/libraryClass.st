@@ -1,3 +1,0 @@
-accessing
-libraryClass
-	^ libraryClass

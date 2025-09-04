@@ -1,4 +1,0 @@
-accessing
-safeNoElementDataExtent
-
-	^ self class safeNoElementDataExtent

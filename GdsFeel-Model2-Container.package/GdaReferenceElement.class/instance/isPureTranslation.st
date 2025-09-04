@@ -1,4 +1,0 @@
-testing
-isPureTranslation
-
-	^ self transform isPureTranslation

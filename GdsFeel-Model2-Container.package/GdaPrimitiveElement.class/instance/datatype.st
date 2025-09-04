@@ -1,4 +1,0 @@
-accessing - basic
-datatype
-
-	^ datatype

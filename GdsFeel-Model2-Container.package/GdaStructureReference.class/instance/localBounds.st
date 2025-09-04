@@ -1,4 +1,0 @@
-accessing
-localBounds
-
-	^ self lookupLocalBounds

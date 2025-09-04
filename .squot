@@ -1,7 +1,7 @@
 OrderedDictionary {
-	'GdsFeel-Model2-Container.package' : #SquotCypressCodeSerializer,
-	'GdsFeel-SF-Core.package' : #SquotCypressCodeSerializer,
-	'GdsFeel-SF-Squeak.package' : #SquotCypressCodeSerializer,
-	'GdsFeel-SF-Tests.package' : #SquotCypressCodeSerializer,
-	'GdsFeel-SF-UI-Squeak.package' : #SquotCypressCodeSerializer
+	'GdsFeel-Model2-Container' : #SquotTonelSerializer,
+	'GdsFeel-SF-Core' : #SquotTonelSerializer,
+	'GdsFeel-SF-Squeak' : #SquotTonelSerializer,
+	'GdsFeel-SF-Tests' : #SquotTonelSerializer,
+	'GdsFeel-SF-UI-Squeak' : #SquotTonelSerializer
 }

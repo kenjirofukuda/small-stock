@@ -1,4 +1,0 @@
-accessing
-keyNumberForInStructure
-
-	^ 1

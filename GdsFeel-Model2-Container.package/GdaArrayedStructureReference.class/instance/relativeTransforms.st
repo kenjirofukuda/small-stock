@@ -1,4 +1,0 @@
-accessing
-relativeTransforms
-
-	^ ashape relativeTransforms

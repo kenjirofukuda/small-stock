@@ -1,4 +1,0 @@
-structure control
-elementClass
-
-	^ GdaStructure
