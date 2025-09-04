@@ -1,6 +1,29 @@
 Extension { #name : #GdsInform }
 
 { #category : #'*GdsFeel-SF-Pharo' }
+GdsInform class >> makeGDSreaderSample [
+	| inform |
+	inform := self sampleReleaseInstance.
+	inform run.
+	inform saveLibrary.
+	
+		 
+
+]
+
+{ #category : #'*GdsFeel-SF-Pharo' }
+GdsInform class >> reMakeGDSreaderSample [
+
+	"self reMakeGDSreaderSample"
+
+	<script>
+	| file |
+	file := './GdsFeel/BGHIER.DB' asFileReference.
+	file ensureDelete.
+	self makeGDSreaderSample
+]
+
+{ #category : #'*GdsFeel-SF-Pharo' }
 GdsInform >> saveLibrary [
 
 	library ifNil: [ ^ self ].

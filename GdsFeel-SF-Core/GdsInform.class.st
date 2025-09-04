@@ -35,29 +35,6 @@ Class {
 	#category : #'GdsFeel-SF-Core'
 }
 
-{ #category : #'as yet unclassified' }
-GdsInform class >> makeGDSreaderSample [
-	| inform |
-	inform := self sampleReleaseInstance.
-	inform run.
-	inform saveLibrary.
-	
-		 
-
-]
-
-{ #category : #'as yet unclassified' }
-GdsInform class >> reMakeGDSreaderSample [
-
-	"self reMakeGDSreaderSample"
-
-	<script>
-	| file |
-	file := './GdsFeel/BGHIER.DB' asFileReference.
-	file ensureDelete.
-	self makeGDSreaderSample
-]
-
 { #category : #'instance creation' }
 GdsInform class >> sampleAtomicInstance [
 	| reader inform |
