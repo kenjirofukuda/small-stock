@@ -1,7 +1,10 @@
 OrderedDictionary {
-	'GdsFeel-Model2-Container' : #SquotTonelSerializer,
-	'GdsFeel-SF-Core' : #SquotTonelSerializer,
-	'GdsFeel-SF-Squeak' : #SquotTonelSerializer,
-	'GdsFeel-SF-Tests' : #SquotTonelSerializer,
-	'GdsFeel-SF-UI-Squeak' : #SquotTonelSerializer
+	'GdsFeel-StreamFormat-Atomic-Any' : #SquotTonelSerializer,
+	'GdsFeel-StreamFormat-Atomic-FileMan' : #SquotTonelSerializer,
+	'GdsFeel-StreamFormat-Atomic-Any-Tests' : #SquotTonelSerializer,
+	'GdsFeel-SF-Inform-Core' : #SquotTonelSerializer,
+	'GdsFeel-SF-Inform-Squeak' : #SquotTonelSerializer,
+	'GdsFeel-SF-Inform-UI-Squeak' : #SquotTonelSerializer,
+	'GdsFeel-StreamFormat-Atomic-Squeak' : #SquotTonelSerializer,
+	'GdsFeel-Model-Atomic' : #SquotTonelSerializer
 }
