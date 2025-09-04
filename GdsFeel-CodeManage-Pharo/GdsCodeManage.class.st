@@ -68,7 +68,7 @@ GdsCodeManage class >> openBaselineTemplate [
 		            s nextPutAll: 'spec requires: #('.
 		            s cr.
 		            names do: [ :each | 
-			            s nextPutAll: each printString.
+			            s nextPutAll: each asString printString.
 			            s cr ].
 		            s nextPutAll: ')'.		            s cr.
  ].

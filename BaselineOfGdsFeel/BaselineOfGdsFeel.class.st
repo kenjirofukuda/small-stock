@@ -305,56 +305,44 @@ BaselineOfGdsFeel >> baselineOldBody: spec [
 BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 
 	spec for: #common do: [ 
-		spec package: 'GdsFeel-Model-Atomic'.
-		spec package: 'GdsFeel-SF-Inform-Core'.
-		spec package: 'GdsFeel-SF-Inform-Pharo'.
-		spec package: 'GdsFeel-SF-Inform-UI-Pharo'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-Pharo-Tests'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-FileMan'.
-		spec
-			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
-			with: [ spec requires: #( 
-				'GeometryUtils'
-				'FileMan'
-				'GdsFeel-Model-Atomic'
-				'GdsFeel-SF-Inform-Core'
-				'GdsFeel-SF-Inform-Pharo'
-				'GdsFeel-SF-Inform-UI-Pharo'
-				'GdsFeel-StreamFormat-Atomic-Any'
-				'GdsFeel-StreamFormat-Atomic-Pharo'
-				'GdsFeel-StreamFormat-Atomic-FileMan'
-				'GdsFeel-StreamFormat-Atomic-Pharo-Tests'
-			) ].
-		spec group: 'Atomic' with: #('GdsFeel-StreamFormat-Atomic-Any-Tests').
-	].
-
+		spec package: 'GdsFeel-CodeManage-Pharo'.
+		spec package: 'GdsFeel-Model2-Container'.
+		spec package: 'GdsFeel-SF-Core'.
+		spec package: 'GdsFeel-SF-Pharo'.
+		spec package: 'GdsFeel-SF-Pharo-Tests'.
+		spec package: 'GdsFeel-SF-UI-Pharo'.
+		spec package: 'GdsFeel-SF-Tests' with: [ 
+			spec requires:
+				#( 
+				'GeometryUtils' 
+				'FileMan' 
+				'GdsFeel-CodeManage-Pharo'
+				'GdsFeel-Model2-Container'
+				'GdsFeel-SF-Core'
+				'GdsFeel-SF-Pharo'
+				'GdsFeel-SF-Pharo-Tests'
+				'GdsFeel-SF-UI-Pharo'
+				 ) ].
+		spec group: 'Atomic' with: #( 'GdsFeel-SF-Tests' ) ].
+	
 	spec for: #squeak do: [ 
-		spec package: 'GdsFeel-SF-Inform-Core'.
-		spec package: 'GdsFeel-SF-Inform-Squeak'.
-		spec package: 'GdsFeel-SF-Inform-UI-Squeak'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-Any'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-Squeak-Tests'.
-		spec package: 'GdsFeel-StreamFormat-Atomic-FileMan'.
-		spec
-			package: 'GdsFeel-StreamFormat-Atomic-Any-Tests'
-			with: [ spec requires: #( 
-				'GeometryUtils'
-				'FileMan'
-				'GdsFeel-Model-Atomic'
-				'GdsFeel-SF-Inform-Core'
-				'GdsFeel-SF-Inform-Squeak'
-				'GdsFeel-SF-Inform-UI-Squeak'
-				'GdsFeel-StreamFormat-Atomic-Any'
-				'GdsFeel-StreamFormat-Atomic-Squeak'
-				'GdsFeel-StreamFormat-Atomic-FileMan'
-				'GdsFeel-StreamFormat-Atomic-Squeak-Tests'
-			) ].
-		spec group: 'Atomic' with: #('GdsFeel-StreamFormat-Atomic-Any-Tests').
-	]
-
+		spec package: 'GdsFeel-Model2-Container'.
+		spec package: 'GdsFeel-SF-Core'.
+		spec package: 'GdsFeel-SF-Squeak'.
+		spec package: 'GdsFeel-SF-Squeak-Tests'.
+		spec package: 'GdsFeel-SF-UI-Squeak'.
+		spec package: 'GdsFeel-SF-Tests' with: [ 
+			spec requires:
+				#( 
+				'GeometryUtils' 
+				'FileMan' 
+				'GdsFeel-Model2-Container'
+				'GdsFeel-SF-Core'
+				'GdsFeel-SF-Squeak'
+				'GdsFeel-SF-Squeak-Tests'
+				'GdsFeel-SF-UI-Squeak'
+				 ) ].
+		spec group: 'Atomic' with: #( 'GdsFeel-SF-Tests' ) ]
 ]
 
 { #category : #accessing }
