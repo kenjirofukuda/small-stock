@@ -1,8 +1,14 @@
+"
+Instance Variables
+	file:		<FileReference>
+
+"
 Class {
 	#name : #GdsChunkFile,
 	#superclass : #Object,
 	#instVars : [
-		'file'
+		'file',
+		'chunks'
 	],
 	#category : #'GdsFeel-CodeManage-Pharo'
 }
@@ -10,6 +16,32 @@ Class {
 { #category : #accessing }
 GdsChunkFile class >> fromFile: aFileReference [
 	^ self new file: aFileReference
+]
+
+{ #category : #removing }
+GdsChunkFile >> chunkHolders [
+
+	| chunkStream packageName col index |
+	packageName := self file basenameWithoutExtension: 'st'.
+	chunkStream := ChunkReadStream on: self file readStream.
+	col := OrderedCollection new.
+	index := 1.
+	[ chunkStream atEnd ] whileFalse: [ 
+		| chunk  chunkHolder |
+		chunk := chunkStream next.
+		chunkHolder := GdsChunkHolder fromChunkString: chunk.
+		chunkHolder chunkFile: self.
+		chunkHolder index: index.
+		col add: chunkHolder.
+		index := index + 1
+			].
+		
+	^ col.
+]
+
+{ #category : #accessing }
+GdsChunkFile >> chunks [
+	^ chunks
 ]
 
 { #category : #accessing }
@@ -21,7 +53,10 @@ GdsChunkFile >> file [
 { #category : #accessing }
 GdsChunkFile >> file: anObject [
 
-	file := anObject
+	file := anObject.
+	chunks := self chunkHolders asArray.
+	self scanChunks
+	 
 ]
 
 { #category : #removing }
@@ -65,4 +100,12 @@ GdsChunkFile >> removeGuestExtensions [
 			].
 		chunkIsTarget ifTrue: [ col add: chunk ] ].
 	^ col.
+]
+
+{ #category : #removing }
+GdsChunkFile >> scanChunks [
+	(chunks select: [ :each | each isMethodHeader ])
+		do: [ :each |
+			each next setMethodBody: true ] 
+
 ]
