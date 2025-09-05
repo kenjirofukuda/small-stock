@@ -39,9 +39,35 @@ GdsChunkHolder >> chunkFile: aGdsChunkFile [
 	chunkFile := aGdsChunkFile.
 ]
 
+{ #category : #printing }
+GdsChunkHolder >> chunkStreamOn: aStream [
+
+	| mt |
+	mt := self markerType.
+	mt first = 1 ifTrue: [ aStream nextPut: $! ].
+	aStream nextPutAll: self chunk.
+	mt second = 1 ifTrue: [ aStream nextPut: $! ].
+	mt second = 2 ifTrue: [ aStream nextPutAll: '! !' ].
+	aStream flush.
+	aStream cr
+]
+
 { #category : #accessing }
 GdsChunkHolder >> clazzName [
-	self isMethodHeader ifTrue: [ ^ tokens first asString ].
+
+	(self isMethodHeader or: [ 
+		 self isClassDefinition or: [ 
+			 self isClassClassDefinition or: [ self isCommentStamp ] ] ]) 
+		ifTrue: [ ^ tokens first asString ].
+	^ ''
+]
+
+{ #category : #accessing }
+GdsChunkHolder >> extensionName [
+
+	self protocolName notEmpty and: [ 
+		(self protocolName beginsWith: '*') and: [ 
+			^ self protocolName allButFirst ] ].
 	^ ''
 ]
 
@@ -67,6 +93,14 @@ GdsChunkHolder >> initialize [
 ]
 
 { #category : #testing }
+GdsChunkHolder >> isClassClassDefinition [
+
+	^ tokens size >= 3 and: [ 
+		  tokens second = #class and: [ 
+			  tokens third = #instanceVariableNames: ] ]
+]
+
+{ #category : #testing }
 GdsChunkHolder >> isClassDefinition [
 	^ tokens size >= 3 and: [ tokens second = #'subclass:' ] 
 ]
@@ -74,6 +108,11 @@ GdsChunkHolder >> isClassDefinition [
 { #category : #testing }
 GdsChunkHolder >> isClassMethodHeader [
 	^ ((tokens indexOf: #'methodsFor:') = 3) and: [ (tokens indexOf: #'class') = 2 ]
+]
+
+{ #category : #testing }
+GdsChunkHolder >> isCommentBody [
+	^ self prev isCommentStamp  
 ]
 
 { #category : #testing }
@@ -170,6 +209,18 @@ GdsChunkHolder >> protocolName [
 	mIndex := tokens indexOf: #'methodsFor:'.
 	mIndex > 0 ifTrue: [ ^ tokens at: mIndex + 1 ].
 	^ ''
+]
+
+{ #category : #testing }
+GdsChunkHolder >> rejectable [
+
+	self clazzName ifNotEmpty: [ :clazz | 
+		^ (clazz includesSubstring: 'manifest' caseSensitive: false) or: [ 
+			  self extensionName notEmpty and: [ 
+				   (chunkFile packageName sameAs: self extensionName) not ] ] ].
+	self isMethodBody and: [ ^ self prev rejectable ].
+	self isCommentBody and: [ ^ self prev rejectable ].
+	^ false
 ]
 
 { #category : #accessing }
