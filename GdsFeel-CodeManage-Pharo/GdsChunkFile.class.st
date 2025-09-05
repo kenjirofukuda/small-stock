@@ -18,6 +18,26 @@ GdsChunkFile class >> fromFile: aFileReference [
 	^ self new file: aFileReference
 ]
 
+{ #category : #'registry access' }
+GdsChunkFile class >> workspace [
+	<script>
+	| stream ch |
+	stream := String new writeStream.
+	ch := self fromFile: (('./' asFileReference filesMatching: '*.st') sort: [:a :b| a size > b size ])first.
+	ch inspect.
+	ch chunks do: [ :each |  
+		| mt |
+		mt := each markerType.
+		mt first = 1 ifTrue: [ stream nextPut: $! ].
+		stream  nextPutAll: each chunk.
+		mt second = 1 ifTrue: [ stream nextPut: $! ].
+		mt second = 2 ifTrue: [ stream nextPutAll: '! !' ].
+		stream flush.
+		  stream cr.].
+	
+	UIManager default edit: stream contents label: 'Result'.
+]
+
 { #category : #removing }
 GdsChunkFile >> chunkHolders [
 

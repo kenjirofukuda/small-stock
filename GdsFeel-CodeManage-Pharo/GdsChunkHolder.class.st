@@ -23,6 +23,11 @@ GdsChunkHolder class >> fromChunkString: aString [
 ]
 
 { #category : #accessing }
+GdsChunkHolder >> chunk [
+	^ chunk
+]
+
+{ #category : #accessing }
 GdsChunkHolder >> chunk: aString [ 
 	chunk := aString.
 	tokens := chunk parseLiterals.
@@ -72,6 +77,13 @@ GdsChunkHolder >> isClassMethodHeader [
 ]
 
 { #category : #testing }
+GdsChunkHolder >> isCommentLiteral [
+	chunk ifNotEmpty: [ chunk first = $" and: [ chunk last = $" ] ].
+	^ false
+	 
+]
+
+{ #category : #testing }
 GdsChunkHolder >> isCommentStamp [
 	^ tokens size >= 2 and: [ tokens second = #'commentStamp:' ] 
 ]
@@ -94,6 +106,22 @@ GdsChunkHolder >> isMethodBody [
 { #category : #testing }
 GdsChunkHolder >> isMethodHeader [
 	^ self isInstanceMethodHeader or: [ self isClassMethodHeader ]
+]
+
+{ #category : #testing }
+GdsChunkHolder >> isStringLiteral [
+	chunk ifNotEmpty: [ chunk first = $' and: [ chunk last = $' ] ].
+	^ false
+	 
+]
+
+{ #category : #printing }
+GdsChunkHolder >> markerType [
+	self isEmpty ifTrue: [ ^ Array with: 0 with: 0 ]. 
+	self isCommentStamp ifTrue: [ ^ Array with: 1 with: 1 ].
+	self isMethodHeader ifTrue: [ ^ Array with: 1 with: 1 ].
+	self isMethodBody ifTrue: [ ^ Array with: 0 with: 2 ].
+	^ Array with: 0 with: 1.
 ]
 
 { #category : #accessing }
