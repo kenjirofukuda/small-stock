@@ -28,7 +28,7 @@ GdsChunkFile class >> workspace [
 		sort: [ :a :b | a size > b size ]) first.
 	ch := self fromFile: sampleFile.
 	ch inspect.
-	ch ownPackagedChunks do: [ :each | each chunkStreamOn: stream ].
+	ch writeOn: stream.
 	stream contents inspect
 	"UIManager default edit: stream contents label: 'Result'."
 ]
@@ -92,5 +92,19 @@ GdsChunkFile >> scanChunks [
 	(chunks select: [ :each | each isMethodHeader ])
 		do: [ :each |
 			each next setMethodBody: true ] 
+
+]
+
+{ #category : #writing }
+GdsChunkFile >> writeOn: aStream [
+	self writeOn: aStream lineEnding: String cr 
+
+]
+
+{ #category : #writing }
+GdsChunkFile >> writeOn: aStream lineEnding: lineEnding [ 
+	self ownPackagedChunks do: [ :each | 
+		each chunkStreamOn: aStream.
+		aStream nextPutAll: lineEnding asString ].
 
 ]

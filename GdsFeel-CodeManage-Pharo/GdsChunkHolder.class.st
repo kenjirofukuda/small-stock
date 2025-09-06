@@ -49,7 +49,6 @@ GdsChunkHolder >> chunkStreamOn: aStream [
 	mt second = 1 ifTrue: [ aStream nextPut: $! ].
 	mt second = 2 ifTrue: [ aStream nextPutAll: '! !' ].
 	aStream flush.
-	aStream cr
 ]
 
 { #category : #accessing }
