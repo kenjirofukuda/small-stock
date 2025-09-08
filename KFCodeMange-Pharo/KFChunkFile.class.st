@@ -98,15 +98,14 @@ KFChunkFile >> scanChunks [
 ]
 
 { #category : #writing }
-KFChunkFile >> writeOn: aStream [
+KFChunkFile >> writeOn: aStream [ 
 	self writeOn: aStream lineEnding: String cr 
-
 ]
 
 { #category : #writing }
 KFChunkFile >> writeOn: aStream lineEnding: lineEnding [ 
 	self ownPackagedChunks do: [ :each | 
-		each chunkStreamOn: aStream.
+		each chunkStreamOn: aStream lineEnding: lineEnding.
 		aStream nextPutAll: lineEnding asString ].
 
 ]

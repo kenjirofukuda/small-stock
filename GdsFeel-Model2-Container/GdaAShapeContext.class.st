@@ -10,7 +10,7 @@ Class {
 		'offsets',
 		'element'
 	],
-	#category : #'GdsFeel-Model2-Container-GdsFeel-Model2-Container'
+	#category : #'GdsFeel-Model2-Container'
 }
 
 { #category : #'accessing - basic' }

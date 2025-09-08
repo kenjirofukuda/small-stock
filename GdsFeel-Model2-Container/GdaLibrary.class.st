@@ -14,7 +14,7 @@ Class {
 		'uuid',
 		'fileEntry'
 	],
-	#category : #'GdsFeel-Model2-Container-GdsFeel-Model2-Container'
+	#category : #'GdsFeel-Model2-Container'
 }
 
 { #category : #check }

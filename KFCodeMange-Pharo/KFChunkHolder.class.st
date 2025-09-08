@@ -45,6 +45,21 @@ KFChunkHolder >> chunkStreamOn: aStream [
 	aStream flush
 ]
 
+{ #category : #printing }
+KFChunkHolder >> chunkStreamOn: aStream lineEnding: aLineEnding [
+
+	| mt |
+	mt := self markerType.
+	mt first = 1 ifTrue: [ aStream nextPut: $! ].
+	aStream 
+		nextPutAll: 
+			(self terminatorMarkEscapedChunk
+				copyReplaceAll: String cr with: aLineEnding asString).
+	mt second = 1 ifTrue: [ aStream nextPut: $! ].
+	mt second = 2 ifTrue: [ aStream nextPutAll: '! !' ].
+	aStream flush
+]
+
 { #category : #accessing }
 KFChunkHolder >> clazzName [
 
