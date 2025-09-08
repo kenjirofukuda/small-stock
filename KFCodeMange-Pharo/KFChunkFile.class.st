@@ -69,6 +69,8 @@ KFChunkFile >> file [
 KFChunkFile >> file: anObject [
 
 	file := anObject.
+	KFAbstractChunk head chunkFile: file.
+	KFAbstractChunk tail chunkFile: file.
 	chunks := self chunkHolders asArray.
 	self scanChunks
 	 

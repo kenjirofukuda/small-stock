@@ -15,12 +15,19 @@ Class {
 	#category : #'KFCodeMange-Pharo'
 }
 
+{ #category : #examples }
+KFCodeManage class >> cleanupWorkingDirectory [
+	('./' asFileReference filesMatching: '*.st')
+		do: [ :each | each ensureDelete ].
+	 
+]
+
 { #category : #'see class side' }
 KFCodeManage class >> default [ 
 	^ Default ifNil: [ Default := self new ]
 ]
 
-{ #category : #examples }
+{ #category : #private }
 KFCodeManage class >> deleteEmptySources: aFileReference [
 	aFileReference isDirectory
 		ifTrue: [ 
@@ -28,7 +35,7 @@ KFCodeManage class >> deleteEmptySources: aFileReference [
 				do: [ :each | self deleteIfEmpty: each ] ]
 ]
 
-{ #category : #examples }
+{ #category : #private }
 KFCodeManage class >> deleteIfEmpty: aFileReference [
 
 	(aFileReference isFile and: [ aFileReference size = 0 ]) 
@@ -39,13 +46,31 @@ KFCodeManage class >> deleteIfEmpty: aFileReference [
 
 { #category : #examples }
 KFCodeManage class >> fileOutTargets [
-	<example>
 	self default fileOutTargets
 ]
 
 { #category : #'registry access' }
 KFCodeManage class >> initialize [
 	Default := nil.
+]
+
+{ #category : #examples }
+KFCodeManage class >> newSequence [
+	<example>
+	self fileOutTargets.
+	self postReadyForSqueak.
+	self postReadyForCuis.
+	self cleanupWorkingDirectory.
+	'./' asFileReference inspect. 
+	 
+]
+
+{ #category : #'examples - deprecated' }
+KFCodeManage class >> oldSequence [
+	self fileOutTargets.
+	self postReadyForSqueakOld.
+	self postReadyForCuisOld.
+	 
 ]
 
 { #category : #utilities }
@@ -83,8 +108,11 @@ KFCodeManage class >> openPackageNames [
 
 { #category : #examples }
 KFCodeManage class >> postReadyForCuis [
+	self writeOnFolder: './ForCuis' asFileReference lineEnding: String lf. 
+]
 
-	<example>
+{ #category : #'examples - deprecated' }
+KFCodeManage class >> postReadyForCuisOld [
 	| sources squeakFolder cuisFolder |
 	squeakFolder := './ForSqueak' asFileReference ensureCreateDirectory.
 	cuisFolder := './ForCuis' asFileReference ensureCreateDirectory.
@@ -107,8 +135,11 @@ KFCodeManage class >> postReadyForCuis [
 
 { #category : #examples }
 KFCodeManage class >> postReadyForSqueak [
+	self writeOnFolder: './ForSqueak' asFileReference lineEnding: String cr. 
+]
 
-	<example>
+{ #category : #'examples - deprecated' }
+KFCodeManage class >> postReadyForSqueakOld [
 	| fileOuts squeakFolder |
 	fileOuts := './' asFileReference filesMatching: '*.st'.
 	squeakFolder := './ForSqueak' asFileReference ensureCreateDirectory.
@@ -135,6 +166,20 @@ KFCodeManage class >> workspace [
 [PharoPackageFormatter formatPackageNamed: 'GdsFeel-Model-Atomic' ] 
 	on: Error do: [:ex | ('Error: ', ex asString) traceCr.].
 "
+]
+
+{ #category : #examples }
+KFCodeManage class >> writeOnFolder: aFileReference lineEnding: aLineEnding [
+	| fileOuts destFolder |
+	fileOuts := './' asFileReference filesMatching: '*.st'.
+	destFolder := aFileReference asFileReference ensureCreateDirectory.
+	fileOuts do: [ :src | 
+		| dest chunkFile |
+		dest := destFolder / src basename.
+		chunkFile := KFChunkFile fromFile: src.
+		chunkFile writeOn: dest writeStream lineEnding: aLineEnding.		
+		self deleteIfEmpty: dest ].
+	self deleteEmptySources: destFolder.
 ]
 
 { #category : #testing }
@@ -216,7 +261,7 @@ KFCodeManage >> targetPackageNames [
 	col := OrderedCollection new.
 	col addAll:
 		(self packageOrganizerClass default packageNames select: [ :pkg | 
-			 pkg beginsWithAnyOf: #( 'GdsFeel-CodeManage' ) ]).
+			 pkg beginsWithAnyOf: #( 'KFCodeManage' ) ]).
 	col addAll:
 		(self packageOrganizerClass default packageNames select: [ :pkg | 
 			 pkg beginsWithAnyOf: #( 'GdsFeel-Model2' ) ]).

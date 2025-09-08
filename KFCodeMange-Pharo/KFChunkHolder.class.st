@@ -6,11 +6,10 @@ Instance Variables
 "
 Class {
 	#name : #KFChunkHolder,
-	#superclass : #Object,
+	#superclass : #KFAbstractChunk,
 	#instVars : [
 		'chunk',
 		'tokens',
-		'chunkFile',
 		'index',
 		'isMethodBody'
 	],
@@ -32,11 +31,6 @@ KFChunkHolder >> chunk: aString [
 	chunk := aString.
 	tokens := chunk parseLiterals.
 
-]
-
-{ #category : #accessing }
-KFChunkHolder >> chunkFile: aGdsChunkFile [ 
-	chunkFile := aGdsChunkFile.
 ]
 
 { #category : #printing }
@@ -164,13 +158,13 @@ KFChunkHolder >> markerType [
 
 { #category : #accessing }
 KFChunkHolder >> next [
-	index >= chunkFile chunks size ifTrue: [ ^ nil ].
+	index >= chunkFile chunks size ifTrue: [ ^ self class tail ].
 	^ chunkFile chunks at: index + 1 
 ]
 
 { #category : #accessing }
 KFChunkHolder >> prev [
-	index <= 1 ifTrue: [ ^ nil ].
+	index <= 1 ifTrue: [ ^ self class head ].
 	^ chunkFile chunks at: index - 1 
 ]
 
