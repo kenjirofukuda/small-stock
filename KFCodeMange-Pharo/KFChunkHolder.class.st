@@ -39,10 +39,10 @@ KFChunkHolder >> chunkStreamOn: aStream [
 	| mt |
 	mt := self markerType.
 	mt first = 1 ifTrue: [ aStream nextPut: $! ].
-	aStream nextPutAll: self chunk.
+	aStream nextPutAll: self terminatorMarkEscapedChunk.
 	mt second = 1 ifTrue: [ aStream nextPut: $! ].
 	mt second = 2 ifTrue: [ aStream nextPutAll: '! !' ].
-	aStream flush.
+	aStream flush
 ]
 
 { #category : #accessing }
@@ -235,4 +235,13 @@ KFChunkHolder >> selector [
 { #category : #initialization }
 KFChunkHolder >> setMethodBody: aBoolean [
 	isMethodBody := aBoolean
+]
+
+{ #category : #printing }
+KFChunkHolder >> terminatorMarkEscapedChunk [
+
+	^ (String streamContents: [ :s | 
+		  | cws |
+		  cws := ChunkWriteStream on: s.
+		  cws nextPut: self chunk ]) allButLast.  "ignore last bang"
 ]

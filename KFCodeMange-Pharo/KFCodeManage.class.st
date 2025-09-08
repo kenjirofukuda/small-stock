@@ -173,6 +173,7 @@ KFCodeManage class >> writeOnFolder: aFileReference lineEnding: aLineEnding [
 	| fileOuts destFolder |
 	fileOuts := './' asFileReference filesMatching: '*.st'.
 	destFolder := aFileReference asFileReference ensureCreateDirectory.
+	(destFolder filesMatching: '*.st') do: [ :each | each ensureDelete ].
 	fileOuts do: [ :src | 
 		| dest chunkFile |
 		dest := destFolder / src basename.
@@ -236,7 +237,7 @@ KFCodeManage >> seeClassSide [
 { #category : #testing }
 KFCodeManage >> targetClassNames [
 
-	"GdsCodeManage default targetPackageNames"
+	"KFCodeManage default targetPackageNames"
 
 	| col |
 	col := OrderedCollection new.
@@ -253,7 +254,7 @@ KFCodeManage >> targetPackageNames [
 	"
 	UIManager default
 		edit: 
-			((GdsCodeManage default targetPackageNames)
+			((KFCodeManage default targetPackageNames)
 				joinUsing: String cr)  
 		label: 'Target Packages'.
 	"
