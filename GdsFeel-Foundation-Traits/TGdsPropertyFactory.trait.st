@@ -1,6 +1,6 @@
 Trait {
 	#name : #TGdsPropertyFactory,
-	#category : #'GdsFeel-Foundation-Core'
+	#category : #'GdsFeel-Foundation-Traits'
 }
 
 { #category : #factory }

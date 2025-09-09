@@ -1,6 +1,6 @@
 Trait {
 	#name : #TGdsModel,
-	#category : #'GdsFeel-Foundation-Core'
+	#category : #'GdsFeel-Foundation-Tests'
 }
 
 { #category : #'T-GdsModel' }
