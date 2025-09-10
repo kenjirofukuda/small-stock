@@ -6,36 +6,43 @@ Class {
 
 { #category : #'as yet unclassified' }
 GdsDeleteVertexTool >> canFinish [
-	^morph itemDeleteVertexEnabled not.
+
+	^ morph itemDeleteVertexEnabled not
 ]
 
 { #category : #'as yet unclassified' }
 GdsDeleteVertexTool >> drawFeedbackOn: aLocalCanvas [
-	morph drawItemLineSegmentsOn: aLocalCanvas width: 2.
+
+	morph drawItemLineSegmentsOn: aLocalCanvas width: 2
 ]
 
 { #category : #'as yet unclassified' }
 GdsDeleteVertexTool >> eachAction [
-	analisysResult := GeometryUtils 
-		analisysSegmentsAt: (self snapedWorldPoint2) pointArray: self currentItem vertices.
+
+	analisysResult := GeometryUtils
+		                  analisysSegmentsAt: self snapedWorldPoint2
+		                  pointArray: self currentItem vertices.
 	"analisysResult inspect."
-	replaceVertexIndex := self lookupReplaceVertexIndex. 
-	self currentItem removeVertexAt: replaceVertexIndex.
+	replaceVertexIndex := self lookupReplaceVertexIndex.
+	self currentItem removeVertexAt: replaceVertexIndex
 ]
 
 { #category : #'as yet unclassified' }
 GdsDeleteVertexTool >> eventAction [
+
 	self repeatEachAction.
 	self prompt: self promptMessage.
-	morph invalidBounds: self calcUpdateBounds .
+	morph invalidBounds: self calcUpdateBounds
 ]
 
 { #category : #'as yet unclassified' }
 GdsDeleteVertexTool >> promptMessage [
-	^'Identify the Vertex to Delete:'.
+
+	^ 'Identify the Vertex to Delete:'
 ]
 
 { #category : #'as yet unclassified' }
 GdsDeleteVertexTool >> toolDidChange [
-	self prompt: self promptMessage.
+
+	self prompt: self promptMessage
 ]

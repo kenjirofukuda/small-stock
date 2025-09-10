@@ -262,12 +262,11 @@ KFCodeManage >> targetPackageNames [
 	col := OrderedCollection new.
 	col addAll:
 		(self packageOrganizerClass default packageNames select: [ :pkg | 
-			 pkg beginsWithAnyOf: #( 'KFCodeManage' ) ]).
-	col addAll:
-		(self packageOrganizerClass default packageNames select: [ :pkg | 
-			 pkg beginsWithAnyOf: #( 'GdsFeel-Model2' ) ]).
-	col addAll:
-		(self packageOrganizerClass default packageNames select: [ :pkg | 
-			 pkg beginsWithAnyOf: #( 'GdsFeel-SF' ) ]).		
+			 pkg beginsWithAnyOf: #( 
+			'KFCodeManage' 
+			'GdsFeel-Model2'
+			'GdsFeel-Foundation2'
+			'GdsFeel-SF' 
+			) ]).
 	^ col
 ]

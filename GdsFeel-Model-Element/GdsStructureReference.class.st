@@ -16,12 +16,14 @@ Class {
 
 { #category : #testing }
 GdsStructureReference class >> isGdsOriginalClass [
+
 	^ true
 ]
 
 { #category : #accessing }
 GdsStructureReference class >> type [
-	^#sref
+
+	^ #sref
 ]
 
 { #category : #visiting }

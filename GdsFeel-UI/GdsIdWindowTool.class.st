@@ -1,61 +1,73 @@
 Class {
 	#name : #GdsIdWindowTool,
 	#superclass : #GdsAbstractIdTool,
-	#category : 'GdsFeel-UI-Tools'
+	#category : #'GdsFeel-UI-Tools'
 }
 
 { #category : #drawing }
 GdsIdWindowTool >> drawFeedbackOn: aLocalCanvas [
 
+	
 ]
 
 { #category : #drawing }
-GdsIdWindowTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [ 
+GdsIdWindowTool >> drawRubberBandOn: aLocalCanvas currentPoint: aPoint [
+
 	self
 		drawRubberBandOn: aLocalCanvas
 		currentPoint: aPoint
-		boundsBlock: [:bounds | morph drawOn: aLocalCanvas strokeBounds: bounds]
+		boundsBlock: [ :bounds | 
+		morph drawOn: aLocalCanvas strokeBounds: bounds ]
 ]
 
 { #category : #action }
 GdsIdWindowTool >> evenAction [
+
 	| bounds idElements |
 	"TimeProfiler spyOn: ["
 	referencePoint ifNil: [ ^ self ].
 	lastPoint := self snapedWorldPoint2.
 	lastPoint = referencePoint ifTrue: [ ^ self ].
-	bounds := Rectangle encompassing: {  referencePoint. lastPoint  }.
-	idElements := (self idEnabledElementsInverted: (self idSelecter = #unId:)) 
-		select: [ :each | each dataBounds intersects: bounds ].
-	idElements do: [:each |
-		 self structure idSelection perform: self idSelecter with: each keyNumber].	
+	bounds := Rectangle encompassing: { 
+			          referencePoint.
+			          lastPoint }.
+	idElements := (self idEnabledElementsInverted:
+		               self idSelecter = #unId:) select: [ :each | 
+		              each dataBounds intersects: bounds ].
+	idElements do: [ :each | 
+		self structure idSelection
+			perform: self idSelecter
+			with: each keyNumber ].
 	morph removeFeedbackCanvas.
-	referencePoint := nil.	"]"
+	referencePoint := nil "]"
 ]
 
 { #category : #action }
 GdsIdWindowTool >> eventAction [
-	self evenOddAction.
 
+	self evenOddAction
 ]
 
 { #category : #action }
 GdsIdWindowTool >> firstAction [
+
 	
 ]
 
 { #category : #accessing }
 GdsIdWindowTool >> idSelecter [
-	^userInfo
+
+	^ userInfo
 ]
 
 { #category : #action }
 GdsIdWindowTool >> oddAction [
-	self  saveReferencePoint.
-	
+
+	self saveReferencePoint
 ]
 
 { #category : #testing }
 GdsIdWindowTool >> rubberBandEnabled [
-	^true
+
+	^ true
 ]

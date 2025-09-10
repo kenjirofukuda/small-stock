@@ -1,61 +1,72 @@
 Class {
 	#name : #GdsIdOffsetTool,
 	#superclass : #GdsAbstractIdTool,
-	#category : 'GdsFeel-UI-Tools'
+	#category : #'GdsFeel-UI-Tools'
 }
 
 { #category : #action }
 GdsIdOffsetTool >> afterSecondAction [
-	self offsetAction: [
-		self structure perform: self offsetOperation with: self relativeOffset]
+
+	self offsetAction: [ 
+		self structure
+			perform: self offsetOperation
+			with: self relativeOffset ]
 ]
 
 { #category : #'prompt message' }
 GdsIdOffsetTool >> afterSecondMessage [
-	^self offsetOperation = #idCopyOffset: 
-		ifTrue: [self copyToMessage]
-		ifFalse: [self moveToMessage]. 
+
+	^ self offsetOperation = #idCopyOffset:
+		  ifTrue: [ self copyToMessage ]
+		  ifFalse: [ self moveToMessage ]
 ]
 
 { #category : #'prompt message' }
 GdsIdOffsetTool >> copyToMessage [
-	^'Copy to: '.
+
+	^ 'Copy to: '
 ]
 
 { #category : #drawing }
 GdsIdOffsetTool >> drawFeedbackOn: aLocalCanvas [
-	self markOffsetFeedbackOn: aLocalCanvas.
+
+	self markOffsetFeedbackOn: aLocalCanvas
 ]
 
 { #category : #action }
 GdsIdOffsetTool >> eventAction [
+
 	self firstAndSecondAction.
 	"TODO: caluc update bounds"
-	morph invalidRect: (morph bounds).
-	
+	morph invalidRect: morph bounds
 ]
 
 { #category : #action }
 GdsIdOffsetTool >> firstAction [
-	self saveReferencePoint.
+
+	self saveReferencePoint
 ]
 
 { #category : #'prompt message' }
 GdsIdOffsetTool >> firstMessage [
-	^self referenceMessage.
+
+	^ self referenceMessage
 ]
 
 { #category : #'prompt message' }
 GdsIdOffsetTool >> moveToMessage [
-	^'Move to: '.
+
+	^ 'Move to: '
 ]
 
 { #category : #accessing }
 GdsIdOffsetTool >> offsetOperation [
-	^userInfo
+
+	^ userInfo
 ]
 
 { #category : #'prompt message' }
 GdsIdOffsetTool >> toolDidChange [
-	self prompt: self firstMessage .
+
+	self prompt: self firstMessage
 ]

@@ -1,67 +1,76 @@
 Class {
 	#name : #GdsItemMoveTool,
 	#superclass : #GdsNullTool,
-	#category : 'GdsFeel-UI-Tools'
+	#category : #'GdsFeel-UI-Tools'
 }
 
 { #category : #action }
 GdsItemMoveTool >> afterSecondAction [
-	self offsetAction: [
-		self currentItem translate: self relativeOffset]
+
+	self offsetAction: [ self currentItem translate: self relativeOffset ]
 ]
 
 { #category : #'prompt message' }
 GdsItemMoveTool >> afterSecondMessage [
-	^self moveToMessage. 
+
+	^ self moveToMessage
 ]
 
 { #category : #testing }
 GdsItemMoveTool >> autoFinishAfterPut [
-	^true
+
+	^ true
 ]
 
 { #category : #testing }
 GdsItemMoveTool >> canFinish [
-	self currentItem holdsElement ifFalse: [^true].
-	^((self currentItem putEnabled) and: [lastPoint = self snapedWorldPoint2])
 
+	self currentItem holdsElement ifFalse: [ ^ true ].
+	^ self currentItem putEnabled and: [ 
+		  lastPoint = self snapedWorldPoint2 ]
 ]
 
 { #category : #drawing }
 GdsItemMoveTool >> drawFeedbackOn: aLocalCanvas [
-	self markOffsetFeedbackOn: aLocalCanvas.
+
+	self markOffsetFeedbackOn: aLocalCanvas
 ]
 
 { #category : #action }
 GdsItemMoveTool >> eventAction [
+
 	self firstAndSecondAction.
 	super eventAction.
 	"TODO: caluc update bounds"
-	morph invalidRect: (morph bounds).
-
+	morph invalidRect: morph bounds
 ]
 
 { #category : #action }
 GdsItemMoveTool >> firstAction [
-	self saveReferencePoint.
+
+	self saveReferencePoint
 ]
 
 { #category : #'prompt message' }
 GdsItemMoveTool >> firstMessage [
-	^self referenceMessage.
+
+	^ self referenceMessage
 ]
 
 { #category : #'prompt message' }
 GdsItemMoveTool >> moveToMessage [
-	^'Coordinate to Move to:'.
+
+	^ 'Coordinate to Move to:'
 ]
 
 { #category : #testing }
 GdsItemMoveTool >> rubberBandEnabled [
-	^true.
+
+	^ true
 ]
 
 { #category : #'event handling' }
 GdsItemMoveTool >> toolDidChange [
-	self prompt: self referenceMessage.
+
+	self prompt: self referenceMessage
 ]

@@ -15,7 +15,8 @@ Class {
 
 { #category : #accessing }
 GdsArrayedStructureReference class >> type [
-	^#aref.
+
+	^ #aref
 ]
 
 { #category : #visiting }

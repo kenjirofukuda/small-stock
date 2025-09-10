@@ -12,17 +12,20 @@ Class {
 
 { #category : #testing }
 GdsBoundary class >> isGdsOriginalClass [
+
 	^ true
 ]
 
 { #category : #accessing }
 GdsBoundary class >> requiredVertexCount [
-	^3.
+
+	^ 3
 ]
 
 { #category : #accessing }
 GdsBoundary class >> type [
-	^#boundary
+
+	^ #boundary
 ]
 
 { #category : #visiting }

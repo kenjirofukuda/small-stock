@@ -27,27 +27,32 @@ Class {
 
 { #category : #testing }
 GdsPath class >> hasPathType [
-	^true.
+
+	^ true
 ]
 
 { #category : #testing }
 GdsPath class >> hasWidth [
-	^true.
+
+	^ true
 ]
 
 { #category : #testing }
 GdsPath class >> isGdsOriginalClass [
+
 	^ true
 ]
 
 { #category : #accessing }
 GdsPath class >> requiredVertexCount [
-	^2.
+
+	^ 2
 ]
 
 { #category : #accessing }
 GdsPath class >> type [
-	^#path
+
+	^ #path
 ]
 
 { #category : #visiting }

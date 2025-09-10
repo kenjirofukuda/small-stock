@@ -18,7 +18,8 @@ Class {
 
 { #category : #accessing }
 GdsBoxText class >> type [
-	^#boxtext
+
+	^ #boxtext
 ]
 
 { #category : #visiting }
