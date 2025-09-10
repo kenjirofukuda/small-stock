@@ -1,6 +1,6 @@
 Class {
 	#name : #GdaKind,
-	#superclass : #GdsState,
+	#superclass : #GdaState,
 	#instVars : [
 		'key',
 		'description'

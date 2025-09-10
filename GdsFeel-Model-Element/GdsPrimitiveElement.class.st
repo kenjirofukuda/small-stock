@@ -92,7 +92,9 @@ GdsPrimitiveElement >> initialize [
 
 { #category : #'as yet unclassified' }
 GdsPrimitiveElement >> isVisible [
-	^ self structure notNil and: [(self structure layers atNumber: self layerNumber) isVisible]
+
+	^ self structure notNil and: [ 
+		  (self structure layers atNumber: self layerNumber) isVisible ]
 ]
 
 { #category : #deprecated }

@@ -80,14 +80,12 @@ GdsStructureReference >> initialize [
 
 { #category : #testing }
 GdsStructureReference >> isVisible [
+
 	| defaultResult |
 	defaultResult := super isVisible.
-	defaultResult
-		ifFalse: [ ^ false ].
+	defaultResult ifFalse: [ ^ false ].
 	self refStructure ifNil: [ ^ false ].
-	^ self refStructure valueOfProperty: #visible ifAbsent: [true].
-		
-	
+	^ self refStructure valueOfProperty: #visible ifAbsent: [ true ]
 ]
 
 { #category : #'objects from disk' }

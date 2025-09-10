@@ -8,6 +8,12 @@ Class {
 	#category : #'GdsFeel-Model2-Container'
 }
 
+{ #category : #'as yet unclassified' }
+GdaStructureReference class >> drawerClass [
+
+	^ GdsStructureReferenceDrawer
+]
+
 { #category : #testing }
 GdaStructureReference class >> isGdsOriginalClass [
 
@@ -37,6 +43,17 @@ GdaStructureReference >> initialize [
 
 	super initialize.
 	sname := ''
+]
+
+{ #category : #testing }
+GdaStructureReference >> isVisible [
+
+	| defaultResult |
+	defaultResult := super isVisible.
+	defaultResult ifFalse: [ ^ false ].
+	self refStructure ifNil: [ ^ false ].
+	"^ self refStructure valueOfProperty: #visible ifAbsent: [ true ]"
+	^ true
 ]
 
 { #category : #accessing }

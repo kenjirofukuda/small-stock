@@ -263,6 +263,7 @@ KFCodeManage >> targetPackageNames [
 	col addAll:
 		(self packageOrganizerClass default packageNames select: [ :pkg | 
 			 pkg beginsWithAnyOf: #( 
+			'Math-Operations-Extensions'
 			'KFCodeManage' 
 			'KFImaging-LayerMorph'
 			'GdsFeel-Model2'

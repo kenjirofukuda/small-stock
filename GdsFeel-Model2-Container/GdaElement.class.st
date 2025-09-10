@@ -365,6 +365,12 @@ GdaElement >> isStrictGds [
 	^ true
 ]
 
+{ #category : #testing }
+GdaElement >> isVisible [
+
+	^ true
+]
+
 { #category : #'accessing - basic' }
 GdaElement >> keyNumber [
 
