@@ -57,6 +57,7 @@ GdsElementDrawer class >> fromElement: aGdsElement morph: aMorph [
 { #category : #testing }
 GdsElementDrawer >> canDisplayKindForKey: aKey [
 
+	self isAtomicElement ifTrue: [ ^ true ].
 	^ (element structure kinds atKey: aKey) isVisible
 ]
 
@@ -137,6 +138,11 @@ GdsElementDrawer >> fullDrawOn: aCanvas [
 		self canFill ifTrue: [ "self fillOutlineOn: aCanvas" ] ].
 	self strokeOutlineOn: aCanvas.
 	self optionalDrawOn: aCanvas
+]
+
+{ #category : #testing }
+GdsElementDrawer >> isAtomicElement [
+	^ element notNil and: [ element class name asString beginsWith: 'Gda' ]
 ]
 
 { #category : #testing }
