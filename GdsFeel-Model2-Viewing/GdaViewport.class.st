@@ -1,44 +1,6 @@
-"
-A GdsViewport is Pluggable coordinate transformer.
-
-Instance Variables
-	grid:		<GdsGrid>
-	lastPoint:		<Object>
-	model:		<Object>
-	pixelBoundsSelector:		<Symbol>
-	pixelBoundsTarget:		<Object>
-	scale:		<Float>
-	viewCenter:		<Point>
-	wTrans:		<MatrixTransform2x3>
-
-grid
-	- xxxxx
-
-lastPoint
-	- xxxxx
-
-model
-	- xxxxx
-
-pixelBoundsSelector
-	- xxxxx
-
-pixelBoundsTarget
-	- xxxxx
-
-scale
-	- xxxxx
-
-viewCenter
-	- xxxxx
-
-wTrans
-	- xxxxx
-
-"
 Class {
-	#name : #GdsViewport,
-	#superclass : #GdsModel,
+	#name : #GdaViewport,
+	#superclass : #GdaModel,
 	#instVars : [
 		'scale',
 		'grid',
@@ -55,30 +17,30 @@ Class {
 		'lockUpdate',
 		'updateCount'
 	],
-	#category : #'GdsFeel-Model-Viewing'
+	#category : #'GdsFeel-Model2-Viewing'
 }
 
 { #category : #'as yet unclassified' }
-GdsViewport class >> defaultFittingRatio [
+GdaViewport class >> defaultFittingRatio [
 
 	^ 0.98
 ]
 
 { #category : #accessing }
-GdsViewport >> absoluteScale [
+GdaViewport >> absoluteScale [
 
 	^ self transform a11 abs
 ]
 
 { #category : #transforms }
-GdsViewport >> basicTransform [
+GdaViewport >> basicTransform [
 
 	^ basicTransform ifNil: [ 
 		  basicTransform := self lookupBasicTransform ]
 ]
 
 { #category : #testing }
-GdsViewport >> canGridDraw [
+GdaViewport >> canGridDraw [
 
 	^ self grid displayMultiply ~= 0 and: [ 
 		  (self gridScale x * self absoluteScale) asFloat
@@ -86,43 +48,43 @@ GdsViewport >> canGridDraw [
 ]
 
 { #category : #private }
-GdsViewport >> damageTransform [
+GdaViewport >> damageTransform [
 
 	lockUpdate ifTrue: [ 
 		updateCount := updateCount + 1.
 		^ self ].
 	basicTransform := nil.
 	transform := nil.
-	self announcer announce: #viewTransformChanged
+	"self announcer announce: #viewTransformChanged"
 ]
 
 { #category : #defaults }
-GdsViewport >> defaultFittingRatio [
+GdaViewport >> defaultFittingRatio [
 
-	^ GdsFeel fittingRatio
+	^ 0.98
 ]
 
 { #category : #accessing }
-GdsViewport >> extent [
+GdaViewport >> extent [
 
 	^ extent
 ]
 
 { #category : #drawing }
-GdsViewport >> extent: aPoint [
+GdaViewport >> extent: aPoint [
 
 	extent := aPoint.
 	self damageTransform
 ]
 
 { #category : #accessing }
-GdsViewport >> fittingRatio [
+GdaViewport >> fittingRatio [
 
 	^ fittingRatio
 ]
 
 { #category : #accessing }
-GdsViewport >> fittingRatio: aFloat [
+GdaViewport >> fittingRatio: aFloat [
 
 	fittingRatio := (aFloat > 1.0 or: [ aFloat < 0.5 ])
 		                ifTrue: [ self defaultFittingRatio ]
@@ -130,64 +92,45 @@ GdsViewport >> fittingRatio: aFloat [
 ]
 
 { #category : #accessing }
-GdsViewport >> grid [
+GdaViewport >> grid [
 
-	grid ifNil: [ grid := GdsGrid new ].
+	grid ifNil: [ grid := GdaGrid new ].
 	^ grid
 ]
 
 { #category : #accessing }
-GdsViewport >> grid: aGrid [
+GdaViewport >> grid: aGrid [
 
 	grid := aGrid.
 	self changed
 ]
 
 { #category : #accessing }
-GdsViewport >> gridOffset [
+GdaViewport >> gridOffset [
 
 	^ self grid offset
 ]
 
 { #category : #accessing }
-GdsViewport >> gridScale [
+GdaViewport >> gridScale [
 
 	^ self grid scale
 ]
 
 { #category : #initialization }
-GdsViewport >> initialize [
+GdaViewport >> initialize [
 
 	super initialize.
 	fittingRatio := self defaultFittingRatio.
 	transformStack := OrderedCollection new.
 	lockUpdate := false.
-	scale := (self floatNamed: 'scale')
-		         initialValue: 1.0;
-		         yourself.
-	viewCenter := (GdsObjectProperty
-		               named: 'viewCenter'
-		               type: Point
-		               owner: self)
-		              initialValue: 0 @ 0;
-		              yourself.
-	portCenter := (GdsObjectProperty
-		               named: 'portCenter'
-		               type: Point
-		               owner: self)
-		              initialValue: 0 @ 0;
-		              yourself.
-
-	{ 
-		portCenter.
-		scale.
-		viewCenter } do: [ :slot | 
-		slot whenChangedDo: [ :prop | self damageTransform ] ].
-	self endProperties
+	scale := 1.0.
+	viewCenter := 0 @ 0.
+	portCenter := 0 @ 0
 ]
 
 { #category : #accessing }
-GdsViewport >> lockUpdateDuring: aBlock [
+GdaViewport >> lockUpdateDuring: aBlock [
 
 	updateCount := 0.
 	lockUpdate := true.
@@ -198,23 +141,23 @@ GdsViewport >> lockUpdateDuring: aBlock [
 ]
 
 { #category : #lookup }
-GdsViewport >> lookupBasicTransform [
+GdaViewport >> lookupBasicTransform [
 
 	| m |
-	m := MatrixTransform2x3 new.
+	m := self transformClass new.
 	m setScale: 1 @ -1.
 	m setOffset: 0 @ self pixelBounds extent y.
 	m := m composedWithLocal:
-		     (MatrixTransform2x3 withOffset: self portCenter).
+		     (self transformClass withOffset: self portCenter).
 	m := m composedWithLocal:
-		     (MatrixTransform2x3 withScale: self viewScale asPoint).
+		     (self transformClass withScale: self viewScale asPoint).
 	m := m composedWithLocal:
-		     (MatrixTransform2x3 withOffset: self viewCenter negated).
+		     (self transformClass withOffset: self viewCenter negated).
 	^ m
 ]
 
 { #category : #lookup }
-GdsViewport >> lookupHorizontalGridSteps [
+GdaViewport >> lookupHorizontalGridSteps [
 
 	^ self grid
 		  lookupGridStepsMin: self worldViewMinX
@@ -224,10 +167,10 @@ GdsViewport >> lookupHorizontalGridSteps [
 ]
 
 { #category : #lookup }
-GdsViewport >> lookupTransform [
+GdaViewport >> lookupTransform [
 
 	| newTransform |
-	newTransform := MatrixTransform2x3 identity.
+	newTransform := self transformClass identity.
 	newTransform := newTransform composedWithLocal: self basicTransform.
 	transformStack do: [ :tx | 
 		newTransform := newTransform composedWithLocal: tx ].
@@ -236,7 +179,7 @@ GdsViewport >> lookupTransform [
 ]
 
 { #category : #lookup }
-GdsViewport >> lookupVerticalGridSteps [
+GdaViewport >> lookupVerticalGridSteps [
 
 	^ self grid
 		  lookupGridStepsMin: self worldViewMinY
@@ -246,7 +189,7 @@ GdsViewport >> lookupVerticalGridSteps [
 ]
 
 { #category : #viewing }
-GdsViewport >> marginBounds: aBaseBounds [
+GdaViewport >> marginBounds: aBaseBounds [
 
 	| growFactor growWidth growHeight |
 	growFactor := self fittingRatio reciprocal - 1.0.
@@ -256,57 +199,57 @@ GdsViewport >> marginBounds: aBaseBounds [
 ]
 
 { #category : #viewing }
-GdsViewport >> maxScaleLimit [
+GdaViewport >> maxScaleLimit [
 
 	^ 1000
 ]
 
 { #category : #viewing }
-GdsViewport >> minScaleLimit [
+GdaViewport >> minScaleLimit [
 
 	^ self maxScaleLimit reciprocal asFloat
 ]
 
 { #category : #initialization }
-GdsViewport >> model: aModel [
+GdaViewport >> model: aModel [
 
 	model := aModel
 ]
 
 { #category : #transforms }
-GdsViewport >> morphicPointFromGlobal: aGlobalPoint [
+GdaViewport >> morphicPointFromGlobal: aGlobalPoint [
 
 	^ aGlobalPoint - self pixelBounds origin
 ]
 
 { #category : #private }
-GdsViewport >> pixelBounds [
+GdaViewport >> pixelBounds [
 
 	^ pixelBoundsTarget perform: pixelBoundsSelector
 ]
 
 { #category : #initialization }
-GdsViewport >> pixelBoundsSelector: aSelector [
+GdaViewport >> pixelBoundsSelector: aSelector [
 
 	pixelBoundsSelector := aSelector
 ]
 
 { #category : #initialization }
-GdsViewport >> pixelBoundsTarget: aTarget [
+GdaViewport >> pixelBoundsTarget: aTarget [
 
 	self assert: [ aTarget isNil not ].
 	pixelBoundsTarget := aTarget
 ]
 
 { #category : #transforms }
-GdsViewport >> pixelSize: aWorldSize [
+GdaViewport >> pixelSize: aWorldSize [
 
 	^ (self xy2hv: aWorldSize asPoint) distanceTo:
 		  (self xy2hv: 0 asPoint)
 ]
 
 { #category : #private }
-GdsViewport >> popTransform [
+GdaViewport >> popTransform [
 
 	| result |
 	result := transformStack last.
@@ -316,20 +259,20 @@ GdsViewport >> popTransform [
 ]
 
 { #category : #accessing }
-GdsViewport >> portCenter [
+GdaViewport >> portCenter [
 
 	^ portCenter getValue
 ]
 
 { #category : #accessing }
-GdsViewport >> portCenter: aPoint [
+GdaViewport >> portCenter: aPoint [
 
 	portCenter setValue:
 		aPoint x @ (self pixelBounds extent y - aPoint y)
 ]
 
 { #category : #private }
-GdsViewport >> pushTransform: aMatrixTransform2x3 [
+GdaViewport >> pushTransform: aMatrixTransform2x3 [
 
 	self assert: aMatrixTransform2x3 isNil not.
 	transformStack add: aMatrixTransform2x3.
@@ -337,7 +280,7 @@ GdsViewport >> pushTransform: aMatrixTransform2x3 [
 ]
 
 { #category : #drawing }
-GdsViewport >> pushTransform: aMatrixTransform2x3 during: aBlock [
+GdaViewport >> pushTransform: aMatrixTransform2x3 during: aBlock [
 
 	self pushTransform: aMatrixTransform2x3.
 	aBlock value.
@@ -345,7 +288,7 @@ GdsViewport >> pushTransform: aMatrixTransform2x3 during: aBlock [
 ]
 
 { #category : #viewing }
-GdsViewport >> resetPortCenter [
+GdaViewport >> resetPortCenter [
 
 	self portCenter: self pixelBounds extent / 2.0.
 	self viewScale: 1.0.
@@ -353,33 +296,38 @@ GdsViewport >> resetPortCenter [
 ]
 
 { #category : #initialization }
-GdsViewport >> scaleProperty [
+GdaViewport >> scaleProperty [
 
 	^ scale
 ]
 
 { #category : #transforms }
-GdsViewport >> snapedWorldPoint: aWorldPoint [
+GdaViewport >> snapedWorldPoint: aWorldPoint [
 
 	^ (GeometryUtils point: aWorldPoint roundTo: self gridScale)
 	  + self gridOffset
 ]
 
 { #category : #transforms }
-GdsViewport >> snapedWorldPointFromGlobal: aGlobalPoint [
+GdaViewport >> snapedWorldPointFromGlobal: aGlobalPoint [
 
 	^ self snapedWorldPoint: (self worldPointFromGlobal: aGlobalPoint)
 ]
 
 { #category : #transforms }
-GdsViewport >> transform [
+GdaViewport >> transform [
 
 	transform ifNil: [ transform := self lookupTransform ].
 	^ transform
 ]
 
+{ #category : #defaults }
+GdaViewport >> transformClass [
+	^ MatrixTransform2x3 
+]
+
 { #category : #accessing }
-GdsViewport >> updatePortBy: aGdsViewport [
+GdaViewport >> updatePortBy: aGdsViewport [
 
 	self portCenter: aGdsViewport portCenter.
 	self viewCenter: aGdsViewport viewCenter.
@@ -387,7 +335,7 @@ GdsViewport >> updatePortBy: aGdsViewport [
 ]
 
 { #category : #accessing }
-GdsViewport >> viewBounds: aWorldBounds [
+GdaViewport >> viewBounds: aWorldBounds [
 
 	| hRatio vRatio scalingFactor centerPoint |
 	scalingFactor := 1.
@@ -406,31 +354,31 @@ GdsViewport >> viewBounds: aWorldBounds [
 ]
 
 { #category : #accessing }
-GdsViewport >> viewCenter [
+GdaViewport >> viewCenter [
 
-	^ viewCenter getValue
+	^ viewCenter
 ]
 
 { #category : #accessing }
-GdsViewport >> viewCenter: aPoint [
+GdaViewport >> viewCenter: aPoint [
 
-	viewCenter setValue: aPoint
+	viewCenter := aPoint
 ]
 
 { #category : #viewing }
-GdsViewport >> viewFit [
+GdaViewport >> viewFit [
 
 	self viewBounds: (self marginBounds: model dataExtentForFittingView)
 ]
 
 { #category : #viewing }
-GdsViewport >> viewMove: aFractionPoint [
+GdaViewport >> viewMove: aFractionPoint [
 
 	self viewMoveFractionX: aFractionPoint x y: aFractionPoint y
 ]
 
 { #category : #viewing }
-GdsViewport >> viewMoveFractionX: aXfraction y: aYfraction [
+GdaViewport >> viewMoveFractionX: aXfraction y: aYfraction [
 
 	| xDelta yDelta newCenter |
 	xDelta := self worldViewWidth * aXfraction.
@@ -440,13 +388,13 @@ GdsViewport >> viewMoveFractionX: aXfraction y: aYfraction [
 ]
 
 { #category : #accessing }
-GdsViewport >> viewScale [
+GdaViewport >> viewScale [
 
-	^ scale getValue
+	^ scale
 ]
 
 { #category : #accessing }
-GdsViewport >> viewScale: aScale [
+GdaViewport >> viewScale: aScale [
 
 	aScale < self minScaleLimit ifTrue: [ 
 		Transcript
@@ -458,30 +406,30 @@ GdsViewport >> viewScale: aScale [
 			cr;
 			show: '*** WARNING *** maximam scale limit.'.
 		^ self ].
-	scale setValue: aScale
+	scale := aScale
 ]
 
 { #category : #transforms }
-GdsViewport >> worldPointFromGlobal: aGlobalPoint [
+GdaViewport >> worldPointFromGlobal: aGlobalPoint [
 
 	^ self transform invertPoint:
 		  (self morphicPointFromGlobal: aGlobalPoint)
 ]
 
 { #category : #transforms }
-GdsViewport >> worldPointFromLocal: aMorphcLocalPoint [
+GdaViewport >> worldPointFromLocal: aMorphcLocalPoint [
 
 	^ self transform invertPoint: aMorphcLocalPoint
 ]
 
 { #category : #'world-geometry' }
-GdsViewport >> worldViewBounds [
+GdaViewport >> worldViewBounds [
 
 	^ Rectangle origin: self worldViewOrigin corner: self worldViewCorner
 ]
 
 { #category : #'world-geometry' }
-GdsViewport >> worldViewCorner [
+GdaViewport >> worldViewCorner [
 
 	| globalPoint |
 	globalPoint := self pixelBounds right @ self pixelBounds top.
@@ -489,37 +437,37 @@ GdsViewport >> worldViewCorner [
 ]
 
 { #category : #'world-geometry' }
-GdsViewport >> worldViewHeight [
+GdaViewport >> worldViewHeight [
 
 	^ self worldViewMaxY - self worldViewMinY
 ]
 
 { #category : #'world-geometry' }
-GdsViewport >> worldViewMaxX [
+GdaViewport >> worldViewMaxX [
 
 	^ self worldViewCorner x
 ]
 
 { #category : #'world-geometry' }
-GdsViewport >> worldViewMaxY [
+GdaViewport >> worldViewMaxY [
 
 	^ self worldViewCorner y
 ]
 
 { #category : #'world-geometry' }
-GdsViewport >> worldViewMinX [
+GdaViewport >> worldViewMinX [
 
 	^ self worldViewOrigin x
 ]
 
 { #category : #'world-geometry' }
-GdsViewport >> worldViewMinY [
+GdaViewport >> worldViewMinY [
 
 	^ self worldViewOrigin y
 ]
 
 { #category : #'world-geometry' }
-GdsViewport >> worldViewOrigin [
+GdaViewport >> worldViewOrigin [
 
 	| globalPoint |
 	globalPoint := self pixelBounds left @ self pixelBounds bottom.
@@ -527,19 +475,19 @@ GdsViewport >> worldViewOrigin [
 ]
 
 { #category : #'world-geometry' }
-GdsViewport >> worldViewWidth [
+GdaViewport >> worldViewWidth [
 
 	^ self worldViewMaxX - self worldViewMinX
 ]
 
 { #category : #transforms }
-GdsViewport >> xy2hv: aWorldPoint [
+GdaViewport >> xy2hv: aWorldPoint [
 
 	^ self xy2hv: aWorldPoint transform: self transform
 ]
 
 { #category : #transforms }
-GdsViewport >> xy2hv: aWorldPoint transform: aMatrixTransform2x3 [
+GdaViewport >> xy2hv: aWorldPoint transform: aMatrixTransform2x3 [
 
 	| np1 |
 	aWorldPoint isPoint ifFalse: [  ].
@@ -548,13 +496,13 @@ GdsViewport >> xy2hv: aWorldPoint transform: aMatrixTransform2x3 [
 ]
 
 { #category : #transforms }
-GdsViewport >> xy2hvPoints: aPointArray [
+GdaViewport >> xy2hvPoints: aPointArray [
 
 	^ aPointArray collect: [ :each | self xy2hv: each ]
 ]
 
 { #category : #viewing }
-GdsViewport >> zoom: aNumber [
+GdaViewport >> zoom: aNumber [
 
 	self viewScale: self viewScale * aNumber
 ]

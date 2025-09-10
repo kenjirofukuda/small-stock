@@ -1,27 +1,5 @@
-"
-A GdsGrid is Gridding attribute.
-
-Instance Variables
-	offsetX:		<Float>
-	offsetY:		<Float>
-	scaleX:		<Float>
-	scaleY:		<Float>
-
-offsetX
-	- xxxxx
-
-offsetY
-	- xxxxx
-
-scaleX
-	- xxxxx
-
-scaleY
-	- xxxxx
-
-"
 Class {
-	#name : #GdsGrid,
+	#name : #GdaGrid,
 	#superclass : #Model,
 	#instVars : [
 		'offsetX',
@@ -30,11 +8,11 @@ Class {
 		'scaleY',
 		'displayMultiply'
 	],
-	#category : #'GdsFeel-Model-Viewing'
+	#category : #'GdsFeel-Model2-Viewing'
 }
 
 { #category : #'as yet unclassified' }
-GdsGrid class >> lookupGridStepsMin: aMinValue max: aMaxValue gridScale: aGridScale [
+GdaGrid class >> lookupGridStepsMin: aMinValue max: aMaxValue gridScale: aGridScale [
 
 	^ ((Interval
 		    from: (aMinValue roundTo: aGridScale) - aGridScale
@@ -44,7 +22,7 @@ GdsGrid class >> lookupGridStepsMin: aMinValue max: aMaxValue gridScale: aGridSc
 ]
 
 { #category : #convert }
-GdsGrid >> asAbbreviateArray [
+GdaGrid >> asAbbreviateArray [
 
 	^ Array streamContents: [ :s | 
 		  self isZeroOffset
@@ -55,7 +33,7 @@ GdsGrid >> asAbbreviateArray [
 ]
 
 { #category : #convert }
-GdsGrid >> asArray [
+GdaGrid >> asArray [
 
 	^ { 
 		  offsetX.
@@ -64,22 +42,14 @@ GdsGrid >> asArray [
 		  scaleY }
 ]
 
-{ #category : #convert }
-GdsGrid >> asRequestString [
-
-	^ GdsFeel
-		  join: (self asAbbreviateArray collect: [ :each | each asString ])
-		  using: ' '
-]
-
 { #category : #accessing }
-GdsGrid >> displayMultiply [
+GdaGrid >> displayMultiply [
 
 	^ displayMultiply
 ]
 
 { #category : #accessing }
-GdsGrid >> displayMultiply: aValue [
+GdaGrid >> displayMultiply: aValue [
 
 	| value |
 	value := aValue asInteger.
@@ -89,7 +59,7 @@ GdsGrid >> displayMultiply: aValue [
 ]
 
 { #category : #initialization }
-GdsGrid >> initialize [
+GdaGrid >> initialize [
 
 	offsetX := 0.0.
 	offsetY := 0.0.
@@ -99,25 +69,25 @@ GdsGrid >> initialize [
 ]
 
 { #category : #testing }
-GdsGrid >> isSameOffset [
+GdaGrid >> isSameOffset [
 
 	^ offsetX = offsetY
 ]
 
 { #category : #testing }
-GdsGrid >> isSameScale [
+GdaGrid >> isSameScale [
 
 	^ scaleX = scaleY
 ]
 
 { #category : #testing }
-GdsGrid >> isZeroOffset [
+GdaGrid >> isZeroOffset [
 
 	^ self offset isZero
 ]
 
 { #category : #utility }
-GdsGrid >> lookupGridStepsMin: aMin max: aMax gridScale: aGridScale gridOffset: aGridOffset [
+GdaGrid >> lookupGridStepsMin: aMin max: aMax gridScale: aGridScale gridOffset: aGridOffset [
 
 	| start end values |
 	start := aMin roundTo: aGridScale.
@@ -135,13 +105,13 @@ GdsGrid >> lookupGridStepsMin: aMin max: aMax gridScale: aGridScale gridOffset: 
 ]
 
 { #category : #accessing }
-GdsGrid >> offset [
+GdaGrid >> offset [
 
 	^ offsetX @ offsetY
 ]
 
 { #category : #accessing }
-GdsGrid >> offset: aOffset [
+GdaGrid >> offset: aOffset [
 
 	| p |
 	p := aOffset asPoint.
@@ -151,13 +121,13 @@ GdsGrid >> offset: aOffset [
 ]
 
 { #category : #accessing }
-GdsGrid >> scale [
+GdaGrid >> scale [
 
 	^ scaleX @ scaleY
 ]
 
 { #category : #accessing }
-GdsGrid >> scale: aScale [
+GdaGrid >> scale: aScale [
 
 	| p |
 	p := aScale asPoint.
@@ -167,21 +137,21 @@ GdsGrid >> scale: aScale [
 ]
 
 { #category : #private }
-GdsGrid >> setOffsetX: aX setOffsetY: aY [
+GdaGrid >> setOffsetX: aX setOffsetY: aY [
 
 	offsetX := aX.
 	offsetY := aY
 ]
 
 { #category : #private }
-GdsGrid >> setScaleX: aX setScaleY: aY [
+GdaGrid >> setScaleX: aX setScaleY: aY [
 
 	scaleX := aX.
 	scaleY := aY
 ]
 
 { #category : #accessing }
-GdsGrid >> values: anArray [
+GdaGrid >> values: anArray [
 
 	self assert: [ anArray isNil not ].
 	self assert: [ anArray allSatisfy: [ :each | each isNumber ] ].
