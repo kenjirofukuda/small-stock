@@ -285,6 +285,11 @@ GdaLibrary >> lastModified: aDateAndTime [
 	lastModified := aDateAndTime
 ]
 
+{ #category : #accessing }
+GdaLibrary >> layers [
+	^ layers ifNil: [ layers := self lookupLayers ]
+]
+
 { #category : #'accessing - basic' }
 GdaLibrary >> libName [
 
@@ -297,6 +302,14 @@ GdaLibrary >> libName: aString [
 	libname ifNotNil: [ ^ self error: 'LIBRARY NAME ASSIGNED ONCE' ].
 	self class checkLibName: aString.
 	libname := aString "self class baseName:"
+]
+
+{ #category : #private }
+GdaLibrary >> lookupLayers [
+	| theLayers |
+	theLayers := GdaLayers new.	
+	self lookupUsingLayerNumbers do: [ :each | theLayers atNumber: each ].
+	^ theLayers
 ]
 
 { #category : #private }

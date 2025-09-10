@@ -527,6 +527,14 @@ GdaStructure >> postCopy [
 	layers := layers copy
 ]
 
+{ #category : #accessing }
+GdaStructure >> primitiveLayerNumbers [
+
+	^ self elements
+		  select: [ :each | each hasLayer ]
+		  thenCollect: [ :each | each layerNumber ]
+]
+
 { #category : #printing }
 GdaStructure >> printOn: aStream [
 

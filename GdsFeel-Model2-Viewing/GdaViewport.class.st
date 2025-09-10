@@ -261,14 +261,13 @@ GdaViewport >> popTransform [
 { #category : #accessing }
 GdaViewport >> portCenter [
 
-	^ portCenter getValue
+	^ portCenter
 ]
 
 { #category : #accessing }
 GdaViewport >> portCenter: aPoint [
 
-	portCenter setValue:
-		aPoint x @ (self pixelBounds extent y - aPoint y)
+	portCenter := aPoint x @ (self pixelBounds extent y - aPoint y)
 ]
 
 { #category : #private }

@@ -264,9 +264,12 @@ KFCodeManage >> targetPackageNames [
 		(self packageOrganizerClass default packageNames select: [ :pkg | 
 			 pkg beginsWithAnyOf: #( 
 			'KFCodeManage' 
+			'KFImaging-LayerMorph'
 			'GdsFeel-Model2'
 			'GdsFeel-Foundation2'
 			'GdsFeel-SF' 
+			'GdsFeel-UI-Drawer'
+			'GdsFeel-UI2'
 			) ]).
 	^ col
 ]
