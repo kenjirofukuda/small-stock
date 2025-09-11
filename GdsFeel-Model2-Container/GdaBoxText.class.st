@@ -99,6 +99,13 @@ GdaBoxText >> printSelfOn: aStream [
 	aStream nextPutAll: self contents
 ]
 
+{ #category : #initialization }
+GdaBoxText >> release [
+
+	contents := nil.
+	super release
+]
+
 { #category : #accessing }
 GdaBoxText >> safeContents [
 

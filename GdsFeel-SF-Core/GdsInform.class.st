@@ -115,7 +115,7 @@ GdsInform >> installedElementType: aSymbol [
 
 { #category : #accessing }
 GdsInform >> library [
-
+	library ifNil: [ self run ].
 	^ library
 ]
 
@@ -142,7 +142,7 @@ GdsInform >> missingField: aSymbol ofElement: aGdsElement [
 			  elementTypeString }
 ]
 
-{ #category : #'element reader' }
+{ #category : #'reading - element' }
 GdsInform >> readAREF: aGdsStructure [
 
 	| loopContext element record clazz |
@@ -164,7 +164,7 @@ GdsInform >> readAREF: aGdsStructure [
 	^ loopContext result
 ]
 
-{ #category : #'element reader' }
+{ #category : #'reading - element' }
 GdsInform >> readBOUNDARY: aGdsStructure [
 
 	| element loopContext record clazz |
@@ -186,7 +186,7 @@ GdsInform >> readBOUNDARY: aGdsStructure [
 	^ loopContext result
 ]
 
-{ #category : #'element reader' }
+{ #category : #'reading - element' }
 GdsInform >> readBOX: aGdsStructure [
 
 	"FIXME: "
@@ -194,7 +194,7 @@ GdsInform >> readBOX: aGdsStructure [
 	^ { false. nil }
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reading }
 GdsInform >> readHeader [
 
 	| header |
@@ -214,7 +214,7 @@ GdsInform >> readLib [
 	structure isNil ] whileFalse: [ library addStructure: structure ]
 ]
 
-{ #category : #'element reader' }
+{ #category : #'reading - element' }
 GdsInform >> readNODE: aGdsStructure [
 
 	"FIXME: "
@@ -222,7 +222,7 @@ GdsInform >> readNODE: aGdsStructure [
 	^ { false. nil }
 ]
 
-{ #category : #'element reader' }
+{ #category : #'reading - element' }
 GdsInform >> readPATH: aGdsStructure [
 
 	| element record loopContext clazz |
@@ -244,7 +244,7 @@ GdsInform >> readPATH: aGdsStructure [
 	^ loopContext result
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reading }
 GdsInform >> readPrimitiveBegin: element [
 
 	| record |
@@ -258,7 +258,7 @@ GdsInform >> readPrimitiveBegin: element [
 	element datatype: record int2
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reading }
 GdsInform >> readPrimitiveEnd: element [
 
 	| record points |
@@ -272,7 +272,7 @@ GdsInform >> readPrimitiveEnd: element [
 		^ self abort: (self missingField: record type ofElement: element) ]
 ]
 
-{ #category : #'element reader' }
+{ #category : #'reading - element' }
 GdsInform >> readSREF: aGdsStructure [
 
 	| loopContext element record clazz |
@@ -294,7 +294,7 @@ GdsInform >> readSREF: aGdsStructure [
 	^ loopContext result
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reading }
 GdsInform >> readStruct [
 
 	| break record structure result |
@@ -349,7 +349,7 @@ GdsInform >> readStruct: aRecord structure: aGdsStructure [
 	^ result
 ]
 
-{ #category : #'element reader' }
+{ #category : #'reading - element' }
 GdsInform >> readTEXT: aGdsStructure [
 
 	"FIXME: "
@@ -357,7 +357,7 @@ GdsInform >> readTEXT: aGdsStructure [
 	^ { false. nil }
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reading }
 GdsInform >> readUpToFirstStruct [
 
 	| break record |
@@ -369,7 +369,7 @@ GdsInform >> readUpToFirstStruct [
 		break := self readUpToFirstStructRecord: record ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reading }
 GdsInform >> readUpToFirstStructRecord: aRecord [
 
 	| items libname |

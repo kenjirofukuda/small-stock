@@ -291,6 +291,25 @@ GdaViewport >> pushTransform: aMatrixTransform2x3 during: aBlock [
 	self popTransform
 ]
 
+{ #category : #initialization }
+GdaViewport >> release [
+	scale := nil.
+	grid := nil.
+	viewCenter := nil.
+	pixelBoundsSelector := nil.
+	pixelBoundsTarget := nil.
+	model := nil.
+	fittingRatio := nil.
+	portCenter := nil.
+	transformStack := nil.
+	basicTransform := nil.
+	transform := nil.
+	extent := nil.
+	lockUpdate := nil.
+	updateCount := nil.
+	super release 
+]
+
 { #category : #viewing }
 GdaViewport >> resetPortCenter [
 

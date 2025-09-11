@@ -98,6 +98,13 @@ GdaStructureReference >> refStructure [
 	^ refStructure
 ]
 
+{ #category : #initialization }
+GdaStructureReference >> release [
+
+	refStructure := nil.
+	super release
+]
+
 { #category : #'accessing - basic' }
 GdaStructureReference >> structureName [
 

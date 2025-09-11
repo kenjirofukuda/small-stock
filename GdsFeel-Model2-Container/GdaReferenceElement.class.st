@@ -92,6 +92,13 @@ GdaReferenceElement >> postCopy [
 	self copyTransform
 ]
 
+{ #category : #initialization }
+GdaReferenceElement >> release [
+	strans release.
+	strans := nil.
+	super release
+]
+
 { #category : #'accessing - basic' }
 GdaReferenceElement >> setReflected: aBoolean [
 

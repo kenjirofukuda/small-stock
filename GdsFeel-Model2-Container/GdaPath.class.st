@@ -116,6 +116,13 @@ GdaPath >> pathtype: aInteger [
 	wire pathtype: aInteger
 ]
 
+{ #category : #initialization }
+GdaPath >> release [
+	wire release.
+	wire := nil.
+	super release
+]
+
 { #category : #other }
 GdaPath >> removeGeometryCache [
 

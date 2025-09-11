@@ -72,6 +72,13 @@ GdaArrayedStructureReference >> relativeTransforms [
 	^ ashape relativeTransforms
 ]
 
+{ #category : #initialization }
+GdaArrayedStructureReference >> release [
+	ashape release.
+	ashape := nil.
+	super release 
+]
+
 { #category : #accessing }
 GdaArrayedStructureReference >> repeatTransforms [
 

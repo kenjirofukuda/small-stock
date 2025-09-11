@@ -210,6 +210,14 @@ GdaWireContext >> pathtype: aInteger [
 	self removeGeometryCache
 ]
 
+{ #category : #initialization }
+GdaWireContext >> release [
+	outlineSegMap := nil.
+	boundaryPoints := nil.
+	element := nil.
+	super release
+]
+
 { #category : #other }
 GdaWireContext >> removeGeometryCache [
 

@@ -45,6 +45,12 @@ GdaModel >> properties [
 	^ properties ifNil: [ properties := IdentityDictionary new ]
 ]
 
+{ #category : #initialization }
+GdaModel >> release [
+	properties := nil.
+	super release
+]
+
 { #category : #'accessing - properties' }
 GdaModel >> removeProperty: aSymbol [
 	"removes the property named aSymbol if it exists"

@@ -109,6 +109,18 @@ GdaAShapeContext >> relativeTransforms [
 	^ transforms
 ]
 
+{ #category : #initialization }
+GdaAShapeContext >> release [
+	columnCount := nil.
+	rowCount := nil.
+	xStep := nil.
+	yStep := nil.
+	transforms := nil.
+	offsets := nil.
+	element := nil.
+	super release 
+]
+
 { #category : #'accessing - basic' }
 GdaAShapeContext >> rowCount [
 

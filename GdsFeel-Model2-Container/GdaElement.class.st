@@ -498,6 +498,8 @@ GdaElement >> release [
 
 	vertices := nil.
 	structure := nil.
+	dataBounds := nil.
+	ownColor := nil.
 	super release
 ]
 

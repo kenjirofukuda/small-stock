@@ -161,6 +161,18 @@ GdaStructureTransform >> printOn: aStream [
 ]
 
 { #category : #'initialize-release' }
+GdaStructureTransform >> release [
+	offset := nil.
+	mag := nil.
+	angle := nil.
+	reflected := nil.
+	absAngle := nil.
+	absMag := nil.
+	matrix := nil.
+	super release
+]
+
+{ #category : #'initialize-release' }
 GdaStructureTransform >> safeReset [
 
 	offset := 0.0 @ 0.0.
