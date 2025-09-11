@@ -55,6 +55,7 @@ GdaViewport >> damageTransform [
 		^ self ].
 	basicTransform := nil.
 	transform := nil.
+	self changed.
 	"self announcer announce: #viewTransformChanged"
 ]
 
@@ -73,6 +74,7 @@ GdaViewport >> extent [
 { #category : #drawing }
 GdaViewport >> extent: aPoint [
 
+	aPoint = aPoint ifTrue: [ ^ self ].
 	extent := aPoint.
 	self damageTransform
 ]
@@ -86,9 +88,11 @@ GdaViewport >> fittingRatio [
 { #category : #accessing }
 GdaViewport >> fittingRatio: aFloat [
 
+	fittingRatio = aFloat ifTrue: [ ^ self ].
 	fittingRatio := (aFloat > 1.0 or: [ aFloat < 0.5 ])
 		                ifTrue: [ self defaultFittingRatio ]
-		                ifFalse: [ aFloat ]
+		                ifFalse: [ aFloat ].
+	self damageTransform
 ]
 
 { #category : #accessing }
@@ -266,8 +270,9 @@ GdaViewport >> portCenter [
 
 { #category : #accessing }
 GdaViewport >> portCenter: aPoint [
-
-	portCenter := aPoint x @ (self pixelBounds extent y - aPoint y)
+	portCenter = aPoint ifTrue: [ ^ self ].
+	portCenter := aPoint x @ (self pixelBounds extent y - aPoint y).
+	self damageTransform
 ]
 
 { #category : #private }
@@ -292,12 +297,6 @@ GdaViewport >> resetPortCenter [
 	self portCenter: self pixelBounds extent / 2.0.
 	self viewScale: 1.0.
 	self viewCenter: 0 @ 0
-]
-
-{ #category : #initialization }
-GdaViewport >> scaleProperty [
-
-	^ scale
 ]
 
 { #category : #transforms }
@@ -361,7 +360,9 @@ GdaViewport >> viewCenter [
 { #category : #accessing }
 GdaViewport >> viewCenter: aPoint [
 
-	viewCenter := aPoint
+	viewCenter = aPoint ifTrue: [ ^ self ].
+	viewCenter := aPoint.
+	self damageTransform
 ]
 
 { #category : #viewing }
@@ -394,7 +395,7 @@ GdaViewport >> viewScale [
 
 { #category : #accessing }
 GdaViewport >> viewScale: aScale [
-
+	scale = aScale ifTrue: [ ^ self ].
 	aScale < self minScaleLimit ifTrue: [ 
 		Transcript
 			cr;
@@ -405,7 +406,8 @@ GdaViewport >> viewScale: aScale [
 			cr;
 			show: '*** WARNING *** maximam scale limit.'.
 		^ self ].
-	scale := aScale
+	scale := aScale.
+	self damageTransform.
 ]
 
 { #category : #transforms }

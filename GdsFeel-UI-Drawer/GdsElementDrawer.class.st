@@ -57,7 +57,7 @@ GdsElementDrawer class >> fromElement: aGdsElement morph: aMorph [
 { #category : #testing }
 GdsElementDrawer >> canDisplayKindForKey: aKey [
 
-	self isAtomicElement ifTrue: [ ^ true ].
+	"self isAtomicElement ifTrue: [ ^ true ]."
 	^ (element structure kinds atKey: aKey) isVisible
 ]
 

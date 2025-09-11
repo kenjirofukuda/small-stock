@@ -12,7 +12,8 @@ Class {
 		'layers',
 		'nameToStructureMap',
 		'uuid',
-		'fileEntry'
+		'fileEntry',
+		'kinds'
 	],
 	#category : #'GdsFeel-Model2-Container'
 }
@@ -259,6 +260,12 @@ GdaLibrary >> isLibrary [
 GdaLibrary >> isTransient [
 
 	^ false
+]
+
+{ #category : #accessing }
+GdaLibrary >> kinds [
+
+	^ kinds ifNil: [ kinds := GdaKinds new ]
 ]
 
 { #category : #'accessing - basic' }

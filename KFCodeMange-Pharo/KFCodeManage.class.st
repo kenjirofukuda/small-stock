@@ -265,6 +265,7 @@ KFCodeManage >> targetPackageNames [
 			 pkg beginsWithAnyOf: #( 
 			'Math-Operations-Extensions'
 			'KFCodeManage' 
+			'KFImaging-Support'
 			'KFImaging-LayerMorph'
 			'GdsFeel-Model2'
 			'GdsFeel-Foundation2'

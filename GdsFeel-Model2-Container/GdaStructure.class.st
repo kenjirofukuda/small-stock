@@ -369,6 +369,13 @@ GdaStructure >> isTransient [
 ]
 
 { #category : #accessing }
+GdaStructure >> kinds [
+
+	self library ifNil: [ ^ nil ].
+	^ self library kinds
+]
+
+{ #category : #accessing }
 GdaStructure >> labelString [
 
 	^ String streamContents: [ :s | 

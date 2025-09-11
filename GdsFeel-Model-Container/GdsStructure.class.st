@@ -613,8 +613,9 @@ GdsStructure >> jsonElementsOn: aDictionary [
 
 { #category : #accessing }
 GdsStructure >> kinds [
-	self library ifNil: [^nil].
-	^self library kinds
+
+	self library ifNil: [ ^ nil ].
+	^ self library kinds
 ]
 
 { #category : #accessing }

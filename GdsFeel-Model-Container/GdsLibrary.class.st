@@ -636,8 +636,8 @@ GdsLibrary >> jsonElementsOn: aDictionary [
 
 { #category : #accessing }
 GdsLibrary >> kinds [
-	kinds ifNil: [kinds := GdsKinds new].
-	^kinds
+
+	^ kinds ifNil: [ kinds := GdsKinds new ]
 ]
 
 { #category : #accessing }
