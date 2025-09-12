@@ -201,15 +201,15 @@ GdsViewport >> lockUpdateDuring: aBlock [
 GdsViewport >> lookupBasicTransform [
 
 	| m |
-	m := MatrixTransform2x3 new.
+	m := GeometryUtils transformClass new.
 	m setScale: 1 @ -1.
 	m setOffset: 0 @ self pixelBounds extent y.
 	m := m composedWithLocal:
-		     (MatrixTransform2x3 withOffset: self portCenter).
+		     (GeometryUtils transformClass withOffset: self portCenter).
 	m := m composedWithLocal:
-		     (MatrixTransform2x3 withScale: self viewScale asPoint).
+		     (GeometryUtils transformClass withScale: self viewScale asPoint).
 	m := m composedWithLocal:
-		     (MatrixTransform2x3 withOffset: self viewCenter negated).
+		     (GeometryUtils transformClass withOffset: self viewCenter negated).
 	^ m
 ]
 
@@ -227,7 +227,7 @@ GdsViewport >> lookupHorizontalGridSteps [
 GdsViewport >> lookupTransform [
 
 	| newTransform |
-	newTransform := MatrixTransform2x3 identity.
+	newTransform := GeometryUtils transformClass identity.
 	newTransform := newTransform composedWithLocal: self basicTransform.
 	transformStack do: [ :tx | 
 		newTransform := newTransform composedWithLocal: tx ].

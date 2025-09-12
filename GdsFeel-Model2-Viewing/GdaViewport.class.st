@@ -338,11 +338,6 @@ GdaViewport >> transform [
 	^ transform
 ]
 
-{ #category : #defaults }
-GdaViewport >> transformClass [
-	^ MatrixTransform2x3 
-]
-
 { #category : #accessing }
 GdaViewport >> updatePortBy: aGdsViewport [
 

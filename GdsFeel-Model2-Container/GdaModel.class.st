@@ -67,6 +67,11 @@ GdaModel >> setProperty: aSymbol toValue: anObject [
 	self properties at: aSymbol put: anObject
 ]
 
+{ #category : #accessing }
+GdaModel >> transformClass [
+	^ GeometryUtils transformClass
+]
+
 { #category : #'accessing - properties' }
 GdaModel >> valueOfProperty: aSymbol [
 	"answer the value of the receiver's property named aSymbol"

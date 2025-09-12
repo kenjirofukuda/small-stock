@@ -62,7 +62,7 @@ GdsElement class >> crossPointsOfElements: elements [
 
 	^ self
 		  crossPointsOfElements: elements
-		  transform: MatrixTransform2x3 identity
+		  transform: GeometryUtils transformClass identity
 ]
 
 { #category : #analisys }
@@ -267,7 +267,7 @@ GdsElement class >> vertexPointsOfElements: elements [
 
 	^ self
 		  vertexPointsOfElements: elements
-		  transform: MatrixTransform2x3 identity
+		  transform: GeometryUtils transformClass identity
 ]
 
 { #category : #analisys }

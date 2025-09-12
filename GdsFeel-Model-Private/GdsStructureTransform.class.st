@@ -90,7 +90,7 @@ GdsStructureTransform >> isReflected [
 { #category : #convertor }
 GdsStructureTransform >> lookupMatrix2x3 [
 	| t rad radCos radSin |
-	t := MatrixTransform2x3 identity.
+	t := GeometryUtils transformClass identity.
 	rad := angle degreesToRadians.
 	radCos := rad cos.
 	radSin := rad sin.

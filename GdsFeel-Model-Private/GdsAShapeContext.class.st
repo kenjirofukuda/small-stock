@@ -130,7 +130,7 @@ GdsAShapeContext >> lookupOffsets [
 
 { #category : #private }
 GdsAShapeContext >> lookupTransforms [
-	^ self offsets collect: [ :offset | MatrixTransform2x3 withOffset: offset ]
+	^ self offsets collect: [ :offset | self transformClass withOffset: offset ]
 ]
 
 { #category : #accessing }

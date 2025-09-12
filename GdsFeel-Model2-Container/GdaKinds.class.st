@@ -1,6 +1,6 @@
 Class {
 	#name : #GdaKinds,
-	#superclass : #Model,
+	#superclass : #GdaModel,
 	#instVars : [
 		'kinds',
 		'keyOrder'

@@ -1,6 +1,6 @@
 Class {
 	#name : #GdaAShapeContext,
-	#superclass : #Object,
+	#superclass : #GdaModel,
 	#instVars : [
 		'columnCount',
 		'rowCount',
@@ -84,7 +84,7 @@ GdaAShapeContext >> lookupOffsets [
 GdaAShapeContext >> lookupTransforms [
 
 	^ self offsets collect: [ :offset | 
-		  MatrixTransform2x3 withOffset: offset ]
+		  self transformClass withOffset: offset ]
 ]
 
 { #category : #accessing }

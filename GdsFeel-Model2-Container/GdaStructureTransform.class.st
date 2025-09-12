@@ -1,6 +1,6 @@
 Class {
 	#name : #GdaStructureTransform,
-	#superclass : #Object,
+	#superclass : #GdaModel,
 	#instVars : [
 		'offset',
 		'mag',
@@ -92,7 +92,7 @@ GdaStructureTransform >> isReflected [
 GdaStructureTransform >> lookupMatrix2x3 [
 
 	| t rad radCos radSin |
-	t := MatrixTransform2x3 identity.
+	t := self transformClass identity.
 	rad := angle degreesToRadians.
 	radCos := rad cos.
 	radSin := rad sin.

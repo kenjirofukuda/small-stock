@@ -1,6 +1,6 @@
 Class {
 	#name : #GdaStructureWalker,
-	#superclass : #Object,
+	#superclass : #GdaModel,
 	#instVars : [
 		'depth'
 	],

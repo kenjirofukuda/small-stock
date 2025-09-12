@@ -1,6 +1,6 @@
 Class {
 	#name : #GdaLayers,
-	#superclass : #Model,
+	#superclass : #GdaModel,
 	#instVars : [
 		'layers',
 		'numbers'

@@ -388,10 +388,10 @@ GdsStructureViewMorph >> drawOn: aCanvas fittingString: aObject at: aWorldPoint 
 		            fontDescription: defaultFTDesc.
 	widthRatio := aWorldExtent x asFloat / ttBounds width asFloat.
 	heightRatio := aWorldExtent y asFloat / ttBounds height asFloat.
-	scaleTransform := MatrixTransform2x3 withScale:
+	scaleTransform := GeometryUtils transformClass withScale:
 		                  widthRatio @ heightRatio.
-	locationTransform := MatrixTransform2x3 withOffset: aWorldPoint.
-	finalTransform := MatrixTransform2x3 identity.
+	locationTransform := GeometryUtils transformClass withOffset: aWorldPoint.
+	finalTransform := GeometryUtils transformClass identity.
 	finalTransform := finalTransform composedWithLocal: locationTransform.
 	finalTransform := finalTransform composedWithLocal: scaleTransform.
 	"finalTransform := finalTransform composedWithLocal: (MatrixTransform2x3 withAngle: 45)."

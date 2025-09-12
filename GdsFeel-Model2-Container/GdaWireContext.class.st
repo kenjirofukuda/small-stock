@@ -1,6 +1,6 @@
 Class {
 	#name : #GdaWireContext,
-	#superclass : #Object,
+	#superclass : #GdaModel,
 	#instVars : [
 		'width',
 		'outlineSegMap',
