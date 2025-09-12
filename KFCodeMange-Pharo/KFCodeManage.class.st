@@ -244,8 +244,6 @@ KFCodeManage >> targetClassNames [
 	col add: #LineSegment.
 	col add: #Bezier2Segment.
 	col add: #Bezier3Segment.
-
-	col add: #GdsInform.
 	^ col
 ]
 
@@ -264,6 +262,7 @@ KFCodeManage >> targetPackageNames [
 		(self packageOrganizerClass default packageNames select: [ :pkg | 
 			 pkg beginsWithAnyOf: #( 
 			'Math-Operations-Extensions'
+			'GeometryUtils'
 			'KFCodeManage' 
 			'KFImaging-Support'
 			'KFImaging-LayerMorph'

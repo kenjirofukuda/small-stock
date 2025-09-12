@@ -4,9 +4,10 @@ Class {
 	#classVars : [
 		'Degree45Theta',
 		'MinusBounds',
-		'Pi2'
+		'Pi2',
+		'PropMap'
 	],
-	#category : 'GeometryUtils'
+	#category : #GeometryUtils
 }
 
 { #category : #'analisys-linesegment' }
@@ -105,7 +106,10 @@ GeometryUtils class >> initialize [
 	
 	Degree45Theta := Float pi / 4.0.
 	Pi2 := Float pi * 2.0.
-	MinusBounds := nil
+	MinusBounds := nil.
+	
+	PropMap := Dictionary new.
+	PropMap at: #transformClass put: self lookupTransformClass
 ]
 
 { #category : #api }
@@ -150,6 +154,14 @@ GeometryUtils class >> lookupMinusBounds [
 	^ Rectangle
 		origin: SmallInteger maxVal @ SmallInteger maxVal
 		corner: SmallInteger minVal @ SmallInteger minVal
+]
+
+{ #category : #lookups }
+GeometryUtils class >> lookupTransformClass [
+
+	^ Smalltalk
+		  at: #MatrixTransform2x3
+		  ifAbsent: [ Smalltalk at: #AffineTransformation ]
 ]
 
 { #category : #'analisys-linesegment' }
@@ -344,6 +356,12 @@ GeometryUtils class >> splitSegment: aLineSegment crossPoints: aCrossPoints epsi
 									end2 := points at: index + 1.
 									stream nextPut: (LineSegment from: start2 to: end2) ] ] ]
 				ifEmpty: [ stream nextPut: aLineSegment ] ]
+]
+
+{ #category : #lookups }
+GeometryUtils class >> transformClass [
+
+	^ PropMap at: #transformClass
 ]
 
 { #category : #api }
