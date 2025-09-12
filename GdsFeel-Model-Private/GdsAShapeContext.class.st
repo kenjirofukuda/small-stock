@@ -183,6 +183,11 @@ GdsAShapeContext >> topElementName [
 ]
 
 { #category : #accessing }
+GdsAShapeContext >> transformClass [
+	^ GeometryUtils transformClass
+]
+
+{ #category : #accessing }
 GdsAShapeContext >> values [
 	^{self columnCount . self rowCount . self xStep .  self yStep }
 ]

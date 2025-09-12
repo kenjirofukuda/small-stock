@@ -915,6 +915,11 @@ GdsElement >> topElementName [
 ]
 
 { #category : #accessing }
+GdsElement >> transformClass [
+	^ GeometryUtils transformClass
+]
+
+{ #category : #accessing }
 GdsElement >> type [
 
 	^ self class type
