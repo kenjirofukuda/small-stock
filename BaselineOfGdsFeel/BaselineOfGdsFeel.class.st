@@ -311,7 +311,8 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 		spec package: 'GdsFeel-SF-Pharo'.
 		spec package: 'GdsFeel-SF-Pharo-Tests'.
 		spec package: 'GdsFeel-SF-UI-Pharo'.
-		spec package: 'GdsFeel-SF-Tests' with: [ 
+		spec package: 'GdsFeel-SF-Tests' 
+		with: [ 
 			spec requires:
 				#( 
 				'GeometryUtils' 
