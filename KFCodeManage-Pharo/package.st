@@ -1,1 +1,1 @@
-Package { #name : #'KFCodeManage-Pharo' }
+Package { #name : 'KFCodeManage-Pharo' }

@@ -1,6 +1,6 @@
 Class {
-	#name : #KFAbstractChunk,
-	#superclass : #Object,
+	#name : 'KFAbstractChunk',
+	#superclass : 'Object',
 	#instVars : [
 		'chunkFile'
 	],
@@ -8,113 +8,114 @@ Class {
 		'Head',
 		'Tail'
 	],
-	#category : #'KFCodeManage-Pharo'
+	#category : 'KFCodeManage-Pharo',
+	#package : 'KFCodeManage-Pharo'
 }
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 KFAbstractChunk class >> head [
 	^ Head
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 KFAbstractChunk class >> initialize [
 	Head := KFDummyChunk new setIsHead: true.
 	Tail := KFDummyChunk new setIsHead: false.	
 	
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 KFAbstractChunk class >> tail [
 	^ Tail
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFAbstractChunk >> chunkFile: aGdsChunkFile [ 
 	chunkFile := aGdsChunkFile.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isClassClassDefinition [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isClassDefinition [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isClassMethodHeader [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isCommentBody [
 	^ false 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isCommentLiteral [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isCommentStamp [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isDummy [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isEmpty [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isHead [ 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isInstanceMethodHeader [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isMethodBody [
 	^ false 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isMethodHeader [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isStringLiteral [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> isTail [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFAbstractChunk >> next [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFAbstractChunk >> prev [
 	^ nil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFAbstractChunk >> rejectable [
 	^ false
 ]

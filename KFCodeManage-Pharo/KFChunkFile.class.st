@@ -4,21 +4,22 @@ Instance Variables
 
 "
 Class {
-	#name : #KFChunkFile,
-	#superclass : #Object,
+	#name : 'KFChunkFile',
+	#superclass : 'Object',
 	#instVars : [
 		'file',
 		'chunks'
 	],
-	#category : #'KFCodeManage-Pharo'
+	#category : 'KFCodeManage-Pharo',
+	#package : 'KFCodeManage-Pharo'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkFile class >> fromFile: aFileReference [
 	^ self new file: aFileReference
 ]
 
-{ #category : #'registry access' }
+{ #category : 'registry access' }
 KFChunkFile class >> workspace [
 
 	<script>
@@ -33,7 +34,7 @@ KFChunkFile class >> workspace [
 	"UIManager default edit: stream contents label: 'Result'."
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 KFChunkFile >> chunkHolders [
 
 	| chunkStream packageName col index |
@@ -54,18 +55,18 @@ KFChunkFile >> chunkHolders [
 	^ col.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkFile >> chunks [
 	^ chunks
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkFile >> file [
 
 	^ file
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkFile >> file: anObject [
 
 	file := anObject.
@@ -76,7 +77,7 @@ KFChunkFile >> file: anObject [
 	 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkFile >> ownPackagedChunks [
 
 	^ Array streamContents: [ :s | 
@@ -84,12 +85,12 @@ KFChunkFile >> ownPackagedChunks [
 			  each rejectable ifFalse: [ s nextPut: each ] ] ]
 ]
 
-{ #category : #accesssing }
+{ #category : 'accesssing' }
 KFChunkFile >> packageName [
 	^ file basenameWithoutExtension: 'st'
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 KFChunkFile >> scanChunks [
 	(chunks select: [ :each | each isMethodHeader ])
 		do: [ :each |
@@ -97,12 +98,12 @@ KFChunkFile >> scanChunks [
 
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 KFChunkFile >> writeOn: aStream [ 
 	self writeOn: aStream lineEnding: String cr 
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 KFChunkFile >> writeOn: aStream lineEnding: lineEnding [ 
 	self ownPackagedChunks do: [ :each | 
 		each chunkStreamOn: aStream lineEnding: lineEnding.

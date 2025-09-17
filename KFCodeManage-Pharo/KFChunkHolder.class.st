@@ -5,35 +5,36 @@ Instance Variables
 
 "
 Class {
-	#name : #KFChunkHolder,
-	#superclass : #KFAbstractChunk,
+	#name : 'KFChunkHolder',
+	#superclass : 'KFAbstractChunk',
 	#instVars : [
 		'chunk',
 		'tokens',
 		'index',
 		'isMethodBody'
 	],
-	#category : #'KFCodeManage-Pharo'
+	#category : 'KFCodeManage-Pharo',
+	#package : 'KFCodeManage-Pharo'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 KFChunkHolder class >> fromChunkString: aString [ 
 	^ self new chunk: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkHolder >> chunk [
 	^ chunk
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkHolder >> chunk: aString [ 
 	chunk := aString.
 	tokens := chunk parseLiterals.
 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 KFChunkHolder >> chunkStreamOn: aStream [
 
 	| mt |
@@ -45,7 +46,7 @@ KFChunkHolder >> chunkStreamOn: aStream [
 	aStream flush
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 KFChunkHolder >> chunkStreamOn: aStream lineEnding: aLineEnding [
 
 	| mt |
@@ -60,7 +61,7 @@ KFChunkHolder >> chunkStreamOn: aStream lineEnding: aLineEnding [
 	aStream flush
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkHolder >> clazzName [
 
 	(self isMethodHeader or: [ 
@@ -70,7 +71,7 @@ KFChunkHolder >> clazzName [
 	^ ''
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkHolder >> extensionName [
 
 	self protocolName notEmpty and: [ 
@@ -79,7 +80,7 @@ KFChunkHolder >> extensionName [
 	^ ''
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 KFChunkHolder >> ifClassDefinictionDo: classAndSuperClassBlock [
 
 	self isClassDefinition 
@@ -90,17 +91,17 @@ KFChunkHolder >> ifClassDefinictionDo: classAndSuperClassBlock [
 			^ classAndSuperClassBlock cull: clazz cull: superclass ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkHolder >> index: anInteger [ 
 	index := anInteger.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 KFChunkHolder >> initialize [
 	isMethodBody := false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isClassClassDefinition [
 
 	^ tokens size >= 3 and: [ 
@@ -108,61 +109,61 @@ KFChunkHolder >> isClassClassDefinition [
 			  tokens third = #instanceVariableNames: ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isClassDefinition [
 	^ tokens size >= 3 and: [ tokens second = #'subclass:' ] 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isClassMethodHeader [
 	^ ((tokens indexOf: #'methodsFor:') = 3) and: [ (tokens indexOf: #'class') = 2 ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isCommentBody [
 	^ self prev isCommentStamp  
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isCommentLiteral [
 	chunk ifNotEmpty: [ chunk first = $" and: [ chunk last = $" ] ].
 	^ false
 	 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isCommentStamp [
 	^ tokens size >= 2 and: [ tokens second = #'commentStamp:' ] 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isEmpty [
 	^ tokens isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isInstanceMethodHeader [
 	^ (tokens indexOf: #'methodsFor:') = 2
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isMethodBody [
 	^ isMethodBody 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isMethodHeader [
 	^ self isInstanceMethodHeader or: [ self isClassMethodHeader ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> isStringLiteral [
 	chunk ifNotEmpty: [ chunk first = $' and: [ chunk last = $' ] ].
 	^ false
 	 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 KFChunkHolder >> markerType [
 	self isEmpty ifTrue: [ ^ Array with: 0 with: 0 ]. 
 	self isCommentStamp ifTrue: [ ^ Array with: 1 with: 1 ].
@@ -171,19 +172,19 @@ KFChunkHolder >> markerType [
 	^ Array with: 0 with: 1.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkHolder >> next [
 	index >= chunkFile chunks size ifTrue: [ ^ self class tail ].
 	^ chunkFile chunks at: index + 1 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkHolder >> prev [
 	index <= 1 ifTrue: [ ^ self class head ].
 	^ chunkFile chunks at: index - 1 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 KFChunkHolder >> printOn: aStream [
 	self isEmpty ifTrue: [ ^ aStream nextPutAll: chunk ].
 	self ifClassDefinictionDo: [ :clazz :superclass |
@@ -211,7 +212,7 @@ KFChunkHolder >> printOn: aStream [
 	aStream nextPutAll: chunk.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkHolder >> protocolName [
 	| mIndex |
 	mIndex := tokens indexOf: #'methodsFor:'.
@@ -219,7 +220,7 @@ KFChunkHolder >> protocolName [
 	^ ''
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFChunkHolder >> rejectable [
 
 	self clazzName ifNotEmpty: [ :clazz | 
@@ -231,7 +232,7 @@ KFChunkHolder >> rejectable [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFChunkHolder >> selector [
 	self isMethodBody
 		ifTrue: [  
@@ -247,12 +248,12 @@ KFChunkHolder >> selector [
 	^ ''.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 KFChunkHolder >> setMethodBody: aBoolean [
 	isMethodBody := aBoolean
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 KFChunkHolder >> terminatorMarkEscapedChunk [
 
 	^ (String streamContents: [ :s | 

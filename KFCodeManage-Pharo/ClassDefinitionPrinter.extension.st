@@ -1,6 +1,6 @@
-Extension { #name : #ClassDefinitionPrinter }
+Extension { #name : 'ClassDefinitionPrinter' }
 
-{ #category : #'*KFCodeManage-Pharo' }
+{ #category : '*KFCodeManage-Pharo' }
 ClassDefinitionPrinter class >> for: aClass [
 
 	"Given the current class definition syntax and the need for the class, 
@@ -8,11 +8,11 @@ ClassDefinitionPrinter class >> for: aClass [
 	We only print slots with the fluid class definition."
 
 	| instance |
-	instance := (aClass needsSlotClassDefinition or: [ 
-		             (self respondsTo: #showFluidClassDefinition) and: [ 
-			             self perform: #showFluidClassDefinition ] ])
-		            ifTrue: [ self fluid ]
-		            ifFalse: [ self oldPharo ].
+	instance := self fluid.
+	(self respondsTo: #showFluidClassDefinition)
+		ifTrue: [ 
+			(self perform: #showFluidClassDefinition)
+				ifFalse: [ self oldPharo ] ].
 	Smalltalk
 		at: #KFCodeManage
 		ifPresent: [ :clazz | instance := clazz printer: instance ].

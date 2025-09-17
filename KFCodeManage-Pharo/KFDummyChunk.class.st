@@ -1,42 +1,43 @@
 Class {
-	#name : #KFDummyChunk,
-	#superclass : #KFAbstractChunk,
+	#name : 'KFDummyChunk',
+	#superclass : 'KFAbstractChunk',
 	#instVars : [
 		'isHead'
 	],
-	#category : #'KFCodeManage-Pharo'
+	#category : 'KFCodeManage-Pharo',
+	#package : 'KFCodeManage-Pharo'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFDummyChunk >> index [
 	self isHead ifTrue: [ ^ 0 ].
 	self isTail ifTrue: [ ^ chunkFile chunks size + 1 ].
 	^ -1	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFDummyChunk >> isDummy [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFDummyChunk >> isHead [ 
 	^ isHead 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFDummyChunk >> isTail [
 	^ isHead not
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 KFDummyChunk >> printOn: aStream [
 	self isHead ifTrue: [ ^ aStream nextPutAll: 'HEAD' ].
 	self isTail ifTrue: [ ^ aStream nextPutAll: 'TAIL' ].
 	^ super printOn: aStream 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 KFDummyChunk >> setIsHead: aBoolean [ 
 	isHead := aBoolean
 ]

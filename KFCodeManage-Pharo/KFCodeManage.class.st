@@ -3,8 +3,8 @@ abstract class for GdsCodeManageForSqueak and GdsCodeManageForCuis
 
 "
 Class {
-	#name : #KFCodeManage,
-	#superclass : #Object,
+	#name : 'KFCodeManage',
+	#superclass : 'Object',
 	#instVars : [
 		'beLegacyPrinter',
 		'originalPrinter'
@@ -12,22 +12,23 @@ Class {
 	#classVars : [
 		'Default'
 	],
-	#category : #'KFCodeManage-Pharo'
+	#category : 'KFCodeManage-Pharo',
+	#package : 'KFCodeManage-Pharo'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 KFCodeManage class >> cleanupWorkingDirectory [
 	('./' asFileReference filesMatching: '*.st')
 		do: [ :each | each ensureDelete ].
 	 
 ]
 
-{ #category : #'see class side' }
+{ #category : 'see class side' }
 KFCodeManage class >> default [ 
 	^ Default ifNil: [ Default := self new ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 KFCodeManage class >> deleteEmptySources: aFileReference [
 	aFileReference isDirectory
 		ifTrue: [ 
@@ -35,7 +36,7 @@ KFCodeManage class >> deleteEmptySources: aFileReference [
 				do: [ :each | self deleteIfEmpty: each ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 KFCodeManage class >> deleteIfEmpty: aFileReference [
 
 	(aFileReference isFile and: [ aFileReference size = 0 ]) 
@@ -44,17 +45,17 @@ KFCodeManage class >> deleteIfEmpty: aFileReference [
 	^ aFileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 KFCodeManage class >> fileOutTargets [
 	self default fileOutTargets
 ]
 
-{ #category : #'registry access' }
+{ #category : 'registry access' }
 KFCodeManage class >> initialize [
 	Default := nil.
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 KFCodeManage class >> newSequence [
 	<example>
 	self fileOutTargets.
@@ -65,7 +66,7 @@ KFCodeManage class >> newSequence [
 	 
 ]
 
-{ #category : #'examples - deprecated' }
+{ #category : 'examples - deprecated' }
 KFCodeManage class >> oldSequence [
 	self fileOutTargets.
 	self postReadyForSqueakOld.
@@ -73,7 +74,7 @@ KFCodeManage class >> oldSequence [
 	 
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 KFCodeManage class >> openBaselineTemplate [
 
 	<script>
@@ -96,7 +97,7 @@ KFCodeManage class >> openBaselineTemplate [
 	UIManager default edit: contents label: 'to insert baseline:'
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 KFCodeManage class >> openPackageNames [
 	<script>
 	UIManager default
@@ -106,12 +107,12 @@ KFCodeManage class >> openPackageNames [
 		label: 'Target Packages'.
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 KFCodeManage class >> postReadyForCuis [
 	self writeOnFolder: './ForCuis' asFileReference lineEnding: String lf. 
 ]
 
-{ #category : #'examples - deprecated' }
+{ #category : 'examples - deprecated' }
 KFCodeManage class >> postReadyForCuisOld [
 	| sources squeakFolder cuisFolder |
 	squeakFolder := './ForSqueak' asFileReference ensureCreateDirectory.
@@ -133,12 +134,12 @@ KFCodeManage class >> postReadyForCuisOld [
 		self deleteEmptySources: cuisFolder.
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 KFCodeManage class >> postReadyForSqueak [
 	self writeOnFolder: './ForSqueak' asFileReference lineEnding: String cr. 
 ]
 
-{ #category : #'examples - deprecated' }
+{ #category : 'examples - deprecated' }
 KFCodeManage class >> postReadyForSqueakOld [
 	| fileOuts squeakFolder |
 	fileOuts := './' asFileReference filesMatching: '*.st'.
@@ -155,12 +156,12 @@ KFCodeManage class >> postReadyForSqueakOld [
 	self deleteEmptySources: squeakFolder.
 ]
 
-{ #category : #'see class side' }
+{ #category : 'see class side' }
 KFCodeManage class >> printer: aClassDifinitionPrinter [
 	^ self default printer: aClassDifinitionPrinter
 ]
 
-{ #category : #'registry access' }
+{ #category : 'registry access' }
 KFCodeManage class >> workspace [
 "
 [PharoPackageFormatter formatPackageNamed: 'GdsFeel-Model-Atomic' ] 
@@ -168,7 +169,7 @@ KFCodeManage class >> workspace [
 "
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 KFCodeManage class >> writeOnFolder: aFileReference lineEnding: aLineEnding [
 	| fileOuts destFolder |
 	fileOuts := './' asFileReference filesMatching: '*.st'.
@@ -183,13 +184,13 @@ KFCodeManage class >> writeOnFolder: aFileReference lineEnding: aLineEnding [
 	self deleteEmptySources: destFolder.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFCodeManage >> canLegacyPrinter [
 	^ beLegacyPrinter
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFCodeManage >> fileOutTargets [
 
 	"self default fileOutTargets"
@@ -203,26 +204,27 @@ KFCodeManage >> fileOutTargets [
 	self class deleteEmptySources: './' asFileReference
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 KFCodeManage >> initialize [
+	<script>
 	beLegacyPrinter := false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFCodeManage >> legacyPrinterActivateDuring: aBlock [
 
 	beLegacyPrinter := true.
 	[ aBlock value ] ensure: [ beLegacyPrinter := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KFCodeManage >> packageOrganizerClass [
 	Smalltalk at: #RPackageOrganizer ifPresent: [ :clazz | ^ clazz ].
 	Smalltalk at: #PackageOrganizer ifPresent: [ :clazz | ^ clazz ].	
 	^ nil
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 KFCodeManage >> printer: aClassDefinitionPrinter [
 
 	^ beLegacyPrinter
@@ -230,11 +232,11 @@ KFCodeManage >> printer: aClassDefinitionPrinter [
 		  ifFalse: [ aClassDefinitionPrinter ]
 ]
 
-{ #category : #'see class side' }
+{ #category : 'see class side' }
 KFCodeManage >> seeClassSide [
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFCodeManage >> targetClassNames [
 
 	"KFCodeManage default targetPackageNames"
@@ -247,7 +249,7 @@ KFCodeManage >> targetClassNames [
 	^ col
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KFCodeManage >> targetPackageNames [
 	"
 	UIManager default
