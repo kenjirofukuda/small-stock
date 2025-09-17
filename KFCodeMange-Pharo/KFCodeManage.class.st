@@ -264,6 +264,7 @@ KFCodeManage >> targetPackageNames [
 			'Math-Operations-Extensions'
 			'GeometryUtils'
 			'KFCodeManage' 
+			'KFImaging-BitEdit'
 			'KFImaging-Support'
 			'KFImaging-LayerMorph'
 			'GdsFeel-Model2'
