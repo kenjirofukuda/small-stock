@@ -305,7 +305,7 @@ BaselineOfGdsFeel >> baselineOldBody: spec [
 BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 
 	spec for: #common do: [ 
-		spec package: 'GdsFeel-CodeManage-Pharo'.
+		spec package: 'KFCodeManage-Pharo'.
 		spec package: 'GdsFeel-Model2-Container'.
 		spec package: 'GdsFeel-SF-Core'.
 		spec package: 'GdsFeel-SF-Pharo'.
@@ -317,7 +317,7 @@ BaselineOfGdsFeel >> baselineStreamFormatAtomic: spec [
 				#( 
 				'GeometryUtils' 
 				'FileMan' 
-				'GdsFeel-CodeManage-Pharo'
+				'KFCodeManage-Pharo'
 				'GdsFeel-Model2-Container'
 				'GdsFeel-SF-Core'
 				'GdsFeel-SF-Pharo'
