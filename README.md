@@ -13,3 +13,5 @@ Metacello new
   repository: 'github://kenjirofukuda/small-stock:MorphicModel';
   load
 ```
+## technical detail
+https://deepwiki.com/kenjirofukuda/small-stock
